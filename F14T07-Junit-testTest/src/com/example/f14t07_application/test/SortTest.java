@@ -8,11 +8,11 @@ import com.example.f14t07_application.Question;
 
 public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
 	public sortTest(){
-		super(QuestionList.class);
+		super(PostList.class);
 	}
 	
 	public void sortByTime(){
-		QuestionList questions=new QuestionList; 
+		PostList questions=new PostList; 
 		questions.add(new Question("test 1"));
 		questions.add(new Question("test 2"));
 		questions.add(new Question("test 3"));
@@ -28,7 +28,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
 		}
 	
 	public void sortByHighestRating(){
-		QuestionList questions=new QuestionList; 
+		PostList questions=new PostList; 
 		questions.add(new Question("test 1"));
 		questions.add(new Question("test 2"));
 		questions.add(new Question("test 3"));
@@ -49,7 +49,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
 		}
 	
 	public void sortByhasPicture(){
-		QuestionList questions=new QuestionList; 
+		PostList questions=new PostList; 
 		questions.add(new Question("test 1"));
 		questions.add(new Question("test 2"));
 		questions.add(new Question("test 3"));
