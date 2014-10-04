@@ -25,8 +25,16 @@ LocallySavedScreen
 
 
 
-PostList
-
+PostList:
+    Methods:
+        add(Question q)
+        sortByTime()
+        sortByRating()
+        sortByHasPicture()
+        getlist()
+        changeRating(int index,int new_rating)
+        addPicture(int index)
+        
 Post
 
 Question
