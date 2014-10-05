@@ -7,7 +7,11 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.example.f14t07_application.Question;
 
 public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
-	public sortTest(){
+	/* TODO: The Class generic that goes with ActivityInstrumentationTestCase2 is
+	 * an activity class - the activity which will be active when the test cases
+	 * are called.
+	 */
+	public SortTest(){
 		super(PostList.class);
 	}
 	
