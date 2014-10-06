@@ -35,6 +35,9 @@ PostList:
         changeRating(int index,int new_rating)
         addPicture(int index)
         
+        
+Reply
+
 Post
 
 Question
