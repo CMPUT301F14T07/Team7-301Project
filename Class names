@@ -1,0 +1,82 @@
+Class Names
+
+SCREENS
+-------
+
+HomeScreen
+
+SearchScreen
+
+AskScreen
+
+BrowseScreen
+
+LocallySavedScreen
+
+QuestionScreen
+
+LocallySavedScreen
+
+
+
+
+
+
+
+DataManger
+    Methods:
+        load()
+        save(PostList postList)
+
+PostList:
+    Methods:
+        add(Question q)
+        sortByTime()
+        sortByRating()
+        sortByHasPicture()
+        getlist()
+        changeRating(int index,int new_rating)
+        addPicture(int index)
+        
+        
+Reply
+    Methods:
+        setReply(String s)
+        getReply()
+
+Post
+    Methods:
+        getReplySpecific(int id)
+        addReply(Reply reply)
+        getReplies()
+        getUpVote()
+        setUpVote(int upVote)
+        getDownVote()
+        setDownVote(int downVote)
+        getPost()
+        setPost(String post)
+        getPostersName()
+        setPostersName(String postersName)
+        
+
+Question
+    Methods:
+        getQuestion()
+        addAnswer(Post answer)
+        getAnswer(int postPosition)
+        upVoteQuestion(int deltaVote)
+        downVoteQuestion(int deltaVote)
+        getUpVoteOfQuestion()
+        getDownVoteOfQuestion()
+        upVoteAnswer(int postPosition, int deltaVote)
+        getUpVoteOfAnswer(int postPosition)
+        downVoteAnswer(int postPosition, int deltaVote)
+        getDownVoteOfAnswer(int postPosition)
+        addReplyToQuestion(Reply reply)
+        getRepliesToQuestion()
+        getRepliesToAnswer(int postPosition)
+        addReplyToAnswer(Reply reply, int postPosition)
+
+Controller
+
+Search
