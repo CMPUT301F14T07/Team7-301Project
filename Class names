@@ -23,7 +23,10 @@ LocallySavedScreen
 
 
 
-
+DataManger
+    Methods:
+        load()
+        save(PostList postList)
 
 PostList:
     Methods:
