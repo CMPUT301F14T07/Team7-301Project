@@ -69,7 +69,7 @@ public class Post
 
 	/**
 	 * Specify the exact number of people who have up voted the main question or answer.
-	 * @param upVote How many up votes the main questin or answer has.
+	 * @param upVote How many up votes the main question or answer has.
 	 */
 	public void setUpVote(int upVote)
 	{
