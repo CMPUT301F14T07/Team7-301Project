@@ -15,7 +15,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
 		super(PostList.class);
 	}
 	
-	public void sortByTime(){
+	public void sortByTimeTest(){
 		PostList questions=new PostList; 
 		questions.add(new Question("test 1"));
 		questions.add(new Question("test 2"));
@@ -31,7 +31,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
 		
 		}
 	
-	public void sortByHighestRating(){
+	public void sortByRatingTest(){
 		PostList questions=new PostList; 
 		questions.add(new Question("test 1"));
 		questions.add(new Question("test 2"));
@@ -52,7 +52,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
 		
 		}
 	
-	public void sortByhasPicture(){
+	public void sortByHasPictureTest(){
 		PostList questions=new PostList; 
 		questions.add(new Question("test 1"));
 		questions.add(new Question("test 2"));
