@@ -1,10 +1,9 @@
-package com.example.f14t07_application.test;
+package ca.ualberta.cs.f14t07_application.test;
 
 import java.util.ArrayList;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.example.f14t07_application.Question;
 
 public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
 	/* TODO: The Class generic that goes with ActivityInstrumentationTestCase2 is

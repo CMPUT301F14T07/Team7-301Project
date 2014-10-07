@@ -1,4 +1,4 @@
-package com.example.f14t07_application;
+package ca.ualberta.cs.f14t07_application;
 
 /**
  * Describes what a reply to an answer or main question looks like.

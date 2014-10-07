@@ -1,4 +1,4 @@
-package com.example.f14t07_application;
+package ca.ualberta.cs.f14t07_application;
 
 import java.util.ArrayList;
 

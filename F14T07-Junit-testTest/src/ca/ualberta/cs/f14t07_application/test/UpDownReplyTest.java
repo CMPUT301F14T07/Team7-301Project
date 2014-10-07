@@ -1,4 +1,4 @@
-package com.example.f14t07_application.test;
+package ca.ualberta.cs.f14t07_application.test;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;

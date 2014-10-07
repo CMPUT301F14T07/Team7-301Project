@@ -1,8 +1,10 @@
 package ca.ualberta.cs.f14t07_application;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
+
+import com.example.f14t07_application.R;
 
 public class LogoActivity extends Activity {
 
