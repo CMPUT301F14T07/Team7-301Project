@@ -2,6 +2,9 @@ package ca.ualberta.cs.f14t07_application.test;
 
 import java.util.ArrayList;
 
+import ca.ualberta.cs.f14t07_application.PostList;
+import ca.ualberta.cs.f14t07_application.Question;
+
 import android.test.ActivityInstrumentationTestCase2;
 
 
@@ -15,7 +18,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
 	}
 	
 	public void sortByTimeTest(){
-		PostList questions=new PostList; 
+		PostList questions=new PostList(); 
 		questions.add(new Question("test 1"));
 		questions.add(new Question("test 2"));
 		questions.add(new Question("test 3"));
