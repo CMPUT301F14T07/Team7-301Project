@@ -3,24 +3,17 @@ Class Names
 SCREENS
 -------
 
-HomeScreen
+HomeActivity
 
-SearchScreen
+SearchActivity
 
-AskScreen
+AskActivity
 
-BrowseScreen
+BrowseActivity
 
-LocallySavedScreen
+LocallySavedActivity
 
-QuestionScreen
-
-LocallySavedScreen
-
-
-
-
-
+QuestionActivity
 
 
 DataManger
@@ -28,7 +21,7 @@ DataManger
         load()
         save(PostList postList)
 
-PostList:
+ForumEntryList:
     Methods:
         add(Question q)
         sortByTime()
