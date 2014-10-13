@@ -1,8 +1,8 @@
 package ca.ualberta.cs.f14t07_application;
 
-public class PostList {
+public class ForumEntryList {
 
-	public void add(Question q) {
+	public void add(ForumEntry fe) {
 		
 	}
 	
@@ -30,7 +30,7 @@ public class PostList {
 		
 	}
 	
-	public addPicture(int index) {
+	public void addPicture(int index) {
 		
 	}
 }

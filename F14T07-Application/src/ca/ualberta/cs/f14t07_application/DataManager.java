@@ -21,26 +21,26 @@ public class DataManager {
 		context = appContext;
 	}
 
-		public PostList load() {
-			PostList postList = new PostList();
+		public ForumEntryList load() {
+			ForumEntryList forumEntryList = new ForumEntryList();
 			try {
 				FileInputStream fis = context.openFileInput(FILENAME);
 				ObjectInputStream ois = new ObjectInputStream(fis);
-				postList = (PostList) ois.readObject();
+				forumEntryList = (ForumEntryList) ois.readObject();
 				fis.close();
 				ois.close();
 			} catch (Exception e) {
 				Log.i("Kibbles", "Error casting");
 				e.printStackTrace();
 			} 
-			return postList;
+			return forumEntryList;
 		}
 		
-		public void save(PostList postList) {
+		public void save(ForumEntryList forumEntryList) {
 			try {
 				FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
 				ObjectOutputStream oos = new ObjectOutputStream(fos);
-				oos.writeObject(postList);
+				oos.writeObject(forumEntryList);
 				fos.close();
 				oos.close();
 			} 

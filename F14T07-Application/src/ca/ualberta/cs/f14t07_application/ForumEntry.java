@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author Brendan
  *
  */
-public class Question
+public class ForumEntry
 {
 	private ArrayList<Post> answers;
 	private Post question;
@@ -17,7 +17,7 @@ public class Question
 	 * @param question	The text contains the main question for the forum post.
 	 * @param author	The name of the main poster
 	 */
-	public Question(String question, String author)
+	public ForumEntry(String question, String author)
 	{
 		super();
 		
