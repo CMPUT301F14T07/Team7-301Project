@@ -53,7 +53,7 @@ Post
         setPostersName(String postersName)
         
 
-Question
+ForumEntry
     Methods:
         getQuestion()
         addAnswer(Post answer)
