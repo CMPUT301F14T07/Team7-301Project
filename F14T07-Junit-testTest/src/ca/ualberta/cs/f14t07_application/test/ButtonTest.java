@@ -57,6 +57,16 @@ public class ButtonTest extends ActivityUnitTestCase<HomeActivity> {
 	{
 		SearchButton = (Button) HomeActivity.findViewById(
 				com.example.f14t07_application.activity_homeactivity.R.id.SearchButton);	
+		//Check if search bar is empty
+		boolean notEmpty = false;
+		searchString = (String) HomeActivity.findViewById(
+				com.example.f14t07_application.activity_homeactivity.R.id.SearchString);
+		if(!searchString.isEmpty() && searchString.trim().length() > 0)
+		{
+			notEmpty = true;
+		}
+		assertTrue("The name string is empty", notEmpty == true);
+		
 		SearchButton.performClick();
 		Intent newintent = getStartedActivityIntent();
 		assertNotNull(newintent);
