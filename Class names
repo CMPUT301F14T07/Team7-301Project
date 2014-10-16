@@ -5,13 +5,9 @@ SCREENS
 
 HomeActivity
 
-SearchActivity
-
 AskActivity
 
 BrowseActivity
-
-LocallySavedActivity
 
 QuestionActivity
 
