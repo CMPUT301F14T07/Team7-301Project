@@ -2,15 +2,25 @@ package ca.ualberta.cs.f14t07_application.test;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-public class SearchTest extends ActivityInstrumentationTestCase2<QuestionList> {
+public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity> {
 
     public SearchTest(){
-    	super(ForumEntryList.class);
+    	super(SearchActivity.class);
     }
 
-    public void getSearchTermTest(){
+    public void SearchTermTest(){
     	String searchTerm = "foo";
-    	String inputedTerm = getSearchTerm();
+    	SearchText = (EditText) SearchActivity.findViewById(com.example.f14t07_application.activity_searchactivity.R.id.SearchText);
+    	SearchText.setText("foo");
+    
+    	SearchButton = (Button) SearchActivity.findViewById(com.example.f14t07_application.activity_searchactivity.R.id.SearchButton);
+    	SearchButton.performClick();
+    	
+    	Intent newIntent = getStartedActivityIntent();
+    	Intent searchIntent = new Intent(SearchTest.this, SearchActivity.class);
+    	assertTrue(newIntent.filterEquals(searchIntent));
+
+    	String inputedTerm = SearchTerm();
     	assertEquals(inputedTerm,searchTerm);	
     }
 
@@ -28,13 +38,13 @@ public class SearchTest extends ActivityInstrumentationTestCase2<QuestionList> {
 		sortedList.add(new ForumEntry("no term"));
 		sortedList.add(new ForumEntry("still no term"));
 		assertEquals(posts.getlist(), sortedList);
-		
+		/*
 		ArrayList<ForumEntry> sortedList2 = new ArrayList<ForumEntry>();
 		sortedList2.add(new ForumEntry("has foo foo twice!"));
 		sortedList2.add(new ForumEntry("has foo!"));
 		sortedList2.add(new ForumEntry("no term"));
 		sortedList2.add(new ForumEntry("still no term"));
-		assertEquals(posts.getlist(), sortedList2);
+		assertEquals(posts.getlist(), sortedList2);*/
     }
 
 }
