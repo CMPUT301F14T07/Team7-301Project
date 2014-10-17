@@ -23,11 +23,16 @@ public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
 		questions.add(new Question("test 2"));
 		questions.add(new Question("test 3"));
 		
+		//set time using index, day month year hour minute
+		questions.setTime(0,30,01,1982,17,04);
+		questions.setTime(1,30,01, 1987,17,04);
+		questions.setTime(1,30,01,1987,17,05);
+		
 		questions.sortByTime();
 		ArrayList<Question> testList= new ArrayList<Question>();
-		testList.add(new Question("test 1"));
-		testList.add(new Question("test 2"));
 		testList.add(new Question("test 3"));
+		testList.add(new Question("test 2"));
+		testList.add(new Question("test 1"));
 		
 		assertEquals(questions.getlist(),testList);
 		
