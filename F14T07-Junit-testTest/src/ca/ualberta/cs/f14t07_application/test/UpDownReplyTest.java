@@ -1,5 +1,6 @@
 package ca.ualberta.cs.f14t07_application.test;
 
+import ca.ualberta.cs.f14t07_application.ForumEntry;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 
@@ -47,31 +48,30 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<VoteAndRep
 	}
 	
 	/**
-	 * Tests that pushing the up vote button will trigger a chain of events which result
-	 * in the particular answer / main question being voted up.
-	 * 
-	 * This test assumes the name of the up vote button and activity.xml it is in.
+	 *Test upvoting a question
 	 */
-	public void upVoteTest()
+	public void upVoteQuestionTest()
 	{
 		setUp();
-		testButton = (Button) testActivity.findViewById(
-					com.example.f14t07_application.activity_voteandreply.R.id.UpVote);
+		ForumEntry TestEntry=ForumEntry();
+		TestEntry.addAnswer(new Entry testEntry);
+		upVoteButton = (Button) testActivity.findViewById(
+					com.example.f14t07_application.activity_voteandreply.R.id.UpVoteQuestion);
 		
-		assertTrue(testButton != null);
+		int initialValue=TestEntry.getQuestion().getUpVote();
+		upVoteButton.performClick();
+		int afterClick=TestEntry.getQuestion().getUpVote();
+		assertTrue(initialValue,afterClick+1);
 	}
 	
 	/**
-	 * Tests that pushing the down vote button will trigger a chain of events which result
-	 * in the particular answer / main question being voted down.
-	 * 
-	 * This test assumes the name of the down vote button and activity.xml it is in
+	 * Test upvoting an answer
 	 */
 	public void downVoteTest()
 	{
-		testButton = (Button) testActivity.findViewById(
-				com.example.f14t07_application.activity_voteandreply.R.id.DownVote);
-	
+		upVoteButton = (Button) testActivity.findViewById(
+				com.example.f14t07_application.activity_voteandreply.R.id.upVoteAnswer);
+		
 		assertTrue(testButton != null);
 	}
 	
