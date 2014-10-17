@@ -1,11 +1,14 @@
 package ca.ualberta.cs.f14t07_application.test;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.widget.Button;
 
-public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity> {
+public class SearchTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 
+	private BrowseActivity testActivity;
+	
     public SearchTest(){
-    	super(SearchActivity.class);
+    	super(BrowseActivity.class);
     }
 
     public void SearchTermTest(){
@@ -25,26 +28,26 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
     }
 
     public void sortBySearchTerm(){
-    	ForumEntryList posts = new ForumEntryList;
-		posts.add(new ForumEntry("no term"));
-		posts.add(new ForumEntry("still no term"));
-		posts.add(new ForumEntry("has foo!"));
-		posts.add(new ForumEntry("has foo foo twice!")); //If it has the search term twice, it should probably be above? (Tested in sortedList2)
-		posts.sortBySearchTerm("foo");
-
+    	ArrayList<ForumEntry> posts = new ArrayList<ForumEntry>();
+		posts.add(new ForumEntry("no term","author1"));
+		posts.add(new ForumEntry("still no term","author2"));
+		posts.add(new ForumEntry("has foo!","author3")) ;
+		posts.add(new ForumEntry("has foo foo twice!","author4")); //If it has the search term twice, it should probably be above? (Tested in sortedList2)
+		(new DataManager()).save(posts);
+		
 		ArrayList<ForumEntry> sortedList = new ArrayList<ForumEntry>();
-		sortedList.add(new ForumEntry("has foo!"));
-		sortedList.add(new ForumEntry("has foo foo twice!"));
-		sortedList.add(new ForumEntry("no term"));
-		sortedList.add(new ForumEntry("still no term"));
+		sortedList.add(new ForumEntry("has foo!", "author3"));
+		sortedList.add(new ForumEntry("has foo foo twice!","author4"));
+		sortedList.add(new ForumEntry("no term","author1"));
+		sortedList.add(new ForumEntry("still no term","author2"));
+		
 		assertEquals(posts.getlist(), sortedList);
-		/*
-		ArrayList<ForumEntry> sortedList2 = new ArrayList<ForumEntry>();
-		sortedList2.add(new ForumEntry("has foo foo twice!"));
-		sortedList2.add(new ForumEntry("has foo!"));
-		sortedList2.add(new ForumEntry("no term"));
-		sortedList2.add(new ForumEntry("still no term"));
-		assertEquals(posts.getlist(), sortedList2);*/
+		
+		testActivity.getBrowseControllerForTesting().sortBySearchTerm();
+
+		ArrayList<ForumEntry> testList = (new DataManager()).load();
+
+		assertEquals(posts.getlist(), sortedList);
     }
 
 }
