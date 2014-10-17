@@ -18,7 +18,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	}
 	
 	@Override
-	protected void setUp() throws Exception
+	protected void setUpTest() throws Exception
 	{
 	super.setUp();
 	setActivityInitialTouchMode(true);
@@ -36,7 +36,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	 */
 	
 	//Test if there is a name
-	public void testName()//should this be testName() of testGetName()??
+	public void NameTest()//should this be testName() of testGetName()??
 	{
 		//Will we be saving user names? So should we check if the name exists?
 		//Will users have to sign in?
@@ -61,7 +61,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		assertTrue("The name string is empty", notEmpty == true);
 	}
 	
-	public void testQuestion()//should this be testQuestion() of testGetQuestion()??
+	public void getQuestionTest()//should this be testQuestion() of testGetQuestion()??
 	{
 		boolean notEmpty = false;
 		questionString = (EditText) testActivity.findViewById(
@@ -83,7 +83,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		assertTrue("The question string is empty", notEmpty == true);
 	}
 	
-	public void testSubject() //should this be testSubject() of testGetSubject()??
+	public void getSubjectTest() //should this be testSubject() of testGetSubject()??
 	{
 		boolean notEmpty = false;
 		subjectString = (EditText) testActivity.findViewById(
@@ -105,30 +105,28 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		assertTrue("The subject string is empty", notEmpty == true);
 	}
 
-	public void testPicture()  //test picture() or test ifPicture()?
+	public void ifPictureTest()  //test picture() or test ifPicture()?
 	{
 		//Need more tests in here once we determine more about how pictures will work
-		
-		//Possible a boolean value in the questions attributes indicating if there is a picture?
-
-		boolean isPicture = false;
-	       
-
-		
-		
-		
-		
+	        ForumEntry test=new ForumEntry("this is a forum entry");
+	        
+	        //add a picture called picture.png
+	        File pictureFile= picture.png;
+	        test.addPicture(pictureFile)
+	        
+		assertEquals(test.getPicture(),pictureFile);
 		//Check if the pictures are the same (it was loaded properly)
 		
-		if (isPicture){
-		    thePicture = ()
-		}
-
-		//Maybe check picture size?
-		}
+		//this will be a picture bigger than 64kb
+		File bigPictureFile=bigPicture.png;
+		test.removePicture();
+		test.addPicture(bigPictureFile);
+		assertEquals(null, test.getPicture());
+		
+		
 	}
 	
-	public void testPostButton()
+	public void postButtonTest()
 	{
 		testPostButton = (Button) AskActivity.findViewById(
 				com.example.f14t07_application.activity_askactivity.R.id.PostButton);	
@@ -138,7 +136,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		assertTrue(newintent.filterEquals(AskIntent));
 	}
 	
-	public void testMainMenuButton()
+	public void mainMenuButtonTest()
 	{
 		testMainMenuButton = (Button) AskActivity.findViewById(
 				com.example.f14t07_application.activity_askactivity.R.id.MainMenuButton);	
