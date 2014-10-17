@@ -18,10 +18,10 @@ public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
 	}
 	
 	public void sortByTimeTest(){
-		PostList questions=new PostList(); 
-		questions.add(new Question("test 1"));
-		questions.add(new Question("test 2"));
-		questions.add(new Question("test 3"));
+		ForumEntryList questions=new ForumEntryList(); 
+		questions.add(new ForumEntry("test 1"));
+		questions.add(new ForumEntry("test 2"));
+		questions.add(new ForumEntry("test 3"));
 		
 		//set time using index, day month year hour minute
 		questions.setTime(0,30,01,1982,17,04);
@@ -29,20 +29,20 @@ public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
 		questions.setTime(1,30,01,1987,17,05);
 		
 		questions.sortByTime();
-		ArrayList<Question> testList= new ArrayList<Question>();
-		testList.add(new Question("test 3"));
-		testList.add(new Question("test 2"));
-		testList.add(new Question("test 1"));
+		ForumEntryList testList= new ForumEntryList();
+		testList.add(new ForumEntry("test 3"));
+		testList.add(new ForumEntry("test 2"));
+		testList.add(new ForumEntry("test 1"));
 		
-		assertEquals(questions.getlist(),testList);
+		assertEquals(questions.getlist(),testList.getlist());
 		
 		}
 	
 	public void sortByRatingTest(){
-		PostList questions=new PostList; 
-		questions.add(new Question("test 1"));
-		questions.add(new Question("test 2"));
-		questions.add(new Question("test 3"));
+		ForumEntryList questions=new ForumEntryList(); 
+		questions.add(new ForumEntry("test 1"));
+		questions.add(new ForumEntry("test 2"));
+		questions.add(new ForumEntry("test 3"));
 		
 		questions.changeRating(0,5);
 		questions.changeRating(1,-1);
@@ -50,31 +50,31 @@ public class SortTest extends ActivityInstrumentationTestCase2<QuestionList> {
 		
 		questions.sortByRating();
 		
-		ArrayList<Question> testList= new ArrayList<Question>();
-		testList.add(new Question("test 3"));
-		testList.add(new Question("test 1"));
-		testList.add(new Question("test 2"));
+		ForumEntryList testList= new ForumEntryList();
+		testList.add(new ForumEntry("test 3"));
+		testList.add(new ForumEntry("test 1"));
+		testList.add(new ForumEntry("test 2"));
 		
-		assertEquals(questions.getlist(),testList);
+		assertEquals(questions.getlist(),testList.getlist());
 		
 		}
 	
 	public void sortByHasPictureTest(){
-		PostList questions=new PostList; 
-		questions.add(new Question("test 1"));
-		questions.add(new Question("test 2"));
-		questions.add(new Question("test 3"));
+		ForumEntryList questions=new ForumEntryList; 
+		questions.add(new ForumEntry("test 1"));
+		questions.add(new ForumEntry("test 2"));
+		questions.add(new ForumEntry("test 3"));
 		
 		questions.addPicture(1);
 		
 		questions.sortByHasPicture();
 		
-		ArrayList<Question> testList= new ArrayList<Question>();
-		testList.add(new Question("test 2"));
-		testList.add(new Question("test 1"));
-		testList.add(new Question("test 3"));
+		ForumEntryList testList= new ForumEntryList();
+		testList.add(new ForumEntry("test 2"));
+		testList.add(new ForumEntry("test 1"));
+		testList.add(new ForumEntry("test 3"));
 		
-		assertEquals(questions.getlist(),testList);
+		assertEquals(questions.getlist(),testList.getlist());
 		
 		}
 	}
