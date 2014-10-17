@@ -7,9 +7,30 @@ public class SearchTest extends ActivityInstrumentationTestCase2<BrowseActivity>
 
 	private BrowseActivity testActivity;
 	
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		
+		/* Turns off the touch screen in the emulator. This must be done to test features that
+		 * would require the user to touch something on the screen.
+		 */
+		setActivityInitialTouchMode(false);
+		
+		/* Get an instance of the activity which is running
+		 */
+		testActivity = getActivity();
+		
+		/* Reset the testButton - do this so consecutive tests don't accidentally test
+		 * the same button.
+		 */
+		testButton = null;
+	}
+	
     public SearchTest(){
     	super(BrowseActivity.class);
     }
+    
 
     public void SearchTermTest(){
     	String searchTerm = "foo";
@@ -28,20 +49,21 @@ public class SearchTest extends ActivityInstrumentationTestCase2<BrowseActivity>
     }
 
     public void sortBySearchTerm(){
+    	long time=123456789;
     	ArrayList<ForumEntry> posts = new ArrayList<ForumEntry>();
-		posts.add(new ForumEntry("no term","author1"));
-		posts.add(new ForumEntry("still no term","author2"));
-		posts.add(new ForumEntry("has foo!","author3")) ;
-		posts.add(new ForumEntry("has foo foo twice!","author4")); //If it has the search term twice, it should probably be above? (Tested in sortedList2)
+		posts.add(new ForumEntry("no term","author1",Date(time)));
+		posts.add(new ForumEntry("still no term","author2",Date(time)));
+		posts.add(new ForumEntry("has foo!","author3",Date(time))) ;
+		posts.add(new ForumEntry("has foo foo twice!","author4",Date(time))); //If it has the search term twice, it should probably be above? (Tested in sortedList2)
 		(new DataManager()).save(posts);
 		
 		ArrayList<ForumEntry> sortedList = new ArrayList<ForumEntry>();
-		sortedList.add(new ForumEntry("has foo!", "author3"));
-		sortedList.add(new ForumEntry("has foo foo twice!","author4"));
-		sortedList.add(new ForumEntry("no term","author1"));
-		sortedList.add(new ForumEntry("still no term","author2"));
+		sortedList.add(new ForumEntry("has foo!", "author3",time));
+		sortedList.add(new ForumEntry("has foo foo twice!","author4",time));
+		sortedList.add(new ForumEntry("no term","author1",time));
+		sortedList.add(new ForumEntry("still no term","author2",time));
 		
-		assertEquals(posts.getlist(), sortedList);
+		assertEquals(posts, sortedList);
 		
 		testActivity.getBrowseControllerForTesting().sortBySearchTerm();
 
