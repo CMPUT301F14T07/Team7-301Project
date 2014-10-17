@@ -24,7 +24,7 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
     	assertEquals(inputedTerm,searchTerm);	
     }
 
-    public void sortBySearchTerm()){
+    public void sortBySearchTerm(){
     	ForumEntryList posts = new ForumEntryList;
 		posts.add(new ForumEntry("no term"));
 		posts.add(new ForumEntry("still no term"));
