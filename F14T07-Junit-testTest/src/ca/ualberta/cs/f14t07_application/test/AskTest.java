@@ -18,7 +18,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	}
 	
 	@Override
-	protected void setUpTest() throws Exception
+	protected void setUp() throws Exception
 	{
 	super.setUp();
 	setActivityInitialTouchMode(true);
