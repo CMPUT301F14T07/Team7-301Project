@@ -91,14 +91,32 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<VoteAndRep
 	/**
 	 * Test upvoting an answer
 	 */
-	public void downVoteTest()
+	public void upVoteQuestionTest()
 	{
-		upVoteButton = (Button) testActivity.findViewById(
-				com.example.f14t07_application.activity_voteandreply.R.id.upVoteAnswer);
+		setUp();
+		String answer = "This is an answer";
+		String author = "This is the author";
+		ForumEntry testEntry = new ForumEntry(answer, author);
+		int initialVote = testEntry.getAnswers().get(0).getUpVote();
+		DataManager dataM = new DataManager();
 		
-		assertTrue(testButton != null);
-	}
-	
+		testActivity.forumEntryController.addForumEntry(testEntry);
+		
+		Button upVoteButton = (Button) testActivity.findViewById(
+					com.example.f14t07_application.activity_voteandreply.R.id.UpVoteAnswer);
+		upVoteButton.performClick();
+		
+		ArrayList<ForumEntry> testList = dataM.load();
+		Iterator iter = testList.iterator();
+		while(iter.hasNext())
+		{
+			ForumEntry temp = iter.next();
+			if(temp.getAnswers().get(0).getAuthorsName() == author && temp.getAnswers().get(0).getPost() == question)
+			{
+				assertTrue(temp.getAnswers().get(0).getUpVote(), initialVote+1);
+				break;
+			}
+		}
 	/**
 	 * Tests that pushing the reply button will trigger a chain of events which
 	 * results in the particular answer / main question having a reply logged.
