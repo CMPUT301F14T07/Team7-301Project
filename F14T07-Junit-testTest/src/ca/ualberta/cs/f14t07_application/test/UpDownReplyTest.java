@@ -91,7 +91,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<VoteAndRep
 	/**
 	 * Test upvoting an answer
 	 */
-	public void upVoteQuestionTest()
+	public void upVoteAnswerTest()
 	{
 		setUp();
 		String answer = "This is an answer";
