@@ -53,7 +53,31 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<VoteAndRep
 	public void upVoteQuestionTest()
 	{
 		setUp();
-		ForumEntry TestEntry=ForumEntry();
+		String question = "This is the question";
+		String author = "This is the author";
+		ForumEntry testEntry = new ForumEntry(question, author);
+		int initialVote = testEntry.getQuestion().getUpVote();
+		DataManager dataM = new DataManager();
+		
+		testActivity.forumEntryController.addForumEntry(testEntry);
+		
+		Button upVoteButton = (Button) testActivity.findViewById(
+					com.example.f14t07_application.activity_voteandreply.R.id.UpVoteQuestion);
+		upVoteButton.performClick();
+		
+		ArrayList<ForumEntry> testList = dataM.load();
+		Iterator iter = testList.iterator();
+		while(iter.hasNext())
+		{
+			ForumEntry temp = iter.next();
+			if(temp.getQuestion().getAuthorsName() == author && temp.getQuestion().getPost() == question)
+			{
+				assertTrue(temp.getQuestion().getUpVote(), initialVote+1);
+				break;
+			}
+		}
+		
+		/*ForumEntry TestEntry=ForumEntry();
 		TestEntry.addAnswer(new Entry testEntry);
 		upVoteButton = (Button) testActivity.findViewById(
 					com.example.f14t07_application.activity_voteandreply.R.id.UpVoteQuestion);
@@ -61,7 +85,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<VoteAndRep
 		int initialValue=TestEntry.getQuestion().getUpVote();
 		upVoteButton.performClick();
 		int afterClick=TestEntry.getQuestion().getUpVote();
-		assertTrue(initialValue,afterClick+1);
+		assertTrue(initialValue,afterClick+1);*/
 	}
 	
 	/**
