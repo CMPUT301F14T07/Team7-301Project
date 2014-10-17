@@ -36,62 +36,95 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	 */
 	
 	//Test if there is a name
-	public void testName()
+	public void testName()//should this be testName() of testGetName()??
 	{
 		//Will we be saving user names? So should we check if the name exists?
 		//Will users have to sign in?
 		
 		boolean notEmpty = false;
-		nameString = (String) testActivity.findViewById(
+		nameString = (EditText) testActivity.findViewById(
 				com.example.f14t07_application.activity_testactivity.R.id.NameString);
+		nameString.setText("Timothy");
+		
+		Intent newIntent = getStartedActivityIntent();
+		Intent nameIntent = new Intent(AskTest.this, AskActivity.class);
+		assertTrue(newIntent.filterEquals(nameIntent)); //Makes sure the intent is the intent we just made
+
 		if(!nameString.isEmpty() && nameString.trim().length() > 0)
 		{
 			notEmpty = true;
 		}
+
+		String expectedName = "Timothy";
+		String name = Name();
+		assertEquals(name, expectedName);
 		assertTrue("The name string is empty", notEmpty == true);
 	}
 	
-	public void testQuestion()
+	public void testQuestion()//should this be testQuestion() of testGetQuestion()??
 	{
 		boolean notEmpty = false;
-		questionString = (String) testActivity.findViewById(
+		questionString = (EditText) testActivity.findViewById(
 				com.example.f14t07_application.activity_testactivity.R.id.QuestionString);
+		questionString.setText("What's your name???");
+		
+		Intent newIntent = getStartedActivityIntent();
+		Intent questionIntent = new Intent(AskTest.this, AskActivity.class);
+		assertTrue(newIntent.filterEquals(questionIntent));
+
 		if(!questionString.isEmpty() && questionString.trim().length() > 0)
 		{
 			notEmpty = true;
 		}
+
+		String expectedQuestion = "What's your name???";
+		String question = Question();
+		assertEquals(question, expectedQuestion);
 		assertTrue("The question string is empty", notEmpty == true);
 	}
 	
-	public void testSubject()
+	public void testSubject() //should this be testSubject() of testGetSubject()??
 	{
 		boolean notEmpty = false;
-		subjectString = (String) testActivity.findViewById(
+		subjectString = (EditText) testActivity.findViewById(
 				com.example.f14t07_application.activity_testactivity.R.id.SubjectString);
+		subjectString.setText("I accidentally clicked insert");
+
+		Intent newIntent = getStartedActivityIntent();
+		Intent subjectIntent = new Intent(AskTest.this, AskActivity.class);
+		assertTrue(newIntent.filterEquals(subjectIntent));
+
 		if(!subjectString.isEmpty() && subjectString.trim().length() > 0)
 		{
 			notEmpty = true;
 		}
+
+		String expectedSubject = "I accidentally clicked insert";
+		String subject = Subject(); 
+		assertEquals(subject, expectedSubject);
 		assertTrue("The subject string is empty", notEmpty == true);
 	}
 
-	public void testPicture()
+	public void testPicture()  //test picture() or test ifPicture()?
 	{
 		//Need more tests in here once we determine more about how pictures will work
 		
 		//Possible a boolean value in the questions attributes indicating if there is a picture?
 
 		boolean isPicture = false;
-		
+	       
 
+		
+		
+		
+		
+		//Check if the pictures are the same (it was loaded properly)
+		
+		if (isPicture){
+		    thePicture = ()
+		}
 
-		
-		
-		
-		
-			//Check if the pictures are the same (it was loaded properly)
-			
-			//Maybe check picture size?
+		//Maybe check picture size?
 		}
 	}
 	
