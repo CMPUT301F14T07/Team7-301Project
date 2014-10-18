@@ -45,7 +45,7 @@ public class ReadLaterTest extends ActivityInstrumentationTestCase2<QuestionActi
 		 * a long time ago.
 		 */
 		ArrayList<ForumEntry> questions = new ArrayList<ForumEntry>();
-		questions.add(new ForumEntry(new Entry("What is life?","Kibbles", new Date())));
+		questions.add(new ForumEntry(new Entry("What is life?","Kibbles")));
 	
 		/* Get the button that will save a forum entry for offline viewing. */
 		Button saveLater = (Button) testActivity.findViewById(com.example.f14t07_application.activity_question.R.id.saveLater);
