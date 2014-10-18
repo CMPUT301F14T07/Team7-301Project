@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.f14t07_application.R;
 
@@ -13,7 +15,11 @@ import com.example.f14t07_application.R;
  * being able to ask questions
  */
 public class AskActivity extends Activity {
-	  @Override  
+	  
+	  //controller for this view 
+	  private ForumEntryController forumEntryController=new ForumEntryController();
+	  
+	  @Override
 	  public void onCreate(Bundle savedInstanceState) { 
 	    super.onCreate(savedInstanceState);  
 	    setContentView(R.layout.ask_activity_screen);  
@@ -24,7 +30,36 @@ public class AskActivity extends Activity {
 	    ask_button.setOnClickListener(new View.OnClickListener() {
 	    	@Override
 	    	public void onClick(View v){
+	    		//new edit text boxes
+	    		EditText newQuestionEdit=(EditText)findViewById(R.id.question);
+	    		EditText newSubjectEdit=(EditText)findViewById(R.id.subject);
+	    		EditText newAuthorEdit =(EditText)findViewById(R.id.name);
 	    		
+	    		//set strings from edit text boxes
+	    		String newQuestion=newQuestionEdit.getText().toString();
+	    		String newSubject=newSubjectEdit.getText().toString();
+	    		String newAuthor= newAuthorEdit.getText().toString();
+	    		
+	    		//create a new ForumEntry
+	    		ForumEntry newForumEntry=new ForumEntry(newQuestion,newSubject,newAuthor);
+	    		
+	    		//Pass it to the controller
+	    		forumEntryController.addForumEntry(newForumEntry);
+	    		Toast.makeText(AskActivity.this,"Asking still needs to be implemented",Toast.LENGTH_SHORT).show();
+
+	    		//then an intent needs to open the question screen for the new forum entry
+	         }
+	    });
+	    
+	    
+	    //the button the user clicks to attach a file
+	    Button attach_button=(Button) findViewById(R.id.attachButton);
+	    attach_button.setOnClickListener(new View.OnClickListener() {
+	    	@Override
+	    	public void onClick(View v){
+	    		//in here we need to put file attachment shit 
+	    		Toast.makeText(AskActivity.this,"Picture Attachment still needs to be added",Toast.LENGTH_SHORT).show();
+
 	         }
 	    });
 	  }

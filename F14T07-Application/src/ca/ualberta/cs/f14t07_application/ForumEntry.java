@@ -17,13 +17,13 @@ public class ForumEntry
 	 * @param question	The text contains the main question for the forum post.
 	 * @param author	The name of the main poster
 	 */
-	public ForumEntry(String question, String author)
+	public ForumEntry(String subject, String question, String author)
 	{
 		super();
 		
 		this.question.setPost(question);
 		this.question.setPostersName(author);
-		
+		//this.question.setSubject(subject);
 		this.answers = new ArrayList<Post>();
 	}
 	
