@@ -42,21 +42,19 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		//Will users have to sign in?
 		
 		boolean notEmpty = false;
-		nameString = (EditText) testActivity.findViewById(
-				com.example.f14t07_application.activity_testactivity.R.id.NameString);
-		nameString.setText("Timothy");
-		
-		Intent newIntent = getStartedActivityIntent();
-		Intent nameIntent = new Intent(AskTest.this, AskActivity.class);
-		assertTrue(newIntent.filterEquals(nameIntent)); //Makes sure the intent is the intent we just made
 
-		if(!nameString.isEmpty() && nameString.trim().length() > 0)
+                ArrayList<ForumEntry> questions = new ArrayList<ForumEntry>();
+                questions.add(new ForumEntry(new Entry("What is life?", "Kibbles")));
+                questions.get(0).setAuthorsName("Timothy");
+
+		if(!name.isEmpty() && name.trim().length() > 0)
 		{
 			notEmpty = true;
 		}
 
 		String expectedName = "Timothy";
-		String name = Name();
+		String name = questions.get(0).getAuthorsName();
+
 		assertEquals(name, expectedName);
 		assertTrue("The name string is empty", notEmpty == true);
 	}
