@@ -49,27 +49,26 @@ public class SearchTest extends ActivityInstrumentationTestCase2<BrowseActivity>
     }
 
     public void sortBySearchTerm(){
-    	long time=123456789;
     	ArrayList<ForumEntry> posts = new ArrayList<ForumEntry>();
-		posts.add(new ForumEntry("no term","author1",Date(time)));
-		posts.add(new ForumEntry("still no term","author2",Date(time)));
-		posts.add(new ForumEntry("has foo!","author3",Date(time))) ;
-		posts.add(new ForumEntry("has foo foo twice!","author4",Date(time))); //If it has the search term twice, it should probably be above? (Tested in sortedList2)
+		posts.add(new ForumEntry("no term","author1"));
+		posts.add(new ForumEntry("still no term","author2"));
+		posts.add(new ForumEntry("has foo!","author3")) ;
+		posts.add(new ForumEntry("has foo foo twice!","author")); //If it has the search term twice, it should probably be above? (Tested in sortedList2)
 		(new DataManager()).save(posts);
 		
 		ArrayList<ForumEntry> sortedList = new ArrayList<ForumEntry>();
-		sortedList.add(new ForumEntry("has foo!", "author3",time));
-		sortedList.add(new ForumEntry("has foo foo twice!","author4",time));
-		sortedList.add(new ForumEntry("no term","author1",time));
-		sortedList.add(new ForumEntry("still no term","author2",time));
+		sortedList.add(new ForumEntry("has foo!", "author3"));
+		sortedList.add(new ForumEntry("has foo foo twice!","author4"));
+		sortedList.add(new ForumEntry("no term","author1"));
+		sortedList.add(new ForumEntry("still no term","author2"));
 		
 		assertEquals(posts, sortedList);
 		
-		testActivity.getBrowseControllerForTesting().sortBySearchTerm();
+		(new BrowseController()).sortBySearchTerm();
 
 		ArrayList<ForumEntry> testList = (new DataManager()).load();
 
-		assertEquals(posts.getlist(), sortedList);
+		assertEquals(testList, sortedList);
     }
 
 }
