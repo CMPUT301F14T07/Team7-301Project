@@ -47,13 +47,15 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
                 questions.add(new ForumEntry(new Entry("What is life?", "Kibbles")));
                 questions.get(0).setAuthorsName("Timothy");
 
+
+		String expectedName = "Timothy";
+		String name = questions.get(0).getAuthorsName();
+
 		if(!name.isEmpty() && name.trim().length() > 0)
 		{
 			notEmpty = true;
 		}
 
-		String expectedName = "Timothy";
-		String name = questions.get(0).getAuthorsName();
 
 		assertEquals(name, expectedName);
 		assertTrue("The name string is empty", notEmpty == true);
@@ -62,44 +64,41 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	public void getQuestionTest()//should this be testQuestion() of testGetQuestion()??
 	{
 		boolean notEmpty = false;
-		questionString = (EditText) testActivity.findViewById(
-				com.example.f14t07_application.activity_testactivity.R.id.QuestionString);
-		questionString.setText("What's your name???");
-		
-		Intent newIntent = getStartedActivityIntent();
-		Intent questionIntent = new Intent(AskTest.this, AskActivity.class);
-		assertTrue(newIntent.filterEquals(questionIntent));
 
-		if(!questionString.isEmpty() && questionString.trim().length() > 0)
+                ArrayList<ForumEntry> questions = new ArrayList<ForumEntry>();
+                questions.add(new ForumEntry(new Entry("What is life?", "Kibbles")));
+
+		String expectedQuestion = "What is life?";
+		String question = questions.get(0).getPost();
+
+		if(!question.isEmpty() && question.trim().length() > 0)
 		{
 			notEmpty = true;
 		}
 
-		String expectedQuestion = "What's your name???";
-		String question = Question();
 		assertEquals(question, expectedQuestion);
+
 		assertTrue("The question string is empty", notEmpty == true);
 	}
 	
 	public void getSubjectTest() //should this be testSubject() of testGetSubject()??
 	{
 		boolean notEmpty = false;
-		subjectString = (EditText) testActivity.findViewById(
-				com.example.f14t07_application.activity_testactivity.R.id.SubjectString);
-		subjectString.setText("I accidentally clicked insert");
 
-		Intent newIntent = getStartedActivityIntent();
-		Intent subjectIntent = new Intent(AskTest.this, AskActivity.class);
-		assertTrue(newIntent.filterEquals(subjectIntent));
+		ArrayList<ForumEntry> questions = new ArrayList<ForumEntry>();
+                questions.add(new ForumEntry(new Entry("What is life?", "Kibbles")));
+                questions.get(0).setSubject("Life");
 
-		if(!subjectString.isEmpty() && subjectString.trim().length() > 0)
+		String expectedSubject = "Life";
+		String subject = questions.get(0).getSubject(); 
+
+		if(!subject.isEmpty() && subject.trim().length() > 0)
 		{
 			notEmpty = true;
 		}
 
-		String expectedSubject = "I accidentally clicked insert";
-		String subject = Subject(); 
 		assertEquals(subject, expectedSubject);
+
 		assertTrue("The subject string is empty", notEmpty == true);
 	}
 
