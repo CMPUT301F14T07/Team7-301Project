@@ -15,9 +15,8 @@ import android.widget.Button;
  * @author Brendan
  *
  */
-/* TODO: More extensive tests of the chain of events that unfold when a button is pushed
- */
-public class UpDownReplyTest extends ActivityInstrumentationTestCase2<VoteAndReplyActivity> {
+
+public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionActivity> {
 
 	private VoteAndReplyActivity testActivity;
 	private Button testButton;
@@ -55,11 +54,12 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<VoteAndRep
 		setUp();
 		String question = "This is the question";
 		String author = "This is the author";
-		ForumEntry testEntry = new ForumEntry(question, author);
+		ForumEntry testEntry = new ForumEntry(new Entry(question, author));
 		int initialVote = testEntry.getQuestion().getUpVote();
+		long testEntryId = testEntry.getId();
 		DataManager dataM = new DataManager();
 		
-		testActivity.forumEntryController.addForumEntry(testEntry);
+		(new ForumEntryController()).addForumEntry(testEntry);
 		
 		Button upVoteButton = (Button) testActivity.findViewById(
 					com.example.f14t07_application.activity_voteandreply.R.id.UpVoteQuestion);
@@ -70,22 +70,13 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<VoteAndRep
 		while(iter.hasNext())
 		{
 			ForumEntry temp = iter.next();
-			if(temp.getQuestion().getAuthorsName() == author && temp.getQuestion().getPost() == question)
+			if(temp.getId() == testEntryId)
 			{
 				assertTrue(temp.getQuestion().getUpVote(), initialVote+1);
 				break;
 			}
 		}
-		
-		/*ForumEntry TestEntry=ForumEntry();
-		TestEntry.addAnswer(new Entry testEntry);
-		upVoteButton = (Button) testActivity.findViewById(
-					com.example.f14t07_application.activity_voteandreply.R.id.UpVoteQuestion);
-		
-		int initialValue=TestEntry.getQuestion().getUpVote();
-		upVoteButton.performClick();
-		int afterClick=TestEntry.getQuestion().getUpVote();
-		assertTrue(initialValue,afterClick+1);*/
+		dataM.deleteLocalAll();
 	}
 	
 	/**
@@ -96,11 +87,12 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<VoteAndRep
 		setUp();
 		String answer = "This is an answer";
 		String author = "This is the author";
-		ForumEntry testEntry = new ForumEntry(answer, author);
+		ForumEntry testEntry = new ForumEntry(new Entry(answer, author));
+		long testEntryId = testEntry.getId();
 		int initialVote = testEntry.getAnswers().get(0).getUpVote();
 		DataManager dataM = new DataManager();
 		
-		testActivity.forumEntryController.addForumEntry(testEntry);
+		(new ForumEntryController()).addForumEntry(testEntry);
 		
 		Button upVoteButton = (Button) testActivity.findViewById(
 					com.example.f14t07_application.activity_voteandreply.R.id.UpVoteAnswer);
@@ -111,12 +103,16 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<VoteAndRep
 		while(iter.hasNext())
 		{
 			ForumEntry temp = iter.next();
-			if(temp.getAnswers().get(0).getAuthorsName() == author && temp.getAnswers().get(0).getPost() == question)
+			if(temp.getId() == testEntryId)
 			{
 				assertTrue(temp.getAnswers().get(0).getUpVote(), initialVote+1);
 				break;
 			}
 		}
+		/* Clean up the local memory after testing. */
+		dataM.deleteLocalAll();
+	}
+
 	/**
 	 * Tests that pushing the reply button will trigger a chain of events which
 	 * results in the particular answer / main question having a reply logged.
@@ -127,7 +123,31 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<VoteAndRep
 	{
 		testButton = (Button) testActivity.findViewById(
 				com.example.f14t07_application.activity_voteandreply.R.id.ReplyToForumPost);
-	
-		assertTrue(testButton != null);
+		Reply testReply = new Reply("This is the reply");
+
+		setUp();
+		String question = "This is the question";
+		String author = "This is the author";
+		ForumEntry testEntry = new ForumEntry(new Entry(question, author));
+		long testEntryId = testEntry.getId();
+		DataManager dataM = new DataManager();
+		ForumEntryController fec = new ForumEntryController();
+		fec.addForumEntry(testEntry);
+		/* Add this reply to the 0'th entry in the forum entry - aka - the main question */
+		fec.addReplyToEntry(0, new Reply("This is the reply"));
+		
+		ArrayList<ForumEntry> testList = dataM.load();
+		Iterator iter = testList.iterator();
+		while(iter.hasNext())
+		{
+			ForumEntry temp = iter.next();
+			if(temp.getId() == testEntryId)
+			{
+			    assertTrue(temp.getQuestion().getReplies().get(0).getReply(), "This is the reply");
+			    break;
+			}
+		}
+		dataM.deleteLocalAll();
+		
 	}
 }
