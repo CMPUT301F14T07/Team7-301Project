@@ -1,0 +1,7 @@
+ask_activity_screen IDs:
+	attachButton
+	askButton
+	askTitle
+	question
+	subject
+	name
