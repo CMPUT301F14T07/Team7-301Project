@@ -1,12 +1,7 @@
-main_activity_screen IDs:
-	signInButton
-	invisButton (used for orientation...)
-	askButton
-	browseButton
-	logo
-	searchText
-	searchTerm
-	searchButton
+Menu IDs:
+	switchToReadLater
+	switchToHome
+	switchtoMyQuestions
 
 ask_activity_screen IDs:
 	attachButton
@@ -15,3 +10,19 @@ ask_activity_screen IDs:
 	question
 	subject
 	name
+
+myquestions_activity_screen IDs:
+	myQuestionsTitle
+	myQuestionsListView
+
+	CONTEXT_MENU:
+		myQuestionsEditCM
+		myQuestionsDeleteCM
+
+readlater_activity_screen IDs:
+	readLaterTitle
+	readLaterListView
+
+	CONTEXT_MENU:
+		readLaterDelete
+		readLaterCancel

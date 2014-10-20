@@ -1097,7 +1097,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f05004b;
+        public static final int action_settings=0x7f05004d;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int askButton=0x7f05003e;
@@ -1125,8 +1125,8 @@ containing a value of this type.
         public static final int list_item=0x7f050029;
         public static final int logo=0x7f050047;
         public static final int middle=0x7f050012;
-        public static final int myQuestionsDeleteCM=0x7f05004d;
-        public static final int myQuestionsEditCM=0x7f05004c;
+        public static final int myQuestionsDeleteCM=0x7f050051;
+        public static final int myQuestionsEditCM=0x7f050050;
         public static final int myQuestionsListView=0x7f05004a;
         public static final int myQuestionsTitle=0x7f050049;
         public static final int name=0x7f050041;
@@ -1137,6 +1137,10 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f050019;
         public static final int question=0x7f05003d;
         public static final int radio=0x7f05002f;
+        public static final int readLaterCancel=0x7f050054;
+        public static final int readLaterDelete=0x7f050053;
+        public static final int readLaterListView=0x7f05004c;
+        public static final int readLaterTitle=0x7f05004b;
         public static final int searchButton=0x7f050048;
         public static final int searchTerm=0x7f050046;
         public static final int searchText=0x7f050044;
@@ -1158,6 +1162,9 @@ containing a value of this type.
         public static final int split_action_bar=0x7f05001e;
         public static final int subject=0x7f050040;
         public static final int submit_area=0x7f050039;
+        public static final int switchToHome=0x7f05004e;
+        public static final int switchToMyQuestions=0x7f050052;
+        public static final int switchToReadLater=0x7f05004f;
         public static final int tabMode=0x7f050002;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
@@ -1220,12 +1227,15 @@ containing a value of this type.
         public static final int list_item=0x7f03001a;
         public static final int main_activity_screen=0x7f03001b;
         public static final int myquestions_activity_screen=0x7f03001c;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001d;
+        public static final int readlater_activity_screen=0x7f03001d;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001e;
     }
     public static final class menu {
         public static final int logo=0x7f0c0000;
         public static final int my_questions=0x7f0c0001;
         public static final int myquestionscontextmenu=0x7f0c0002;
+        public static final int read_later=0x7f0c0003;
+        public static final int readlatercontextmenu=0x7f0c0004;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1272,10 +1282,12 @@ containing a value of this type.
         public static final int app_name=0x7f0a000d;
         public static final int ask=0x7f0a0010;
         public static final int browse=0x7f0a0012;
+        public static final int hello_world=0x7f0a0016;
         public static final int logo=0x7f0a0014;
         public static final int search=0x7f0a0011;
         public static final int sign_in=0x7f0a0013;
         public static final int title_activity_my_questions=0x7f0a000f;
+        public static final int title_activity_read_later=0x7f0a0015;
     }
     public static final class style {
         /** 

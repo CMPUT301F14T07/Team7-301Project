@@ -26,6 +26,10 @@
             android:name="com.example.f14t07_application.MyQuestionsActivity"
             android:label="@string/title_activity_my_questions" >
         </activity>
+        <activity
+            android:name=".ReadLaterActivity"
+            android:label="@string/title_activity_read_later" >
+        </activity>
     </application>
 
 </manifest>
