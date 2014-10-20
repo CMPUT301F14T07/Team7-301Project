@@ -3,10 +3,12 @@ package ca.ualberta.cs.f14t07_application;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 public class MainScreenActivity extends Activity {
@@ -24,6 +26,20 @@ public class MainScreenActivity extends Activity {
 		    	@Override
 		    	public void onClick(View v){
 		    		askButton();
+		         }
+		    });
+		    Button browse_button=(Button) findViewById(R.id.browseButton);
+		    browse_button.setOnClickListener(new View.OnClickListener() {
+		    	@Override
+		    	public void onClick(View v){
+		    		browseButton();
+		         }
+		    });
+		    Button search_button=(Button) findViewById(R.id.searchButton);
+		    search_button.setOnClickListener(new View.OnClickListener() {
+		    	@Override
+		    	public void onClick(View v){
+		    		searchButton();
 		         }
 		    });
 	}
@@ -66,10 +82,16 @@ public class MainScreenActivity extends Activity {
 	}
 	
 	public void browseButton(){
-		
+		Intent intent = new Intent(this, AskActivity.class);
+		startActivity(intent);
 	}
 	
 	public void searchButton(){
+		EditText editableTerm = (EditText) findViewById(R.id.searchTerm);
+		Editable term = (Editable) editableTerm.getText();
+		Intent intent = new Intent(this, AskActivity.class);
+		intent.putExtra(android.content.Intent.EXTRA_TEXT, term);
+		startActivity(intent);
 		
 	}
 	
