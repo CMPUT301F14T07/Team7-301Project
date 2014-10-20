@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/signInButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/sign_in" />
+
+    <Button
+        android:id="@+id/invisButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/sign_in"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/searchText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/browseButton"
+        android:layout_marginTop="19dp"
+        android:layout_toLeftOf="@+id/browseButton"
+        android:text="@string/search"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/searchTerm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchText"
+        android:layout_alignBottom="@+id/searchText"
+        android:layout_alignRight="@+id/browseButton"
+        android:layout_toRightOf="@+id/invisButton"
+        android:ems="10"
+        tools:ignore="HardcodedText,TextFields" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/askButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="61dp"
+        android:layout_toLeftOf="@+id/signInButton"
+        android:layout_toRightOf="@+id/invisButton"
+        android:clickable="true"
+        android:text="@string/ask" />
+
+    <Button
+        android:id="@+id/browseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/askButton"
+        android:layout_alignRight="@+id/askButton"
+        android:layout_below="@+id/askButton"
+        android:text="@string/browse" />
+
+    <Button
+        android:id="@+id/searchButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/searchTerm"
+        android:layout_toRightOf="@+id/searchTerm"
+        android:text="@string/search" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="45dp"
+        android:layout_toLeftOf="@+id/searchButton"
+        android:layout_toRightOf="@+id/searchText"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/ic_launcher" />
+
+</RelativeLayout>
