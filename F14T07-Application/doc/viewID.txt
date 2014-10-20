@@ -1,3 +1,13 @@
+main_activity_screen IDs:
+	signInButton
+	invisButton (used for orientation...)
+	askButton
+	browseButton
+	logo
+	searchText
+	searchTerm
+	searchButton
+
 ask_activity_screen IDs:
 	attachButton
 	askButton

@@ -4,6 +4,15 @@
     <string name="app_name">F14T07-Application</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+<<<<<<< HEAD
     <string name="title_activity_my_questions">MyQuestionsActivity</string>
+=======
+    <string name="ask">ASK</string>
+    <string name="search">Search</string>
+    <string name="browse">BROWSE</string>
+    <string name="sign_in">Sign in</string>
+    <string name="logo">This is our logo</string>
+>>>>>>> origin/master
 
 </resources>
+ 
