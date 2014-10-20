@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.f14t07_application.LogoActivity"
+            android:name="ca.ualberta.cs.f14t07_application.LogoActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +23,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.f14t07_application.MyQuestionsActivity"
+            android:name="ca.ualberta.cs.f14t07_application.MyQuestionsActivity"
             android:label="@string/title_activity_my_questions" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cs.f14t07_application.MainScreenActivity"
+            android:label="@string/title_activity_main_screen" >
         </activity>
         <activity
             android:name=".ReadLaterActivity"
