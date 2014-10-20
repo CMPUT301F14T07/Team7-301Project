@@ -1,6 +1,6 @@
 package ca.ualberta.cs.f14t07_application;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class ReadLaterActivity extends ActionBarActivity {
+public class ReadLaterActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
