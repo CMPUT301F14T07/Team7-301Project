@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.f14t07_application.R;
 
 
 /* this is the view that is shown to the user when they would 
