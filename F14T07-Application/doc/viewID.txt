@@ -26,3 +26,9 @@ readlater_activity_screen IDs:
 	CONTEXT_MENU:
 		readLaterDelete
 		readLaterCancel
+		
+browse_activity_screen IDs:
+	browseTextView
+	browseViewByText
+	browseViewByButton
+	browseListView
