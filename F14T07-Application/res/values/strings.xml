@@ -14,5 +14,6 @@
     <string name="title_activity_read_later">ReadLaterActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_browse">BrowseActivity</string>
+    <string name="title_activity_search">SearchActivity</string>
 
 </resources>

@@ -89,7 +89,7 @@ public class MainScreenActivity extends Activity {
 	public void searchButton(){
 		EditText editableTerm = (EditText) findViewById(R.id.searchTerm);
 		Editable term = (Editable) editableTerm.getText();
-		Intent intent = new Intent(this, AskActivity.class);
+		Intent intent = new Intent(this, SearchActivity.class);
 		intent.putExtra(android.content.Intent.EXTRA_TEXT, term);
 		startActivity(intent);
 		

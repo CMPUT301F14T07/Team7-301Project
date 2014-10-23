@@ -22,7 +22,7 @@
         android:visibility="invisible" />
 
     <TextView
-        android:id="@+id/searchText"
+        android:id="@+id/searchTextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/browseButton"
@@ -35,8 +35,8 @@
         android:id="@+id/searchTerm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/searchText"
-        android:layout_alignBottom="@+id/searchText"
+        android:layout_alignBaseline="@+id/searchTextTitle"
+        android:layout_alignBottom="@+id/searchTextTitle"
         android:layout_alignRight="@+id/browseButton"
         android:layout_toRightOf="@+id/invisButton"
         android:ems="10"
@@ -81,7 +81,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="45dp"
         android:layout_toLeftOf="@+id/searchButton"
-        android:layout_toRightOf="@+id/searchText"
+        android:layout_toRightOf="@+id/searchTextTitle"
         android:contentDescription="@string/logo"
         android:src="@drawable/ic_launcher" />
 

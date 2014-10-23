@@ -7,14 +7,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-public class BrowseActivity extends Activity {
+
+public class SearchActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.browse_activity_screen);
+		setContentView(R.layout.search_activity_screen);
 		
-	    Button view_by_button=(Button) findViewById(R.id.browseViewByButton);
+    Button view_by_button=(Button) findViewById(R.id.searchViewByButton);
+    
+    Button read_later_button=(Button) findViewById(R.id.searchSelectReadLater);
 	    
 	    view_by_button.setOnClickListener(new View.OnClickListener() {
 	    	@Override
@@ -22,12 +25,19 @@ public class BrowseActivity extends Activity {
 	    		viewBy();
 	         }
 	    });
+	    
+	    read_later_button.setOnClickListener(new View.OnClickListener() {
+	    	@Override
+	    	public void onClick(View v){
+	    		readLater();
+	         }
+	    });
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.browse, menu);
+		getMenuInflater().inflate(R.menu.search, menu);
 		return true;
 	}
 
@@ -44,6 +54,10 @@ public class BrowseActivity extends Activity {
 	}
 	
 	public void viewBy(){
-		Toast.makeText(BrowseActivity.this,"Work in progress" , Toast.LENGTH_SHORT).show();
+		Toast.makeText(SearchActivity.this,"Work in progress" , Toast.LENGTH_SHORT).show();
+	}
+	
+	public void readLater(){
+		Toast.makeText(SearchActivity.this,"Work in progress" , Toast.LENGTH_SHORT).show();
 	}
 }

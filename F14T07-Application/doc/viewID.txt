@@ -32,3 +32,11 @@ browse_activity_screen IDs:
 	browseViewByText
 	browseViewByButton
 	browseListView
+	
+search_activity_screen IDs:
+	searchTextTitle
+	searchTextInput
+	searchViewBy
+	searchViewByButton
+	searchListView
+	searchSelectReadLater
