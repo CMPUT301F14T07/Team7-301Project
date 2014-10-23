@@ -82,7 +82,7 @@ public class MainScreenActivity extends Activity {
 	}
 	
 	public void browseButton(){
-		Intent intent = new Intent(this, AskActivity.class);
+		Intent intent = new Intent(this, BrowseActivity.class);
 		startActivity(intent);
 	}
 	

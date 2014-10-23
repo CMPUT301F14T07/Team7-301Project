@@ -4,12 +4,24 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 public class BrowseActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.browse_activity_screen);
+		
+	    Button ask_button=(Button) findViewById(R.id.browseViewByButton);
+	    
+	    ask_button.setOnClickListener(new View.OnClickListener() {
+	    	@Override
+	    	public void onClick(View v){
+	    		viewBy();
+	         }
+	    });
 	}
 
 	@Override
@@ -29,5 +41,9 @@ public class BrowseActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void viewBy(){
+		Toast.makeText(BrowseActivity.this,"Working on this part" , Toast.LENGTH_SHORT).show();
 	}
 }
