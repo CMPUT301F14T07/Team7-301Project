@@ -15,6 +15,7 @@ public class MainScreenActivity extends Activity {
 
 	
 	private BrowseController browseController = new BrowseController();
+	public static final String TEXT_KEY = "TEXT";
 	
 	public void onCreate(Bundle savedInstanceState) { 
 		    super.onCreate(savedInstanceState);  
@@ -88,9 +89,9 @@ public class MainScreenActivity extends Activity {
 	
 	public void searchButton(){
 		EditText editableTerm = (EditText) findViewById(R.id.searchTerm);
-		Editable term = (Editable) editableTerm.getText();
+		String term = (String) editableTerm.getText().toString();
 		Intent intent = new Intent(this, SearchActivity.class);
-		intent.putExtra(android.content.Intent.EXTRA_TEXT, term);
+		intent.putExtra(TEXT_KEY, term);
 		startActivity(intent);
 		
 	}

@@ -1,11 +1,13 @@
 package ca.ualberta.cs.f14t07_application;
 
 import android.app.Activity;
+import android.content.Intent;//
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class SearchActivity extends Activity {
@@ -18,6 +20,15 @@ public class SearchActivity extends Activity {
     Button view_by_button=(Button) findViewById(R.id.searchViewByButton);
     
     Button read_later_button=(Button) findViewById(R.id.searchSelectReadLater);
+    
+    //I (Dayna) added this. It gets the search term from the MainScreen
+    EditText term = (EditText) findViewById(R.id.searchTextInput);
+    Intent intent = getIntent();
+    String word = null;
+    word = intent.getStringExtra("TEXT");
+	Toast.makeText(SearchActivity.this,word , Toast.LENGTH_SHORT).show();
+    term.setText(word); 
+    //
 	    
 	    view_by_button.setOnClickListener(new View.OnClickListener() {
 	    	@Override
