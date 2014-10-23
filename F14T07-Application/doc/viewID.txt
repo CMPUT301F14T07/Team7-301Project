@@ -40,3 +40,14 @@ search_activity_screen IDs:
 	searchViewByButton
 	searchListView
 	searchSelectReadLater
+	
+main_activity_screen IDs:
+	signInButton
+	invisButton (for alignment)
+	searchTextTitle
+	searchTerm
+	askButton
+	browseButton
+	searchButton
+	logo
+	signedInAs

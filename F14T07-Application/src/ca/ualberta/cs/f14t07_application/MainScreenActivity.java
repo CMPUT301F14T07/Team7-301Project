@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainScreenActivity extends Activity {
@@ -92,8 +93,7 @@ public class MainScreenActivity extends Activity {
 		String term = (String) editableTerm.getText().toString();
 		Intent intent = new Intent(this, SearchActivity.class);
 		intent.putExtra(TEXT_KEY, term);
-		startActivity(intent);
-		
+		startActivity(intent);	
 	}
 	
 }

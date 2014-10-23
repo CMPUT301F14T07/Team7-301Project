@@ -26,7 +26,6 @@ public class SearchActivity extends Activity {
     Intent intent = getIntent();
     String word = null;
     word = intent.getStringExtra("TEXT");
-	Toast.makeText(SearchActivity.this,word , Toast.LENGTH_SHORT).show();
     term.setText(word); 
     //
 	    
