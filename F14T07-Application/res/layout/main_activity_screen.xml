@@ -21,23 +21,12 @@
         android:text="@string/sign_in"
         android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/searchTextTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/browseButton"
-        android:layout_marginTop="19dp"
-        android:layout_toLeftOf="@+id/browseButton"
-        android:text="@string/search"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <EditText
         android:id="@+id/searchTerm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/searchTextTitle"
-        android:layout_alignBottom="@+id/searchTextTitle"
         android:layout_alignRight="@+id/browseButton"
+        android:layout_below="@+id/browseButton"
         android:layout_toRightOf="@+id/invisButton"
         android:ems="10"
         tools:ignore="HardcodedText,TextFields" >
@@ -63,17 +52,6 @@
         android:layout_toRightOf="@+id/searchTerm"
         android:text="@string/search" />
 
-    <TextView
-        android:id="@+id/signedInAs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Signed in as: default person"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:visibility="invisible"
-        tools:ignore="HardcodedText" />
-
     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
@@ -92,11 +70,22 @@
         android:id="@+id/askButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/signedInAs"
         android:layout_below="@+id/logo"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="36dp"
         android:layout_toLeftOf="@+id/signInButton"
+        android:layout_toRightOf="@+id/invisButton"
         android:clickable="true"
         android:text="@string/ask" />
+
+    <TextView
+        android:id="@+id/signedInAs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Signed in as: default person"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:visibility="invisible"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>
