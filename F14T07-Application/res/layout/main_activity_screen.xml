@@ -93,6 +93,7 @@
         android:layout_centerHorizontal="true"
         android:text="Signed in as: default person"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>
