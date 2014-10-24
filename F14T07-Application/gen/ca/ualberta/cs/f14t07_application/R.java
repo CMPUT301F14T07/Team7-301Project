@@ -29,13 +29,14 @@ public final class R {
         public static final int attach1=0x7f020000;
         public static final int downarrow=0x7f020001;
         public static final int ic_launcher=0x7f020002;
-        public static final int outline=0x7f020003;
+        public static final int logo8=0x7f020003;
+        public static final int outline=0x7f020004;
     }
     public static final class id {
         public static final int action_settings=0x7f08001b;
-        public static final int askButton=0x7f080002;
-        public static final int askTitle=0x7f080003;
-        public static final int attachButton=0x7f080000;
+        public static final int askButton=0x7f080000;
+        public static final int askTitle=0x7f080002;
+        public static final int attachButton=0x7f080001;
         public static final int browseButton=0x7f08000d;
         public static final int browseListView=0x7f080009;
         public static final int browseTextView=0x7f080006;
@@ -48,7 +49,7 @@ public final class R {
         public static final int myQuestionsListView=0x7f080013;
         public static final int myQuestionsTitle=0x7f080012;
         public static final int name=0x7f080005;
-        public static final int question=0x7f080001;
+        public static final int question=0x7f080003;
         public static final int readLaterCancel=0x7f080022;
         public static final int readLaterDelete=0x7f080021;
         public static final int readLaterListView=0x7f080015;

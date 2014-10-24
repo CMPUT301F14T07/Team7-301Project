@@ -46,17 +46,6 @@
     </EditText>
 
     <Button
-        android:id="@+id/askButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logo"
-        android:layout_marginTop="61dp"
-        android:layout_toLeftOf="@+id/signInButton"
-        android:layout_toRightOf="@+id/invisButton"
-        android:clickable="true"
-        android:text="@string/ask" />
-
-    <Button
         android:id="@+id/browseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,17 +63,6 @@
         android:layout_toRightOf="@+id/searchTerm"
         android:text="@string/search" />
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="45dp"
-        android:layout_toLeftOf="@+id/searchButton"
-        android:layout_toRightOf="@+id/searchTextTitle"
-        android:contentDescription="@string/logo"
-        android:src="@drawable/ic_launcher" />
-
     <TextView
         android:id="@+id/signedInAs"
         android:layout_width="wrap_content"
@@ -95,5 +73,30 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:visibility="invisible"
         tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/logo"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo8" />
+
+    <Button
+        android:id="@+id/askButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/signedInAs"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="30dp"
+        android:layout_toLeftOf="@+id/signInButton"
+        android:clickable="true"
+        android:text="@string/ask" />
 
 </RelativeLayout>
