@@ -1,15 +1,16 @@
 package ca.ualberta.cs.f14t07_application;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 
 public class MainScreenActivity extends Activity {
@@ -17,6 +18,7 @@ public class MainScreenActivity extends Activity {
 	
 	private BrowseController browseController = new BrowseController();
 	public static final String TEXT_KEY = "TEXT";
+	private String authorName = "Unknown";
 	
 	public void onCreate(Bundle savedInstanceState) { 
 		    super.onCreate(savedInstanceState);  
@@ -42,6 +44,13 @@ public class MainScreenActivity extends Activity {
 		    	@Override
 		    	public void onClick(View v){
 		    		searchButton();
+		         }
+		    });
+		    Button sign_in_button=(Button) findViewById(R.id.signInButton);
+		    sign_in_button.setOnClickListener(new View.OnClickListener() {
+		    	@Override
+		    	public void onClick(View v){
+		    		signInButton();
 		         }
 		    });
 	}
@@ -73,8 +82,48 @@ public class MainScreenActivity extends Activity {
         }
     }
 	
-	
+	public String getAuthorName(){
+		return authorName;
+	}
+    
 	public void signInButton(){
+		final Button signInButton = (Button) findViewById(R.id.signInButton);
+		final TextView text = (TextView) findViewById(R.id.signedInAs);
+		
+		//adopted from http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog
+		//according to http://www.androidsnippets.com/about I am free to reuse and modify this
+		// code without any restrictions
+		AlertDialog.Builder alert = new AlertDialog.Builder(MainScreenActivity.this);
+		alert.setTitle("Sign In");
+		alert.setMessage("What would you like your default name to be?");
+		
+		final EditText input = new EditText(this);
+		alert.setView(input);
+		
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				authorName = input.getText().toString();
+				text.setText("Signed in as: " + authorName);
+				text.setVisibility(0);
+				signInButton.setVisibility(4);
+				
+			}
+		});
+		alert.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		alert.show();
+
+		//^adopted from http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog
+		
 		
 	}
 	
