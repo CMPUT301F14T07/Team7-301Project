@@ -5,15 +5,6 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/attachButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/question"
-        android:background="@drawable/attach1" />
-
-    <Button
         android:id="@+id/askButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,5 +61,17 @@
         android:ems="10" >
      
     </EditText>
+
+   <Button
+       android:id="@+id/attachButton"
+       style="?android:attr/buttonStyleSmall"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentRight="true"
+       android:layout_below="@+id/question"
+       android:layout_marginRight="17dp"
+       android:background="@drawable/attach1"
+       android:minHeight="25dp"
+       android:minWidth="25dp" />
 
 </RelativeLayout>
