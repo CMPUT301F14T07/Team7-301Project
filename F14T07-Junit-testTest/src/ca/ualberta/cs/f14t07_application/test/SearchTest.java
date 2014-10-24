@@ -1,11 +1,20 @@
 package ca.ualberta.cs.f14t07_application.test;
 
+import java.util.ArrayList;
+
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
+import android.widget.EditText;
+import ca.ualberta.cs.f14t07_application.BrowseActivity;
+import ca.ualberta.cs.f14t07_application.BrowseController;
+import ca.ualberta.cs.f14t07_application.DataManager;
+import ca.ualberta.cs.f14t07_application.ForumEntry;
+import ca.ualberta.cs.f14t07_application.SearchActivity;
 
-public class SearchTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
+public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity> {
 
-	private BrowseActivity testActivity;
+	private SearchActivity testActivity;
 	
 	@Override
 	protected void setUp() throws Exception
@@ -28,16 +37,16 @@ public class SearchTest extends ActivityInstrumentationTestCase2<BrowseActivity>
 	}
 	
     public SearchTest(){
-    	super(BrowseActivity.class);
+    	super(SearchActivity.class);
     }
     
 
     public void SearchTermTest(){
     	String searchTerm = "foo";
-    	SearchText = (EditText) SearchActivity.findViewById(com.example.f14t07_application.activity_searchactivity.R.id.SearchText);
+    	EditText SearchText = (EditText) SearchActivity.findViewById(com.example.f14t07_application.activity_searchactivity.R.id.SearchText);
     	SearchText.setText("foo");
     
-    	SearchButton = (Button) SearchActivity.findViewById(com.example.f14t07_application.activity_searchactivity.R.id.SearchButton);
+    	Button SearchButton = (Button) SearchActivity.findViewById(com.example.f14t07_application.activity_searchactivity.R.id.SearchButton);
     	SearchButton.performClick();
     	
     	Intent newIntent = getStartedActivityIntent();
