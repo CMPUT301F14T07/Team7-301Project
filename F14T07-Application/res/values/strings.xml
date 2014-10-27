@@ -15,5 +15,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_browse">BrowseActivity</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_question">QuestionActivity</string>
+    <string name="add_answer">Add an Answer</string>
+    <string name="answer_indicator">Answers:</string>
 
 </resources>
