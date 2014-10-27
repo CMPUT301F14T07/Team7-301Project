@@ -35,10 +35,10 @@ public final class R {
     public static final class id {
         public static final int AddButton=0x7f080005;
         public static final int AddReply=0x7f080003;
-        public static final int ListContentIndicator=0x7f080008;
-        public static final int QuestionSubject=0x7f080006;
-        public static final int QuestionText=0x7f080007;
-        public static final int QuestionViewList=0x7f080009;
+        public static final int ListContentIndicator=0x7f080009;
+        public static final int QuestionSubject=0x7f080007;
+        public static final int QuestionText=0x7f080008;
+        public static final int QuestionViewList=0x7f080006;
         public static final int ReplyAnswerIndicator=0x7f080000;
         public static final int ReplyAnswerText=0x7f080001;
         public static final int ReplyList=0x7f080002;
