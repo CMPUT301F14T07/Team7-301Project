@@ -1,5 +1,6 @@
 package ca.ualberta.cs.f14t07_application.test;
 
+import ca.ualberta.cs.f14t07_application.MainScreenActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
@@ -8,17 +9,16 @@ import android.view.ContextMenu;
 import android.widget.Button;
 import junit.framework.TestCase;
 
-public class ButtonTest extends ActivityUnitTestCase<HomeActivity> {
+public class ButtonTest extends ActivityUnitTestCase<MainScreenActivity> {
 	
 	private Button AskButton;
 	private Button SearchButton;
 	private Button BrowseButton;
-	private ContextMenu contextMenu;
-	private HomeActivity HomeActivity; 
+	private MainScreenActivity HomeActivity; 
 	
 	public ButtonTest()
 	{
-		super(HomeActivity.class);
+		super(MainScreenActivity.class);
 	}
 	
 	@Override
