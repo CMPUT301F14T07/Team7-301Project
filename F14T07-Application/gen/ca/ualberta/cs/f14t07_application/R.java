@@ -38,7 +38,7 @@ public final class R {
         public static final int AnswerList=0x7f080004;
         public static final int QuestionSubject=0x7f080001;
         public static final int QuestionText=0x7f080002;
-        public static final int action_settings=0x7f080020;
+        public static final int action_settings=0x7f080023;
         public static final int askButton=0x7f080005;
         public static final int askTitle=0x7f080007;
         public static final int attachButton=0x7f080006;
@@ -70,7 +70,7 @@ public final class R {
         public static final int signInButton=0x7f08000f;
         public static final int signedInAs=0x7f080015;
         public static final int subject=0x7f080009;
-        public static final int switchToHome=0x7f080023;
+        public static final int switchToHome=0x7f080020;
         public static final int switchToMyQuestions=0x7f080022;
         public static final int switchToReadLater=0x7f080021;
     }

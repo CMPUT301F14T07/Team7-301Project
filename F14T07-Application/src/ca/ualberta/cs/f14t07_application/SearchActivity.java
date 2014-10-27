@@ -50,18 +50,31 @@ public class SearchActivity extends Activity {
 		getMenuInflater().inflate(R.menu.search, menu);
 		return true;
 	}
+	
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        switch (id) {
+        case R.id.switchToHome:
+        	Intent homeIntent = new Intent(this, MainScreenActivity.class);
+        	startActivity(homeIntent);
+        	return true;
+        case R.id.switchToReadLater:
+        	Intent readLaterIntent = new Intent(this, ReadLaterActivity.class);
+        	startActivity(readLaterIntent);
+        	return true;
+        case R.id.switchToMyQuestions:
+        	Intent myQuestionsIntent = new Intent(this, MyQuestionsActivity.class);
+        	startActivity(myQuestionsIntent);
+        	return true;
+        default:
+        	return super.onOptionsItemSelected(item);
+        }
+    }
 	
 	public void viewBy(){
 		Toast.makeText(SearchActivity.this,"Work in progress" , Toast.LENGTH_SHORT).show();
