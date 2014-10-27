@@ -17,6 +17,10 @@
     <string name="title_activity_search">SearchActivity</string>
     <string name="title_activity_question">QuestionActivity</string>
     <string name="add_answer">Add an Answer</string>
-    <string name="answer_indicator">Answers:</string>
+    <string name="answers_indicator">Answers:</string>
+    <string name="add_reply">Add a Reply</string>
+    <string name="reply_indicator">Replies:</string>
+    <string name="title_activity_answer_replies">AnswerRepliesActivity</string>
+    <string name="answer_indicator">Answer:</string>
 
 </resources>

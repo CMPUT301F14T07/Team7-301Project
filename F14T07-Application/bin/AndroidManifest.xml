@@ -50,6 +50,10 @@
             android:name=".QuestionActivity"
             android:label="@string/title_activity_question" >
         </activity>
+        <activity
+            android:name=".AnswerRepliesActivity"
+            android:label="@string/title_activity_answer_replies" >
+        </activity>
     </application>
 
 </manifest>

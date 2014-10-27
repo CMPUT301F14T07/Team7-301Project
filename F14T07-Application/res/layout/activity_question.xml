@@ -9,11 +9,12 @@
     tools:context="ca.ualberta.cs.f14t07_application.QuestionActivity" >
 
     <Button
-        android:id="@+id/AddAnswerButton"
+        android:id="@+id/AddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/QuestionViewList"
         android:text="@string/add_answer" />
 
     <TextView
@@ -37,25 +38,24 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/AnswerIndicator"
+        android:id="@+id/ListContentIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/QuestionText"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="@string/answer_indicator"
+        android:text="@string/answers_indicator"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ListView
-        android:id="@+id/AnswerList"
+        android:id="@+id/QuestionViewList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/AddAnswerButton"
-        android:layout_alignLeft="@+id/AnswerIndicator"
-        android:layout_below="@+id/AnswerIndicator"
+        android:layout_above="@+id/AddButton"
+        android:layout_alignLeft="@+id/ReplyAnswerIndicator"
+        android:layout_below="@+id/ListContentIndicator"
         android:paddingLeft="30dp" >
-
     </ListView>
 
 </RelativeLayout>

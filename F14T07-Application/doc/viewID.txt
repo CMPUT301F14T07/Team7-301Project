@@ -55,6 +55,6 @@ main_activity_screen IDs:
 question_activity_screen IDs:
 	QuestionSubject
 	QuestionText      --> This is a 'padding left' value of 30dp
-	AnswerIndicator
+	ListContentIndicator
 	AnswerList
-	AddAnswerButton
+	AddButton
