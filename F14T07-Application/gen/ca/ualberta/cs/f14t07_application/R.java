@@ -33,7 +33,7 @@ public final class R {
         public static final int outline=0x7f020004;
     }
     public static final class id {
-        public static final int action_settings=0x7f08001b;
+        public static final int action_settings=0x7f08001e;
         public static final int askButton=0x7f080000;
         public static final int askTitle=0x7f080002;
         public static final int attachButton=0x7f080001;
@@ -65,7 +65,7 @@ public final class R {
         public static final int signInButton=0x7f08000a;
         public static final int signedInAs=0x7f080010;
         public static final int subject=0x7f080004;
-        public static final int switchToHome=0x7f08001e;
+        public static final int switchToHome=0x7f08001b;
         public static final int switchToMyQuestions=0x7f08001d;
         public static final int switchToReadLater=0x7f08001c;
     }

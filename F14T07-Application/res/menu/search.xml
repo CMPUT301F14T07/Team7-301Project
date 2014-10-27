@@ -1,6 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="ca.ualberta.cs.f14t07_application.SearchActivity" >
+    tools:context="com.example.f14t07_application.SearchActivity" >
+    <item android:id="@+id/switchToHome" android:title="View Home Screen"></item>
+    <item android:id="@+id/switchToReadLater" android:title="View Saved Questions"></item>
+    <item android:id="@+id/switchToMyQuestions" android:title="View My Questions"></item>
 
 </menu>
