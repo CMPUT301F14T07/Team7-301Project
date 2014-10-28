@@ -1,10 +1,17 @@
 package ca.ualberta.cs.f14t07_application.test;
 
+import java.util.ArrayList;
+
 import ca.ualberta.cs.f14t07_application.Ask;
+import ca.ualberta.cs.f14t07_application.AskActivity;
+import ca.ualberta.cs.f14t07_application.ForumEntry;
 import ca.ualberta.cs.f14t07_application.LogoActivity;
+import ca.ualberta.cs.f14t07_application.MainScreenActivity;
+import ca.ualberta.cs.f14t07_application.R;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
@@ -109,7 +116,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	        
 	        //add a picture called picture.png
 	        File pictureFile= picture.png;
-	        test.addPicture(pictureFile)
+	        test.addPicture(pictureFile);
 	        
 		assertEquals(test.getPicture(),pictureFile);
 		//Check if the pictures are the same (it was loaded properly)
@@ -141,6 +148,65 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		Intent newintent = getStartedActivityIntent();
 		Intent AskIntent= new Intent(AskTest.this, HomeActivity.class); 
 		assertTrue(newintent.filterEquals(AskIntent));
+	}
+	
+	//Checks if a new ForumEntry has been added and if it matches what was put in by the user
+	public void postTest()
+	{
+		AskActivity activity = getActivity();
+		
+		EditText QuestionEdit=(EditText) activity.findViewById(R.id.question);
+		EditText SubjectEdit=(EditText) activity.findViewById(R.id.subject);
+		EditText AuthorEdit =(EditText) activity.findViewById(R.id.name);
+
+		String Question=QuestionEdit.getText().toString();
+		String Subject=SubjectEdit.getText().toString();
+		String Author= AuthorEdit.getText().toString(); 
+		
+		testPostButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.askButton);	
+		testPostButton.performClick();
+		
+		ForumEntryListModel felm= new ForumEntryListModel();
+		ArrayList<ForumEntry> arraylist=felm.getForumEntryList();
+		assert(arraylist.size() > 0);
+		
+		ForumEntry question=arraylist.get(0);
+		
+		assertEquals(question.getQuestion().getAuthorsName(),Author);
+		assertEquals(question.getQuestion().getSubject(),Subject);  //Currently does not exist
+		assertEquals(question.getQuestion().getPost(),Question);
+	}
+	
+	public void postTestWithPicture()
+	{
+		AskActivity activity = getActivity();
+		
+		EditText QuestionEdit=(EditText) activity.findViewById(R.id.question);
+		EditText SubjectEdit=(EditText) activity.findViewById(R.id.subject);
+		EditText AuthorEdit =(EditText) activity.findViewById(R.id.name);
+
+		String Question=QuestionEdit.getText().toString();
+		String Subject=SubjectEdit.getText().toString();
+		String Author= AuthorEdit.getText().toString(); 
+		
+		//Add a picture
+		testPostButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.attachButton);	
+		testPostButton.performClick();
+		
+		//Post the question
+		testPostButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.askButton);
+		testPostButton.performClick();
+		
+		ForumEntryListModel felm= new ForumEntryListModel();
+		ArrayList<ForumEntry> arraylist=felm.getForumEntryList();
+		assert(arraylist.size() > 0);
+		
+		ForumEntry question=arraylist.get(0);
+		
+		assertEquals(question.getQuestion().getAuthorsName(),Author);
+		assertEquals(question.getQuestion().getSubject(),Subject);  //Currently does not exist
+		assertEquals(question.getQuestion().getPost(),Question);
+		assertNotNull(question.getQuestion().getPicture());  //Currently does not exist
 	}
 
 }
