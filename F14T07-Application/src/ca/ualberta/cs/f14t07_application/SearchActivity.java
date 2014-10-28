@@ -15,6 +15,7 @@ public class SearchActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.search_activity_screen);
 		
     Button view_by_button=(Button) findViewById(R.id.searchViewByButton);
@@ -83,4 +84,9 @@ public class SearchActivity extends Activity {
 	public void readLater(){
 		Toast.makeText(SearchActivity.this,"Work in progress" , Toast.LENGTH_SHORT).show();
 	}
+	
+	public Intent returnIntent()
+	  {
+		  return getIntent();
+	  }
 }

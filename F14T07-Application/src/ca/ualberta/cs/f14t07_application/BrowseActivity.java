@@ -13,6 +13,7 @@ public class BrowseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.browse_activity_screen);
 		
 	    Button view_by_button=(Button) findViewById(R.id.browseViewByButton);
@@ -59,4 +60,9 @@ public class BrowseActivity extends Activity {
 	public void viewBy(){
 		Toast.makeText(BrowseActivity.this,"Work in progress" , Toast.LENGTH_SHORT).show();
 	}
+	
+	public Intent returnIntent()
+	  {
+		  return getIntent();
+	  }
 }
