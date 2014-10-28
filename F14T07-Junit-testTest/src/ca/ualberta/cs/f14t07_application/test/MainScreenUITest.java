@@ -17,17 +17,19 @@ public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScree
 	}
 
 	public void AskButtonTest() {
-		Button askButton = (Button) MainScreenActivity.findViewById(ca.ualberta.cs.f14t07_application.title_activity_main_screen.R.id.askButton);
+		MainScreenActivity m = getActivity();
+		Button askButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.askButton);
 		
 		askButton.performClick();
 		Intent newIntent = getStartedActivityIntent();
-		Intent AskIntent = new Intent(MainScreenUITest.this,AskActivity.class);
+		Intent AskIntent = new Intent(MainScreenUITest.this, AskActivity.class);
 		
 		assertTrue(newIntent.filterEquals(AskIntent));
 	}
 
 	public void BrowseButtonTest() {
-		Button browseButton = (Button) MainScreenActivity.findViewById(ca.ualberta.cs.f14t07_application.title_activity_main_screen.R.id.browseButton);
+		MainScreenActivity m = getActivity();
+		Button browseButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.browseButton);
 		
 		browseButton.performClick();
 		Intent newIntent = getStartedActivityIntent();
@@ -38,8 +40,9 @@ public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScree
 	}
 
 	public void SearchButtonTest() {
-		Button searchButton = (Button) MainScreenActivity.findViewById(ca.ualberta.cs.f14t07_application.title_activity_main_screen.R.id.searchButton);
-		EditText searchTerm = (EditText) MainScreenActivity.findViewById(ca.ualberta.cs.f14t07_application.title_activity_main_screen.R.id.searchTerm);
+		MainScreenActivity m = getActivity();
+		Button searchButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
+		EditText searchTerm = (EditText) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTerm);
 		
 		searchTerm.setText("foo");
 		searchButton.performClick();
@@ -49,8 +52,9 @@ public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScree
 		
 		assertTrue(newIntent.filterEquals(SearchIntent));
 		
-		
-		EditText searchScreenTerm = (EditText) SearchActivity.findViewById(ca.ualberta.cs.f14t07_application.title_activity_search.R.id.searchTextInput);
+
+		SearchActivity s = new SearchActivity();
+		EditText searchScreenTerm = (EditText) s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput);
 		String searchString = searchTerm.getText().toString();
 		String searchScreenString = searchScreenTerm.getText().toString();
 		

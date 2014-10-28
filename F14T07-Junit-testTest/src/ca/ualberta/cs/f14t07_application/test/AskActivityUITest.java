@@ -15,10 +15,11 @@ public class AskActivityUITest extends
 	}
 	
 	public void AskButtonTest() {
-		Button askButton = (Button) AskActivity.findViewById(ca.ualberta.cs.f14t07_application.title_activity_ask_screen.R.id.askButton);
-		EditText question = (EditText) AskActivity.findViewById(ca.ualberta.cs.f14t07_application.title_activity_ask_screen.R.id.question);
-		EditText subject = (EditText) AskActivity.findViewById(ca.ualberta.cs.f14t07_application.title_activity_ask_screen.R.id.subject);
-		EditText name = (EditText) AskActivity.findViewById(ca.ualberta.cs.f14t07_application.title_activity_ask_screen.R.id.name);
+		AskActivity a = getActivity();
+		Button askButton = (Button) a.findViewById(ca.ualberta.cs.f14t07_application.R.id.askButton);
+		EditText question = (EditText) a.findViewById(ca.ualberta.cs.f14t07_application.R.id.question);
+		EditText subject = (EditText) a.findViewById(ca.ualberta.cs.f14t07_application.R.id.subject);
+		EditText name = (EditText) a.findViewById(ca.ualberta.cs.f14t07_application.R.id.name);
 
 		name.setText("Person");
 		subject.setText("Subject");
