@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	
+	private AskActivity testActivity;
 	private Button testPostButton;
 	private Button testMainMenuButton;
 		

@@ -2,6 +2,7 @@ package ca.ualberta.cs.f14t07_application.test;
 
 import java.util.ArrayList;
 
+import ca.ualberta.cs.f14t07_application.ForumEntry;
 import ca.ualberta.cs.f14t07_application.PostList;
 import ca.ualberta.cs.f14t07_application.Question;
 
