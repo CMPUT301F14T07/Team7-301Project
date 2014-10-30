@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 
 
+
 /* this is the view that is shown to the user when they would 
  * like to ask a question. It includes setting a subjected and 
  * being able to ask questions
@@ -43,11 +44,10 @@ public class AskActivity extends Activity {
 	    		
 	    		//create a new ForumEntry
 	    		ForumEntry newForumEntry=new ForumEntry(newSubject,newQuestion,newAuthor);
-	    		
+	    		Thread thread = new AddThread(newForumEntry);
 	    		//Pass it to the controller
-	    		dataManager.addForumEntry(newForumEntry);
-	    		Toast.makeText(AskActivity.this,"Asking still needs to be implemented",Toast.LENGTH_SHORT).show();
-
+	    		thread.start();
+	    		
 	    		//then an intent needs to open the question screen for the new forum entry
 	         }
 	    });
