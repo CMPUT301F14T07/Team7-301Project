@@ -1,22 +1,76 @@
 package ca.ualberta.cs.f14t07_application;
 
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
-import android.content.Context;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 
 // utility class that saves and loads postList 
-public class DataManager {
-
+public class DataManager extends Activity {
+	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/_search";
+	//change this one for ours 
+	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/";
+	private static final String TAG = "ForumEntrySearch";
+	
 	private static final String FILENAME = "saveQuestion.sav";
 	
-	private Context context;
+	private Gson gson;
+
+	public DataManager() {
+		gson = new Gson();
+	}
 	
+	public ForumEntry getForumEntry(int id) {
+
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet(RESOURCE_URL + id);
+
+		HttpResponse response;
+
+		try {
+			response = httpClient.execute(httpGet);
+			//SearchHit<Movie> sr = parseMovieHit(response);
+			//return sr.getSource();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+
+		return null;
+	}
+
+	
+	public void addForumEntry(ForumEntry forumEntry) {
+		HttpClient httpClient = new DefaultHttpClient();
+
+		try {
+			HttpPost addRequest = new HttpPost(RESOURCE_URL);
+
+			StringEntity stringEntity = new StringEntity(gson.toJson(forumEntry));
+			addRequest.setEntity(stringEntity);
+			addRequest.setHeader("Accept", "application/json");
+
+			HttpResponse response = httpClient.execute(addRequest);
+			String status = response.getStatusLine().toString();
+			Log.i(TAG, status);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//private Context context;
+	/*
 	public DataManager(Context appContext) {
 		context = appContext;
 	}
@@ -47,5 +101,5 @@ public class DataManager {
 			catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 }

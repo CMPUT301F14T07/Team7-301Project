@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class AskActivity extends Activity {
 	  
 	  //controller for this view 
-	  private ForumEntryController forumEntryController=new ForumEntryController();
+	  private DataManager dataManager=new DataManager();
 	  
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) { 
@@ -42,10 +42,10 @@ public class AskActivity extends Activity {
 	    		String newAuthor= newAuthorEdit.getText().toString();
 	    		
 	    		//create a new ForumEntry
-	    		ForumEntry newForumEntry=new ForumEntry(newQuestion,newSubject,newAuthor);
+	    		ForumEntry newForumEntry=new ForumEntry(newSubject,newQuestion,newAuthor);
 	    		
 	    		//Pass it to the controller
-	    		forumEntryController.addForumEntry(newForumEntry);
+	    		dataManager.addForumEntry(newForumEntry);
 	    		Toast.makeText(AskActivity.this,"Asking still needs to be implemented",Toast.LENGTH_SHORT).show();
 
 	    		//then an intent needs to open the question screen for the new forum entry

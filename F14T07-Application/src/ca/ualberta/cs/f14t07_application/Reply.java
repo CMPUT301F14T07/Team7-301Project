@@ -1,5 +1,7 @@
 package ca.ualberta.cs.f14t07_application;
 
+import java.util.Date;
+
 /**
  * Describes what a reply to an answer or main question looks like.
  * @author Brendan
@@ -7,23 +9,23 @@ package ca.ualberta.cs.f14t07_application;
  */
 public class Reply {
 	private String reply;
-	
+	private Date date;
 	/**
 	 * Instantiate a Reply object.
 	 * @param reply The reply to an answer or main question.
 	 */
-	public Reply(String reply)
+	public Reply(String reply_)
 	{
-		this.reply = reply;
+		reply = reply_;
 	}
 	
 	/**
 	 * Set the reply to an answer or main question.
 	 * @param reply The reply to an answer or main question.
 	 */
-	public void setReply(String reply)
+	public void setReply(String reply_)
 	{
-		this.reply = reply;
+		reply = reply_;
 	}
 	
 	/**
@@ -32,7 +34,7 @@ public class Reply {
 	 */
 	public String getReply()
 	{
-		return this.reply;
+		return reply;
 	}
 
 }
