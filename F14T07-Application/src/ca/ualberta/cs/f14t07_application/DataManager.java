@@ -18,9 +18,9 @@ import com.google.gson.Gson;
 
 // utility class that saves and loads postList 
 public class DataManager extends Activity {
-	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/_search";
+	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry/_search";
 	//change this one for ours 
-	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/";
+	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
 	private static final String TAG = "ForumEntrySearch";
 	
 	private static final String FILENAME = "saveQuestion.sav";
@@ -103,3 +103,25 @@ public class DataManager extends Activity {
 			}
 		}*/
 }
+	class AddThread extends Thread{ 
+		private ForumEntry forumEntry;
+		private DataManager dataManager= new DataManager();
+		
+		public AddThread(ForumEntry forumEntry_){
+			forumEntry=forumEntry_;
+		}
+		
+		@Override 
+		public void run(){ 
+			super.run();
+			dataManager.addForumEntry(forumEntry);
+			
+			try{ 
+				Thread.sleep(500);
+			}
+			catch (InterruptedException e){
+				e.printStackTrace();
+			}
+		}
+	}
+
