@@ -3,6 +3,7 @@ package ca.ualberta.cs.f14t07_application.test;
 import ca.ualberta.cs.f14t07_application.DataManager;
 import ca.ualberta.cs.f14t07_application.ForumEntry;
 import ca.ualberta.cs.f14t07_application.ForumEntryList;
+import ca.ualberta.cs.f14t07_application.QuestionActivity;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
@@ -16,7 +17,7 @@ public class ReadLaterTest extends ActivityInstrumentationTestCase2<QuestionActi
 	
 	public ReadLaterTest(Class activityClass) {
 		super(QuestionActivity.class);
-		datamanager = new DataManager(getActivity().getApplicationContext());
+		datamanager = new DataManager();
 	}
 	
 	@Override
@@ -36,7 +37,7 @@ public class ReadLaterTest extends ActivityInstrumentationTestCase2<QuestionActi
 		/* Reset the testButton - do this so consecutive tests don't accidentally test
 		 * the same button.
 		 */
-		testButton = null;
+		//testButton = null;
 	}
 	
 	public void isSavedTest() {
@@ -44,11 +45,11 @@ public class ReadLaterTest extends ActivityInstrumentationTestCase2<QuestionActi
 		 * Pretend that these already existed and were saved to memory/jsong
 		 * a long time ago.
 		 */
-		ArrayList<ForumEntry> questions = new ArrayList<ForumEntry>();
-		questions.add(new ForumEntry(new Entry("What is life?","Kibbles")));
+		DataManager dm = new DataManager();
+    	dm.addForumEntry((new ForumEntry("subject","What is life?","Kibbles")));
 	
 		/* Get the button that will save a forum entry for offline viewing. */
-		Button saveLater = (Button) testActivity.findViewById(com.example.f14t07_application.activity_question.R.id.saveLater);
+		Button saveLater = (Button) testActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.ReadLater);
 		/* Simulate a button click */
 		saveLater.performClick();
 		

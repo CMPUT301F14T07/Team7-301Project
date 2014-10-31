@@ -1,8 +1,16 @@
 package ca.ualberta.cs.f14t07_application.test;
 
-import ca.ualberta.cs.f14t07_application.ForumEntry;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
+import ca.ualberta.cs.f14t07_application.DataManager;
+import ca.ualberta.cs.f14t07_application.Entry;
+import ca.ualberta.cs.f14t07_application.ForumEntry;
+import ca.ualberta.cs.f14t07_application.ForumEntryController;
+import ca.ualberta.cs.f14t07_application.QuestionActivity;
+import ca.ualberta.cs.f14t07_application.Reply;
 
 /**
  * Test the fragment that displays options to up vote, down vote, or reply to an
@@ -18,12 +26,12 @@ import android.widget.Button;
 
 public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionActivity> {
 
-	private VoteAndReplyActivity testActivity;
+	private QuestionActivity testActivity;
 	private Button testButton;
 	
 	public UpDownReplyTest()
 	{
-		super(VoteAndReplyActivity.class);
+		super(QuestionActivity.class);
 	}
 	
 	@Override
@@ -52,9 +60,10 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 	public void upVoteQuestionTest()
 	{
 		setUp();
+		String subject = "This is the subject";
 		String question = "This is the question";
 		String author = "This is the author";
-		ForumEntry testEntry = new ForumEntry(new Entry(question, author));
+		ForumEntry testEntry = new ForumEntry(subject, question, author);
 		int initialVote = testEntry.getQuestion().getUpVote();
 		long testEntryId = testEntry.getId();
 		DataManager dataM = new DataManager();
@@ -62,7 +71,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 		(new ForumEntryController()).addForumEntry(testEntry);
 		
 		Button upVoteButton = (Button) testActivity.findViewById(
-					com.example.f14t07_application.activity_voteandreply.R.id.UpVoteQuestion);
+				ca.ualberta.cs.f14t07_application.R.id.UpVoteButton);
 		upVoteButton.performClick();
 		
 		ArrayList<ForumEntry> testList = dataM.load();
@@ -82,12 +91,13 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 	/**
 	 * Test upvoting an answer
 	 */
-	public void upVoteAnswerTest()
+	public void upVoteAnswerTest() //NEEDS TO BE CHANGED - WE'RE DOING A NEW SCREEN NOW
 	{
 		setUp();
+		String subject = "This is the subject";
 		String answer = "This is an answer";
 		String author = "This is the author";
-		ForumEntry testEntry = new ForumEntry(new Entry(answer, author));
+		ForumEntry testEntry = new ForumEntry(subject, answer,author);
 		long testEntryId = testEntry.getId();
 		int initialVote = testEntry.getAnswers().get(0).getUpVote();
 		DataManager dataM = new DataManager();
@@ -95,7 +105,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 		(new ForumEntryController()).addForumEntry(testEntry);
 		
 		Button upVoteButton = (Button) testActivity.findViewById(
-					com.example.f14t07_application.activity_voteandreply.R.id.UpVoteAnswer);
+				ca.ualberta.cs.f14t07_application.R.id.UpVoteButton);
 		upVoteButton.performClick();
 		
 		ArrayList<ForumEntry> testList = dataM.load();
@@ -122,13 +132,14 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 	public void replyTest()
 	{
 		testButton = (Button) testActivity.findViewById(
-				com.example.f14t07_application.activity_voteandreply.R.id.ReplyToForumPost);
+				ca.ualberta.cs.f14t07_application.R.id.ReplyToForumPost);
 		Reply testReply = new Reply("This is the reply");
 
 		setUp();
+		String subject = "This is the subject";
 		String question = "This is the question";
 		String author = "This is the author";
-		ForumEntry testEntry = new ForumEntry(new Entry(question, author));
+		ForumEntry testEntry = new ForumEntry(subject, question, author);
 		long testEntryId = testEntry.getId();
 		DataManager dataM = new DataManager();
 		ForumEntryController fec = new ForumEntryController();
