@@ -6,7 +6,7 @@ import android.widget.EditText;
 import ca.ualberta.cs.f14t07_application.AskActivity;
 import ca.ualberta.cs.f14t07_application.BrowseActivity;
 import ca.ualberta.cs.f14t07_application.MainScreenActivity;
-import ca.ualberta.cs.f14t07_application.SearchActivity;
+import ca.ualberta.cs.f14t07_application.SearchActivity; 
 
 
 public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScreenActivity> {
@@ -21,9 +21,8 @@ public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScree
 		Button askButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.askButton);
 		
 		askButton.performClick();
-		Intent newIntent = getStartedActivityIntent();
-		Intent AskIntent = new Intent(MainScreenUITest.this, AskActivity.class);
-		
+		Intent newIntent = m.intent2;
+		Intent AskIntent = new Intent(m, AskActivity.class);
 		assertTrue(newIntent.filterEquals(AskIntent));
 	}
 
@@ -32,8 +31,8 @@ public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScree
 		Button browseButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.browseButton);
 		
 		browseButton.performClick();
-		Intent newIntent = getStartedActivityIntent();
-		Intent BrowseIntent = new Intent(MainScreenUITest.this, BrowseActivity.class);
+		Intent newIntent = m.intent2;
+		Intent BrowseIntent = new Intent(m, BrowseActivity.class);
 		
 		
 		assertTrue(newIntent.filterEquals(BrowseIntent));
@@ -47,8 +46,8 @@ public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScree
 		searchTerm.setText("foo");
 		searchButton.performClick();
 		
-		Intent newIntent = getStartedActivityIntent();
-		Intent SearchIntent = new Intent(MainScreenUITest.this,SearchActivity.class);
+		Intent newIntent = m.intent2;
+		Intent SearchIntent = new Intent(m,SearchActivity.class);
 		
 		assertTrue(newIntent.filterEquals(SearchIntent));
 		

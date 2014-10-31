@@ -33,7 +33,7 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
 		/* Reset the testButton - do this so consecutive tests don't accidentally test
 		 * the same button.
 		 */
-		testButton = null;
+		//testButton = null;
 	}
 	
     public SearchTest(){
@@ -43,41 +43,37 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
 
     public void SearchTermTest(){
     	String searchTerm = "foo";
-    	EditText SearchText = (EditText) MainScreenActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTerm);
+		MainScreenActivity m = new MainScreenActivity();
+		SearchActivity s = getActivity();
+    	EditText SearchText = (EditText) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTerm);
     	SearchText.setText("foo");
     
-    	Button SearchButton = (Button) MainScreenActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
+    	Button SearchButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
     	SearchButton.performClick();
-    	
-    	Intent newIntent = getStartedActivityIntent();
-    	Intent searchIntent = new Intent(SearchTest.this, SearchActivity.class);
-    	assertTrue(newIntent.filterEquals(searchIntent));
 
-    	String inputedTerm = SearchActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput).toString();
+    	String inputedTerm = s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput).toString();
     	assertEquals(inputedTerm,searchTerm);	
     }
 
     public void sortBySearchTerm(){
-    	ArrayList<ForumEntry> posts = new ArrayList<ForumEntry>();
-		posts.add(new ForumEntry("no term","author1"));
-		posts.add(new ForumEntry("still no term","author2"));
-		posts.add(new ForumEntry("has foo!","author3")) ;
-		posts.add(new ForumEntry("has foo foo twice!","author")); //If it has the search term twice, it should probably be above? (Tested in sortedList2)
-		(new DataManager()).save(posts);
-		
+    	DataManager dm = new DataManager();
+    	dm.addForumEntry((new ForumEntry("subject","no term","author1")));
+    	dm.addForumEntry((new ForumEntry("subject","still no term","author2")));
+    	dm.addForumEntry((new ForumEntry("subject","has foo!","author3")));
+    	dm.addForumEntry((new ForumEntry("subject", "has foo foo twice!","author"))); 
+    	
 		ArrayList<ForumEntry> sortedList = new ArrayList<ForumEntry>();
-		sortedList.add(new ForumEntry("has foo!", "author3"));
-		sortedList.add(new ForumEntry("has foo foo twice!","author4"));
-		sortedList.add(new ForumEntry("no term","author1"));
-		sortedList.add(new ForumEntry("still no term","author2"));
+		sortedList.add(new ForumEntry("subject","has foo!", "author3"));
+		sortedList.add(new ForumEntry("subject","has foo foo twice!","author4"));
+		sortedList.add(new ForumEntry("subject","no term","author1"));
+		sortedList.add(new ForumEntry("subject","still no term","author2"));
 		
-		assertEquals(posts, sortedList);
-		
-		(new BrowseController()).sortBySearchTerm();
-
-		ArrayList<ForumEntry> testList = (new DataManager()).load();
+		BrowseController bc = new BrowseController();
+		bc.sortBySearchTerm();
+		ArrayList<ForumEntry> testList = (new DataManager()).loadGlobal();
 
 		assertEquals(testList, sortedList);
     }
 
 }
+  
