@@ -101,7 +101,12 @@ public class DataManager extends Activity {
 			catch (Exception e) {
 				e.printStackTrace();
 			}
-		}*/
+		}*/ 
+
+	public void saveAuthor(String author) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 	class AddThread extends Thread{ 
 		private ForumEntry forumEntry;
