@@ -1,0 +1,163 @@
+*** How To Use UML-v2 ***
+This text file explains how to read and implement the UML-v2 for each of
+the use cases
+
+** u1 **
+Call function MainScreenActivity.startBrowseActivity("*");
+This function can use an intent to start the browse activity.
+The argument "*" is a wild term (ie search for everything).
+BrowseActivity starts and extracts the intents message then
+makes use of the function call
+BrowseController.sortBySearchTerm("*").
+	This function can then use the MemoryDriver by
+	MemoryDriver.getRemote("*"). This can use the JsonDriver
+	to search the remote server with the search term "*".
+	An ArrayList<ForumEntry> will be returned to the controller.
+	Then using ForumEntryList.setForumEntryList() function
+	it can update the model, then notify the model of data 
+	set change with ForumEntryList.notifyObservers(). This
+	will cause the model to call the browseActivities
+	update function, BrowseActivity.update(ForumEntryList).
+BrowseActivity's update function then sets what data the
+activity shows.
+
+** u2 **
+Same as u1.
+
+** u3 **
+Call function BrowseActivity.startQuestionActivity(). This can use an
+intent to add the ForumEntry of the selected question, then start the 
+question activity. When the question activity starts it can extract
+that ForumEntry and display it.
+
+** u4 **
+This is a function of how we use the Android API.
+
+** u5 **
+Same as u4.
+
+** u6 **
+Call function MainScreenActivity.startEntryActivity(). This can use
+an intent to start the EntryActivity. The entry activity can call the
+controllers AuthorController.refresh() function to auto fill the
+author field. The refresh() function can just call the models 
+AuthorModel.notifyObservers() function so that the EntryActivities
+update funciton is called.
+When the activities information gathering fields are filled out and
+the user hits the submit/ask/w/e button then the EntryActivity can
+call the ForumEntryController.addNewQuestion(Entry). This can
+end up  calling the MemoryDriver.setRemote() function to add this
+to the Json server.
+
+** u7 **
+Same as u6, but Android API will handle getting a picture from the
+user to attach to the Entry.
+
+** u8 **
+Same as u6 except the MemoryDriver.setRemote function can
+detect there is no internet connection and call the 
+thread_pushForumEntryToRemote function to do the work later. This
+function should create a thread with enough information to do the
+work and exit when the network connection is restored.
+
+** u9 **
+The question activity can call the startEntryActivity Function. The
+same procedure as u6 will be followed except instead of calling the
+addNewQuestion() function the addAnswer function can be  called. To 
+differentiate between posting a new question or answering a question
+the intent can send information about that.
+
+** u10 **
+Same as u9, but Android API will handle getting a picture from the
+user.
+
+** u11 **
+Same procedure as u9 followed by u8.
+
+** u12 **
+In the QuestionActivity the Android API will handle getting the
+data from user about a reply. The ForumEntryController.addReplyToEntry
+function will use the MemoryDriver to push the changes to the remote server.
+
+** u13 **
+Same procedure as u12 followed by u8.
+
+** u14 **
+Same procedure as u12.
+
+** u15 **
+Same procedure as u13.
+
+** u16 **
+The browse activity calls the BrowseController.sortByHasPicture(). 
+Lexie, lets talk about how you're doing this so UML and code
+are consistant.
+
+** u17 **
+Same as u16 but call BrowseController.sortByDate()
+
+** u18 **
+Same as u16 but call BrowseController.sortByRating()
+
+** u19 **
+In the QuestionActivity, call the ForumEntryController.upVoteEntry().
+this will then follow the same procedure as u12.
+
+** u20 **
+Same procedure as u19
+
+** u21 **
+This comes from user story 13. This is a very difficult use case to implement
+properly if the forum entry is sorted on demand. The easiest, and least MVC
+way to do this is have a sort() method inside the activity class. The easiest
+MVC way is to have the ForumEntryController always sort forum entries when
+ever the addEntry function is called. This way the forum entry is always
+sorted by votes.
+
+** u22 **
+This functionality will have to be included in BrowseActivities update method.
+
+** u23 **
+Same as u1, except the search term is not "*" but the term the user is
+searching for.
+
+** u24 **
+Same as u23.
+
+** u25 **
+I am not sure what this means. Does this mean that the questions the user
+asks are always saved locally? Or more simply, the questions the user asks
+have their name on them?
+
+** u26 **
+Call the ForumEntryController.saveReadLaterCopy() function which will
+use the MemoryDriver to save this forum entry locally.
+
+** u27 **
+This can be done by calling the MainScreenActivities startBrowseActivityWithView
+function. This function will use use an intent to package the string provided
+as input and start the browse activity. The browse activity can unpackage
+the intent to find the information and call the controllers sortBy funcitons
+to show the read later view. The sort by functions will use the memory driver
+to get the appropriate array list of forum entries and then set this in the
+model. The model will then be told to call the activities update function
+which will update the view.
+
+** u28 **
+Sane as u26 except call saveFavouritesCopy().
+
+** u29 **
+Same as u27.
+
+** u30 **
+This will be done automatically by the
+MemoryDriver.thread_pushForumEntryToRemote() function which spawns a
+thread to do all the work.
+
+** u31 **
+Use the AuthorController.setSessionAuthor function which will set the
+author in the model. The model will save who the author is locally.
+
+** u32 **
+Same as u27.
+
