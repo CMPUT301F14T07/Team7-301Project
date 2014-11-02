@@ -138,11 +138,14 @@ knows about.
 	then gets that forum entries id. Then calls the models
 	getRemoteById function with that id to get an up to date
 	ForumEntry. It will then append the Entry to the to forum
-	entry. Finally, it will call the setRemoteById, setView, and
-	notifyObservers function to call the view's update function.
+	entry. Next, it will call the setRemoteById to save these
+	changes to the remote server. Finally, it will put the id
+	of the forum entry into and intent and start the QuestionActivity.
 * addNewQuestion(Entry) : void
-  	Creates a new ForumEntry and sets this in the model, then uses
-	the model to push this to the remote server.
+  	Creates a new ForumEntry then uses the model's appendToRemote
+	function to add this new question to the remote server. It puts
+	the id of the new forum entry into an intent and the starts the
+	QuestionActivity.
 * saveReadLaterCopy() : void
   	Uses the models getReadLater and getView functions to get all the
 	"read later" forum entries and the forum entry to be saved as
@@ -160,8 +163,39 @@ knows about.
 	then index the forum entry with the location argument and upvote
 	then entry. Then it will call setRemoteById, setView, and finally
 	notifyObservers so that the views update function is  called.
-  	
+* addReplyToEntry(int location, String reply) : void
+  	Uses the models getView function to get the forum entry and
+	then gets that forum entries id. Then calls the models getRemoteById
+	function with that id to get an up to date ForumEntry. It will then
+	index the forum entry with the location argument and add a new
+	reply to the entry with the string 'reply' given as an argument.
+	Finally, it calls the setRemoteById, setView, and notifyObservers
+	function.
+* checkPictureSize(int location) : void
+  	Uses the models getView function to get the forum entry and then
+	gets that forum entries id. Then calls the models getRemoteByID
+	function with that id to get an up to date forum entry. It will
+	then index that forum entry with the location argument given
+	and check the size of the picture attached to that Entry.
+* sortForumEntryByVotes() : void
+  	Uses the models getView function to get the forum entry and
+	then gets the forum entries id. Then calls the models
+	getRemotebyId function with that id to get an up to date forum entry.
+	It will then sort that forum entry based on up votes. Finally it will
+	call the setRemoteById, setView, and notifyObservers function.
+* startEntryActivityToAnswer() : void
+  	Uses the models getView function to get the forum entry and then
+	gets the forum entries id. It will package this id into an intent
+	and then start the EntryActivity.
 
+** BrowseController **
+This class has a ForumEntryList instance. This is the model the controller
+knows about.
+* Constructor - BrowseController(Context) : void
+  	Creates a new ForumEntryList and then calls the ForumEntryList's 
+	addObserver function with the Context given.
+* sortByTime() : void
+  	
 
 
 
