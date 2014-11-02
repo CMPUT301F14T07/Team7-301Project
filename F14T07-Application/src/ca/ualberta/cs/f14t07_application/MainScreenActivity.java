@@ -83,8 +83,8 @@ public class MainScreenActivity extends Activity {
         }
     }
 	
-	public String getAuthorName(){
-		return authorName;
+	public void update(String author){
+		authorName=author;
 	}
     
 	public void signInButton(){
@@ -106,10 +106,13 @@ public class MainScreenActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
+				BrowseController bc = new BrowseController();
+				bc.setSessionAuthor(input.getText().toString());
 				authorName = input.getText().toString();
 				text.setText("Signed in as: " + authorName);
 				text.setVisibility(0);
-				signInButton.setVisibility(4);
+				signInButton.setText("Change User");
+				//signInButton.setVisibility(4);
 				
 			}
 		});
