@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import ca.ualberta.cs.f14t07_application.Ask;
 import ca.ualberta.cs.f14t07_application.AskActivity;
+import ca.ualberta.cs.f14t07_application.DataManager;
+import ca.ualberta.cs.f14t07_application.Entry;
 import ca.ualberta.cs.f14t07_application.ForumEntry;
 import ca.ualberta.cs.f14t07_application.LogoActivity;
 import ca.ualberta.cs.f14t07_application.MainScreenActivity;
@@ -50,9 +52,9 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		//Will users have to sign in?
 		
 		boolean notEmpty = false;
-
-                ArrayList<ForumEntry> questions = new ArrayList<ForumEntry>();
-                questions.add(new ForumEntry(new Entry("What is life?", "Kibbles")));
+		
+		DataManager dm = new DataManager();
+    	dm.addForumEntry((new ForumEntry("subject","What is life?", "Kibbles")));
                 questions.get(0).setAuthorsName("Timothy");
 
 
@@ -73,8 +75,8 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	{
 		boolean notEmpty = false;
 
-                ArrayList<ForumEntry> questions = new ArrayList<ForumEntry>();
-                questions.add(new ForumEntry(new Entry("What is life?", "Kibbles")));
+		DataManager dm = new DataManager();
+    	dm.addForumEntry((new ForumEntry("subject","What is life?", "Kibbles")));
 
 		String expectedQuestion = "What is life?";
 		String question = questions.get(0).getPost();
@@ -93,8 +95,8 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	{
 		boolean notEmpty = false;
 
-		ArrayList<ForumEntry> questions = new ArrayList<ForumEntry>();
-                questions.add(new ForumEntry(new Entry("What is life?", "Kibbles")));
+		DataManager dm = new DataManager();
+    	dm.addForumEntry((new ForumEntry("subject","What is life?", "Kibbles")));
                 questions.get(0).setSubject("Life");
 
 		String expectedSubject = "Life";
@@ -113,7 +115,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	public void ifPictureTest()  //test picture() or test ifPicture()?
 	{
 		//Need more tests in here once we determine more about how pictures will work
-	        ForumEntry test=new ForumEntry("this is a forum entry");
+	        ForumEntry test=new ForumEntry("subject","this is a forum entry","answer");
 	        
 	        //add a picture called picture.png
 	        File pictureFile= picture.png;
@@ -131,20 +133,22 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		
 	}
 	
-	public void postButtonTest()
+	public void postButtonTest() //may not be needed - in AskActivityUITest
 	{
-		testPostButton = (Button) AskActivity.findViewById(
-				com.example.f14t07_application.activity_askactivity.R.id.PostButton);	
+		AskActivity a = getActivity();
+		testPostButton = (Button) a.findViewById(
+				ca.ualberta.cs.f14t07_application.R.id.askButton);	
 		testPostButton.performClick();
 		Intent newintent = getStartedActivityIntent();
 		Intent AskIntent= new Intent(AskTest.this, AskActivity.class); //where should this go? Some view activity?
 		assertTrue(newintent.filterEquals(AskIntent));
 	}
 	
-	public void mainMenuButtonTest()
+	public void mainMenuButtonTest() //I don't think this can be tested... because we use menus now
 	{
-		testMainMenuButton = (Button) AskActivity.findViewById(
-				com.example.f14t07_application.activity_askactivity.R.id.MainMenuButton);	
+		AskActivity a = getActivity();
+		testMainMenuButton = (Button) a.findViewById(
+				ca.ualberta.cs.f14t07_application.R.id.MainMenuButton);	
 		testMainMenuButton.performClick();
 		Intent newintent = getStartedActivityIntent();
 		Intent AskIntent= new Intent(AskTest.this, HomeActivity.class); 

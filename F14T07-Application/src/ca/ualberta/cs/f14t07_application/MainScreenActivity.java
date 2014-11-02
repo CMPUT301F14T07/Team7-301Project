@@ -19,6 +19,7 @@ public class MainScreenActivity extends Activity {
 	private BrowseController browseController = new BrowseController();
 	public static final String TEXT_KEY = "TEXT";
 	private String authorName = "Unknown";
+	public Intent intent2;
 	
 	public void onCreate(Bundle savedInstanceState) { 
 		    super.onCreate(savedInstanceState);  
@@ -129,11 +130,13 @@ public class MainScreenActivity extends Activity {
 	
 	public void askButton(){
 		Intent intent = new Intent(this, AskActivity.class);
+		intent2=intent;
 		startActivity(intent);
 	}
 	
 	public void browseButton(){
 		Intent intent = new Intent(this, BrowseActivity.class);
+		intent2=intent;
 		startActivity(intent);
 	}
 	
@@ -141,6 +144,7 @@ public class MainScreenActivity extends Activity {
 		EditText editableTerm = (EditText) findViewById(R.id.searchTerm);
 		String term = (String) editableTerm.getText().toString();
 		Intent intent = new Intent(this, SearchActivity.class);
+		intent2=intent;
 		intent.putExtra(TEXT_KEY, term);
 		startActivity(intent);	
 	}
