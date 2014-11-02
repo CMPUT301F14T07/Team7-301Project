@@ -1,4 +1,172 @@
-*** How To Use UML-v2 ***
+*** MVC Basics ***
+Here are the basics of MVC.
+
+** View **
+This class contains what is displayed to the user.
+It implements the observer interface which forces it to have an
+update function. This update function is where all the code goes that
+changes what the user sees. For example, if there is a text element
+in the XML file, then the update function is where this text element
+will have its text changed.
+When any calculations need to be done a controller must do this.
+
+** Controller **
+This class does all the calculations and is called from a view. After
+doing calculations it updates the model and tells the model its data
+has changed. 
+
+** Model **
+This class extends the Observable class which contains an ArrayList
+of all the views this model has. It also contains all the data that its
+views need. When its notifyObservers function is called it will
+go through each of the views it has and call their update function.
+
+
+
+*** Class Descriptions ***
+Description of what each class does and what its methods do.
+
+** Observable **
+Contains an array list of views (activity classes). 
+* addObserver(Activity) : void
+	Adds an activity class to the array list.
+* deleteObserver(Activity) : void
+	Removes the activity Activity from the array list.
+* notifyObservers() : void
+	Goes through each activity class in its array list and calls their
+	update functions.
+
+** AuthorModel (extends Observable) **
+This is a model of who the author is. It saves who the author is in memory.
+* setSessionAuthor(String author)
+  	Saves the String author in memory.
+* getSessionAuthor() : String
+  	Returns a String of what author is saved in memory.
+* All methods from Observable
+
+** Reply, Entry, and ForumEntry **
+These are models, they represent what a forum entry, its entries, and replys
+look like. We have discussed these a lot so I won't explain them again.
+
+** ForumEntryList (extends Observable) **
+This is a model all the forum entries. It contains an array list of 
+forum entries and several memory management functions to save and load
+forum entries of different headings. It also contains a JsonDriver
+to push forum entries to a remote server.
+* setView(ArrayList<ForumEntry>) : void
+  	Sets an array list of forum entries. This is the list of forum entries
+	used when the views update functions are called. 
+* setReadLater(ArrayList<ForumEntry>) : void
+  	Saves the array list of ForumEntries in memory under a location which
+	indicates these forum entries are "read later" entries.
+* setFavourites(ArrayList<ForumEntry>) : void
+  	Saves the array list of ForumEntries in memory under a location which
+	indicates these forum entries are "favourite" entries.
+* setRemote(ArrayList<ForumEntry>) : void
+  	Uses the JsonDriver to save the array list of ForumEntries to a 
+	remote server.
+* setRemoteById(int id, ForumEntry) : void
+  	Sets the ForumEntry in the remote repo with id to be the ForumEntry
+	given as an argument. Uses the JsonDriver to do this.
+* appendtoRemote(ForumEntry) : void
+  	Uses the JsonDriver to append the ForumEntry to what is in the
+	remote server.
+* getView() : ArrayList<ForumEntry>
+  	Returns the array list of forum entries set in the setView function.
+* getReadLater() : ArrayList<ForumEntry>
+  	Returns the array list of ForumEntries which were saved in a location
+	that marked them as "read later".
+* getFavourites() : ArrayList<ForumEntry> 
+  	Returns the array list of ForumEntries which were saved in a location
+	that marked them as "favourite".
+* getRemote(String search, String sort) : ArrayList<ForumEntry>
+  	Returns the array list of ForumEntries which were saved to a remote
+	server. The JsonDriver is used to do this using the String search
+	as a search term, and the String sort as a sorting term.
+* getRemoteById(int id) : ForumEntry
+  	Gets the ForumEntry from the remote server that has the id given. The
+	JsonDriver is used to do this.
+* all methods from observable
+
+** JsonDriver **
+This class is an interface to the remote server.
+* setRemote(ArrayList<ForumEntry>) : void
+  	Sets the data in the remote server to be the provided array list
+	of forum entries.
+* setRemoteById(int id, ForumEntry) : void
+  	Sets the ForumEntry in the remote repo with id to be the ForumEntry
+	given as an argument.
+* appendToRemote(ForumEntry) : void
+  	Appends the ForumEntry to what is in the remote server. 
+* getRemote(String search, String sort) : ArrayList<ForumEntry>
+  	Gets from the remote server an array list of ForumEntries sorted
+	according to the String sort and containing only the ForumEntries
+	which fall under the String search.
+* getRemoteById(int id) : ForumEntry
+  	Gets from the remote server a ForumEntry which has the id provided.
+* thread_appendForumEntryToRemote(ForumEntry e) : void
+  	If the setRemote function detects there is no internet connection
+	then it will start a thread which will wait until there is
+	a connection and append the data then to the remote server.
+
+** AuthorController **
+This class has an AuthorModel instance.
+* Constructor - AuthorController(Context) : void
+  	Creates a new AuthorModel and then calls the author models
+	addObserver fuction with the Context given.
+* setSessionAuthor(String author) : void
+  	This function sets the author in the AuthorModel it has to be String
+	author.
+* refresh() : void
+  	Calls the models notifyObservers() function so that the model 
+	calls all of the views update functions.
+
+** ForumEntryController **
+This class has a ForumEntryList instance. This is the model the controller
+knows about.
+* Constructor - ForumEntryController(Context) : void
+  	Creates a new ForumEntryList and then calls the ForumEntryList's 
+	addObserver function with the Context given
+* setView(int id) : void
+  	The id is the id of a ForumEntry. This will use the model's 
+	getRemoteById() function to get the ForumEntry that matches this
+	id. Then it will use the model's setView() function with that
+	ForumEntry to set the data and then the model's notifyObservers()
+	function so that the view's update functions are called.
+* addAnswer(Entry) : void
+  	Uses the models getView function to get the forum entry and
+	then gets that forum entries id. Then calls the models
+	getRemoteById function with that id to get an up to date
+	ForumEntry. It will then append the Entry to the to forum
+	entry. Finally, it will call the setRemoteById, setView, and
+	notifyObservers function to call the view's update function.
+* addNewQuestion(Entry) : void
+  	Creates a new ForumEntry and sets this in the model, then uses
+	the model to push this to the remote server.
+* saveReadLaterCopy() : void
+  	Uses the models getReadLater and getView functions to get all the
+	"read later" forum entries and the forum entry to be saved as
+	"read later". Appends the forum entry, then calls the modles
+	saveReadLater function to save it.
+* saveFavouritesCopy() : void
+  	Uses the models getFavourites and getView functions to get all the
+	"favourites" forum entries and the forum entry to be saved as
+	"favourites". Appends the forum entry, then calls the models
+	saveFavourites function to save it.
+* upVoteEntry(int location) : void
+  	Uses the models getView function to get the forum entry and then
+	gets that forum entries id. Then calls the models getRemoteById 
+	function with that id to get an up to date version. It will
+	then index the forum entry with the location argument and upvote
+	then entry. Then it will call setRemoteById, setView, and finally
+	notifyObservers so that the views update function is  called.
+  	
+
+
+
+
+
+*** How To Use UML-v3 ***
 This text file explains how to read and implement the UML-v2 for each of
 the use cases
 
