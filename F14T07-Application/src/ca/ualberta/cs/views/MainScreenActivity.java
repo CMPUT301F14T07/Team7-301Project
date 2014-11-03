@@ -63,6 +63,16 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		         }
 		    });
 	}
+	
+	@Override
+	protected void onRestart()
+	{
+		super.onRestart();
+		
+		/* Refresh the view, the authors name may have changed you know :) */
+		this.authorController.refresh();
+	}
+	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -161,10 +171,13 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		Button signInButton = (Button) findViewById(R.id.signInButton);
 		TextView text = (TextView) findViewById(R.id.signedInAs);
 		
-		text.setText(model.getSessionAuthor());
-		text.setVisibility(0);
-		signInButton.setText("Change User");
-		
+		String author = model.getSessionAuthor();
+		if( author != null )
+		{
+			text.setText(author);
+			text.setVisibility(0);
+			signInButton.setText("Change User");
+		}
 	}
 	
 	
