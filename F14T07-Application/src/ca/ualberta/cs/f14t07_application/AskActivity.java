@@ -16,9 +16,7 @@ import android.widget.Toast;
  * being able to ask questions
  */
 public class AskActivity extends Activity {
-	  
-	  //controller for this view 
-	  private DataManager dataManager=new DataManager();
+	  public Intent intent;
 	  
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) { 
@@ -47,6 +45,10 @@ public class AskActivity extends Activity {
 	    		Thread thread = new AddThread(newForumEntry);
 	    		//Pass it to the controller
 	    		thread.start();
+	    		newQuestionEdit.setText("");
+	    		newSubjectEdit.setText("");
+	    		newAuthorEdit.setText("");
+	    		Toast.makeText(AskActivity.this,"Question Added",Toast.LENGTH_SHORT).show();
 	    		
 	    		//then an intent needs to open the question screen for the new forum entry
 	         }

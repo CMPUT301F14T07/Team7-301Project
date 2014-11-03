@@ -20,6 +20,9 @@ public class ForumEntry
 	 * @param question	The text contains the main question for the forum post.
 	 * @param author	The name of the main poster
 	 */
+	public String toString(){ 
+		return question.getPost();
+	}
 	public ForumEntry(String subject_, String question_, String author)
 	{
 		super();

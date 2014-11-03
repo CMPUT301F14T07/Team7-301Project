@@ -1,15 +1,25 @@
 package ca.ualberta.cs.f14t07_application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
-public class BrowseActivity extends Activity {
 
+public class BrowseActivity extends Activity {
+	private ArrayAdapter<ForumEntry> browseListAdapter;
+	private ListView browseListView;
+	private List<ForumEntry> forumEntries;
+	private BrowseController browseController;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,8 +34,36 @@ public class BrowseActivity extends Activity {
 	    		viewBy();
 	         }
 	    });
+	    
+	    
 	}
+	@Override 
+	public void onResume(){ 
+		super.onResume();
+	}
+	
+	@Override 
+	public void onStart(){ 
+		super.onStart(); 
+		forumEntries = new ArrayList<ForumEntry>();
+		
+		browseController = new BrowseController();
+		ForumEntry forumEntry = new ForumEntry("lexie","subject","question");
+		
+		browseListAdapter= new ArrayAdapter<ForumEntry>(BrowseActivity.this, R.layout.list_item,forumEntries);
+		browseListView = (ListView) findViewById( R.id.browseListView);
+		browseListView.setAdapter(browseListAdapter);
+		
+		forumEntries.add(forumEntry);
+		browseController = new BrowseController();
+		forumEntries.addAll(browseController.getAllEntries());
 
+		
+		Toast.makeText(BrowseActivity.this,forumEntry.toString(),Toast.LENGTH_SHORT).show();
+
+		browseListAdapter.notifyDataSetChanged();
+		
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
