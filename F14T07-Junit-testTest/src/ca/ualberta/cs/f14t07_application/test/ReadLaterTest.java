@@ -1,9 +1,9 @@
 package ca.ualberta.cs.f14t07_application.test;
 
-import ca.ualberta.cs.f14t07_application.DataManager;
-import ca.ualberta.cs.f14t07_application.ForumEntry;
-import ca.ualberta.cs.f14t07_application.ForumEntryList;
-import ca.ualberta.cs.f14t07_application.QuestionActivity;
+import ca.ualberta.cs.models.DataManager;
+import ca.ualberta.cs.models.ForumEntry;
+import ca.ualberta.cs.models.ForumEntryList;
+import ca.ualberta.cs.views.QuestionActivity;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;

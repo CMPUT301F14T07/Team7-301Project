@@ -6,11 +6,12 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
 import ca.ualberta.cs.f14t07_application.AnswerRepliesActivity;
-import ca.ualberta.cs.f14t07_application.DataManager;
-import ca.ualberta.cs.f14t07_application.Entry;
-import ca.ualberta.cs.f14t07_application.ForumEntry;
 import ca.ualberta.cs.f14t07_application.R;
-import ca.ualberta.cs.f14t07_application.Reply;
+import ca.ualberta.cs.models.DataManager;
+import ca.ualberta.cs.models.Entry;
+import ca.ualberta.cs.models.ForumEntry;
+import ca.ualberta.cs.models.Reply;
+
 
 public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRepliesActivity> {
 	

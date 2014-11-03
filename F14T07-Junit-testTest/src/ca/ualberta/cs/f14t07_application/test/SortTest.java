@@ -2,10 +2,10 @@ package ca.ualberta.cs.f14t07_application.test;
 
 import java.util.ArrayList;
 
-import ca.ualberta.cs.f14t07_application.BrowseActivity;
-import ca.ualberta.cs.f14t07_application.BrowseController;
-import ca.ualberta.cs.f14t07_application.DataManager;
-import ca.ualberta.cs.f14t07_application.ForumEntry;
+import ca.ualberta.cs.views.BrowseActivity;
+import ca.ualberta.cs.controllers.BrowseController;
+import ca.ualberta.cs.models.DataManager;
+import ca.ualberta.cs.models.ForumEntry;
 
 import android.test.ActivityInstrumentationTestCase2;
 

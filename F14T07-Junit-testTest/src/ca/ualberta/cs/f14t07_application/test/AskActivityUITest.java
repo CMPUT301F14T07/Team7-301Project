@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
-import ca.ualberta.cs.f14t07_application.AskActivity;
+import ca.ualberta.cs.views.AskActivity;
 
 public class AskActivityUITest extends
 		ActivityInstrumentationTestCase2<AskActivity> {
