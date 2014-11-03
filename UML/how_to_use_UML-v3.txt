@@ -382,3 +382,18 @@ Interface for all views to implement.
 ***
 
 **Use Case 1**
+
+The User is on the main screen. The user selects Browse.
+* MainScreenActivity.startBrowseActivity("*", String view) -- view is the selected view in the menu. ie, if the user has selected the "read later" view, then view = "read later".
+
+**Use Case 2**
+
+Same as use case 1
+
+**Use Case 3**
+
+The user is on the browse screen. The user selects a forum entry.
+BrowseActivity.browseController.startQuestionActivity(int index) -- The index is the location in the ListView that was clicked. For example, if the first element of the ListView was clicked then index is 0, etc.
+
+**Use Case 4**
+ 
