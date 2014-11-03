@@ -1,10 +1,12 @@
 package ca.ualberta.cs.views;
 
+import ca.ualberta.cs.controllers.AuthorController;
 import ca.ualberta.cs.controllers.BrowseController;
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.f14t07_application.R.id;
 import ca.ualberta.cs.f14t07_application.R.layout;
 import ca.ualberta.cs.f14t07_application.R.menu;
+import ca.ualberta.cs.models.AuthorModel;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,10 +20,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class MainScreenActivity extends Activity {
+public class MainScreenActivity extends Activity implements Observer<AuthorModel> {
 
 	
-	private BrowseController browseController = new BrowseController();
+	private AuthorController authorController;
 	public static final String TEXT_KEY = "TEXT";
 	private String authorName = "Unknown";
 	public Intent intent2;
@@ -30,6 +32,7 @@ public class MainScreenActivity extends Activity {
 		    super.onCreate(savedInstanceState);  
 		    setContentView(R.layout.main_activity_screen);  
 		 
+		    this.authorController = new AuthorController(this);
 		    
 		    Button ask_button=(Button) findViewById(R.id.askButton);
 		    ask_button.setOnClickListener(new View.OnClickListener() {
@@ -111,14 +114,8 @@ public class MainScreenActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 
-				BrowseController bc = new BrowseController();
-				bc.setSessionAuthor(input.getText().toString());
-				authorName = input.getText().toString();
-				text.setText("Signed in as: " + authorName);
-				text.setVisibility(0);
-				signInButton.setText("Change User");
-				//signInButton.setVisibility(4);
-				
+				authorName = input.getText().toString();	
+				authorController.setSessionAuthor(authorName);
 			}
 		});
 		alert.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
@@ -155,6 +152,19 @@ public class MainScreenActivity extends Activity {
 		intent2=intent;
 		intent.putExtra(TEXT_KEY, term);
 		startActivity(intent);	
+	}
+	
+	
+	@Override
+	public void update(AuthorModel model) 
+	{
+		Button signInButton = (Button) findViewById(R.id.signInButton);
+		TextView text = (TextView) findViewById(R.id.signedInAs);
+		
+		text.setText(model.getSessionAuthor());
+		text.setVisibility(0);
+		signInButton.setText("Change User");
+		
 	}
 	
 	

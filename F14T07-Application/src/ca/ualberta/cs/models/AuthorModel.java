@@ -1,11 +1,14 @@
 package ca.ualberta.cs.models;
 
+import ca.ualberta.cs.views.MainScreenActivity;
+import ca.ualberta.cs.views.Observer;
+
 /**
  * Models the person's name who is using the app. This is the author.
  * @author bbruner
  *
  */
-public class AuthorModel extends Observable<String> 
+public class AuthorModel extends Observable<Observer> 
 {
 	private static String authorSaveLocation = "AUTHOR_SESSSION_SAVE";
 	

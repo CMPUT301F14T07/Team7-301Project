@@ -9,6 +9,7 @@ import android.app.Activity;
 
 /**
  * Contains a list of all the views who are "observing" this model. All classes which are added here must implement the Observer interface.
+ * The code for this class is based heavily on Abram Hindle's "MVC and Android" slides.
  * @author bbruner
  *
  * @param <T> This is the data type of the view
@@ -45,7 +46,6 @@ public abstract class Observable<T extends Observer>
 	
 	/**
 	 * Notify all the observers that data has changed.
-	 * @param updateData
 	 */
 	public void notifyObservers()
 	{
