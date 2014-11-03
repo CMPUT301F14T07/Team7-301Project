@@ -238,47 +238,51 @@ These are the models the controller knows about.
   	Creates a new ForumEntryList and then calls the ForumEntryList's 
 	addObserver function with the Context given.
 * sortByTime() : void
-  	Calls the OrganizationModel's getters to see what type of search was done
-	then calls the getRemote() function with that search term, but uses the
-	sort by time sort type. It will then set the sort type in the organization
-	model to be that sort type.
-	getRemote() returns an ArrayList<ForumEntry>:
-		    Uses the setView function with the new array list then calls
-		    the notifyObservers function.
-	getRemote() returns null:
-		    Uses the getView function to get an ArrayList<ForumEntry> then
-		    manually sorts it and uses the setView function to set the new
-		    sorted list and then calls the notifyObservers function so
-		    that the view's update functions are called.
+  	Calls the the model's getView() function.  It will then set the sort type in the organization
+	model to be the sort by time sort type and sort the array list it gets accordingly. Finally,
+	it uses the model's setView() function to update the model.
 * sortByRating() : void
   	Same procedure as sortByTime() except sorts by rating.
 * sortByHasPicture() : void
   	Same procedure as sortByTime() except sorts by has picture.
 * sortBySearchTerm(String term) : void
-  	Same procedure as sortByTime() except changes the search term.
+  	Uses the OrganizationModel to set a new search term, then uses the models getView() function
+	to get the array list, searchs through it, constructs a new array list, and then uses the
+	model's setView() function to set the new array list.
 * useOnLineView() : void
-  	Same procedure as sortByTime except doesn't change any of the sort/search terms.
+  	Uses the OrganizationModel to get the search type and uses the models getRemote() function
+	to get an array list of forum entries.
+	getRemote() returns an array list:
+		Uses the model's setView() function to set this array list then calls one of the sortBy
+		functions of the controller according to the sort term in the organization model.
+	getRemote() returns null:
+		Call the setView() function of the model with a null argument.
 * useReadLaterView() : void
   	Calls the model's get getReadLater() function to get an array list of forum
-	entries, then passes those to the model's setView() function. Finally,
-	it calls the models notifyObservers() function.
+	entries, then passes those to the model's setView() function.
 * useFavouritesView() : void
   	Same procedure as useReadLaterView() except calls getFavourites() instead of
 	getReadLater().
 * useMyAuthoredView() : void
   	Calls the model's getMyAuthored() then sets the return array list of forum
-	entries using the model's setView() function, finally, calls the model's
-	notifyObservers function to update the view. Note: all of the forum entries
+	entries using the model's setView() function. Note: all of the forum entries
 	may not be up to date with the server. This is probably ok unless the view
 	needs to know how many answer it has and stuff like that. If this is the case,
 	this function will have to synchronize what is saved with setMyAuthored with
 	what is in the remote server.
-* startQuestionActivity(int id) : void
-  	This function will take the id of a ForumEntry and put it in an intent. Then it
-	start the QuestionActivity with that intent.
+* startQuestionActivity(int index) : void
+  	This function will take the index into the ArrayList<ForumEntry>. It will use the getView()
+	function to get that array list an extract the forum entry with that index. Then it will extract
+	that forum entries id and put the id of that ForumEntry into an intent. Then it
+	starts the QuestionActivity with that intent.
+* refresh() : void
+  	The controller calls the model's notifyObservers function to update the view.
 
-** MainScreenActivity **
+** MainScreenActivity (implements Observer<String>) **
 This class has an instance of the AuthorController.
+* onStart() :
+  	When this activity starts up it will call the controllers refresh() function to
+	update the view.
 * signInButton() : void
 	Extracts text from some text box where the user entered their name. Then calls
 	controllers setSessionAuthor() function to save authors name.
@@ -290,178 +294,80 @@ This class has an instance of the AuthorController.
 	view from the menu options, then this should passed as an argument.
 * searchButton() : void
 	Calls the startBrowseActivity() function. The string passed to the function
-	matches what the user entered to search for.
+	matches what the user entered to search for and the second string matches the choice
+	in the menu option for the view type, ie, like "my authored" or "favourites".
 * startEntryActivity() : void
   	Puts a null int into an intent then starts the EntryActivity.
 * startBrowseActivityWithView(String view) : void
-  	Puts 
-  	
-  	
-  	
+  	Puts an array of Strings into an intent where String[0] = searchTerm ("*", search everything),
+	String[1] = view (function argument, what view to use).
+* startBrowseActivity(String searchTerm, String view) : void
+  	Puts an array of Strings into an intent where String[0] = searchTerm (function argument), 
+	String[1] = view (function argument).
+	Then starts the BrowseActivity with this intent.
+* update(String author) : void
+  	Sets the text view which shows the author to be the function argument.
+* update(ArrayList<ForumEntry>) : void
+  	Does nothing.
 
+** EntryActivity (implements Observer<String>) **
+This activity has an instance of the AuthorController and the ForumEntryController.
+* onStart() :
+  	When this activity starts up it extracts from the intent that started it an int. It then calls
+	the ForumEntryController's setView() function with this int as the argument. Then it calls the
+	AuthorController's refresh() function to update what the view has set as the author.
+* submitEntry() : void
+  	This function will collect information from all its text fields then package that up in a
+	new Entry. It will call the ForumEntryController's addEntry() function with that as the 
+	argument.
+* update(String author) : void
+  	updates the text view which displays the author.
+* update(ArrayList<ForumEntry>) : void
+  	Does nothing.
 
+** QuestionActivity (implements Observer<String>) **
+This activity has an instance of the ForumEntryController.
+* onStart() :
+  	When this activity starts up it extracts from the intent that started it an int. It then
+	calls the ForumEntryController's setView() function with this int as the argument.
+* replyButton() : void
+  	Takes the text in a text field and packages it into a new Reply then calls the controller's
+	addReplyToEntry(int, Reply) function, where the int is the index of the Entry the reply is for
+	(ie, 0 for the question, 1 for the first answer, etc) and the Reply is the reply.
+* answerButton() : void
+  	Calls the controller's startEntryActivityToAnswer() function.
+* upVoteButton() : void
+  	Does the same thign as the replyButton() function but calls the controller's upVoteEntry() 
+	function instead.
+* menu() : void
+  	The various options in the menu. If one of these is to sort by up votes then the controller's
+	sortForumEntryByVotes() function is called.
+* update(String misc) : void
+  	Does nothing.
+* update(ArrayList<ForumEntry>) : void
+  	Extracts the first ForumEntry from the array list then updates all of the text views and stuff
+	with the corrasponding information.
 
+** BrowseActivity (implements Observer<String>) **
+This class contains an instance of the BrowseController.
+* onStart() : 
+  	Extracts from the intent that started it an array of Strings. It will then switch
+	case the String[1] to determine what view to use (read later view, favourites view, etc).
+	and call the controllers useView function. Next it will call the controller's sortBySearchTerm()
+	function with String[0]. Finally, it calls the controller's refresh() function to update the view.
+* menuButtons() : void
+  	For example, if the user selects a ForumEntry to view the button listener should call the
+	controller's startQuestionActivity() with an argument of the index of that ForumEntry.
+* update(String misc) : void
+  	Does nothing.
+* update(ArrayList<ForumEntry>) : void
+  	If the function argument is null it informs the user they don't have internet connection and
+	to try a cached view type. If the argument is none null then it updates the view to display
+	the information.
 
-*** How To Use UML-v3 ***
-This text file explains how to read and implement the UML-v2 for each of
-the use cases
-
-** u1 **
-Call function MainScreenActivity.startBrowseActivity("*");
-This function can use an intent to start the browse activity.
-The argument "*" is a wild term (ie search for everything).
-BrowseActivity starts and extracts the intents message then
-makes use of the function call
-BrowseController.sortBySearchTerm("*").
-	This function can then use the MemoryDriver by
-	MemoryDriver.getRemote("*"). This can use the JsonDriver
-	to search the remote server with the search term "*".
-	An ArrayList<ForumEntry> will be returned to the controller.
-	Then using ForumEntryList.setForumEntryList() function
-	it can update the model, then notify the model of data 
-	set change with ForumEntryList.notifyObservers(). This
-	will cause the model to call the browseActivities
-	update function, BrowseActivity.update(ForumEntryList).
-BrowseActivity's update function then sets what data the
-activity shows.
-
-** u2 **
-Same as u1.
-
-** u3 **
-Call function BrowseActivity.startQuestionActivity(). This can use an
-intent to add the ForumEntry of the selected question, then start the 
-question activity. When the question activity starts it can extract
-that ForumEntry and display it.
-
-** u4 **
-This is a function of how we use the Android API.
-
-** u5 **
-Same as u4.
-
-** u6 **
-Call function MainScreenActivity.startEntryActivity(). This can use
-an intent to start the EntryActivity. The entry activity can call the
-controllers AuthorController.refresh() function to auto fill the
-author field. The refresh() function can just call the models 
-AuthorModel.notifyObservers() function so that the EntryActivities
-update funciton is called.
-When the activities information gathering fields are filled out and
-the user hits the submit/ask/w/e button then the EntryActivity can
-call the ForumEntryController.addNewQuestion(Entry). This can
-end up  calling the MemoryDriver.setRemote() function to add this
-to the Json server.
-
-** u7 **
-Same as u6, but Android API will handle getting a picture from the
-user to attach to the Entry.
-
-** u8 **
-Same as u6 except the MemoryDriver.setRemote function can
-detect there is no internet connection and call the 
-thread_pushForumEntryToRemote function to do the work later. This
-function should create a thread with enough information to do the
-work and exit when the network connection is restored.
-
-** u9 **
-The question activity can call the startEntryActivity Function. The
-same procedure as u6 will be followed except instead of calling the
-addNewQuestion() function the addAnswer function can be  called. To 
-differentiate between posting a new question or answering a question
-the intent can send information about that.
-
-** u10 **
-Same as u9, but Android API will handle getting a picture from the
-user.
-
-** u11 **
-Same procedure as u9 followed by u8.
-
-** u12 **
-In the QuestionActivity the Android API will handle getting the
-data from user about a reply. The ForumEntryController.addReplyToEntry
-function will use the MemoryDriver to push the changes to the remote server.
-
-** u13 **
-Same procedure as u12 followed by u8.
-
-** u14 **
-Same procedure as u12.
-
-** u15 **
-Same procedure as u13.
-
-** u16 **
-The browse activity calls the BrowseController.sortByHasPicture(). 
-Lexie, lets talk about how you're doing this so UML and code
-are consistant.
-
-** u17 **
-Same as u16 but call BrowseController.sortByDate()
-
-** u18 **
-Same as u16 but call BrowseController.sortByRating()
-
-** u19 **
-In the QuestionActivity, call the ForumEntryController.upVoteEntry().
-this will then follow the same procedure as u12.
-
-** u20 **
-Same procedure as u19
-
-** u21 **
-This comes from user story 13. This is a very difficult use case to implement
-properly if the forum entry is sorted on demand. The easiest, and least MVC
-way to do this is have a sort() method inside the activity class. The easiest
-MVC way is to have the ForumEntryController always sort forum entries when
-ever the addEntry function is called. This way the forum entry is always
-sorted by votes.
-
-** u22 **
-This functionality will have to be included in BrowseActivities update method.
-
-** u23 **
-Same as u1, except the search term is not "*" but the term the user is
-searching for.
-
-** u24 **
-Same as u23.
-
-** u25 **
-I am not sure what this means. Does this mean that the questions the user
-asks are always saved locally? Or more simply, the questions the user asks
-have their name on them?
-
-** u26 **
-Call the ForumEntryController.saveReadLaterCopy() function which will
-use the MemoryDriver to save this forum entry locally.
-
-** u27 **
-This can be done by calling the MainScreenActivities startBrowseActivityWithView
-function. This function will use use an intent to package the string provided
-as input and start the browse activity. The browse activity can unpackage
-the intent to find the information and call the controllers sortBy funcitons
-to show the read later view. The sort by functions will use the memory driver
-to get the appropriate array list of forum entries and then set this in the
-model. The model will then be told to call the activities update function
-which will update the view.
-
-** u28 **
-Sane as u26 except call saveFavouritesCopy().
-
-** u29 **
-Same as u27.
-
-** u30 **
-This will be done automatically by the
-MemoryDriver.thread_pushForumEntryToRemote() function which spawns a
-thread to do all the work.
-
-** u31 **
-Use the AuthorController.setSessionAuthor function which will set the
-author in the model. The model will save who the author is locally.
-
-** u32 **
-Same as u27.
-
+** Observer<T> **
+Interface for all views to implement.
+* update(T) : void
+  	Should update the views fields using the functions argument.
+* update(ArrayList<ForumEntry>) : void
+  	Should update the views fields using the functions argument.
