@@ -7,27 +7,53 @@ import ca.ualberta.cs.views.Observer;
 
 import android.app.Activity;
 
-public abstract class Observable<T>
+/**
+ * Contains a list of all the views who are "observing" this model. All classes which are added here must implement the Observer interface.
+ * @author bbruner
+ *
+ * @param <T> This is the data type of the view
+ */
+public abstract class Observable<T extends Observer>
 {
-	private ArrayList<Observer<T>> Observers;
+	private ArrayList<T> observers;
 	
-	public void addObserver(Observer<T> observer)
+	public Observable()
 	{
-		this.Observers.add(observer);
+		observers = new ArrayList<T>();
 	}
 	
-	public void deleteObserver(Observer<T> observer)
+	/**
+	 * Add an observer to the class.
+	 * @param observer The observer to add.
+	 */
+	public void addObserver(T observer)
 	{
-		this.Observers.remove(observer);
+		if( !this.observers.contains(observer) )
+		{
+			this.observers.add(observer);
+		}
 	}
 	
-	public void notifyObservers(T updateData)
+	/**
+	 * Delete an observer from the class
+	 * @param observer The observer to delete.
+	 */
+	public void deleteObserver(T observer)
 	{
-		Iterator<Observer<T>> iter = this.Observers.iterator();
+		this.observers.remove(observer);
+	}
+	
+	/**
+	 * Notify all the observers that data has changed.
+	 * @param updateData
+	 */
+	public void notifyObservers()
+	{
+		Iterator<T> iter = this.observers.iterator();
 		
 		while( iter.hasNext() )
 		{
-			iter.next().update(updateData);
+			iter.next().update(this);
 		}
 	}
 	
