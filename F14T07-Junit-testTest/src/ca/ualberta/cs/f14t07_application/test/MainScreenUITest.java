@@ -3,10 +3,10 @@ import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
-import ca.ualberta.cs.f14t07_application.AskActivity;
-import ca.ualberta.cs.f14t07_application.BrowseActivity;
-import ca.ualberta.cs.f14t07_application.MainScreenActivity;
-import ca.ualberta.cs.f14t07_application.SearchActivity; 
+import ca.ualberta.cs.views.AskActivity;
+import ca.ualberta.cs.views.BrowseActivity;
+import ca.ualberta.cs.views.MainScreenActivity;
+import ca.ualberta.cs.views.SearchActivity; 
 
 
 public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScreenActivity> {

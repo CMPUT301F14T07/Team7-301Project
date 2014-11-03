@@ -5,12 +5,12 @@ import java.util.Iterator;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
-import ca.ualberta.cs.f14t07_application.DataManager;
-import ca.ualberta.cs.f14t07_application.Entry;
-import ca.ualberta.cs.f14t07_application.ForumEntry;
-import ca.ualberta.cs.f14t07_application.ForumEntryController;
-import ca.ualberta.cs.f14t07_application.QuestionActivity;
-import ca.ualberta.cs.f14t07_application.Reply;
+import ca.ualberta.cs.models.DataManager;
+import ca.ualberta.cs.models.Entry;
+import ca.ualberta.cs.models.ForumEntry;
+import ca.ualberta.cs.controllers.ForumEntryController;
+import ca.ualberta.cs.views.QuestionActivity;
+import ca.ualberta.cs.models.Reply;
 
 /**
  * Test the fragment that displays options to up vote, down vote, or reply to an
