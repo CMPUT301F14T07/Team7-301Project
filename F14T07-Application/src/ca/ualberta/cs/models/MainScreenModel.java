@@ -8,7 +8,7 @@ public class MainScreenModel {
 		DataManager dm = new DataManager();
 		dm.saveAuthor(author);
 		MainScreenActivity msa = new MainScreenActivity();
-		msa.update(author);
+		//msa.update(author);
 	}
 
 }
