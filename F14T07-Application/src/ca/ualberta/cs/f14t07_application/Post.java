@@ -2,6 +2,8 @@ package ca.ualberta.cs.f14t07_application;
 
 import java.util.ArrayList;
 
+import ca.ualberta.cs.models.Reply;
+
 /**
  * Describes what a forum post's main question or answer to main question contains.
  * @author Brendan

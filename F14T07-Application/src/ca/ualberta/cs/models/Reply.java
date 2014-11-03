@@ -1,4 +1,4 @@
-package ca.ualberta.cs.f14t07_application;
+package ca.ualberta.cs.models;
 
 import java.util.Date;
 

@@ -3,6 +3,8 @@ package ca.ualberta.cs.f14t07_application;
 import java.util.ArrayList;
 import java.util.Date;
 
+import ca.ualberta.cs.models.Reply;
+
 import android.graphics.Picture;
 
 public class Entry {
