@@ -2,6 +2,8 @@ package ca.ualberta.cs.f14t07_application;
 
 import java.util.List;
 
+import ca.ualberta.cs.remote_server.SearchHit;
+
 public class Hits<T> {
 	private int total;
 	private float max_score;
