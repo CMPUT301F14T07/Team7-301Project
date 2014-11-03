@@ -30,8 +30,11 @@ public class AuthorController
 	 */
 	public void setSessionAuthor(String author)
 	{
-		this.authorModel.setSessionAuthor(author);
-		this.authorModel.notifyObservers();
+		if( author != null && author.trim().length() > 0 && author.length() < 30)
+		{
+			this.authorModel.setSessionAuthor(author);
+			this.authorModel.notifyObservers();
+		}
 	}
 	
 	/**
