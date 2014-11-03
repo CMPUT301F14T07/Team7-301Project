@@ -56,6 +56,9 @@ to push forum entries to a remote server.
 * setView(ArrayList<ForumEntry>) : void
   	Sets an array list of forum entries. This is the list of forum entries
 	used when the views update functions are called. 
+* setMyAuthored(ArrayList<ForumEntry>) : void
+  	Saves the array list of ForumEntries in memory under a location
+	which indicates these forum entries are "authored by me".
 * setReadLater(ArrayList<ForumEntry>) : void
   	Saves the array list of ForumEntries in memory under a location which
 	indicates these forum entries are "read later" entries.
@@ -74,6 +77,8 @@ to push forum entries to a remote server.
 	remote server. Returns true on success, false on failure.
 * getView() : ArrayList<ForumEntry>
   	Returns the array list of forum entries set in the setView function.
+* getMyAuthored() : ArrayList<ForumEntry>
+  	Returns the array list of forum entries which were saved as "authored by me".
 * getReadLater() : ArrayList<ForumEntry>
   	Returns the array list of ForumEntries which were saved in a location
 	that marked them as "read later".
@@ -109,6 +114,11 @@ This class is an interface to the remote server.
   	Gets from the remote server a ForumEntry which has the id provided.
 	Returns null on failure.
 
+** OrganizationModel **
+This class contains information on search and sort stuff. It knows what was searched for,
+how forum entries are sorted, and what search type was used. Its functions are getters
+and setters.
+
 ** AuthorController **
 This class has an AuthorModel instance.
 * Constructor - AuthorController(Context) : void
@@ -143,6 +153,9 @@ knows about.
 		to see if this forum entry has been cached. If it has then use the
 		setView() function to set this forum entry in the model and then the
 		notifyObservers() function so the model calls the view's update function.
+* addEntry(Entry) : void
+  	Calls the model's getView function. If this returns null it will call the 
+	addNewQuestion function, otherwise it calls the addAnswer function.
 * addAnswer(Entry) : void
   	Uses the models getView function to get the forum entry and
 	then gets that forum entries id. Then calls the models
@@ -151,24 +164,24 @@ knows about.
 	getRemoteById returns a ForumEntry:
 		It will then append the Entry to the to forum
 		entry. Next, it will call the setRemoteById to save these
-		changes to the remote server and then use the getReadLater and
-		setReadLater functions to cache. Finally, it will put the id
-		of the forum entry into and intent and start the QuestionActivity.
+		changes to the remote server and then use the getReadLater, getMyAuthored
+		and setReadLater setMyAuthored functions to cache. Finally, it will put 
+		the id of the forum entry into and intent and start the QuestionActivity.
 	getRemoteById returns null:
 		It will use the forum entry returned by getView - it will add the
-		answer to the forum entry then use the setReadLater and getReadLater
-		functions to cache the change.
+		answer to the forum entry then use the setReadLater, setMyAuthored
+		and getReadLater, getMyAuthored functions to cache the change.
 		A thread will be started which continually calls the getRemoteById
 		until a ForumEntry returns. When a forum entry is returned it will 
 		add the the new Entry to that forum entry then use the setRemoteByID
 		function to save the changes to the remote server. It will also use the
-		getReadLater and setReadLater functions to re-cache the forum entry.
-		After the thread has started executing it will put the id into an 
-		intent then start the QuestionActivity.
+		getReadLater, getMyAuthored, setReadLater, and setMyAuthored functions
+		to re-cache the forum entry. After the thread has started executing it
+		will put the id into an intent then start the QuestionActivity.
 * addNewQuestion(Entry) : void
-  	Creates a new ForumEntry then uses the model's getReadLater and 
-	setReadLater functions to cache. Next, it uses the model's appendToRemote()
-	function to add this new question to the remote server. 
+  	Creates a new ForumEntry then uses the model's getReadLater, getMyAuthored and 
+	setReadLater setMyAuthored functions to cache. Next, it uses the model's
+	appendToRemote() function to add this new question to the remote server. 
 	appendToRemote() returns true:
 		It puts	the id of the new forum entry into an intent and the starts the
 		QuestionActivity.
@@ -219,12 +232,70 @@ knows about.
 	and then start the EntryActivity.
 
 ** BrowseController **
-This class has a ForumEntryList instance. This is the model the controller
-knows about.
+This class has a ForumEntryList instance and an OrganizationModel instance.
+These are the models the controller knows about.
 * Constructor - BrowseController(Context) : void
   	Creates a new ForumEntryList and then calls the ForumEntryList's 
 	addObserver function with the Context given.
 * sortByTime() : void
+  	Calls the OrganizationModel's getters to see what type of search was done
+	then calls the getRemote() function with that search term, but uses the
+	sort by time sort type. It will then set the sort type in the organization
+	model to be that sort type.
+	getRemote() returns an ArrayList<ForumEntry>:
+		    Uses the setView function with the new array list then calls
+		    the notifyObservers function.
+	getRemote() returns null:
+		    Uses the getView function to get an ArrayList<ForumEntry> then
+		    manually sorts it and uses the setView function to set the new
+		    sorted list and then calls the notifyObservers function so
+		    that the view's update functions are called.
+* sortByRating() : void
+  	Same procedure as sortByTime() except sorts by rating.
+* sortByHasPicture() : void
+  	Same procedure as sortByTime() except sorts by has picture.
+* sortBySearchTerm(String term) : void
+  	Same procedure as sortByTime() except changes the search term.
+* useOnLineView() : void
+  	Same procedure as sortByTime except doesn't change any of the sort/search terms.
+* useReadLaterView() : void
+  	Calls the model's get getReadLater() function to get an array list of forum
+	entries, then passes those to the model's setView() function. Finally,
+	it calls the models notifyObservers() function.
+* useFavouritesView() : void
+  	Same procedure as useReadLaterView() except calls getFavourites() instead of
+	getReadLater().
+* useMyAuthoredView() : void
+  	Calls the model's getMyAuthored() then sets the return array list of forum
+	entries using the model's setView() function, finally, calls the model's
+	notifyObservers function to update the view. Note: all of the forum entries
+	may not be up to date with the server. This is probably ok unless the view
+	needs to know how many answer it has and stuff like that. If this is the case,
+	this function will have to synchronize what is saved with setMyAuthored with
+	what is in the remote server.
+* startQuestionActivity(int id) : void
+  	This function will take the id of a ForumEntry and put it in an intent. Then it
+	start the QuestionActivity with that intent.
+
+** MainScreenActivity **
+This class has an instance of the AuthorController.
+* signInButton() : void
+	Extracts text from some text box where the user entered their name. Then calls
+	controllers setSessionAuthor() function to save authors name.
+* askButton() : void
+	Calls the startEntryActivity() function
+* browseButton() : void
+	Calls the startBrowseActivityWithView() function. The string provided as input
+	matches a menu option choice. ie. if the user has selected the "my authored"
+	view from the menu options, then this should passed as an argument.
+* searchButton() : void
+	Calls the startBrowseActivity() function. The string passed to the function
+	matches what the user entered to search for.
+* startEntryActivity() : void
+  	Puts a null int into an intent then starts the EntryActivity.
+* startBrowseActivityWithView(String view) : void
+  	Puts 
+  	
   	
   	
 
