@@ -110,7 +110,7 @@ public class MainScreenActivity extends Activity {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
+
 				BrowseController bc = new BrowseController();
 				bc.setSessionAuthor(input.getText().toString());
 				authorName = input.getText().toString();

@@ -3,7 +3,8 @@ package ca.ualberta.cs.views;
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.f14t07_application.R.id;
 import ca.ualberta.cs.f14t07_application.R.layout;
-import ca.ualberta.cs.models.AddThread;
+//import ca.ualberta.cs.models.AddThread;
+import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import android.app.Activity;
 import android.content.Intent;
@@ -77,4 +78,26 @@ public class AskActivity extends Activity {
 		  return getIntent();
 	  }
 	  
+}
+
+class AddThread extends Thread{ 
+	private ForumEntry forumEntry;
+	private DataManager dataManager= new DataManager();
+	
+	public AddThread(ForumEntry forumEntry_){
+		forumEntry=forumEntry_;
+	}
+	
+	@Override 
+	public void run(){ 
+		super.run();
+		dataManager.addForumEntry(forumEntry);
+		
+		try{ 
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e){
+			e.printStackTrace();
+		}
+	}
 }
