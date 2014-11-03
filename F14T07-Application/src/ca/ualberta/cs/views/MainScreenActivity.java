@@ -205,7 +205,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		String author = model.getSessionAuthor();
 		if (author != null)
 		{
-			text.setText(author);
+			text.setText("Signed in as: " + author);
 			text.setVisibility(0);
 			signInButton.setText("Change User");
 		}
