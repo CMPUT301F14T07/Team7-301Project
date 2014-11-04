@@ -25,6 +25,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	private AuthorController authorController;
 	public static final String TEXT_KEY = "TEXT";
 	public static final String NEW_QUESTION_KEY = "NEW_QUESTION";
+	public Intent intent2;
 
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -135,8 +136,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		// according to http://www.androidsnippets.com/about I am free to reuse
 		// and modify this
 		// code without any restrictions
-		AlertDialog.Builder alert = new AlertDialog.Builder(
-				MainScreenActivity.this);
+		AlertDialog.Builder alert = new AlertDialog.Builder(MainScreenActivity.this);
 		alert.setTitle("Sign In");
 		alert.setMessage("What would you like your default name to be?");
 
@@ -175,7 +175,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	{
 		long key = 0;
 		Intent intent = new Intent(this, AskActivity.class);
-		
+		intent2 = intent;
 		intent.putExtra(MainScreenActivity.NEW_QUESTION_KEY, key);
 		startActivity(intent);
 	}
@@ -183,6 +183,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	public void browseButton()
 	{
 		Intent intent = new Intent(this, BrowseActivity.class);
+		intent2 = intent;
 		startActivity(intent);
 	}
 
@@ -191,7 +192,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		EditText editableTerm = (EditText) findViewById(R.id.searchTerm);
 		String term = (String) editableTerm.getText().toString();
 		Intent intent = new Intent(this, SearchActivity.class);
-		
+		intent2 = intent;
 		intent.putExtra(MainScreenActivity.TEXT_KEY, term);
 		startActivity(intent);
 	}

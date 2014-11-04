@@ -41,8 +41,8 @@ public class SearchController {
 	
 	public List<ForumEntry> searchAll(){
 		//searchResult.clear(); 
-		Thread thread = new SearchThread("");
-		thread.run();
+		SearchThread thread = new SearchThread("");
+		thread.start();
 		
 		ForumEntry forumEntry= new ForumEntry("search","Search","search");
 		searchResult.add(forumEntry);
@@ -146,6 +146,8 @@ class SearchThread extends Thread {
 			
 			searchResult.addAll(searchForumEntries(search,null));
 			searchResult.add(forumEntry);
+			
+		//	runOnUiThread();
 			
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
