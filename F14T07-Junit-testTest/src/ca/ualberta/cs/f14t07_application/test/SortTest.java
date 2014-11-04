@@ -116,4 +116,3 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 		}
 }
 
-

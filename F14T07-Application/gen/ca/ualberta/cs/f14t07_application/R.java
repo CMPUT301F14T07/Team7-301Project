@@ -50,14 +50,14 @@ public final class R {
         public static final int browseViewByText=0x7f08000d;
         public static final int invisButton=0x7f080011;
         public static final int logo=0x7f080015;
-        public static final int myQuestionsDeleteCM=0x7f080026;
-        public static final int myQuestionsEditCM=0x7f080025;
+        public static final int myQuestionsDeleteCM=0x7f080027;
+        public static final int myQuestionsEditCM=0x7f080026;
         public static final int myQuestionsListView=0x7f080018;
         public static final int myQuestionsTitle=0x7f080017;
         public static final int name=0x7f08000b;
         public static final int question=0x7f080009;
-        public static final int readLaterCancel=0x7f080028;
-        public static final int readLaterDelete=0x7f080027;
+        public static final int readLaterCancel=0x7f080029;
+        public static final int readLaterDelete=0x7f080028;
         public static final int readLaterListView=0x7f08001a;
         public static final int readLaterTitle=0x7f080019;
         public static final int searchButton=0x7f080014;
@@ -71,6 +71,7 @@ public final class R {
         public static final int signInButton=0x7f080010;
         public static final int signedInAs=0x7f080016;
         public static final int subject=0x7f08000a;
+        public static final int switchToFavorites=0x7f080025;
         public static final int switchToHome=0x7f080021;
         public static final int switchToMyQuestions=0x7f080023;
         public static final int switchToReadLater=0x7f080022;

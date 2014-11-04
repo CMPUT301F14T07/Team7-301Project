@@ -43,7 +43,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 		 * would require the user to touch something on the screen.
 		 */
 		setActivityInitialTouchMode(false);
-		
+
 		/* Get an instance of the activity which is running
 		 */
 		testActivity = getActivity();

@@ -75,5 +75,4 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
 		assertEquals(testList, sortedList);
     }
 
-}
-  
+} 

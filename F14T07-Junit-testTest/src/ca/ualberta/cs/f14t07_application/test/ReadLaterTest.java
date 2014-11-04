@@ -29,15 +29,16 @@ public class ReadLaterTest extends ActivityInstrumentationTestCase2<QuestionActi
 		 * would require the user to touch something on the screen.
 		 */
 		setActivityInitialTouchMode(false);
-		
 		/* Get an instance of the activity which is running
 		 */
+
 		testActivity = getActivity();
 		
 		/* Reset the testButton - do this so consecutive tests don't accidentally test
 		 * the same button.
 		 */
 		//testButton = null;
+
 	}
 	
 	public void isSavedTest() {
@@ -45,6 +46,7 @@ public class ReadLaterTest extends ActivityInstrumentationTestCase2<QuestionActi
 		 * Pretend that these already existed and were saved to memory/jsong
 		 * a long time ago.
 		 */
+
 		DataManager dm = new DataManager();
     	dm.addForumEntry((new ForumEntry("subject","What is life?","Kibbles")));
 	

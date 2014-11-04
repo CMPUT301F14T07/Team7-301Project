@@ -18,7 +18,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+/**
+ * This class is the view for the first screen that the user sees.
+ * It is an observer to the authorModel
+ * It has an instance of the AuthorController
+ * From this class, many other screens can be reached.
+ * 
+ * @author Dayna
+ * @author Brendan
+ *
+ */
 public class MainScreenActivity extends Activity implements Observer<AuthorModel>
 {
 
@@ -27,6 +36,9 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	public static final String NEW_QUESTION_KEY = "NEW_QUESTION";
 	public Intent intent2;
 
+/**
+ * This function contains all the main screen on click listeners.
+ */
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -78,7 +90,9 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			}
 		});
 	}
-
+/**
+ * Refreshes the view to reflect the author name
+ */
 	@Override
 	protected void onRestart()
 	{
@@ -88,6 +102,9 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		this.authorController.refresh();
 	}
 
+	/**
+	 * adds items to the menu bar
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -96,7 +113,9 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		return true;
 	}
 
-	// option menu to move to different activities
+	/**
+	 * Allows user to navigate through some screens using the menu bar
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -120,12 +139,28 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			startActivity(readLaterIntent);
 			return true;
 			
+		case R.id.switchToFavorites:
+			
+			Intent favoritesIntent = new Intent(this, FavoritesActivity.class);
+			startActivity(favoritesIntent);
+			return true;
+			
 		default:
 			
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
+	/**
+	 * Called when the signInButton is clicked
+	 * This function calls up a dialog with an editText
+	 * that allows the user to type in a username
+	 * 
+	 * The code in this function has been heavily borrowed from this site
+	 * http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog
+	 * Their license states that I am free to reuse and modify their code 
+	 * with no restrictions
+	 */
 	public void signInButton()
 	{
 		final Button signInButton = (Button) findViewById(R.id.signInButton);
@@ -160,7 +195,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-				// TODO Auto-generated method stub
+				// nothing
 
 			}
 		});
@@ -171,6 +206,9 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 
 	}
 
+	/**
+	 * opens the askActivity via an intent
+	 */
 	public void askButton()
 	{
 		long key = 0;
@@ -180,6 +218,9 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		startActivity(intent);
 	}
 
+	/**
+	 * opens the browseActivity via an intent
+	 */
 	public void browseButton()
 	{
 		Intent intent = new Intent(this, BrowseActivity.class);
@@ -187,6 +228,10 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		startActivity(intent);
 	}
 
+	/**
+	 * opens the searchActivity via an intent
+	 * and sends the search term through the intent
+	 */
 	public void searchButton()
 	{
 		EditText editableTerm = (EditText) findViewById(R.id.searchTerm);
@@ -197,6 +242,9 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		startActivity(intent);
 	}
 
+	/**
+	 * updates the author
+	 */
 	@Override
 	public void update(AuthorModel model)
 	{
