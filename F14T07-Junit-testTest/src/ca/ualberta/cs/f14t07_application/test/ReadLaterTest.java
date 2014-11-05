@@ -1,5 +1,7 @@
 package ca.ualberta.cs.f14t07_application.test;
 
+import java.util.ArrayList;
+
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
