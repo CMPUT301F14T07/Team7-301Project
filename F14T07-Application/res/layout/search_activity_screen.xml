@@ -28,19 +28,10 @@
         android:minHeight="25dp"
         android:minWidth="25dp" />
 
-    <Button
-        android:id="@+id/searchSelectReadLater"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="Select Read Later" />
-
     <ListView
         android:id="@+id/searchListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/searchSelectReadLater"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/searchViewByButton" >
 
