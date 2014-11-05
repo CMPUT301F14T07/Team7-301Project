@@ -22,5 +22,6 @@
     <string name="reply_indicator">Replies:</string>
     <string name="title_activity_answer_replies">AnswerRepliesActivity</string>
     <string name="answer_indicator">Answer:</string>
+    <string name="title_activity_favourite">FavouriteActivity</string>
 
 </resources>
