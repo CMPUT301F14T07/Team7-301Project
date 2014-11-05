@@ -141,7 +141,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			
 		case R.id.switchToFavorites:
 			
-			Intent favoritesIntent = new Intent(this, FavoritesActivity.class);
+			Intent favoritesIntent = new Intent(this, FavouriteActivity.class);
 			startActivity(favoritesIntent);
 			return true;
 			
