@@ -1,19 +1,17 @@
 package ca.ualberta.cs.f14t07_application.test;
 
+import java.io.File;
 import java.util.ArrayList;
 
-import ca.ualberta.cs.f14t07_application.Ask;
-import ca.ualberta.cs.views.AskActivity;
-import ca.ualberta.cs.models.DataManager;
-import ca.ualberta.cs.models.Entry;
-import ca.ualberta.cs.models.ForumEntry;
-import ca.ualberta.cs.f14t07_application.LogoActivity;
-import ca.ualberta.cs.views.MainScreenActivity;
-import ca.ualberta.cs.f14t07_application.R;
 import android.content.Intent;
+import android.graphics.Picture;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
+import ca.ualberta.cs.f14t07_application.R;
+import ca.ualberta.cs.models.DataManager;
+import ca.ualberta.cs.models.ForumEntry;
+import ca.ualberta.cs.views.AskActivity;
 
 
 public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
@@ -21,7 +19,8 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	private AskActivity testActivity;
 	private Button testPostButton;
 	private Button testMainMenuButton;
-		
+	private DataManager dm;
+	
 	public AskTest()
 	{
 		super(AskActivity.class);
@@ -33,6 +32,8 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	super.setUp();
 	setActivityInitialTouchMode(true);
 	testActivity = getActivity();
+	dm = new DataManager();
+	dm.addForumEntry((new ForumEntry("subject","What is life?", "Kibbles")));
 	}
 	
 	
@@ -46,20 +47,18 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	 */
 	
 	//Test if there is a name
-	public void NameTest()//should this be testName() of testGetName()??
+	public void testName()//should this be testName() of testGetName()??
 	{
 		//Will we be saving user names? So should we check if the name exists?
 		//Will users have to sign in?
 		
 		boolean notEmpty = false;
-		
-		DataManager dm = new DataManager();
-    	dm.addForumEntry((new ForumEntry("subject","What is life?", "Kibbles")));
-                questions.get(0).setAuthorsName("Timothy");
 
+    	ForumEntry testForumEntry; 
+    	testForumEntry = dm.getForumEntry();
 
-		String expectedName = "Timothy";
-		String name = questions.get(0).getAuthorsName();
+		String expectedName = "Kibbles";
+		String name = testForumEntry.getQuestion().getAuthorsName();
 
 		if(!name.isEmpty() && name.trim().length() > 0)
 		{
@@ -75,11 +74,10 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	{
 		boolean notEmpty = false;
 
-		DataManager dm = new DataManager();
-    	dm.addForumEntry((new ForumEntry("subject","What is life?", "Kibbles")));
-
+    	ForumEntry testForumEntry = dm.getForumEntry();
+    	
 		String expectedQuestion = "What is life?";
-		String question = questions.get(0).getPost();
+		String question = testForumEntry.getQuestion().getPost();
 
 		if(!question.isEmpty() && question.trim().length() > 0)
 		{
@@ -95,12 +93,10 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	{
 		boolean notEmpty = false;
 
-		DataManager dm = new DataManager();
-    	dm.addForumEntry((new ForumEntry("subject","What is life?", "Kibbles")));
-                questions.get(0).setSubject("Life");
-
-		String expectedSubject = "Life";
-		String subject = questions.get(0).getSubject(); 
+		ForumEntry testForumEntry = dm.getForumEntry();
+		
+		String expectedSubject = "subject";
+		String subject = testForumEntry.getSubject(); 
 
 		if(!subject.isEmpty() && subject.trim().length() > 0)
 		{
@@ -115,20 +111,23 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	public void ifPictureTest()  //test picture() or test ifPicture()?
 	{
 		//Need more tests in here once we determine more about how pictures will work
-	        ForumEntry test=new ForumEntry("subject","this is a forum entry","answer");
+	  
+	   //add a picture called picture.png
+	   Picture pictureFile= null;
+	   ForumEntry testForumEntry = dm.getForumEntry();
 	        
-	        //add a picture called picture.png
-	        File pictureFile= picture.png;
-	        test.addPicture(pictureFile);
+	   testForumEntry.getQuestion().setPicture(pictureFile);
+	   Picture thePictureAdded = testForumEntry.getQuestion().getPicture();
 	        
-		assertEquals(test.getPicture(),pictureFile);
+		assertEquals(thePictureAdded,pictureFile);
 		//Check if the pictures are the same (it was loaded properly)
 		
 		//this will be a picture bigger than 64kb
-		File bigPictureFile=bigPicture.png;
-		test.removePicture();
-		test.addPicture(bigPictureFile);
-		assertEquals(null, test.getPicture());
+		Picture bigPictureFile=null;
+		testForumEntry.getQuestion().setPicture(bigPictureFile);
+	
+		thePictureAdded = testForumEntry.getQuestion().getPicture();
+		assertEquals(null, thePictureAdded);
 		
 		
 	}
@@ -171,14 +170,13 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		testPostButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.askButton);	
 		testPostButton.performClick();
 		
-		ForumEntryListModel felm= new ForumEntryListModel();
-		ArrayList<ForumEntry> arraylist=felm.getForumEntryList();
-		assert(arraylist.size() > 0);
+
+		ForumEntry question=dm.getForumEntry();
+		///assert(arraylist.size() > 0);
 		
-		ForumEntry question=arraylist.get(0);
 		
 		assertEquals(question.getQuestion().getAuthorsName(),Author);
-		assertEquals(question.getQuestion().getSubject(),Subject);  //Currently does not exist
+		assertEquals(question.getSubject(),Subject);  //Currently does not exist
 		assertEquals(question.getQuestion().getPost(),Question);
 	}
 	
@@ -194,7 +192,10 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		String Subject=SubjectEdit.getText().toString();
 		String Author= AuthorEdit.getText().toString(); 
 		
-		//Add a picture
+		//Add a picture this won't work because 
+		// we haven't added pictures yet, involves figuring out 
+		// how to add pictures 
+		
 		testPostButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.attachButton);	
 		testPostButton.performClick();
 		
@@ -202,16 +203,13 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		testPostButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.askButton);
 		testPostButton.performClick();
 		
-		ForumEntryListModel felm= new ForumEntryListModel();
-		ArrayList<ForumEntry> arraylist=felm.getForumEntryList();
-		assert(arraylist.size() > 0);
+		ForumEntry question = dm.getForumEntry();
 		
-		ForumEntry question=arraylist.get(0);
 		
 		assertEquals(question.getQuestion().getAuthorsName(),Author);
-		assertEquals(question.getQuestion().getSubject(),Subject);  //Currently does not exist
+		assertEquals(question.getSubject(),Subject); 
 		assertEquals(question.getQuestion().getPost(),Question);
-		assertNotNull(question.getQuestion().getPicture());  //Currently does not exist
+		assertNotNull(question.getQuestion().getPicture());
 	}
 
 }

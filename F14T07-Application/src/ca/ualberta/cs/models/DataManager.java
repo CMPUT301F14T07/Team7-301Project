@@ -27,7 +27,7 @@ public class DataManager extends Activity {
 	private static final String FILENAME = "saveQuestion.sav";
 	
 	private Gson gson;
-
+	private ForumEntry forumEntryTest;
 	public DataManager() {
 		gson = new Gson();
 	}
@@ -54,7 +54,7 @@ public class DataManager extends Activity {
 	
 	public void addForumEntry(ForumEntry forumEntry) {
 		HttpClient httpClient = new DefaultHttpClient();
-
+		forumEntryTest = forumEntry;
 		try {
 			HttpPost addRequest = new HttpPost(RESOURCE_URL);
 
@@ -69,6 +69,10 @@ public class DataManager extends Activity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ForumEntry getForumEntry(){ 
+		return forumEntryTest;
 	}
 	//private Context context;
 	/*
