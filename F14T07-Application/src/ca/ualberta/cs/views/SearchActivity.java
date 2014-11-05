@@ -24,8 +24,6 @@ public class SearchActivity extends Activity {
 		
     Button view_by_button=(Button) findViewById(R.id.searchViewByButton);
     
-    Button read_later_button=(Button) findViewById(R.id.searchSelectReadLater);
-    
     //I (Dayna) added this. It gets the search term from the MainScreen
     EditText term = (EditText) findViewById(R.id.searchTextInput);
     Intent intent = getIntent();
@@ -41,12 +39,6 @@ public class SearchActivity extends Activity {
 	         }
 	    });
 	    
-	    read_later_button.setOnClickListener(new View.OnClickListener() {
-	    	@Override
-	    	public void onClick(View v){
-	    		readLater();
-	         }
-	    });
 	}
 
 	@Override
