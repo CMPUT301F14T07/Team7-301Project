@@ -1,36 +1,73 @@
 package ca.ualberta.cs.models;
 
+import java.util.ArrayList;
+
 public class ForumEntryList {
 
-	public void add(ForumEntry fe) {
+	public void setView(ArrayList<ForumEntry> list) {
 		
 	}
 	
-	public void sortByTime() {
+	public void setMyAuthored(ArrayList<ForumEntry> list) {
 		
 	}
 	
-	public void sortByRating() {
+	public void setReadLater(ArrayList<ForumEntry> list) {
 		
 	}
 	
-	public void sortByHasPicture() {
+	public void setFavourites(ArrayList<ForumEntry> list) {
 		
 	}
 	
-	public void sortBySearchTerm() {
+	public boolean setRemote(ArrayList<ForumEntry> list) {
 		
+		return false;
 	}
 	
-	public void getlist() {
+	public boolean setRemoteBlynd(int x, ForumEntry fe) {
 		
+		return false;
 	}
 	
-	public void changeRating(int index, int new_rating) {
+	public ArrayList<ForumEntry> getView() {
 		
+		ArrayList<ForumEntry> list=null;
+		return list;
 	}
 	
-	public void addPicture(int index) {
+	public ArrayList<ForumEntry> getMyAuthored() {
 		
+		ArrayList<ForumEntry> list=null;
+		return list;
+	}
+	
+	public ArrayList<ForumEntry> getReadLater() {
+		
+		ArrayList<ForumEntry> list=null;
+		return list;
+	}
+	
+	public ArrayList<ForumEntry> getFavourites() {
+		
+		ArrayList<ForumEntry> list=null;
+		return list;
+	}
+	
+	public ArrayList<ForumEntry> getRemote(String a,String b, String c) {
+		
+		ArrayList<ForumEntry> list=null;
+		return list;
+	}
+	
+	public boolean appendToRemote(ForumEntry fe) {
+		
+		return true;
+	}
+	
+	public ForumEntry getRemoteBlyd(int x){
+		
+		ForumEntry fe = null;
+		return fe;
 	}
 }
