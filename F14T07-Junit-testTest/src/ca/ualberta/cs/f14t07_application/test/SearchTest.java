@@ -57,22 +57,27 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
 
     public void sortBySearchTerm(){
     	DataManager dm = new DataManager();
-    	dm.addForumEntry((new ForumEntry("subject","no term","author1")));
-    	dm.addForumEntry((new ForumEntry("subject","still no term","author2")));
-    	dm.addForumEntry((new ForumEntry("subject","has foo!","author3")));
-    	dm.addForumEntry((new ForumEntry("subject", "has foo foo twice!","author"))); 
+    	ForumEntry f1 = new ForumEntry("subject","no term","author1");
+    	ForumEntry f2 = new ForumEntry("subject","still no term","author2");
+    	ForumEntry f3 = new ForumEntry("subject","has foo!","author3");
+    	ForumEntry f4 = new ForumEntry("subject", "has foo foo twice!","author"); 
+    	
+    	ArrayList<ForumEntry> posts = new ArrayList<ForumEntry>();
+    	posts.add(f1);
+    	posts.add(f2);
+    	posts.add(f3);
+    	posts.add(f4);
     	
 		ArrayList<ForumEntry> sortedList = new ArrayList<ForumEntry>();
-		sortedList.add(new ForumEntry("subject","has foo!", "author3"));
 		sortedList.add(new ForumEntry("subject","has foo foo twice!","author4"));
+		sortedList.add(new ForumEntry("subject","has foo!", "author3"));
 		sortedList.add(new ForumEntry("subject","no term","author1"));
 		sortedList.add(new ForumEntry("subject","still no term","author2"));
 		
 		BrowseController bc = new BrowseController();
-		bc.sortBySearchTerm();
-		ArrayList<ForumEntry> testList = (new DataManager()).loadGlobal();
+		bc.sortBySearchTerm(posts);
 
-		assertEquals(testList, sortedList);
+		assertEquals(posts, sortedList);
     }
 
 } 

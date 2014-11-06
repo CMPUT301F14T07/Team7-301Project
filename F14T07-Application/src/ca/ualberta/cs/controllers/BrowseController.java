@@ -29,4 +29,8 @@ public class BrowseController {
 		return forumEntries;
 		
 	}
+	public void sortByTime(ArrayList<ForumEntry> forumEntryList){}
+	public void sortByHasPicture(ArrayList<ForumEntry> forumEntryList){}
+	public void sortByRating(ArrayList<ForumEntry> forumEntryList){}
+	public void sortBySearchTerm(ArrayList<ForumEntry> forumEntryList){}
 }

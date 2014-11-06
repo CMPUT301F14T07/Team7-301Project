@@ -6,7 +6,7 @@ import ca.ualberta.cs.views.BrowseActivity;
 import ca.ualberta.cs.controllers.BrowseController;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
-
+import android.graphics.Picture;
 import android.test.ActivityInstrumentationTestCase2;
 
 /** 
@@ -44,66 +44,74 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 	}
 	
 	public void sortByTimeTest(){
-		DataManager dm = new DataManager();
-    	dm.addForumEntry((new ForumEntry("subject","test 1","author1")));
-    	dm.addForumEntry((new ForumEntry("subject","test 2","author2")));
-    	dm.addForumEntry((new ForumEntry("subject","test 3","author3")));
+		//Elastic Search needs to be figured otu before we can effectively write tests
+		ForumEntry f1 = new ForumEntry("subject","test 1","author1");
+    	ForumEntry f2 = new ForumEntry("subject","test 2","author2");
+    	ForumEntry f3 = new ForumEntry("subject","test 3","author3");
 
+    	ArrayList<ForumEntry> posts = new ArrayList<ForumEntry>();
+    	posts.add(f2);
+    	posts.add(f3);
+    	posts.add(f1);
+    	
+    	
 		
 		//set time using index, day month year hour minute
-    	
-		posts.get(0).getDate().setTime(time+3); //How are we doing this now?????????????????????????????????????????
-		posts.get(1).getDate().setTime(time+2);
-		posts.get(2).getDate().setTime(time);
+    	// Don't know how to set dates yet so we haven't figured this fully out
 		
 		BrowseController bc = new BrowseController();
-		bc.sortByTime();
-		ArrayList<ForumEntry> testList = (new DataManager()).loadGlobal();
+		bc.sortByTime(posts);
 		
 		ArrayList<ForumEntry> sortedList= new ArrayList<ForumEntry>();
 
-		sortedList.add(new ForumEntry("subject","test 3","author3"));
+		sortedList.add(new ForumEntry("subject","test 1","author3"));
 		sortedList.add(new ForumEntry("subject","test 2","author2"));
-		sortedList.add(new ForumEntry("subject","test 1","author1"));
+		sortedList.add(new ForumEntry("subject","test 3","author1"));
 		
-		assertEquals(sortedList,testList);
+		assertEquals(sortedList, posts);
 		
 		}
 	
 	public void sortByRatingTest(){
-		DataManager dm = new DataManager();
-    	dm.addForumEntry((new ForumEntry("subject","test 1","author1")));
-    	dm.addForumEntry((new ForumEntry("subject","test 2","author2")));
-    	dm.addForumEntry((new ForumEntry("subject","test 3","author3")));
+    	ForumEntry fm1 = new ForumEntry("subject","test 1","author1");
+    	ForumEntry fm2 = new ForumEntry("subject","test 2","author2");
+    	ForumEntry fm3 = new ForumEntry("subject","test 3","author3");
+    	ArrayList<ForumEntry> posts = new ArrayList<ForumEntry>();
+    	posts.add(fm1);
+    	posts.add(fm2);
+    	posts.add(fm3);
     	
-		posts.get(0).setUpVote(1);
-		posts.get(1).setUpVote(5);
-		posts.get(2).setUpVote(3);
+		posts.get(0).getQuestion().setUpVote(1);
+		posts.get(1).getQuestion().setUpVote(5);
+		posts.get(2).getQuestion().setUpVote(3);
 		
 		BrowseController bc = new BrowseController();
-		bc.sortByRating();
-		ArrayList<ForumEntry> testList = (new DataManager()).loadGlobal();
+		bc.sortByRating(posts);
+		
 		
 		ArrayList<ForumEntry> sortedList = new ArrayList<ForumEntry>();
 		sortedList.add(new ForumEntry("subject","test 2","author2"));
 		sortedList.add(new ForumEntry("subject","test 3","author3"));
 		sortedList.add(new ForumEntry("subject","test 1","author1"));
 		
-		assertEquals(sortedList,testList);
+		assertEquals(sortedList,posts);
 		
 		}
 	
 	public void sortByHasPictureTest(){
-		DataManager dm = new DataManager();
-    	dm.addForumEntry((new ForumEntry("subject","test 1","author1")));
-    	dm.addForumEntry((new ForumEntry("subject","test 2","author2")));
-    	dm.addForumEntry((new ForumEntry("subject","test 3","author3")));
+    	ForumEntry f1 = new ForumEntry("subject","test 1","author1");
+    	ForumEntry f2 = new ForumEntry("subject","test 2","author2");
+    	ForumEntry f3 = new ForumEntry("subject","test 3","author3");
 		
-		posts.get(1).addPicture(new Picture());
+    	ArrayList<ForumEntry> posts = new ArrayList<ForumEntry>();
+    	posts.add(f1);
+    	posts.add(f2);
+    	posts.add(f3);
+    	
+		posts.get(1).getQuestion().setPicture(new Picture());
 		
 		BrowseController bc = new BrowseController();
-		bc.sortByHasPicture();
-		ArrayList<ForumEntry> testList = (new DataManager()).loadGlobal();
+		bc.sortByHasPicture(posts);
 		
 
 		ArrayList<ForumEntry> sortedList = new ArrayList<ForumEntry>();
@@ -111,7 +119,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 		sortedList.add(new ForumEntry("subject","test 1","author1"));
 		sortedList.add(new ForumEntry("subject","test 3","author3"));
 		
-		assertEquals(sortedList,testList);
+		assertEquals(sortedList,posts);
 		
 		}
 }
