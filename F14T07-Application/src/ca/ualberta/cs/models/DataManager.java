@@ -126,6 +126,11 @@ public class DataManager extends Activity {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public ArrayList<ForumEntry> loadFavourites() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 	class AddThread extends Thread{ 
 		private ForumEntry forumEntry;
