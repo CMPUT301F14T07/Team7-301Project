@@ -49,7 +49,7 @@ public class SearchController {
 		
 		return searchResult;
 	}
-	public List<ForumEntry> searchForumEntries(String searchString, String field) throws ClientProtocolException, IOException { 
+	public void searchForumEntries(String searchString, String field) throws ClientProtocolException, IOException { 
 		List<ForumEntry> result = new ArrayList<ForumEntry>();
 
 		// TODO: Implement search movies using ElasticSearch
@@ -75,14 +75,13 @@ public class SearchController {
 			if (hits.getHits() != null ){
 				//there are movies in the search 
 				for(SearchHit<ForumEntry> sesr: hits.getHits()){
-					result.add(sesr.getSource());
+					searchResult.add(sesr.getSource());
 				}
 			}
 		}
 		} catch (UnsupportedEncodingException e){
 			e.printStackTrace();
 		}
-		return result;
 	}
 	
 	private HttpPost createSearchRequest(String searchString, String field) throws UnsupportedEncodingException{ 
@@ -144,7 +143,7 @@ class SearchThread extends Thread {
 		try {
 			ForumEntry forumEntry= new ForumEntry("search","Search","search");
 			
-			searchResult.addAll(searchForumEntries(search,null));
+			searchForumEntries(search,null);
 			searchResult.add(forumEntry);
 			
 		//	runOnUiThread();

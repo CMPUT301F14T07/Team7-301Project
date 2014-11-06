@@ -8,6 +8,7 @@ import android.widget.Button;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.Entry;
 import ca.ualberta.cs.models.ForumEntry;
+import ca.ualberta.cs.controllers.BrowseController;
 import ca.ualberta.cs.controllers.ForumEntryController;
 import ca.ualberta.cs.views.QuestionActivity;
 import ca.ualberta.cs.models.Reply;
@@ -59,32 +60,20 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 	 */
 	public void upVoteQuestionTest()
 	{
-		setUp();
 		String subject = "This is the subject";
 		String question = "This is the question";
 		String author = "This is the author";
 		ForumEntry testEntry = new ForumEntry(subject, question, author);
 		int initialVote = testEntry.getQuestion().getUpVote();
-		long testEntryId = testEntry.getId();
 		DataManager dataM = new DataManager();
 		
-		(new ForumEntryController()).addForumEntry(testEntry);
+		dataM.addForumEntry(testEntry);
 		
-		Button upVoteButton = (Button) testActivity.findViewById(
-				ca.ualberta.cs.f14t07_application.R.id.UpVoteButton);
-		upVoteButton.performClick();
+		//Button upVoteButton = (Button) testActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.UpVoteButton);
+		//upVoteButton.performClick();
 		
-		ArrayList<ForumEntry> testList = dataM.load();
-		Iterator iter = testList.iterator();
-		while(iter.hasNext())
-		{
-			ForumEntry temp = iter.next();
-			if(temp.getId() == testEntryId)
-			{
-				assertTrue(temp.getQuestion().getUpVote(), initialVote+1);
-				break;
-			}
-		}
+		
+		assertEquals(dataM.getForumEntry().getQuestion().getUpVote(),1);
 		dataM.deleteLocalAll();
 	}
 	
@@ -93,32 +82,21 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 	 */
 	public void upVoteAnswerTest() //NEEDS TO BE CHANGED - WE'RE DOING A NEW SCREEN NOW
 	{
-		setUp();
 		String subject = "This is the subject";
 		String answer = "This is an answer";
 		String author = "This is the author";
 		ForumEntry testEntry = new ForumEntry(subject, answer,author);
-		long testEntryId = testEntry.getId();
 		int initialVote = testEntry.getAnswers().get(0).getUpVote();
 		DataManager dataM = new DataManager();
 		
-		(new ForumEntryController()).addForumEntry(testEntry);
+		dataM.addForumEntry(testEntry);
+		// This isn't set up yet, hence commented out
+	//	Button upVoteButton = (Button) testActivity.findViewById(
+			//	ca.ualberta.cs.f14t07_application.R.id.UpVoteButton);
+	//	upVoteButton.performClick();
 		
-		Button upVoteButton = (Button) testActivity.findViewById(
-				ca.ualberta.cs.f14t07_application.R.id.UpVoteButton);
-		upVoteButton.performClick();
-		
-		ArrayList<ForumEntry> testList = dataM.load();
-		Iterator iter = testList.iterator();
-		while(iter.hasNext())
-		{
-			ForumEntry temp = iter.next();
-			if(temp.getId() == testEntryId)
-			{
-				assertTrue(temp.getAnswers().get(0).getUpVote(), initialVote+1);
-				break;
-			}
-		}
+	
+		assertEquals(dataM.getForumEntry().getAnswers().get(0), 1);
 		/* Clean up the local memory after testing. */
 		dataM.deleteLocalAll();
 	}
@@ -131,34 +109,21 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 	 */
 	public void replyTest()
 	{
+		//button not set up
+		/*
 		testButton = (Button) testActivity.findViewById(
-				ca.ualberta.cs.f14t07_application.R.id.ReplyToForumPost);
+				ca.ualberta.cs.f14t07_application.R.id.ReplyToForumPost);*/
 		Reply testReply = new Reply("This is the reply");
 
-		setUp();
 		String subject = "This is the subject";
 		String question = "This is the question";
 		String author = "This is the author";
 		ForumEntry testEntry = new ForumEntry(subject, question, author);
-		long testEntryId = testEntry.getId();
 		DataManager dataM = new DataManager();
-		ForumEntryController fec = new ForumEntryController();
-		fec.addForumEntry(testEntry);
+		dataM.addForumEntry(testEntry);
 		/* Add this reply to the 0'th entry in the forum entry - aka - the main question */
-		fec.addReplyToEntry(0, new Reply("This is the reply"));
+		dataM.addReplyToEntry(testEntry, "This is the reply");
 		
-		ArrayList<ForumEntry> testList = dataM.load();
-		Iterator iter = testList.iterator();
-		while(iter.hasNext())
-		{
-			ForumEntry temp = iter.next();
-			if(temp.getId() == testEntryId)
-			{
-			    assertTrue(temp.getQuestion().getReplies().get(0).getReply(), "This is the reply");
-			    break;
-			}
-		}
-		dataM.deleteLocalAll();
-		
+		assertEquals(dataM.getForumEntry().getQuestion().getReplies(), "This is a reply");
 	}
 }

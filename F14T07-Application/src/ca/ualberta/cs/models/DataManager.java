@@ -53,7 +53,9 @@ public class DataManager extends Activity {
 		return null;
 	}
 
-	
+	public void addReplyToEntry(ForumEntry forumEntry,String s){
+		
+	}
 	public void addForumEntry(ForumEntry forumEntry) {
 		HttpClient httpClient = new DefaultHttpClient();
 		forumEntryTest = forumEntry;
