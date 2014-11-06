@@ -3,6 +3,8 @@ import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
+import ca.ualberta.cs.controllers.AuthorController;
+import ca.ualberta.cs.models.AuthorModel;
 import ca.ualberta.cs.views.AskActivity;
 import ca.ualberta.cs.views.BrowseActivity;
 import ca.ualberta.cs.views.MainScreenActivity;
@@ -58,6 +60,14 @@ public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScree
 		String searchScreenString = searchScreenTerm.getText().toString();
 		
 		assertEquals(searchString, searchScreenString);
+	}
+	
+	public void setUsernameTest(){
+		String author="John";
+		AuthorController ac= new AuthorController(getActivity());
+		ac.setSessionAuthor(author);
+		
+		assertEquals((new AuthorModel()).getSessionAuthor(), author);
 	}
 
 
