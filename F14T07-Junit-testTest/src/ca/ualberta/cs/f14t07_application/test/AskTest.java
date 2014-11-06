@@ -1,8 +1,5 @@
 package ca.ualberta.cs.f14t07_application.test;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.content.Intent;
 import android.graphics.Picture;
 import android.test.ActivityInstrumentationTestCase2;
@@ -60,33 +57,21 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		String expectedName = "Kibbles";
 		String name = testForumEntry.getQuestion().getAuthorsName();
 
-		if(!name.isEmpty() && name.trim().length() > 0)
-		{
-			notEmpty = true;
-		}
-
-
 		assertEquals(name, expectedName);
-		assertTrue("The name string is empty", notEmpty == true);
+		
 	}
 	
 	public void getQuestionTest()//should this be testQuestion() of testGetQuestion()??
 	{
-		boolean notEmpty = false;
+
 
     	ForumEntry testForumEntry = dm.getForumEntry();
     	
 		String expectedQuestion = "What is life?";
 		String question = testForumEntry.getQuestion().getPost();
 
-		if(!question.isEmpty() && question.trim().length() > 0)
-		{
-			notEmpty = true;
-		}
 
 		assertEquals(question, expectedQuestion);
-
-		assertTrue("The question string is empty", notEmpty == true);
 	}
 	
 	public void getSubjectTest() //should this be testSubject() of testGetSubject()??
@@ -98,14 +83,8 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		String expectedSubject = "subject";
 		String subject = testForumEntry.getSubject(); 
 
-		if(!subject.isEmpty() && subject.trim().length() > 0)
-		{
-			notEmpty = true;
-		}
 
 		assertEquals(subject, expectedSubject);
-
-		assertTrue("The subject string is empty", notEmpty == true);
 	}
 
 	public void ifPictureTest()  //test picture() or test ifPicture()?
@@ -132,28 +111,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		
 	}
 	
-	public void postButtonTest() //may not be needed - in AskActivityUITest
-	{
-		AskActivity a = getActivity();
-		testPostButton = (Button) a.findViewById(
-				ca.ualberta.cs.f14t07_application.R.id.askButton);	
-		testPostButton.performClick();
-		Intent newintent = getStartedActivityIntent();
-		Intent AskIntent= new Intent(AskTest.this, AskActivity.class); //where should this go? Some view activity?
-		assertTrue(newintent.filterEquals(AskIntent));
-	}
-	
-	public void mainMenuButtonTest() //I don't think this can be tested... because we use menus now
-	{
-		AskActivity a = getActivity();
-		testMainMenuButton = (Button) a.findViewById(
-				ca.ualberta.cs.f14t07_application.R.id.MainMenuButton);	
-		testMainMenuButton.performClick();
-		Intent newintent = getStartedActivityIntent();
-		Intent AskIntent= new Intent(AskTest.this, HomeActivity.class); 
-		assertTrue(newintent.filterEquals(AskIntent));
-	}
-	
+
 	//Checks if a new ForumEntry has been added and if it matches what was put in by the user
 	public void postTest()
 	{
