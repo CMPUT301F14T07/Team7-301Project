@@ -1,7 +1,5 @@
 package ca.ualberta.cs.f14t07_application.test;
 
-import java.util.ArrayList;
-
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
@@ -50,23 +48,18 @@ public class ReadLaterTest extends ActivityInstrumentationTestCase2<QuestionActi
 		 */
 
 		DataManager dm = new DataManager();
-		ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
-    	dm.addForumEntry(exampleEntry);
-	    
-    	ArrayList<ForumEntry> testQuestions = new ArrayList<ForumEntry>();
-    	testQuestions.add(exampleEntry);
-    	
-    	
+    	dm.addForumEntry((new ForumEntry("subject","What is life?","Kibbles")));
+	
 		/* Get the button that will save a forum entry for offline viewing. */
 		Button saveLater = (Button) testActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.ReadLater);
 		/* Simulate a button click */
 		saveLater.performClick();
 		
 		/* Now we need to check that this forum entry was saved locally */
-		ArrayList<ForumEntry> loadCheck = new ArrayList<ForumEntry>();
-		loadCheck = datamanager.loadLocallySaved();
-		assertEquals("The entry saved is not equal to what was loaded", testQuestions, loadCheck);
+		ArrayList<ForumEntry> check = new ArrayList<ForumEntry>();
+		check = datamanager.loadLocallySaved();
+		AssertEquals("The entry saved is not equal to what was loaded", questions, check);
 		/* Clean up the run time environment */
-		datamanager.deleteLocalAll();
+		dataManager.deleteLocalAll();
 	}
 }
