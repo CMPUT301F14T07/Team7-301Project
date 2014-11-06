@@ -5,6 +5,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
 import ca.ualberta.cs.views.AskActivity;
+import ca.ualberta.cs.views.QuestionActivity;
 
 public class AskActivityUITest extends
 		ActivityInstrumentationTestCase2<AskActivity> {
@@ -26,10 +27,9 @@ public class AskActivityUITest extends
 		question.setText("the question");
 		
 		askButton.performClick();
-		Intent newIntent = getStartedActivityIntent();
-		Intent AskIntent = new Intent(AskActivityUITest.this, QuestionActivity.class);
-		
-		assertTrue(newIntent.filterEquals(AskIntent));
+		Intent newIntent = a.intent2;
+		Intent askIntent = new Intent(a, QuestionActivity.class);
+		assertTrue(newIntent.filterEquals(askIntent));
 	}
 
 }

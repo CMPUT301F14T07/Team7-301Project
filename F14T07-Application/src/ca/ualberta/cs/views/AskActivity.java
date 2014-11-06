@@ -1,10 +1,5 @@
 package ca.ualberta.cs.views;
 
-import ca.ualberta.cs.f14t07_application.R;
-import ca.ualberta.cs.f14t07_application.R.id;
-import ca.ualberta.cs.f14t07_application.R.layout;
-import ca.ualberta.cs.models.DataManager;
-import ca.ualberta.cs.models.ForumEntry;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import ca.ualberta.cs.f14t07_application.R;
+import ca.ualberta.cs.models.DataManager;
+import ca.ualberta.cs.models.ForumEntry;
 
 /**
  * This is the view that is shown to the user when they would 
@@ -21,6 +19,7 @@ import android.widget.Toast;
 public class AskActivity extends Activity
 {
 	public Intent intent;
+	public Intent intent2;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -60,6 +59,9 @@ public class AskActivity extends Activity
 
 				// then an intent needs to open the question screen for the new
 				// forum entry
+				intent = new Intent(AskActivity.this, QuestionActivity.class);
+				intent2 = intent;
+				startActivity(intent);
 			}
 		});
 
@@ -77,11 +79,6 @@ public class AskActivity extends Activity
 
 			}
 		});
-	}
-
-	public Intent returnIntent()
-	{
-		return getIntent();
 	}
 
 }
