@@ -106,7 +106,8 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		testForumEntry.getQuestion().setPicture(bigPictureFile);
 	
 		thePictureAdded = testForumEntry.getQuestion().getPicture();
-		assertEquals(null, thePictureAdded);
+		assertNotNull(thePictureAdded);
+		assertEquals(pictureFile, thePictureAdded);
 		
 		
 	}
@@ -125,8 +126,8 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		String Subject=SubjectEdit.getText().toString();
 		String Author= AuthorEdit.getText().toString(); 
 		
-		testPostButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.askButton);	
-		testPostButton.performClick();
+		//testPostButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.askButton);	
+		//testPostButton.performClick();
 		
 
 		ForumEntry question=dm.getForumEntry();
@@ -154,8 +155,8 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		// we haven't added pictures yet, involves figuring out 
 		// how to add pictures 
 		
-		testPostButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.attachButton);	
-		testPostButton.performClick();
+		//testPostButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.attachButton);	
+		//testPostButton.performClick();
 		
 		//Post the question
 		testPostButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.askButton);
