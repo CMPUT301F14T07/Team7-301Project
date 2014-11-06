@@ -2,6 +2,8 @@ package ca.ualberta.cs.models;
 
 
 
+import java.util.ArrayList;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -109,6 +111,16 @@ public class DataManager extends Activity {
 		}*/ 
 
 	public void saveAuthor(String author) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public ArrayList<ForumEntry> loadLocallySaved() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void deleteLocalAll() {
 		// TODO Auto-generated method stub
 		
 	}
