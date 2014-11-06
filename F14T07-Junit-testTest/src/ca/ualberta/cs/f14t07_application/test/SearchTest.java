@@ -41,7 +41,7 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
     }
     
 
-    public void SearchTermTest(){
+    public void testSearchTerm(){
     	String searchTerm = "foo";
 		MainScreenActivity m = new MainScreenActivity();
 		SearchActivity s = getActivity();
@@ -55,7 +55,7 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
     	assertEquals(inputedTerm,searchTerm);	
     }
 
-    public void sortBySearchTerm(){
+    public void testSortBySearchTerm(){
     	DataManager dm = new DataManager();
     	ForumEntry f1 = new ForumEntry("subject","no term","author1");
     	ForumEntry f2 = new ForumEntry("subject","still no term","author2");

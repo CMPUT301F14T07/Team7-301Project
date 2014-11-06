@@ -10,12 +10,13 @@ import ca.ualberta.cs.views.QuestionActivity;
 public class AskActivityUITest extends
 		ActivityInstrumentationTestCase2<AskActivity> {
 
-	public AskActivityUITest() {
-		super(AskActivity.class);
+	public AskActivityUITest(Class<AskActivity> activityClass) {
+		super(activityClass);
 		// TODO Auto-generated constructor stub
 	}
+
 	
-	public void AskButtonTest() {
+	public void testAskButton() {
 		AskActivity a = getActivity();
 		Button askButton = (Button) a.findViewById(ca.ualberta.cs.f14t07_application.R.id.askButton);
 		EditText question = (EditText) a.findViewById(ca.ualberta.cs.f14t07_application.R.id.question);

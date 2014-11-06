@@ -1,4 +1,4 @@
-package ca.ualberta.cs.f14t07_application.test;
+/*package ca.ualberta.cs.f14t07_application.test;
 
 import java.util.ArrayList;
 
@@ -129,3 +129,4 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		assert(i); 
 	}
 }
+*/

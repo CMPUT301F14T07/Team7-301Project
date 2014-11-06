@@ -61,7 +61,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		
 	}
 	
-	public void getQuestionTest()//should this be testQuestion() of testGetQuestion()??
+	public void testGetQuestion()//should this be testQuestion() of testGetQuestion()??
 	{
 
 
@@ -74,7 +74,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		assertEquals(question, expectedQuestion);
 	}
 	
-	public void getSubjectTest() //should this be testSubject() of testGetSubject()??
+	public void testGetSubject() //should this be testSubject() of testGetSubject()??
 	{
 		boolean notEmpty = false;
 
@@ -87,7 +87,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		assertEquals(subject, expectedSubject);
 	}
 
-	public void ifPictureTest()  //test picture() or test ifPicture()?
+	public void testifPicture()  //test picture() or test ifPicture()?
 	{
 		//Need more tests in here once we determine more about how pictures will work
 	  
@@ -113,7 +113,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	
 
 	//Checks if a new ForumEntry has been added and if it matches what was put in by the user
-	public void postTest()
+	public void testPost()
 	{
 		AskActivity activity = getActivity();
 		
@@ -138,7 +138,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		assertEquals(question.getQuestion().getPost(),Question);
 	}
 	
-	public void postTestWithPicture()
+	public void testPosttWithPicture()
 	{
 		AskActivity activity = getActivity();
 		

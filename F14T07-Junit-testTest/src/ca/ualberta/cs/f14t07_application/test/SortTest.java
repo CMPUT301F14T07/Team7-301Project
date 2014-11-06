@@ -43,7 +43,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 		super(BrowseActivity.class);
 	}
 	
-	public void sortByTimeTest(){
+	public void testSortByTime(){
 		//Elastic Search needs to be figured otu before we can effectively write tests
 		ForumEntry f1 = new ForumEntry("subject","test 1","author1");
     	ForumEntry f2 = new ForumEntry("subject","test 2","author2");
@@ -72,7 +72,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 		
 		}
 	
-	public void sortByRatingTest(){
+	public void testSortByRating(){
     	ForumEntry fm1 = new ForumEntry("subject","test 1","author1");
     	ForumEntry fm2 = new ForumEntry("subject","test 2","author2");
     	ForumEntry fm3 = new ForumEntry("subject","test 3","author3");
@@ -98,7 +98,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 		
 		}
 	
-	public void sortByHasPictureTest(){
+	public void testSortByHasPicture(){
     	ForumEntry f1 = new ForumEntry("subject","test 1","author1");
     	ForumEntry f2 = new ForumEntry("subject","test 2","author2");
     	ForumEntry f3 = new ForumEntry("subject","test 3","author3");

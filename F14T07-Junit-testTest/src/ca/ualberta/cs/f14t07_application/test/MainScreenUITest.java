@@ -18,7 +18,7 @@ public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScree
 		// TODO Auto-generated constructor stub
 	}
 
-	public void AskButtonTest() {
+	public void testAskButton() {
 		MainScreenActivity m = getActivity();
 		Button askButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.askButton);
 		
@@ -28,7 +28,7 @@ public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScree
 		assertTrue(newIntent.filterEquals(AskIntent));
 	}
 
-	public void BrowseButtonTest() {
+	public void testBrowseButton() {
 		MainScreenActivity m = getActivity();
 		Button browseButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.browseButton);
 		
@@ -40,7 +40,7 @@ public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScree
 		assertTrue(newIntent.filterEquals(BrowseIntent));
 	}
 
-	public void SearchButtonTest() {
+	public void testSearchButton() {
 		MainScreenActivity m = getActivity();
 		Button searchButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
 		EditText searchTerm = (EditText) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTerm);
@@ -62,7 +62,7 @@ public class MainScreenUITest extends ActivityInstrumentationTestCase2<MainScree
 		assertEquals(searchString, searchScreenString);
 	}
 	
-	public void setUsernameTest(){
+	public void testSetUsername(){
 		String author="John";
 		AuthorController ac= new AuthorController(getActivity());
 		ac.setSessionAuthor(author);

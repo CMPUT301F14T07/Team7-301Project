@@ -58,7 +58,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 	/**
 	 *Test upvoting a question
 	 */
-	public void upVoteQuestionTest()
+	public void testUpVoteQuestion()
 	{
 		String subject = "This is the subject";
 		String question = "This is the question";
@@ -80,7 +80,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 	/**
 	 * Test upvoting an answer
 	 */
-	public void upVoteAnswerTest() //NEEDS TO BE CHANGED - WE'RE DOING A NEW SCREEN NOW
+	public void testUpVoteAnswer() //NEEDS TO BE CHANGED - WE'RE DOING A NEW SCREEN NOW
 	{
 		String subject = "This is the subject";
 		String answer = "This is an answer";
@@ -107,7 +107,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 	 * 
 	 * This test assumes the name of the reply button and activity.xml it is in
 	 */
-	public void replyTest()
+	public void testReply()
 	{
 		//button not set up
 		/*

@@ -21,7 +21,7 @@ public class MyQuestionsTest extends ActivityInstrumentationTestCase2<MyQuestion
 		super.setUp();
 	}
 
-	public void viewAuthoredQuestionsTest(){
+	public void testViewAuthoredQuestions(){
 		String username="John Doe";
 		AuthorModel ac= new AuthorModel();
 		ac.setSessionAuthor(username);
