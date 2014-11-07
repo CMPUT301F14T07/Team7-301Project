@@ -7,8 +7,10 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
 import ca.ualberta.cs.controllers.BrowseController;
+import ca.ualberta.cs.controllers.ForumEntryController;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
+import ca.ualberta.cs.models.ForumEntryList;
 import ca.ualberta.cs.views.MainScreenActivity;
 import ca.ualberta.cs.views.SearchActivity;
 
@@ -41,12 +43,26 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
     }
     
 
-    public void testSearchTerm(){
+    public void testSearchQuestion(){
     	String searchTerm = "foo";
 		MainScreenActivity m = new MainScreenActivity();
 		SearchActivity s = getActivity();
     	EditText SearchText = (EditText) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTerm);
     	SearchText.setText("foo");
+    
+    	Button SearchButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
+    	SearchButton.performClick();
+
+    	String inputedTerm = s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput).toString();
+    	assertEquals(inputedTerm,searchTerm);	
+    }
+    
+    public void testSearchAnswer(){
+    	String searchTerm = "bar";
+		MainScreenActivity m = new MainScreenActivity();
+		SearchActivity s = getActivity();
+    	EditText SearchText = (EditText) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTerm);
+    	SearchText.setText("bar");
     
     	Button SearchButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
     	SearchButton.performClick();
@@ -79,5 +95,6 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
 
 		assertEquals(posts, sortedList);
     }
+    
 
 } 
