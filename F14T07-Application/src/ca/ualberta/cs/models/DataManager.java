@@ -168,7 +168,7 @@ public class DataManager {
 
 	public void saveFavourite(ForumEntryList fel) {
 		try {
-			FileOutputStream fos = ctx.openFileOutput("read_later.sav", Context.MODE_PRIVATE);
+			FileOutputStream fos = ctx.openFileOutput("favourites", Context.MODE_PRIVATE);
 			String json = gson.toJson(fel);
 			fos.write(json.getBytes());
 			fos.close();
