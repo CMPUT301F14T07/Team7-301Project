@@ -5,54 +5,114 @@ import java.util.ArrayList;
 
 /**
  * Contains all the information of one forum post.
- * @author Brendan
  *
  */
 public class ForumEntry
 {
-	private ArrayList<Entry> answers;
-	private Entry question;
+	private Question question;
+	private ArrayList<Answer> answers;
 	private String subject;
 	private int entryFlag;
 	private long id;
 	
-	/** 
-	 * Instantiate a question.
-	 * @param question	The text contains the main question for the forum post.
-	 * @param author	The name of the main poster
+	/**
+	 * Create a new ForumEntry.
+	 * @param subject_ Title of the ForumEntry.
+	 * @param question_ The question being asked.
+	 * @param author The person who created the question.
+	 */
+	public ForumEntry(String subject_, String question_, String author)
+	{
+		super();
+		question = new Question(question_,author);
+		question.setSubject(subject_);
+		subject = subject_;
+		answers = new ArrayList<Answer>();
+	}
+	
+	/**
+	 * Create a new ForumEntry.
+	 * @param question The question being asked.
+	 */
+	public ForumEntry(Question question){}
+	
+	/**
+	 * Return this ForumEntry's Question's main body of text.
+	 * @return String
 	 */
 	public String toString(){ 
 		return question.getPost();
 	}
-	public ForumEntry(String subject_, String question_, String author)
+	
+	/**
+	 * Set the answers of this ForumEntry.
+	 * @param answers The answers.
+	 */
+	public void setAnswer(ArrayList<Answer> answers)
 	{
-		super();
-		question = new Entry(question_,author);
-		subject = subject_;
-		
-		answers = new ArrayList<Entry>();
+		this.answers = answers;
 	}
-	public void addAnswer(Entry Answer){
-		answers.add(Answer);
-	}
-	public ArrayList<Entry> getAnswers(){
+	
+	/**
+	 * Get all the answers in this ForumEntry.
+	 * @return ArrayList<Answer>
+	 */
+	public ArrayList<Answer> getAnswers(){
 		return answers;
 	}
-	public Entry getQuestion(){
+	
+	/**
+	 * Get the question being asked in this ForumEntry
+	 * @return Question
+	 */
+	public Question getQuestion(){
 		return question;
 	}
-	public int getFlag(){ 
-		return entryFlag;
-	}
-	public void setFlag(int f){
-		entryFlag=f;
-	}
+	
+	/**
+	 * Deprecated. Do not use.
+	 * @param newId
+	 */
 	public void setSubject(String s){
 		subject = s;
 	}
+	
+	/**
+	 * Deprecated. Do not use.
+	 * @param newId
+	 */
 	public String getSubject(){ 
 		return subject;
 	}
+	
+	/**
+	 * Deprecated. Do not use. Use setAnswer() instead.
+	 * @param newId
+	 */
+	public void addAnswer(Answer Answer){
+		answers.add(Answer);
+	}
+	
+	/**
+	 * Deprecated. Do not use.
+	 * @param newId
+	 */
+	public int getFlag(){ 
+		return entryFlag;
+	}
+	
+	/**
+	 * Deprecated. Do not use.
+	 * @param newId
+	 */
+	public void setFlag(int f){
+		entryFlag=f;
+	}
+	
+	/**
+	 * Deprecated. Do not use.
+	 * @param newId
+	 */
 	public void setId(int newId){
 		id = newId;
 	}

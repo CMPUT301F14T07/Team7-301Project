@@ -5,6 +5,8 @@ package ca.ualberta.cs.models;
  */
 public class Question extends Entry {
 
+	private String questionSubject;
+	
 	/** 
 	 * Create a new question.
 	 * @param post_ The question.
@@ -14,4 +16,24 @@ public class Question extends Entry {
 		super(post_, author_);
 	}
 
+	/**
+	 * Sets the questions subject. This is like the title of the question, preceding the 
+	 * main body of text.
+	 * @param subject The subject of the question.
+	 */
+	public void setSubject(String subject)
+	{
+		this.questionSubject = subject;
+	}
+	
+	/**
+	 * Gets the question subject. This is like the title of the question preceding the
+	 * main body of text.
+	 * @return String
+	 */
+	public String getSubject()
+	{
+		return this.questionSubject;
+	}
+	
 }
