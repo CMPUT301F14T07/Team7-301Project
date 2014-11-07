@@ -43,6 +43,10 @@ public class FavouriteActivity extends Activity {
 	        	Intent myQuestionsIntent = new Intent(this, MyQuestionsActivity.class);
 	        	startActivity(myQuestionsIntent);
 	        	return true;
+	        case R.id.switchToReadLater:
+	        	Intent readLaterIntent = new Intent(this, ReadLaterActivity.class);
+	        	startActivity(readLaterIntent);
+	        	return true;
 	        default:
 	        	return super.onOptionsItemSelected(item);
 	        }
