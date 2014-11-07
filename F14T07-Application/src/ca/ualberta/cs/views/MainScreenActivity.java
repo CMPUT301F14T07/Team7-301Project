@@ -139,7 +139,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			startActivity(readLaterIntent);
 			return true;
 			
-		case R.id.switchToFavorites:
+		case R.id.switchToFavourites:
 			
 			Intent favoritesIntent = new Intent(this, FavouriteActivity.class);
 			startActivity(favoritesIntent);

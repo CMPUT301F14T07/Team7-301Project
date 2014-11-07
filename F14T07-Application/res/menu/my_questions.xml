@@ -4,5 +4,6 @@
     tools:context="com.example.f14t07_application.MyQuestionsActivity" >
     <item android:id="@+id/switchToHome" android:title="View Home Screen"></item>
     <item android:id="@+id/switchToReadLater" android:title="View Saved Questions"></item>
+    <item android:id="@+id/switchToFavourites" android:title="View Favourites"></item>
 
 </menu>

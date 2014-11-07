@@ -44,7 +44,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 	}
 	
 	public void testSortByTime(){
-		//Elastic Search needs to be figured otu before we can effectively write tests
+		//Elastic Search needs to be figured out before we can effectively write tests
 		ForumEntry f1 = new ForumEntry("subject","test 1","author1");
     	ForumEntry f2 = new ForumEntry("subject","test 2","author2");
     	ForumEntry f3 = new ForumEntry("subject","test 3","author3");
@@ -59,7 +59,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 		//set time using index, day month year hour minute
     	// Don't know how to set dates yet so we haven't figured this fully out
 		
-		BrowseController bc = new BrowseController();
+		BrowseController bc = new BrowseController(testActivity);
 		bc.sortByTime(posts);
 		
 		ArrayList<ForumEntry> sortedList= new ArrayList<ForumEntry>();
@@ -85,7 +85,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 		posts.get(1).getQuestion().setUpVote(5);
 		posts.get(2).getQuestion().setUpVote(3);
 		
-		BrowseController bc = new BrowseController();
+		BrowseController bc = new BrowseController(testActivity);
 		bc.sortByRating(posts);
 		
 		
@@ -110,7 +110,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
     	
 		posts.get(1).getQuestion().setPicture(new Picture());
 		
-		BrowseController bc = new BrowseController();
+		BrowseController bc = new BrowseController(testActivity);
 		bc.sortByHasPicture(posts);
 		
 

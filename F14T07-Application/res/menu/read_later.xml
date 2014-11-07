@@ -4,5 +4,6 @@
     tools:context="ca.ualberta.cs.f14t07_application.ReadLaterActivity" >
     <item android:id="@+id/switchToHome" android:title="View Home Screen"></item>
     <item android:id="@+id/switchToMyQuestions" android:title="View My Questions"></item>
+    <item android:id="@+id/switchToFavourites" android:title="View Favourites"></item>
 
 </menu>

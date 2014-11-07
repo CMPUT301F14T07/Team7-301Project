@@ -47,7 +47,7 @@ public class MyQuestionsActivity extends Activity {
         	Intent readLaterIntent = new Intent(this, ReadLaterActivity.class);
         	startActivity(readLaterIntent);
         	return true;
-		case R.id.switchToFavorites:
+		case R.id.switchToFavourites:
 			Intent favoritesIntent = new Intent(this, FavouriteActivity.class);
 			startActivity(favoritesIntent);
 			return true;
