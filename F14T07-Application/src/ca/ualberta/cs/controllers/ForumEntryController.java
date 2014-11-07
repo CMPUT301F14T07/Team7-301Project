@@ -25,6 +25,7 @@ public class ForumEntryController {
 	 */
 	public ForumEntryController(Observer viewsContext){}
 
+	public ForumEntryController(ForumEntry forumEntry){}
 	/**
 	 * Sets the ForumEntry in the model.
 	 * @param forumEntry The forum entry to be pushed to the model.

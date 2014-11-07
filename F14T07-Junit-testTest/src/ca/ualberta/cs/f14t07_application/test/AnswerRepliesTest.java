@@ -6,7 +6,9 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
 import ca.ualberta.cs.views.AnswerReplyActivity;
+import ca.ualberta.cs.controllers.ForumEntryController;
 import ca.ualberta.cs.f14t07_application.R;
+import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.Entry;
 import ca.ualberta.cs.models.ForumEntry;
@@ -60,7 +62,11 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		DataManager dm = new DataManager();
 		
 		ForumEntry entry=new ForumEntry("subject","This is a question","AuthorName");
-		entry.addAnswer(new Entry("This is an answer","AuthorName2"));
+		ForumEntryController forumEntryController = new ForumEntryController(entry);
+		
+		Answer answer = new Answer("This is an answer","AuthorName2");
+		forumEntryController.addAnswer(answer);
+		
 		dm.addForumEntry(entry);
 		
 		testButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.answerReplyButton);
