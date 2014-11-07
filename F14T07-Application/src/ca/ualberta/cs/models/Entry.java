@@ -113,6 +113,6 @@ public class Entry {
 	 * @return Picture
 	 */
 	public Picture getPicture(){ 
-		return picture;
+		return null;
 	}
 }
