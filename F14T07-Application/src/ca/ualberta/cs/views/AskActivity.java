@@ -15,6 +15,8 @@ import ca.ualberta.cs.models.ForumEntry;
  * This is the view that is shown to the user when they would 
  * like to ask a question. It includes setting a subjected and 
  * being able to ask questions
+ * 
+ * @author lexie
  */
 public class AskActivity extends Activity
 {

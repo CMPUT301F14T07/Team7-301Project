@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 /**
  * Model class for the data saved in memory and/or the remote server.
  *
+ *@author lexie
  */
 public class DataManager {
 	
