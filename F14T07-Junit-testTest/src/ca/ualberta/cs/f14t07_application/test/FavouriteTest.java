@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
+import ca.ualberta.cs.models.ForumEntryList;
 import ca.ualberta.cs.views.FavouriteActivity;
 import ca.ualberta.cs.views.QuestionActivity;
 import android.content.Context;
@@ -40,8 +41,12 @@ public class FavouriteTest extends ActivityInstrumentationTestCase2<FavouriteAct
 	// Test for u29
 	
 	public void testViewFavourite() throws Throwable {
+		ForumEntryList fel = new ForumEntryList();
+		ArrayList<ForumEntry> testList = new ArrayList<ForumEntry>();
 		ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
-    	datamanager.saveFavourite(exampleEntry); 
+		testList.add(exampleEntry);
+		fel.setFavourites(testList);
+		datamanager.saveFavourite(fel); 
     	 
 		runTestOnUiThread(new Runnable() {
 			@Override

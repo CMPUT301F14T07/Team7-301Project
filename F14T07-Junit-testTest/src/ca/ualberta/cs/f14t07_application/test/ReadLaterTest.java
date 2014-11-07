@@ -49,18 +49,21 @@ public class ReadLaterTest extends ActivityInstrumentationTestCase2<ReadLaterAct
 
 	// Test for u27
 	public void testViewReadLater() throws Throwable {
+		ForumEntryList fel = new ForumEntryList();
+		ArrayList<ForumEntry> testList = new ArrayList<ForumEntry>();
 		ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
-    	datamanager.saveLocally(exampleEntry); 
+		testList.add(exampleEntry);
+		fel.setFavourites(testList);
+		datamanager.saveLocally(fel); 
     	 
 		runTestOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				datamanager.loadLocallySaved();
+				datamanager.loadFavourites();
 				
 			}
 		});
 		ViewAsserts.assertOnScreen(testActivity.getWindow().getDecorView(), getActivity().getView());
 		
 	}
-	
 }
