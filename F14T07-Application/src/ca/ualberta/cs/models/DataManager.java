@@ -2,6 +2,8 @@ package ca.ualberta.cs.models;
 
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
@@ -12,6 +14,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -31,10 +34,12 @@ public class DataManager {
 	private static final String TAG = "ForumEntrySearch";
 	private static final String FILENAME = "saveQuestion.sav";
 	
+	private Context ctx;
 	private Gson gson;
 	private ForumEntry forumEntryTest;
 	
-	public DataManager() {
+	public DataManager(Context ctx) {
+		this.ctx = ctx;
 		gson = new Gson();
 	}
 	
@@ -84,7 +89,14 @@ public class DataManager {
 	}
 	
 	public ForumEntryList load(){
-		ForumEntryList fe=null;
+		ForumEntryList fe = new ForumEntryList();
+		
+		try {
+			BufferedReader fis = new BufferedReader(new InputStreamReader (ctx.openFileInput(FILENAME)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return fe;
 	}
 
@@ -124,27 +136,5 @@ public class DataManager {
 	public Boolean isOnline(){
 		return false;
 	}
-	
-	class AddThread extends Thread{ 
-		private ForumEntry forumEntry;
-		private DataManager dataManager= new DataManager();
-		
-		public AddThread(ForumEntry forumEntry_){
-			forumEntry=forumEntry_;
-		}
-		
-		@Override 
-		public void run(){ 
-			super.run();
-			dataManager.addForumEntry(forumEntry);
-			
-			try{ 
-				Thread.sleep(500);
-			}
-			catch (InterruptedException e){
-				e.printStackTrace();
-			}
-		}
-	}
-}
+}	
 

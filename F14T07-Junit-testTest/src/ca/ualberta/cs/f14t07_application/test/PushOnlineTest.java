@@ -1,5 +1,6 @@
 package ca.ualberta.cs.f14t07_application.test;
 
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
@@ -8,10 +9,11 @@ import ca.ualberta.cs.views.BrowseActivity;
 
 public class PushOnlineTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	private DataManager dataManager;
+	private Context ctx;
 	
 	public PushOnlineTest(Class<AskActivity> activityClass) {
 		super(AskActivity.class);
-		dataManager = new DataManager();
+		dataManager = new DataManager(ctx);
 	}
 
 	@Override

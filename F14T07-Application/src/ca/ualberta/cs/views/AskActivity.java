@@ -1,6 +1,7 @@
 package ca.ualberta.cs.views;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class AskActivity extends Activity
 {
 	public Intent intent;
 	public Intent intent2;
+	private Context ctx;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -83,30 +85,36 @@ public class AskActivity extends Activity
 		});
 	}
 
+
+
+@Override
+protected void onStart()
+{
+	super.onStart();
+	ctx = this.getApplicationContext();
 }
 
-class AddThread extends Thread
-{
-	private ForumEntry forumEntry;
-	private DataManager dataManager = new DataManager();
 
-	public AddThread(ForumEntry forumEntry_)
+	class AddThread extends Thread
 	{
-		forumEntry = forumEntry_;
-	}
+		private ForumEntry forumEntry;
+		private DataManager dataManager = new DataManager(ctx);
 
-	@Override
-	public void run()
-	{
-		super.run();
-		dataManager.addForumEntry(forumEntry);
+		public AddThread(ForumEntry forumEntry_) {
+			forumEntry = forumEntry_;
+		}
 
-		try
+		@Override
+		public void run()
 		{
-			Thread.sleep(500);
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
+			super.run();
+			dataManager.addForumEntry(forumEntry);
+
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

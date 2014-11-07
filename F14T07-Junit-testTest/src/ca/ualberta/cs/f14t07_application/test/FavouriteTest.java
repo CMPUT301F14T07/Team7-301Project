@@ -14,12 +14,13 @@ import android.widget.Button;
 public class FavouriteTest extends ActivityInstrumentationTestCase2<FavouriteActivity> {
 
 	private DataManager datamanager;
-	private Context context;
+	private Context ctx;
 	private FavouriteActivity testActivity;
 	
 	public FavouriteTest(Class<FavouriteActivity> activityClass) {
 		super(FavouriteActivity.class);
-		datamanager = new DataManager();
+		ctx = testActivity.getApplicationContext();
+		datamanager = new DataManager(ctx);
 	}
 
 

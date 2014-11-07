@@ -3,6 +3,7 @@ package ca.ualberta.cs.f14t07_application.test;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import ca.ualberta.cs.models.DataManager;
@@ -29,6 +30,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 
 	private QuestionActivity testActivity;
 	private Button testButton;
+	private Context ctx;
 	
 	public UpDownReplyTest()
 	{
@@ -48,7 +50,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 		/* Get an instance of the activity which is running
 		 */
 		testActivity = getActivity();
-		
+		ctx = testActivity.getApplicationContext();
 		/* Reset the testButton - do this so consecutive tests don't accidentally test
 		 * the same button.
 		 */
@@ -65,7 +67,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 		String author = "This is the author";
 		ForumEntry testEntry = new ForumEntry(subject, question, author);
 		int initialVote = testEntry.getQuestion().getUpVote();
-		DataManager dataM = new DataManager();
+		DataManager dataM = new DataManager(ctx);
 		
 		dataM.addForumEntry(testEntry);
 		
@@ -87,7 +89,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 		String author = "This is the author";
 		ForumEntry testEntry = new ForumEntry(subject, answer,author);
 		int initialVote = testEntry.getAnswers().get(0).getUpVote();
-		DataManager dataM = new DataManager();
+		DataManager dataM = new DataManager(ctx);
 		
 		dataM.addForumEntry(testEntry);
 		// This isn't set up yet, hence commented out
@@ -119,7 +121,7 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 		String question = "This is the question";
 		String author = "This is the author";
 		ForumEntry testEntry = new ForumEntry(subject, question, author);
-		DataManager dataM = new DataManager();
+		DataManager dataM = new DataManager(ctx);
 		dataM.addForumEntry(testEntry);
 		/* Add this reply to the 0'th entry in the forum entry - aka - the main question */
 		dataM.addReplyToEntry(testEntry, "This is the reply");

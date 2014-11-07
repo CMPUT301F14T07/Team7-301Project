@@ -16,12 +16,13 @@ import junit.framework.TestCase;
 public class ReadLaterTest extends ActivityInstrumentationTestCase2<ReadLaterActivity> {
 
 	private DataManager datamanager;
-	private Context context;
+	private Context ctx;
 	private ReadLaterActivity testActivity;
 	
 	public ReadLaterTest(Class activityClass) {
 		super(ReadLaterActivity.class);
-		datamanager = new DataManager();
+		ctx = testActivity.getApplicationContext();
+		datamanager = new DataManager(ctx);
 	}
 	
 	@Override

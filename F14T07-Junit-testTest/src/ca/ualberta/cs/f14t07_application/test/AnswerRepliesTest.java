@@ -2,6 +2,7 @@ package ca.ualberta.cs.f14t07_application.test;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 	private AnswerReplyActivity testActivity;
 	private Button testButton;
 	private AnswerReplyActivity activity;
+	private Context ctx;
 	
 	public AnswerRepliesTest()
 	{
@@ -33,11 +35,12 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		super.setUp();
 		setActivityInitialTouchMode(true);
 		testActivity = getActivity();
+		ctx = testActivity.getApplicationContext();
 	}
 	
 	public void postReplyToQuestionTest(){ //NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
 		
-		DataManager dm = new DataManager();
+		DataManager dm = new DataManager(ctx);
     	dm.addForumEntry((new ForumEntry("subject","This is a question","AuthorName")));
 		
 		testButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.answerReplyButton);
@@ -49,7 +52,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		
 		Boolean i= false;
 		
-		for (Reply r : (new DataManager()).load().getView().get(0).getQuestion().getReplies()){
+		for (Reply r : (new DataManager(ctx)).load().getView().get(0).getQuestion().getReplies()){
 			if (r.getReply() == Body){
 				i=true;
 			}
@@ -59,7 +62,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 	
 	public void postReplyToAnswerTest(){//NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
 		
-		DataManager dm = new DataManager();
+		DataManager dm = new DataManager(ctx);
 		
 		ForumEntry entry=new ForumEntry("subject","This is a question","AuthorName");
 		ForumEntryController forumEntryController = new ForumEntryController(entry);
@@ -78,7 +81,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		
 		Boolean i= false;
 		
-		for (Reply r : (new DataManager()).load().getView().get(0).getAnswers().get(0).getReplies()){
+		for (Reply r : (new DataManager(ctx)).load().getView().get(0).getAnswers().get(0).getReplies()){
 			if (r.getReply() == Body){
 				i=true;
 			}
@@ -88,7 +91,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 	
 	public void postAnswerTest(){//NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
 		
-		DataManager dm = new DataManager();
+		DataManager dm = new DataManager(ctx);
 		
 		dm.addForumEntry((new ForumEntry("subject","This is a question","AuthorName")));
 
@@ -101,7 +104,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		
 		Boolean i= false;
 		
-		for (Entry e : (new DataManager()).load().getView().get(0).getAnswers()){
+		for (Entry e : (new DataManager(ctx)).load().getView().get(0).getAnswers()){
 			if (e.getPost() == Body){
 				i=true;
 			}
@@ -112,7 +115,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 	
 	public void postAnswerWithPictureTest(){//NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
 		
-		DataManager dm = new DataManager();
+		DataManager dm = new DataManager(ctx);
 		
 		dm.addForumEntry((new ForumEntry("subject","This is a question","AuthorName")));
 
@@ -126,7 +129,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		
 		Boolean i= false;
 		
-		for (Entry e : (new DataManager()).load().getView().get(0).getAnswers()){
+		for (Entry e : (new DataManager(ctx)).load().getView().get(0).getAnswers()){
 			if (e.getPost() == Body && e.getPicture() != null){
 				i=true;
 			}

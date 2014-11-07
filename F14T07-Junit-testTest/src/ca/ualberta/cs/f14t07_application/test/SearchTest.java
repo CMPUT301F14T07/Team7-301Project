@@ -2,6 +2,7 @@ package ca.ualberta.cs.f14t07_application.test;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import ca.ualberta.cs.views.SearchActivity;
 public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity> {
 
 	private SearchActivity testActivity;
+	private Context ctx;
 	
 	@Override
 	protected void setUp() throws Exception
@@ -31,6 +33,7 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
 		/* Get an instance of the activity which is running
 		 */
 		testActivity = getActivity();
+		ctx = testActivity.getApplicationContext();
 		
 		/* Reset the testButton - do this so consecutive tests don't accidentally test
 		 * the same button.
@@ -72,7 +75,7 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
     }
 
     public void testSortBySearchTerm(){
-    	DataManager dm = new DataManager();
+    	DataManager dm = new DataManager(ctx);
     	ForumEntry f1 = new ForumEntry("subject","no term","author1");
     	ForumEntry f2 = new ForumEntry("subject","still no term","author2");
     	ForumEntry f3 = new ForumEntry("subject","has foo!","author3");
@@ -90,7 +93,7 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
 		sortedList.add(new ForumEntry("subject","no term","author1"));
 		sortedList.add(new ForumEntry("subject","still no term","author2"));
 		
-		BrowseController bc = new BrowseController();
+		BrowseController bc = new BrowseController(null);
 		bc.sortBySearchTerm(posts);
 
 		assertEquals(posts, sortedList);

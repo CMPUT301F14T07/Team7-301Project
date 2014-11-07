@@ -1,5 +1,6 @@
 package ca.ualberta.cs.f14t07_application.test;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Picture;
 import android.test.ActivityInstrumentationTestCase2;
@@ -17,6 +18,7 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	private Button testPostButton;
 	private Button testMainMenuButton;
 	private DataManager dm;
+	private Context ctx;
 	
 	public AskTest()
 	{
@@ -29,7 +31,8 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	super.setUp();
 	setActivityInitialTouchMode(true);
 	testActivity = getActivity();
-	dm = new DataManager();
+	ctx = testActivity.getApplicationContext();
+	dm = new DataManager(ctx);
 	dm.addForumEntry((new ForumEntry("subject","What is life?", "Kibbles")));
 	}
 	

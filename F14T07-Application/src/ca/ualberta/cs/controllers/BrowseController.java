@@ -3,10 +3,9 @@ package ca.ualberta.cs.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.ualberta.cs.models.DataManager;
+
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
-import ca.ualberta.cs.models.MainScreenModel;
 import ca.ualberta.cs.views.Observer;
 
 public class BrowseController {
@@ -14,7 +13,7 @@ public class BrowseController {
 	private SearchController searchController;
 	
 	private ForumEntryList forumEntryList;
-	private DataManager dataManager;
+
 	
 	/**
 	 * Creates a new BrowseController.
@@ -23,7 +22,6 @@ public class BrowseController {
 	public BrowseController(Observer viewsContext){ 
 		forumEntries = new ArrayList<ForumEntry>();
 		searchController = new SearchController();
-		dataManager = new DataManager();
 		forumEntryList = new ForumEntryList();
 		forumEntryList.addObserver(viewsContext);
 	}
@@ -79,8 +77,8 @@ public class BrowseController {
 	 * @param author
 	 */
 	public void setSessionAuthor(String author) {
-		MainScreenModel msm = new MainScreenModel();
-		msm.setSessionAuthor(author);
+		//MainScreenModel msm = new MainScreenModel();
+		//msm.setSessionAuthor(author);
 	}
 	/**
 	 * Deprecated. Do not use.
