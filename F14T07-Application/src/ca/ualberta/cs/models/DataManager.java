@@ -78,6 +78,11 @@ public class DataManager extends Activity {
 	public ForumEntry getForumEntry(){ 
 		return forumEntryTest;
 	}
+	
+	public ForumEntryList load(){
+		ForumEntryList fe=null;
+		return fe;
+	}
 	//private Context context;
 	/*
 	public DataManager(Context appContext) {
