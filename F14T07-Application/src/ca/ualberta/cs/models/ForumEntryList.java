@@ -2,7 +2,9 @@ package ca.ualberta.cs.models;
 
 import java.util.ArrayList;
 
-public class ForumEntryList {
+import ca.ualberta.cs.views.Observer;
+
+public class ForumEntryList extends Observable<Observer> {
 
 	public void setView(ArrayList<ForumEntry> list) {
 		
