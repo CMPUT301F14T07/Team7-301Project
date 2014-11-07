@@ -45,6 +45,10 @@ public class ReadLaterActivity extends Activity {
         	Intent myQuestionsIntent = new Intent(this, MyQuestionsActivity.class);
         	startActivity(myQuestionsIntent);
         	return true;
+		case R.id.switchToFavorites:
+			Intent favoritesIntent = new Intent(this, FavouriteActivity.class);
+			startActivity(favoritesIntent);
+			return true;
         default:
         	return super.onOptionsItemSelected(item);
         }
@@ -71,4 +75,9 @@ public class ReadLaterActivity extends Activity {
     		return super.onContextItemSelected(item);
     	}
     }
+
+	public View getView() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

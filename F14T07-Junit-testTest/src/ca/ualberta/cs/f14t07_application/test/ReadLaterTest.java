@@ -6,19 +6,21 @@ import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
 import ca.ualberta.cs.views.QuestionActivity;
+import ca.ualberta.cs.views.ReadLaterActivity;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.ViewAsserts;
 import android.widget.Button;
 import junit.framework.TestCase;
 
-public class ReadLaterTest extends ActivityInstrumentationTestCase2<QuestionActivity> {
+public class ReadLaterTest extends ActivityInstrumentationTestCase2<ReadLaterActivity> {
 
 	private DataManager datamanager;
 	private Context context;
-	private QuestionActivity testActivity;
+	private ReadLaterActivity testActivity;
 	
 	public ReadLaterTest(Class activityClass) {
-		super(QuestionActivity.class);
+		super(ReadLaterActivity.class);
 		datamanager = new DataManager();
 	}
 	
@@ -43,30 +45,21 @@ public class ReadLaterTest extends ActivityInstrumentationTestCase2<QuestionActi
 
 	}
 	
-	public void testIsSaved() {
-		/* Create some forum entries and save them using the data manager.
-		 * Pretend that these already existed and were saved to memory/jsong
-		 * a long time ago.
-		 */
 
-		DataManager dm = new DataManager();
+	// Test for u27
+	public void testViewReadLater() throws Throwable {
 		ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
-    	dm.addForumEntry(exampleEntry);
-	    
-    	ArrayList<ForumEntry> testQuestions = new ArrayList<ForumEntry>();
-    	testQuestions.add(exampleEntry);
-    	
-    	
-		/* Get the button that will save a forum entry for offline viewing. */
-		//Button saveLater = (Button) testActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.ReadLater);
-		/* Simulate a button click */
-		//saveLater.performClick();
+    	datamanager.saveLocally(exampleEntry); 
+    	 
+		runTestOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				datamanager.loadLocallySaved();
+				
+			}
+		});
+		ViewAsserts.assertOnScreen(testActivity.getWindow().getDecorView(), getActivity().getView());
 		
-		/* Now we need to check that this forum entry was saved locally */
-		ArrayList<ForumEntry> loadCheck = new ArrayList<ForumEntry>();
-		loadCheck = datamanager.loadLocallySaved();
-		assertEquals("The entry saved is not equal to what was loaded", testQuestions, loadCheck);
-		/* Clean up the run time environment */
-		datamanager.deleteLocalAll();
 	}
+	
 }

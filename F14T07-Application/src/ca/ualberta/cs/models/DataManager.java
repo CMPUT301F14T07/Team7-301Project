@@ -78,6 +78,11 @@ public class DataManager extends Activity {
 	public ForumEntry getForumEntry(){ 
 		return forumEntryTest;
 	}
+	
+	public ForumEntryList load(){
+		ForumEntryList fe=null;
+		return fe;
+	}
 	//private Context context;
 	/*
 	public DataManager(Context appContext) {
@@ -117,6 +122,11 @@ public class DataManager extends Activity {
 		
 	}
 
+	
+	public void saveLocally(ForumEntry forumEntry) {
+		
+	}
+	
 	public ArrayList<ForumEntry> loadLocallySaved() {
 		// TODO Auto-generated method stub
 		return null;
@@ -131,7 +141,15 @@ public class DataManager extends Activity {
 		// TODO Auto-generated method stub
 		return null;
 	}
-}
+
+
+
+	public void saveFavourite(ForumEntry forumEntry) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	class AddThread extends Thread{ 
 		private ForumEntry forumEntry;
 		private DataManager dataManager= new DataManager();
@@ -153,4 +171,5 @@ public class DataManager extends Activity {
 			}
 		}
 	}
+}
 

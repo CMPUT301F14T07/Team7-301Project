@@ -1,11 +1,11 @@
-/*package ca.ualberta.cs.f14t07_application.test;
+package ca.ualberta.cs.f14t07_application.test;
 
 import java.util.ArrayList;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
-import ca.ualberta.cs.f14t07_application.AnswerRepliesActivity;
+import ca.ualberta.cs.views.AnswerReplyActivity;
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.Entry;
@@ -13,15 +13,15 @@ import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.Reply;
 
 
-public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRepliesActivity> {
+public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerReplyActivity> {
 	
-	private AnswerRepliesActivity testActivity;
+	private AnswerReplyActivity testActivity;
 	private Button testButton;
-	private AnswerRepliesActivity activity;
+	private AnswerReplyActivity activity;
 	
 	public AnswerRepliesTest()
 	{
-		super(AnswerRepliesActivity.class);
+		super(AnswerReplyActivity.class);
 		activity=getActivity();
 	}
 	
@@ -38,16 +38,16 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		DataManager dm = new DataManager();
     	dm.addForumEntry((new ForumEntry("subject","This is a question","AuthorName")));
 		
-		testButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.AddReply);
+		testButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.answerReplyButton);
 		testButton.performClick();
 		
 		//Body is the content of the reply
-		EditText BodyEdit=(EditText) activity.findViewById(R.id.body);
+		EditText BodyEdit=(EditText) activity.findViewById(R.id.answerReplyText);
 		String Body= BodyEdit.getText().toString(); 
 		
 		Boolean i= false;
 		
-		for (Reply r : (new DataManager()).load().get(0).getQuestion().getReplies()){
+		for (Reply r : (new DataManager()).load().getView().get(0).getQuestion().getReplies()){
 			if (r.getReply() == Body){
 				i=true;
 			}
@@ -63,16 +63,16 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		entry.addAnswer(new Entry("This is an answer","AuthorName2"));
 		dm.addForumEntry(entry);
 		
-		testButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.AddReply);
+		testButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.answerReplyButton);
 		testButton.performClick();
 		
 		//Body is the content of the reply
-		EditText BodyEdit=(EditText) activity.findViewById(R.id.body);
+		EditText BodyEdit=(EditText) activity.findViewById(R.id.answerReplyText);
 		String Body= BodyEdit.getText().toString(); 
 		
 		Boolean i= false;
 		
-		for (Reply r : (new DataManager()).load().get(0).getAnswers().get(0).getReplies()){
+		for (Reply r : (new DataManager()).load().getView().get(0).getAnswers().get(0).getReplies()){
 			if (r.getReply() == Body){
 				i=true;
 			}
@@ -86,16 +86,16 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		
 		dm.addForumEntry((new ForumEntry("subject","This is a question","AuthorName")));
 
-		testButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.AddReply);
+		testButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.answerReplyButton);
 		testButton.performClick();
 		
 		//Body is the content of the reply
-		EditText BodyEdit=(EditText) activity.findViewById(R.id.body);
+		EditText BodyEdit=(EditText) activity.findViewById(R.id.answerReplyText);
 		String Body= BodyEdit.getText().toString(); 
 		
 		Boolean i= false;
 		
-		for (Entry e : (new DataManager()).get(0).load().getAnswers(){
+		for (Entry e : (new DataManager()).load().getView().get(0).getAnswers()){
 			if (e.getPost() == Body){
 				i=true;
 			}
@@ -111,22 +111,21 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		dm.addForumEntry((new ForumEntry("subject","This is a question","AuthorName")));
 
 		
-		testButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.AddReply);
+		testButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.answerReplyButton);
 		testButton.performClick();
 		
 		//Body is the content of the reply
-		EditText BodyEdit=(EditText) activity.findViewById(R.id.body);
+		EditText BodyEdit=(EditText) activity.findViewById(R.id.answerReplyText);
 		String Body= BodyEdit.getText().toString(); 
 		
 		Boolean i= false;
 		
-		for (Entry e : (new DataManager()).load().get(0).getAnswers(){
+		for (Entry e : (new DataManager()).load().getView().get(0).getAnswers()){
 			if (e.getPost() == Body && e.getPicture() != null){
 				i=true;
 			}
-			}
 		}
+	
 		assert(i); 
 	}
 }
-*/

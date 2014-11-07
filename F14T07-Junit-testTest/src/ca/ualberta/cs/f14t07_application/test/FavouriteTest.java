@@ -8,6 +8,7 @@ import ca.ualberta.cs.views.FavouriteActivity;
 import ca.ualberta.cs.views.QuestionActivity;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.ViewAsserts;
 import android.widget.Button;
 
 public class FavouriteTest extends ActivityInstrumentationTestCase2<FavouriteActivity> {
@@ -32,39 +33,23 @@ public class FavouriteTest extends ActivityInstrumentationTestCase2<FavouriteAct
 		setActivityInitialTouchMode(false);
 		/* Get an instance of the activity which is running
 		 */
-
-		testActivity = getActivity();
-		
-		/* Reset the testButton - do this so consecutive tests don't accidentally test
-		 * the same button.
-		 */
-		//testButton = null;
-
+		testActivity =  getActivity();
 	}
 	
-	public void testIsSaved() {
-		/* Create some forum entries and save them using the data manager.
-		 * Pretend that these already existed and were saved to memory/jsong
-		 * a long time ago.
-		 */
-
-		DataManager dm = new DataManager();
+	// Test for u29
+	
+	public void testViewFavourite() throws Throwable {
 		ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
-    	dm.addForumEntry(exampleEntry);
-	    
-    	ArrayList<ForumEntry> testQuestions = new ArrayList<ForumEntry>();
-    	testQuestions.add(exampleEntry);
-    	
-    	
-		/* Get the button that will save a forum entry for offline viewing. */
-		//Button favourite = (Button) testActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.FavouriteQuestion);
-		//favourite.performClick();
+    	datamanager.saveFavourite(exampleEntry); 
+    	 
+		runTestOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				datamanager.loadFavourites();
+				
+			}
+		});
+		ViewAsserts.assertOnScreen(testActivity.getWindow().getDecorView(), getActivity().getView());
 		
-		/* Now we need to check that this forum entry was saved locally */
-		ArrayList<ForumEntry> loadCheck = new ArrayList<ForumEntry>();
-		loadCheck = datamanager.loadFavourites();
-		assertEquals("The entry saved is not equal to what was loaded", testQuestions, loadCheck);
-		/* Clean up the run time environment */
-		datamanager.deleteLocalAll();
 	}
 }
