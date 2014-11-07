@@ -22,8 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/QuestionSaveButton"
         android:text="Question Subject"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -32,10 +32,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/QuestionSubject"
-        android:layout_below="@+id/QuestionSubject"
+        android:layout_alignRight="@+id/QuestionSaveButton"
+        android:layout_below="@+id/QuestionSaveButton"
         android:paddingLeft="30dp"
         android:text="Question Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/ListContentIndicator"
@@ -55,7 +57,17 @@
         android:layout_above="@+id/AddButton"
         android:layout_alignLeft="@+id/ReplyAnswerIndicator"
         android:layout_below="@+id/ListContentIndicator"
-        android:paddingLeft="30dp" >
+        android:paddingLeft="30dp"
+        tools:ignore="UnknownIdInLayout" >
+
     </ListView>
+
+    <Button
+         android:id="@+id/QuestionSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/save" />
 
 </RelativeLayout>
