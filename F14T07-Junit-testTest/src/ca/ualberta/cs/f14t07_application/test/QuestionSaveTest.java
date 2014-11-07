@@ -7,6 +7,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
+import ca.ualberta.cs.models.ForumEntryList;
 import ca.ualberta.cs.views.QuestionActivity;
 
 public class QuestionSaveTest extends ActivityInstrumentationTestCase2<QuestionActivity> {
@@ -49,7 +50,7 @@ public class QuestionSaveTest extends ActivityInstrumentationTestCase2<QuestionA
 		//favourite.performClick();
 		
 		/* Now we need to check that this forum entry was saved locally */
-		ArrayList<ForumEntry> loadCheck = new ArrayList<ForumEntry>();
+		ForumEntryList loadCheck = new ForumEntryList();
 		loadCheck = datamanager.loadFavourites();
 		assertEquals("The entry saved is not equal to what was loaded", testQuestions, loadCheck);
 		/* Clean up the run time environment */
@@ -77,7 +78,7 @@ public class QuestionSaveTest extends ActivityInstrumentationTestCase2<QuestionA
 		//saveLater.performClick();
 		
 		/* Now we need to check that this forum entry was saved locally */
-		ArrayList<ForumEntry> loadCheck = new ArrayList<ForumEntry>();
+		ForumEntryList loadCheck = new ForumEntryList();
 		loadCheck = datamanager.loadLocallySaved();
 		assertEquals("The entry saved is not equal to what was loaded", testQuestions, loadCheck);
 		/* Clean up the run time environment */

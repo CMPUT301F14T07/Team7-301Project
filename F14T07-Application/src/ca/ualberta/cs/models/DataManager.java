@@ -3,8 +3,12 @@ package ca.ualberta.cs.models;
 
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -20,6 +24,8 @@ import android.widget.Toast;
 
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 
 
 /**
@@ -89,14 +95,8 @@ public class DataManager {
 	}
 	
 	public ForumEntryList load(){
-		ForumEntryList fe = new ForumEntryList();
-		
-		try {
-			BufferedReader fis = new BufferedReader(new InputStreamReader (ctx.openFileInput(FILENAME)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		ForumEntryList fe = null;
+
 		return fe;
 	}
 
@@ -105,13 +105,38 @@ public class DataManager {
 		
 	}
 
-	public void saveLocally(ForumEntry forumEntry) {
-		
+	public void saveLocally(ForumEntryList fel) {
+		try {
+			FileOutputStream fos = ctx.openFileOutput("read_later.sav", Context.MODE_PRIVATE);
+			String json = gson.toJson(fel);
+			fos.write(json.getBytes());
+			fos.close();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public ArrayList<ForumEntry> loadLocallySaved() {
-		// TODO Auto-generated method stub
-		return null;
+	public ForumEntryList loadLocallySaved() {
+		ForumEntryList fe = new ForumEntryList();
+		
+		try {
+			BufferedReader fis = new BufferedReader(new InputStreamReader (ctx.openFileInput("read_later.sav")));
+			String line;
+			StringBuffer fileContent = new StringBuffer();
+			
+			while ((line = fis.readLine()) != null) {
+				fileContent.append(line);
+			}
+			
+		Type collectionType = new TypeToken<Collection<ForumEntry>>(){}.getType();	
+		
+		fe = gson.fromJson(fileContent.toString(), collectionType);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return fe;
 	}
 
 	public void deleteLocalAll() {
@@ -119,13 +144,38 @@ public class DataManager {
 		
 	}
 
-	public ArrayList<ForumEntry> loadFavourites() {
-		// TODO Auto-generated method stub
-		return null;
+	public ForumEntryList loadFavourites() {
+		ForumEntryList fe = new ForumEntryList();
+		
+		try {
+			BufferedReader fis = new BufferedReader(new InputStreamReader (ctx.openFileInput("favourites.sav")));
+			String line;
+			StringBuffer fileContent = new StringBuffer();
+			
+			while ((line = fis.readLine()) != null) {
+				fileContent.append(line);
+			}
+			
+		Type collectionType = new TypeToken<Collection<ForumEntry>>(){}.getType();	
+		
+		fe = gson.fromJson(fileContent.toString(), collectionType);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return fe;
 	}
 
-	public void saveFavourite(ForumEntry forumEntry) {
-		// TODO Auto-generated method stub
+	public void saveFavourite(ForumEntryList fel) {
+		try {
+			FileOutputStream fos = ctx.openFileOutput("read_later.sav", Context.MODE_PRIVATE);
+			String json = gson.toJson(fel);
+			fos.write(json.getBytes());
+			fos.close();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

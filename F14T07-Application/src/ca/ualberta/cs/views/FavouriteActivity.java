@@ -1,8 +1,10 @@
 package ca.ualberta.cs.views;
 
+import ca.ualberta.cs.controllers.ForumEntryController;
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.f14t07_application.R.layout;
 import ca.ualberta.cs.f14t07_application.R.menu;
+import ca.ualberta.cs.models.ForumEntryList;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +17,9 @@ import android.view.ContextMenu.ContextMenuInfo;
 
 public class FavouriteActivity extends Activity {
 
+	private ForumEntryList fel;
+	private ForumEntryController felc;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
