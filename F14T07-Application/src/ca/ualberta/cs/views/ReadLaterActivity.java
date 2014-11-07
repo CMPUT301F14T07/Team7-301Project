@@ -71,4 +71,9 @@ public class ReadLaterActivity extends Activity {
     		return super.onContextItemSelected(item);
     	}
     }
+
+	public View getView() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

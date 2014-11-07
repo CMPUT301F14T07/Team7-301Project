@@ -47,5 +47,10 @@ public class FavouriteActivity extends Activity {
 	        	return super.onOptionsItemSelected(item);
 	        }
 	    }
+
+	public View getView() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	  
 }
