@@ -149,7 +149,13 @@ public class DataManager extends Activity {
 		
 	}
 
-
+	
+	public Boolean isOffline(){ 
+		return false;
+	}
+	public Boolean isOnline(){
+		return false;
+	}
 	class AddThread extends Thread{ 
 		private ForumEntry forumEntry;
 		private DataManager dataManager= new DataManager();

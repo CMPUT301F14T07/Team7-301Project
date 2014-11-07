@@ -24,7 +24,7 @@ import android.widget.Toast;
 public class BrowseActivity extends Activity {
 	private ArrayAdapter<ForumEntry> browseListAdapter;
 	private ListView browseListView;
-	private List<ForumEntry> forumEntries;
+	public List<ForumEntry> forumEntries;
 	private BrowseController browseController;
 	
 	@Override
