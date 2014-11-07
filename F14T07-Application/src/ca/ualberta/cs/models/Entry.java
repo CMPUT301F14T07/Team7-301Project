@@ -34,6 +34,9 @@ public class Entry {
 	public String getPost(){
 		return post;
 	}
+	public void setPost(String s){ 
+		post = s;
+	}
 	public String getAuthorsName(){
 		return posterName;
 	}

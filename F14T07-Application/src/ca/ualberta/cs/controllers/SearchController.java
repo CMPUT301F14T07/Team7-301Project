@@ -15,8 +15,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.graphics.Movie;
 import android.util.Log;
-
 import ca.ualberta.cs.f14t07_application.Hits;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.remote_server.SearchHit;
@@ -50,7 +50,7 @@ public class SearchController {
 		return searchResult;
 	}
 	public void searchForumEntries(String searchString, String field) throws ClientProtocolException, IOException { 
-		List<ForumEntry> result = new ArrayList<ForumEntry>();
+		searchResult = new ArrayList<ForumEntry>();
 
 		// TODO: Implement search movies using ElasticSearch
 		if ("".equals(searchString)||searchString==null){
@@ -60,8 +60,6 @@ public class SearchController {
 		
 		try{
 		HttpPost searchRequest = createSearchRequest(searchString, field);
-		
-		//bug here
 		HttpResponse response = httpClient.execute(searchRequest);
 	
 		String status = response.getStatusLine().toString();
@@ -82,8 +80,9 @@ public class SearchController {
 		} catch (UnsupportedEncodingException e){
 			e.printStackTrace();
 		}
-	}
 	
+	}
+
 	private HttpPost createSearchRequest(String searchString, String field) throws UnsupportedEncodingException{ 
 		
 		HttpPost searchRequest = new HttpPost(SEARCH_URL);
