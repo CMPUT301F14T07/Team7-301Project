@@ -12,9 +12,9 @@
         android:id="@+id/AddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/QuestionAnswerList"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/QuestionViewList"
+        android:layout_alignRight="@+id/QuestionAnswerList"
         android:text="@string/add_answer" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/QuestionSaveButton"
+		android:layout_toLeftOf="@+id/QuestionSaveButton"
         android:text="Question Subject"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -32,37 +32,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/QuestionSubject"
-        android:layout_alignRight="@+id/QuestionSaveButton"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/QuestionSaveButton"
         android:paddingLeft="30dp"
         android:text="Question Text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:ignore="RtlSymmetry" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/ListContentIndicator"
+        android:id="@+id/AnswerListIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/QuestionText"
+        android:layout_below="@+id/QuestionReplyList"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:text="@string/answers_indicator"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ListView
-        android:id="@+id/QuestionViewList"
+        android:id="@+id/QuestionAnswerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/AddButton"
-        android:layout_alignLeft="@+id/ReplyAnswerIndicator"
-        android:layout_below="@+id/ListContentIndicator"
-        android:paddingLeft="30dp"
-        tools:ignore="UnknownIdInLayout" >
 
+        android:layout_alignLeft="@+id/ReplyAnswerIndicator"
+        android:layout_below="@+id/AnswerListIndicator"
+        android:paddingLeft="30dp" >
     </ListView>
 
-    <Button
+    <ListView
+        android:id="@+id/QuestionReplyList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/QuestionText"
+        android:layout_below="@+id/QuestionText"
+       
+        android:layout_marginRight="20dp" >
+
+    </ListView>
+	
+	    <Button
          android:id="@+id/QuestionSaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
