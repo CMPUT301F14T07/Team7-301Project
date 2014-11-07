@@ -9,6 +9,7 @@ import ca.ualberta.cs.f14t07_application.R.id;
 import ca.ualberta.cs.f14t07_application.R.layout;
 import ca.ualberta.cs.f14t07_application.R.menu;
 import ca.ualberta.cs.models.ForumEntry;
+import ca.ualberta.cs.models.ForumEntryList;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,7 +22,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class BrowseActivity extends Activity {
+public class BrowseActivity extends Activity implements Observer<ForumEntryList>{
 	private ArrayAdapter<ForumEntry> browseListAdapter;
 	private ListView browseListView;
 	public List<ForumEntry> forumEntries;
@@ -54,7 +55,7 @@ public class BrowseActivity extends Activity {
 		super.onStart(); 
 		forumEntries = new ArrayList<ForumEntry>();
 		
-		browseController = new BrowseController();
+		browseController = new BrowseController(this);
 		ForumEntry forumEntry = new ForumEntry("lexie","subject","question");
 		
 		browseListAdapter= new ArrayAdapter<ForumEntry>(BrowseActivity.this, R.layout.list_item,forumEntries);
@@ -62,7 +63,7 @@ public class BrowseActivity extends Activity {
 		browseListView.setAdapter(browseListAdapter);
 		
 		forumEntries.add(forumEntry);
-		browseController = new BrowseController();
+		browseController = new BrowseController(this);
 		forumEntries.addAll(browseController.getAllEntries());
 
 		
@@ -110,4 +111,9 @@ public class BrowseActivity extends Activity {
 	  {
 		  return getIntent();
 	  }
+	@Override
+	public void update(ForumEntryList model) {
+		// TODO Auto-generated method stub
+		
+	}
 }
