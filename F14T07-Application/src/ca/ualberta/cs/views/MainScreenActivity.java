@@ -34,7 +34,8 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	private AuthorController authorController;
 	public static final String TEXT_KEY = "TEXT";
 	public static final String NEW_QUESTION_KEY = "NEW_QUESTION";
-	public Intent intent2;
+	public Intent intent2; //FOR TESTING
+	public AlertDialog.Builder alert2; //FOR TESTING
 
 /**
  * This function contains all the main screen on click listeners.
@@ -87,6 +88,17 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			public void onClick(View v)
 			{
 				signInButton();
+			}
+		});
+		
+		/* Sign Out Button on click listener*/
+		Button sign_out_button = (Button) findViewById(R.id.signOutButton);
+		sign_out_button.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				signOutButton();
 			}
 		});
 	}
@@ -200,12 +212,46 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			}
 		});
 		alert.show();
+		alert2=alert; //FOR TESTING
 
 		// ^adopted from
 		// http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog
 
 	}
 
+	/**
+	 * Called when the sign out button is clicked.
+	 * Sets the authorName back to null
+	 * */
+	public void signOutButton()
+	{
+		AlertDialog.Builder alert = new AlertDialog.Builder(MainScreenActivity.this);
+		alert.setTitle("Sign Out");
+		alert.setMessage("Are you sure you want to sign out?");
+
+		alert.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+		{
+
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+
+				authorController.setSessionAuthor(null);
+			}
+		});
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+		{
+
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				// nothing
+
+			}
+		});
+		alert.show();
+		alert2=alert; //FOR TESTING
+	}
 	/**
 	 * opens the askActivity via an intent
 	 */
@@ -249,6 +295,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	public void update(AuthorModel model)
 	{
 		Button signInButton = (Button) findViewById(R.id.signInButton);
+		Button signOutButton = (Button) findViewById(R.id.signOutButton);
 		TextView text = (TextView) findViewById(R.id.signedInAs);
 
 		String author = model.getSessionAuthor();
@@ -256,7 +303,12 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		{
 			text.setText("Signed in as: " + author);
 			text.setVisibility(0);
-			signInButton.setText("Change User");
+			signInButton.setVisibility(4);
+			signOutButton.setVisibility(0);
+		} else {
+			text.setVisibility(4);
+			signInButton.setVisibility(0);
+			signOutButton.setVisibility(4);
 		}
 	}
 }

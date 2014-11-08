@@ -11,6 +11,7 @@
     <string name="save">Save</string>
     <string name="browse">BROWSE</string>
     <string name="sign_in">Sign in</string>
+    <string name="sign_out">Sign out</string>
     <string name="logo">This is our logo</string>
     <string name="title_activity_read_later">ReadLaterActivity</string>
     <string name="hello_world">Hello world!</string>
