@@ -15,7 +15,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.graphics.Movie;
 import android.util.Log;
 import ca.ualberta.cs.f14t07_application.Hits;
 import ca.ualberta.cs.models.ForumEntry;
@@ -34,23 +33,17 @@ public class SearchController {
 	
 	private Gson gson;
 	
+	public String searchString;
+	private HttpClient httpclient = new DefaultHttpClient();
+
+	
 	public SearchController(){
 		searchResult = new ArrayList<ForumEntry>();
 		gson = new Gson();
 	}
 	
-	public List<ForumEntry> searchAll(){
-		//searchResult.clear(); 
-		SearchThread thread = new SearchThread("");
-		thread.start();
-		
-		ForumEntry forumEntry= new ForumEntry("search","Search","search");
-		searchResult.add(forumEntry);
-		
-		return searchResult;
-	}
-	public void searchForumEntries(String searchString, String field) throws ClientProtocolException, IOException { 
-		searchResult = new ArrayList<ForumEntry>();
+	public List<ForumEntry> searchForumEntries(String searchString, String field) throws ClientProtocolException, IOException { 
+		List<ForumEntry> result = new ArrayList<ForumEntry>();
 
 		// TODO: Implement search movies using ElasticSearch
 		if ("".equals(searchString)||searchString==null){
@@ -73,17 +66,18 @@ public class SearchController {
 			if (hits.getHits() != null ){
 				//there are movies in the search 
 				for(SearchHit<ForumEntry> sesr: hits.getHits()){
-					searchResult.add(sesr.getSource());
+					result.add(sesr.getSource());
 				}
 			}
 		}
 		} catch (UnsupportedEncodingException e){
 			e.printStackTrace();
 		}
-	
-	}
+		return result;
+		
+		}
 
-	private HttpPost createSearchRequest(String searchString, String field) throws UnsupportedEncodingException{ 
+	private HttpPost createSearchRequest(String searchString, String field)	throws UnsupportedEncodingException {
 		
 		HttpPost searchRequest = new HttpPost(SEARCH_URL);
 
@@ -106,54 +100,29 @@ public class SearchController {
 
 		return searchRequest;
 	}
-	private SearchResponse<ForumEntry> parseSearchResponse(HttpResponse response) throws IOException { 
-		String json; 
+	
+	private SearchResponse<ForumEntry> parseSearchResponse(HttpResponse response) throws IOException {
+		String json;
 		json = getEntityContent(response);
-		
-		Type searchResponseType = new TypeToken<SearchResponse<ForumEntry>>(){}.getType();
+
+		Type searchResponseType = new TypeToken<SearchResponse<ForumEntry>>() {
+		}.getType();
 		
 		SearchResponse<ForumEntry> esResponse = gson.fromJson(json, searchResponseType);
-		
+
 		return esResponse;
-		
 	}
-	public String getEntityContent(HttpResponse response) throws IOException { 
-		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 	
-		StringBuffer result = new StringBuffer(); 
+	public String getEntityContent(HttpResponse response) throws IOException {
+		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+		StringBuffer result = new StringBuffer();
 		String line = "";
-		
-		while ((line = rd.readLine()) != null){
+		while ((line = rd.readLine()) != null) {
 			result.append(line);
 		}
-		
+
 		return result.toString();
 	}
-	
-class SearchThread extends Thread {
-	// TODO: Implement search thread
-	private String search; 
-	
-	public SearchThread(String s){
-		search = s;
-	}
-	public void run(){ 
-		//searchResult.clear();
-		try {
-			ForumEntry forumEntry= new ForumEntry("search","Search","search");
-			
-			searchForumEntries(search,null);
-			searchResult.add(forumEntry);
-			
-		//	runOnUiThread();
-			
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		}
-	}
+
 }

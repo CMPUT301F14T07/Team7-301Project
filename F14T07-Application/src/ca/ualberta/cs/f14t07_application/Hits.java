@@ -1,5 +1,6 @@
 package ca.ualberta.cs.f14t07_application;
 
+import java.util.Collection;
 import java.util.List;
 
 import ca.ualberta.cs.remote_server.SearchHit;

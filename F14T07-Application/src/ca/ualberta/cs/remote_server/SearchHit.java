@@ -66,5 +66,6 @@ public class SearchHit<T> {
 				+ _type + ", _id=" + _id + ", _version=" + _version
 				+ ", found=" + found + ", _source=" + _source + "]";
 	}
-	
 }
+	
+	

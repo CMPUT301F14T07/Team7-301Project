@@ -3,7 +3,6 @@ package ca.ualberta.cs.remote_server;
 import ca.ualberta.cs.f14t07_application.Hits;
 
 public class SearchResponse<T> {
-
 	private int took;
 	private boolean timed_out;
 	private Shard _shards;
