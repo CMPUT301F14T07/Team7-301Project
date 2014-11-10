@@ -235,6 +235,9 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
+				Button signInButton = (Button) findViewById(R.id.signInButton);
+				Button signOutButton = (Button) findViewById(R.id.signOutButton);
+				TextView text = (TextView) findViewById(R.id.signedInAs);
 
 				authorController.setSessionAuthor(null);
 				text.setVisibility(4);
