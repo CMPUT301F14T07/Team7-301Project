@@ -35,7 +35,9 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	public static final String TEXT_KEY = "TEXT";
 	public static final String NEW_QUESTION_KEY = "NEW_QUESTION";
 	public Intent intent2; //FOR TESTING
-	public AlertDialog.Builder alert2; //FOR TESTING
+	public AlertDialog alert2;//FOR TESTING
+	public EditText name;
+	public TextView nameDisplayed;
 
 /**
  * This function contains all the main screen on click listeners.
@@ -186,7 +188,6 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		AlertDialog.Builder alert = new AlertDialog.Builder(MainScreenActivity.this);
 		alert.setTitle("Sign In");
 		alert.setMessage("What would you like your default name to be?");
-
 		final EditText input = new EditText(this);
 		alert.setView(input);
 
@@ -199,6 +200,8 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 
 				String authorName = input.getText().toString();
 				authorController.setSessionAuthor(authorName);
+				nameDisplayed=(TextView) findViewById(R.id.signedInAs);
+				
 			}
 		});
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
@@ -212,7 +215,8 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			}
 		});
 		alert.show();
-		alert2=alert; //FOR TESTING
+		alert2=alert.show();//FOR TESTING
+		name=input;
 
 		// ^adopted from
 		// http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog
@@ -256,7 +260,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			}
 		});
 		alert.show();
-		alert2=alert; //FOR TESTING
+		alert2=alert.show(); //FOR TESTING
 	}
 	/**
 	 * opens the askActivity via an intent
