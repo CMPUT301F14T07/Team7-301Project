@@ -2,11 +2,16 @@ package ca.ualberta.cs.f14t07_application.test;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
+import android.widget.EditText;
+import ca.ualberta.cs.controllers.AuthorController;
+import ca.ualberta.cs.models.AuthorModel;
+import ca.ualberta.cs.views.AskActivity;
+import ca.ualberta.cs.views.BrowseActivity;
 import ca.ualberta.cs.views.MainScreenActivity;
-import ca.ualberta.cs.views.QuestionActivity;
-import junit.framework.TestCase;
+import ca.ualberta.cs.views.SearchActivity;
 
 public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenActivity> {
 	private MainScreenActivity testActivity;
@@ -21,7 +26,8 @@ public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenA
 	}
 	
 	protected void setUp() throws Exception {
-		super.setUp();		setActivityInitialTouchMode(false);
+		super.setUp();		
+		setActivityInitialTouchMode(false);
 
 		/* Get an instance of the activity which is running
 		 */
@@ -70,5 +76,20 @@ public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenA
 		
 		assertEquals(testActivity.nameDisplayed, null);
 	}
+
+	public void testSetUsername(){
+				MainScreenActivity activity = getActivity();
+				final String author="John";
+				final AuthorController ac= new AuthorController(getActivity());
+				
+				activity.runOnUiThread(new Runnable (){ 
+					@Override 
+					public void run(){ 
+						ac.setSessionAuthor(author);
+					}
+				});
+				assertEquals((new AuthorModel()).getSessionAuthor(), author);
+			}
+		
 
 }
