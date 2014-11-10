@@ -1,5 +1,7 @@
 package ca.ualberta.cs.f14t07_application.test;
 
+import java.util.concurrent.TimeUnit;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -88,6 +90,9 @@ public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenA
 						ac.setSessionAuthor(author);
 					}
 				});
+				
+				try{TimeUnit.SECONDS.sleep(1);}
+				catch (InterruptedException e){}
 				assertEquals((new AuthorModel()).getSessionAuthor(), author);
 			}
 		
