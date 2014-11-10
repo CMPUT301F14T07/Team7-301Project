@@ -47,31 +47,40 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
     
 
     public void testSearchQuestion(){
-    	String searchTerm = "foo";
-		MainScreenActivity m = new MainScreenActivity();
-		SearchActivity s = getActivity();
-    	EditText SearchText = (EditText) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTerm);
-    	SearchText.setText("foo");
+    	final SearchActivity m = getActivity();
+		m.runOnUiThread(new Runnable (){ 
+			@Override 
+			public void run(){ 
+				String searchTerm = "foo";
+				EditText SearchText = (EditText) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput);
+				SearchText.setText("foo");
     
-    	Button SearchButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
-    	SearchButton.performClick();
+				//Button SearchButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
+				//SearchButton.performClick();
 
-    	String inputedTerm = s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput).toString();
-    	assertEquals(inputedTerm,searchTerm);	
+				String inputedTerm = m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput).toString();
+				assertEquals(inputedTerm,searchTerm);	
+			}
+		});
     }
     
     public void testSearchAnswer(){
-    	String searchTerm = "bar";
-		MainScreenActivity m = new MainScreenActivity();
-		SearchActivity s = getActivity();
-    	EditText SearchText = (EditText) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTerm);
+   
+    	final String searchTerm = "bar";
+		final SearchActivity s = getActivity();
+		s.runOnUiThread(new Runnable (){ 
+			@Override 
+			public void run(){ 
+    	EditText SearchText = (EditText) s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput);
     	SearchText.setText("bar");
     
-    	Button SearchButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
-    	SearchButton.performClick();
+    	//Button SearchButton = (Button) s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
+    	//SearchButton.performClick();
 
     	String inputedTerm = s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput).toString();
     	assertEquals(inputedTerm,searchTerm);	
+			}
+		});
     }
 
     public void testSortBySearchTerm(){

@@ -26,20 +26,23 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 	public AnswerRepliesTest()
 	{
 		super(AnswerReplyActivity.class);
-		activity=getActivity();
+
 	}
 	
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		activity=getActivity();
 		setActivityInitialTouchMode(true);
 		testActivity = getActivity();
 		ctx = testActivity.getApplicationContext();
 	}
 	
-	public void postReplyToQuestionTest(){ //NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
-		
+	public void testpostReplyToQuestion(){ //NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
+		activity.runOnUiThread(new Runnable (){ 
+			@Override 
+			public void run(){ 
 		DataManager dm = new DataManager(ctx);
     	dm.addForumEntry((new ForumEntry("subject","This is a question","AuthorName")));
 		
@@ -58,10 +61,15 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 			}
 		}
 		assert(i); 
+			}
+		});
+		
 	}
 	
-	public void postReplyToAnswerTest(){//NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
-		
+	public void testpostReplyToAnswer(){//NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
+		activity.runOnUiThread(new Runnable (){ 
+			@Override 
+			public void run(){ 
 		DataManager dm = new DataManager(ctx);
 		
 		ForumEntry entry=new ForumEntry("subject","This is a question","AuthorName");
@@ -87,10 +95,15 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 			}
 		}
 		assert(i); 
+			}
+			
+			});
 	}
 	
-	public void postAnswerTest(){//NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
-		
+	public void testpostAnswer(){//NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
+		activity.runOnUiThread(new Runnable (){ 
+			@Override 
+			public void run(){ 
 		DataManager dm = new DataManager(ctx);
 		
 		dm.addForumEntry((new ForumEntry("subject","This is a question","AuthorName")));
@@ -110,11 +123,15 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 			}
 		}
 		assert(i); 
+			}
+		});
 	}
 	
 	
-	public void postAnswerWithPictureTest(){//NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
-		
+	public void testpostAnswerWithPicture(){//NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
+		activity.runOnUiThread(new Runnable (){ 
+			@Override 
+			public void run(){ 
 		DataManager dm = new DataManager(ctx);
 		
 		dm.addForumEntry((new ForumEntry("subject","This is a question","AuthorName")));
@@ -136,5 +153,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		}
 	
 		assert(i); 
+		}
+		});
 	}
 }

@@ -16,17 +16,18 @@ public class QuestionSaveTest extends ActivityInstrumentationTestCase2<QuestionA
 	private Context ctx;
 	private QuestionActivity testActivity;
 	
-	public QuestionSaveTest(Class<QuestionActivity> activityClass) {
-		super(activityClass);
-		ctx = testActivity.getApplicationContext();
-		datamanager = new DataManager(ctx);
+	public QuestionSaveTest() {
+		super(QuestionActivity.class);
 
 	}
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		ctx = testActivity.getApplicationContext();
+		datamanager = new DataManager(ctx);
 		setActivityInitialTouchMode(false);
 		testActivity = getActivity();
+		
 	}
 	
 	// Test for u28

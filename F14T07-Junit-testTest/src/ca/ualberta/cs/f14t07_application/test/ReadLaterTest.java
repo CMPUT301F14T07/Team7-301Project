@@ -19,17 +19,16 @@ public class ReadLaterTest extends ActivityInstrumentationTestCase2<ReadLaterAct
 	private Context ctx;
 	private ReadLaterActivity testActivity;
 	
-	public ReadLaterTest(Class activityClass) {
+	public ReadLaterTest() {
 		super(ReadLaterActivity.class);
-		ctx = testActivity.getApplicationContext();
-		datamanager = new DataManager(ctx);
 	}
 	
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		
+		ctx = testActivity.getApplicationContext();
+		datamanager = new DataManager(ctx);
 		/* Turns off the touch screen in the emulator. This must be done to test features that
 		 * would require the user to touch something on the screen.
 		 */

@@ -11,15 +11,15 @@ public class PushOnlineTest extends ActivityInstrumentationTestCase2<AskActivity
 	private DataManager dataManager;
 	private Context ctx;
 	
-	public PushOnlineTest(Class<AskActivity> activityClass) {
+	public PushOnlineTest() {
 		super(AskActivity.class);
-		dataManager = new DataManager(ctx);
 	}
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		dataManager = new DataManager(ctx);
 	}
 	
 	public void testPushOnline(){ 

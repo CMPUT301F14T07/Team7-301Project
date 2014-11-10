@@ -18,10 +18,8 @@ public class FavouriteTest extends ActivityInstrumentationTestCase2<FavouriteAct
 	private Context ctx;
 	private FavouriteActivity testActivity;
 	
-	public FavouriteTest(Class<FavouriteActivity> activityClass) {
+	public FavouriteTest() {
 		super(FavouriteActivity.class);
-		ctx = testActivity.getApplicationContext();
-		datamanager = new DataManager(ctx);
 	}
 
 
@@ -29,6 +27,8 @@ public class FavouriteTest extends ActivityInstrumentationTestCase2<FavouriteAct
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		ctx = testActivity.getApplicationContext();
+		datamanager = new DataManager(ctx);
 		/* Turns off the touch screen in the emulator. This must be done to test features that
 		 * would require the user to touch something on the screen.
 		 */
@@ -40,22 +40,27 @@ public class FavouriteTest extends ActivityInstrumentationTestCase2<FavouriteAct
 	
 	// Test for u29
 	
-	public void testViewFavourite() throws Throwable {
-		ForumEntryList fel = new ForumEntryList();
-		ArrayList<ForumEntry> testList = new ArrayList<ForumEntry>();
-		ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
-		testList.add(exampleEntry);
-		fel.setFavourites(testList);
-		datamanager.saveFavourite(fel); 
+	public void testViewFavourite() {
+		final ForumEntryList fel = new ForumEntryList();
+		final ArrayList<ForumEntry> testList = new ArrayList<ForumEntry>();
+		final ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
     	 
-		runTestOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				datamanager.loadFavourites();
-				
-			}
-		});
-		ViewAsserts.assertOnScreen(testActivity.getWindow().getDecorView(), getActivity().getView());
-		
+		try {
+			runTestOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					testList.add(exampleEntry);
+					fel.setFavourites(testList);
+					datamanager.saveFavourite(fel); 
+					datamanager.loadFavourites();
+					ViewAsserts.assertOnScreen(testActivity.getWindow().getDecorView(), getActivity().getView());
+
+					
+				}
+			});
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 }
