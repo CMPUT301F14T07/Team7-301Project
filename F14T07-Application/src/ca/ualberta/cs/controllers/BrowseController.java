@@ -1,12 +1,8 @@
 package ca.ualberta.cs.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-import org.apache.http.client.ClientProtocolException;
 
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
@@ -17,7 +13,7 @@ public class BrowseController {
 	private SearchController searchController;
 	
 	private ForumEntryList forumEntryList;
-	public String browseString;
+
 	
 	/**
 	 * Creates a new BrowseController.
@@ -89,15 +85,7 @@ public class BrowseController {
 	 * @return
 	 */
 	public List<ForumEntry> getAllEntries(){
-		try {
-			forumEntries.addAll(searchController.searchForumEntries("",null));
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		forumEntries.addAll(searchController.searchAll());
 		ForumEntry forumEntry = new ForumEntry("browse","browse","browse");
 		forumEntries.add(forumEntry);
 		return forumEntries;
