@@ -247,6 +247,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				text.setVisibility(4);
 				signInButton.setVisibility(0);
 				signOutButton.setVisibility(4);
+				nameDisplayed=text;
 			}
 		});
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()

@@ -54,5 +54,31 @@ public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenA
 		assertEquals(signInButton.getVisibility(), 4);
 		assertEquals(signOutButton.getVisibility(),0);
 	}
+	
+	public void signOutTest(){
+		final String authorName="User123";
+		Button signInButton=(Button) testActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.signInButton);
+		Button signOutButton=(Button) testActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.signOutButton);
+		
+		signInButton.performClick();
+		
+		testActivity.name.setText(authorName);
+		
+		Button positiveButton=testActivity.alert2.getButton(AlertDialog.BUTTON_POSITIVE);
+		
+		positiveButton.performClick();
+		
+		assert(testActivity.nameDisplayed.getText().toString().contains(authorName));
+		assertEquals(signInButton.getVisibility(), 4);
+		assertEquals(signOutButton.getVisibility(),0);
+		
+		signOutButton.performClick();
+		
+		Button positiveSignOut=testActivity.alert2.getButton(AlertDialog.BUTTON_POSITIVE);
+		
+		positiveSignOut.performClick();
+		
+		assertEquals(testActivity.nameDisplayed.getVisibility(),0);
+	}
 
 }
