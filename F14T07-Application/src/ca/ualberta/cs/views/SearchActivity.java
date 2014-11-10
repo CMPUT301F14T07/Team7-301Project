@@ -1,9 +1,12 @@
 package ca.ualberta.cs.views;
 
+import java.util.ArrayList;
+
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.f14t07_application.R.id;
 import ca.ualberta.cs.f14t07_application.R.layout;
 import ca.ualberta.cs.f14t07_application.R.menu;
+import ca.ualberta.cs.models.ForumEntry;
 import android.app.Activity;
 import android.content.Intent;//
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 public class SearchActivity extends Activity {
 
+	public ArrayList<ForumEntry> searchHits = new ArrayList<ForumEntry>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

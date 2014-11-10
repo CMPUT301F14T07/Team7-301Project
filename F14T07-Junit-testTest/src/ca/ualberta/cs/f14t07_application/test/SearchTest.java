@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import ca.ualberta.cs.controllers.BrowseController;
@@ -20,7 +21,11 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
 	private SearchActivity testActivity;
 	private Context ctx;
 	
-	@Override
+	   public SearchTest(){
+	    	super(SearchActivity.class);
+	    }
+	   
+	   @Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -41,50 +46,38 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
 		//testButton = null;
 	}
 	
-    public SearchTest(){
-    	super(SearchActivity.class);
-    }
-    
-
-    public void testSearchQuestion(){
-    	final SearchActivity m = getActivity();
-		m.runOnUiThread(new Runnable (){ 
-			@Override 
-			public void run(){ 
-				String searchTerm = "foo";
-				EditText SearchText = (EditText) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput);
-				SearchText.setText("foo");
-    
-				//Button SearchButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
-				//SearchButton.performClick();
-
-				String inputedTerm = m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput).toString();
-				assertEquals(inputedTerm,searchTerm);	
-			}
-		});
-    }
-    
-    public void testSearchAnswer(){
-   
-    	final String searchTerm = "bar";
+    public void testSearch(){
+    	ForumEntry forumEntry = new ForumEntry("this","is bar bar bar only","a test");
 		final SearchActivity s = getActivity();
 		s.runOnUiThread(new Runnable (){ 
 			@Override 
 			public void run(){ 
     	EditText SearchText = (EditText) s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput);
     	SearchText.setText("bar");
-    
     	//Button SearchButton = (Button) s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
     	//SearchButton.performClick();
+    	Boolean isFound = false;
+    	if(s.searchHits!=null){
+    		for ( int i = 0; i<s.searchHits.size(); i++){
+    			if (s.searchHits.get(i).getQuestion().getPost()=="is bar bar bar only"){
+    				isFound = true;
+    				}
 
-    	String inputedTerm = s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput).toString();
-    	assertEquals(inputedTerm,searchTerm);	
+    			}
+    		}
+    	assertTrue(isFound);
+    	try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    		
 			}
 		});
     }
 
-    public void testSortBySearchTerm(){
-    	DataManager dm = new DataManager(ctx);
+    public void testAASortBySearchTerm(){
     	ForumEntry f1 = new ForumEntry("subject","no term","author1");
     	ForumEntry f2 = new ForumEntry("subject","still no term","author2");
     	ForumEntry f3 = new ForumEntry("subject","has foo!","author3");
