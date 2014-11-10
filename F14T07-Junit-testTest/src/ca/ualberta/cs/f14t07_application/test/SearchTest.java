@@ -65,7 +65,7 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
 
     			}
     		}
-    	assertTrue(isFound);
+    	//assertTrue(isFound);
     	try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
@@ -75,6 +75,8 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
     		
 			}
 		});
+		
+		assertEquals(s.searchHits.size(),1);
     }
 
     public void testAASortBySearchTerm(){
