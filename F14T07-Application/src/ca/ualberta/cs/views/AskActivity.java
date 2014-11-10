@@ -12,6 +12,7 @@ import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 
+
 /**
  * This is the view that is shown to the user when they would 
  * like to ask a question. It includes setting a subjected and 
@@ -23,9 +24,15 @@ public class AskActivity extends Activity
 {
 	public Intent intent;
 	public Intent intent2;
-	private Context ctx;
-
-	@Override
+	public Context ctx; 
+	
+	private Runnable doFinishAdd = new Runnable() {
+		public void run() {
+			finish();
+		}
+	};
+	
+	@Override 
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -52,20 +59,24 @@ public class AskActivity extends Activity
 				// create a new ForumEntry
 				ForumEntry newForumEntry = new ForumEntry(newSubject,
 						newQuestion, newAuthor);
+				
+				
 				Thread thread = new AddThread(newForumEntry);
-				// Pass it to the controller
 				thread.start();
+				
 				newEntryEdit.setText("");
 				newSubjectEdit.setText("");
 				newAuthorEdit.setText("");
-				Toast.makeText(AskActivity.this, "Question Added",
-						Toast.LENGTH_SHORT).show();
+				//Toast.makeText(AskActivity.this, "Question Added",
+//						Toast.LENGTH_SHORT).show();
 
 				// then an intent needs to open the question screen for the new
 				// forum entry
+				
 				intent = new Intent(AskActivity.this, QuestionActivity.class);
 				intent2 = intent;
 				startActivity(intent);
+				
 			}
 		});
 
@@ -95,26 +106,28 @@ protected void onStart()
 }
 
 
-	class AddThread extends Thread
-	{
-		private ForumEntry forumEntry;
-		private DataManager dataManager = new DataManager(ctx);
-
-		public AddThread(ForumEntry forumEntry_) {
-			forumEntry = forumEntry_;
-		}
-
-		@Override
-		public void run()
-		{
-			super.run();
-			dataManager.addForumEntry(forumEntry);
-
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+class AddThread extends Thread {
+	private ForumEntry forumEntry;
+	private DataManager dataManager;
+	public AddThread(ForumEntry forumEntry_) {
+		forumEntry = forumEntry_;
+		dataManager = new DataManager(ctx);
 	}
+
+	@Override
+	public void run() {
+	
+		//AddForumEntry afm = new AddForumEntry();
+		
+		dataManager.addForumEntry(forumEntry);
+		// Give some time to get updated info
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		runOnUiThread(doFinishAdd);
+	}
+}
 }

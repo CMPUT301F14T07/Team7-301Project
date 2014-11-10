@@ -4,12 +4,17 @@ package ca.ualberta.cs.models;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 
 
+
+
+
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -23,6 +28,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 
+
+
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -34,9 +42,7 @@ import com.google.gson.reflect.TypeToken;
  *@author lexie
  */
 public class DataManager {
-	
-	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry/_search";
-	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
+		private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
 	private static final String TAG = "ForumEntrySearch";
 	private static final String FILENAME = "saveQuestion.sav";
 	
@@ -45,35 +51,17 @@ public class DataManager {
 	private ForumEntry forumEntryTest;
 	
 	public DataManager(Context ctx) {
-		this.ctx = ctx;
+		//is.ctx = ctx;
 		gson = new Gson();
-	}
-	
-	public ForumEntry getForumEntry(int id) {
-
-		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(RESOURCE_URL + id);
-
-		HttpResponse response;
-
-		try {
-			response = httpClient.execute(httpGet);
-			//SearchHit<Movie> sr = parseMovieHit(response);
-			//return sr.getSource();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-
-		return null;
 	}
 
 	public void addReplyToEntry(ForumEntry forumEntry,String s){
 		
 	}
 	public void addForumEntry(ForumEntry forumEntry) {
+		gson = new Gson();
 		HttpClient httpClient = new DefaultHttpClient();
-		forumEntryTest = forumEntry;
+
 		try {
 			HttpPost addRequest = new HttpPost(RESOURCE_URL);
 
@@ -83,9 +71,23 @@ public class DataManager {
 
 			HttpResponse response = httpClient.execute(addRequest);
 			String status = response.getStatusLine().toString();
-			Log.i(TAG, status);
-			
+	
+			System.out.println(status);
+			HttpEntity entity = response.getEntity();
+			BufferedReader br;
+			try {
+				br = new BufferedReader(new InputStreamReader(entity.getContent()));
+				String output;
+				System.err.println("Output from Server -> ");
+				while ((output = br.readLine()) != null) {
+					System.err.println(output);
+				}
+			}
+			catch (IOException e){
+				System.err.println(e);
+			}
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
 	}
