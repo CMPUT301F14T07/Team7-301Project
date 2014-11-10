@@ -17,9 +17,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**The view for the search model
+ * @author dlacours
+ * @author pietrasi*/
 public class SearchActivity extends Activity {
 
 	public ArrayList<ForumEntry> searchHits = new ArrayList<ForumEntry>();
+	
+	/**the on click listeners are initialized here*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,7 +65,7 @@ public class SearchActivity extends Activity {
 		return true;
 	}
 	
-
+	/**the menu*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

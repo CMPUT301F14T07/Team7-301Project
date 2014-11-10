@@ -4,6 +4,10 @@ import java.util.List;
 
 import ca.ualberta.cs.remote_server.SearchHit;
 
+/**
+ * Gets info from the hits
+ * taken from Lab 7
+ * @author lexie*/
 public class Hits<T> {
 	private int total;
 	private float max_score;

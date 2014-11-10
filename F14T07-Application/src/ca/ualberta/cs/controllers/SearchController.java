@@ -26,6 +26,9 @@ import ca.ualberta.cs.remote_server.SimpleSearchCommand;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * Controls the data in the model of the SearchActivity
+ */
 public class SearchController {
 	private List<ForumEntry> searchResult;
 	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry/_search";
@@ -34,11 +37,18 @@ public class SearchController {
 	
 	private Gson gson;
 	
+	/**
+	 * Creates a new SearchController.
+	 */
 	public SearchController(){
 		searchResult = new ArrayList<ForumEntry>();
 		gson = new Gson();
 	}
 	
+	/**
+	 * Searches the entries for an empty screen, thereby showing all the entries
+	 * @return the search result
+	 * */
 	public List<ForumEntry> searchAll(){
 		//searchResult.clear(); 
 		SearchThread thread = new SearchThread("");
@@ -49,6 +59,12 @@ public class SearchController {
 		
 		return searchResult;
 	}
+	
+	/**
+	 * Searches the forum entries for a specific term
+	 * @param the term, and the field
+	 * @throws ClientProtocolException, IOException
+	 * */
 	public void searchForumEntries(String searchString, String field) throws ClientProtocolException, IOException { 
 		searchResult = new ArrayList<ForumEntry>();
 
@@ -82,7 +98,12 @@ public class SearchController {
 		}
 	
 	}
-
+	/**
+	 * creates the search request
+	 * @param the term, and the field
+	 * @throws UnsupportedEncodingException
+	 * @return search Request
+	 * */
 	private HttpPost createSearchRequest(String searchString, String field) throws UnsupportedEncodingException{ 
 		
 		HttpPost searchRequest = new HttpPost(SEARCH_URL);
@@ -106,6 +127,13 @@ public class SearchController {
 
 		return searchRequest;
 	}
+	
+	/**
+	 * parses through the response from elasticsearch
+	 * @param the response
+	 * @throws IOException
+	 * @return Elastic Search Response
+	 * */
 	private SearchResponse<ForumEntry> parseSearchResponse(HttpResponse response) throws IOException { 
 		String json; 
 		json = getEntityContent(response);
@@ -117,6 +145,13 @@ public class SearchController {
 		return esResponse;
 		
 	}
+	
+	/**
+	 * gets the response from elasticsearch
+	 * @param the response
+	 * @throws IOException
+	 * @return the string of the response
+	 * */
 	public String getEntityContent(HttpResponse response) throws IOException { 
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 	
@@ -130,6 +165,9 @@ public class SearchController {
 		return result.toString();
 	}
 	
+/**
+ * Separate thread for searching
+ */
 class SearchThread extends Thread {
 	// TODO: Implement search thread
 	private String search; 

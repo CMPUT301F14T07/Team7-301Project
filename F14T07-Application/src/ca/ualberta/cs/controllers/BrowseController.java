@@ -8,6 +8,12 @@ import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
 import ca.ualberta.cs.views.Observer;
 
+/**
+ * Controls the data in the model of the BrowseActivity
+ * Also takes care of sorting
+ * Contains a list of ForumEntries and the searchController
+ * and determines whether we use the favourites or readLater view
+ */
 public class BrowseController {
 	private List<ForumEntry> forumEntries;
 	private SearchController searchController;

@@ -14,7 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
-
+/**
+ * The view for the favourites. Should be used when viewing the Favourites screen
+ * @author rtwong*/
 public class FavouriteActivity extends Activity {
 
 	private ForumEntryList fel;

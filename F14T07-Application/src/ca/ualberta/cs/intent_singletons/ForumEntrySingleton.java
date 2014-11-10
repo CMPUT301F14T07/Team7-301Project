@@ -6,6 +6,7 @@ import ca.ualberta.cs.models.ForumEntry;
  * This is a singleton class that is useful for starting the QuestionActivity. It allows
  * one activity to pass an instance of a ForumEntry around.
  *
+ * @author bbruner
  */
 public class ForumEntrySingleton 
 {

@@ -14,7 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-
+/**
+ * The view for the Read Laters. Should be used when viewing the ReadLaters screen
+ * @author rtwong*/
 public class ReadLaterActivity extends Activity {
 
 	@Override

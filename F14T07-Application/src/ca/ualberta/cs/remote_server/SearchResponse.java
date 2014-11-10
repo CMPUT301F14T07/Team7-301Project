@@ -1,7 +1,10 @@
 package ca.ualberta.cs.remote_server;
 
 import ca.ualberta.cs.f14t07_application.Hits;
-
+/**
+ * class used to process search response
+ * borrowed from lab7
+ * @author lexie*/
 public class SearchResponse<T> {
 
 	private int took;

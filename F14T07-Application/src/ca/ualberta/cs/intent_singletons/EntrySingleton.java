@@ -5,6 +5,7 @@ import ca.ualberta.cs.models.Entry;
 /**
  * This is a singleton class used to pass around an Entry between activities.
  *
+ * @author bbruner
  */
 public class EntrySingleton 
 {

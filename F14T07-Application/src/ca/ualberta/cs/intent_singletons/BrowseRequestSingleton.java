@@ -5,6 +5,7 @@ package ca.ualberta.cs.intent_singletons;
  * A browse request is simply one activity asking the browse activity to 
  * display everything that matches a certain string. No silly, don't go opening
  * any sockets for this.
+ * @author bbruner
  *
  */
 public class BrowseRequestSingleton 

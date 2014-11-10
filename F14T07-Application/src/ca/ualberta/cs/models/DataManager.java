@@ -42,7 +42,7 @@ import com.google.gson.reflect.TypeToken;
  *@author lexie
  */
 public class DataManager {
-		private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
+	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
 	private static final String TAG = "ForumEntrySearch";
 	private static final String FILENAME = "saveQuestion.sav";
 	
@@ -58,6 +58,11 @@ public class DataManager {
 	public void addReplyToEntry(ForumEntry forumEntry,String s){
 		
 	}
+	
+	/**
+	 * adds a new forum entry to the system
+	 * @param forum entry
+	 * */
 	public void addForumEntry(ForumEntry forumEntry) {
 		gson = new Gson();
 		HttpClient httpClient = new DefaultHttpClient();
@@ -93,10 +98,16 @@ public class DataManager {
 		forumEntryTest = forumEntry;
 	}
 	
+	/**
+	 * gets a forum entry 
+	 * for tests
+	 * @return forum entry*/
 	public ForumEntry getForumEntry(){ 
 		return forumEntryTest;
 	}
 	
+	/**
+	 * loads the saved forum entries*/
 	public ForumEntryList load(){
 		ForumEntryList fe = null;
 
@@ -108,6 +119,9 @@ public class DataManager {
 		
 	}
 
+	/**
+	 * saves the forum entry list
+	 * @param forumEntryList*/
 	public void saveLocally(ForumEntryList fel) {
 		try {
 			FileOutputStream fos = ctx.openFileOutput("read_later.sav", Context.MODE_PRIVATE);
@@ -120,6 +134,9 @@ public class DataManager {
 		}
 	}
 	
+	/**
+	 * loads locally saved list
+	 * @return the locally saved forum entry list*/
 	public ForumEntryList loadLocallySaved() {
 		ForumEntryList fe = new ForumEntryList();
 		
@@ -147,6 +164,9 @@ public class DataManager {
 		
 	}
 
+	/**
+	 * loads the favourites
+	 * @return forum entry list*/
 	public ForumEntryList loadFavourites() {
 		ForumEntryList fe = new ForumEntryList();
 		
@@ -169,6 +189,9 @@ public class DataManager {
 		return fe;
 	}
 
+	/**
+	 * saves favourites
+	 * @param forum entry list*/
 	public void saveFavourite(ForumEntryList fel) {
 		try {
 			FileOutputStream fos = ctx.openFileOutput("favourites", Context.MODE_PRIVATE);

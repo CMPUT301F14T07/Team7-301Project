@@ -21,7 +21,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
+/**
+ * The Browse view
+ * implements the observer class
+ * */
 public class BrowseActivity extends Activity implements Observer<ForumEntryList>{
 	private ArrayAdapter<ForumEntry> browseListAdapter;
 	private ListView browseListView;
@@ -29,6 +32,7 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	private BrowseController browseController;
 	
 	@Override
+	/**lays out the screen and initializes onClickListeners*/
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -79,6 +83,8 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		return true;
 	}
 
+	/**
+	 * Initializes the menu*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

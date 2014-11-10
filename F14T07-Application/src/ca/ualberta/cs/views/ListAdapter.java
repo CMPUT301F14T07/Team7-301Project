@@ -14,7 +14,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
+/**
+ * This code is to be used for a making a list within a list on the question page (There is currently a list for 
+ * answers but that list will be composed of upvote buttons, answers, and their respective replies). It is being left
+ * empty for the moment because it will depend on how Entry.java, Question.java, Answer.java, ForumEntry.java and
+ * ForumEntryList.java work, so until they are a little more filled out I will leave this code blank
+ * @author jfryan*/
 public class ListAdapter extends ArrayAdapter<QuestionActivity>{
 
 	private Context adaptersContext;
