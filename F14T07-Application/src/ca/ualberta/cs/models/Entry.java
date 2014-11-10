@@ -113,6 +113,9 @@ public class Entry {
 	 * @return Picture
 	 */
 	public Picture getPicture(){ 
+		if (picture != null){
+			return picture;
+		}
 		return null;
 	}
 }

@@ -42,6 +42,7 @@ public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenA
 		
 	}
 	
+	
 	public void testsignInandOut(){
 		MainScreenActivity activity = getActivity();
 		final String authorName="User123";

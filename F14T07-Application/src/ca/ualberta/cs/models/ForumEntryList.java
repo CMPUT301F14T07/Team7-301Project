@@ -24,8 +24,7 @@ public class ForumEntryList extends Observable<Observer> {
 	 */
 	public ArrayList<ForumEntry> getView() {
 		
-		ArrayList<ForumEntry> list=null;
-		return list;
+		return forumEntries;
 	}
 	
 	/**
@@ -33,7 +32,7 @@ public class ForumEntryList extends Observable<Observer> {
 	 * @param list The array list of forum entries to set in this model.
 	 */
 	public void setView(ArrayList<ForumEntry> list) {
-		
+		forumEntries=list;
 	}
 	
 	/**

@@ -1,6 +1,7 @@
 package ca.ualberta.cs.f14t07_application.test;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
@@ -39,7 +40,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		ctx = testActivity.getApplicationContext();
 	}
 	
-	public void testpostReplyToQuestion(){ //NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
+	public void testpostReplyToQuestion(){//NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
 		activity.runOnUiThread(new Runnable (){ 
 			@Override 
 			public void run(){ 
@@ -55,9 +56,11 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		
 		Boolean i= false;
 		
-		for (Reply r : (new DataManager(ctx)).load().getView().get(0).getQuestion().getReplies()){
-			if (r.getReply() == Body){
-				i=true;
+		for (Reply r : (new DataManager(ctx)).loadLocallySaved().getView().get(0).getQuestion().getReplies()){
+			if (r != null){
+				if (r.getReply() == Body){
+					i=true;
+				}
 			}
 		}
 		assert(i); 
@@ -117,14 +120,18 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		
 		Boolean i= false;
 		
-		for (Entry e : (new DataManager(ctx)).load().getView().get(0).getAnswers()){
-			if (e.getPost() == Body){
-				i=true;
+		for (Answer a : (new DataManager(ctx)).loadLocallySaved().getView().get(0).getAnswers()){
+			if (a != null){
+				if (a.getPost() == Body){
+					i=true;
+				}
 			}
 		}
 		assert(i); 
+		(new DataManager(ctx)).saveLocally(null);
 			}
 		});
+		
 	}
 	
 	
@@ -146,9 +153,11 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		
 		Boolean i= false;
 		
-		for (Entry e : (new DataManager(ctx)).load().getView().get(0).getAnswers()){
-			if (e.getPost() == Body && e.getPicture() != null){
-				i=true;
+		for (Answer a : (new DataManager(ctx)).loadLocallySaved().getView().get(0).getAnswers()){
+			if (a != null){
+				if (a.getPost() == Body && a.getPicture() != null){
+					i=true;
+				}
 			}
 		}
 	
