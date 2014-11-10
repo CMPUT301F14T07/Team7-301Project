@@ -90,6 +90,7 @@ public class DataManager {
 			
 			e.printStackTrace();
 		}
+		forumEntryTest = forumEntry;
 	}
 	
 	public ForumEntry getForumEntry(){ 
