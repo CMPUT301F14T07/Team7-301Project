@@ -3,13 +3,16 @@ package ca.ualberta.cs.f14t07_application.test;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import ca.ualberta.cs.controllers.BrowseController;
+import ca.ualberta.cs.controllers.ForumEntryController;
+import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
+import ca.ualberta.cs.models.ForumEntryList;
+import ca.ualberta.cs.views.MainScreenActivity;
 import ca.ualberta.cs.views.SearchActivity;
 
 public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity> {
@@ -25,13 +28,17 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
 		/* Turns off the touch screen in the emulator. This must be done to test features that
 		 * would require the user to touch something on the screen.
 		 */
-		setActivityInitialTouchMode(true);
+		setActivityInitialTouchMode(false);
 		
 		/* Get an instance of the activity which is running
 		 */
 		testActivity = getActivity();
 		ctx = testActivity.getApplicationContext();
 		
+		/* Reset the testButton - do this so consecutive tests don't accidentally test
+		 * the same button.
+		 */
+		//testButton = null;
 	}
 	
     public SearchTest(){
@@ -41,42 +48,34 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
 
     public void testSearchQuestion(){
     	String searchTerm = "foo";
-		//MainScreenActivity m = new MainScreenActivity();
+		MainScreenActivity m = new MainScreenActivity();
 		SearchActivity s = getActivity();
-    	final EditText SearchText = (EditText) s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput);
-    	
-    	s.runOnUiThread(new Runnable(){
-    		@Override
-    		public void run(){
-    			SearchText.setText("foo",TextView.BufferType.EDITABLE);
-    			sendKeys(KeyEvent.KEYCODE_ENTER);
-    		}
-    	});
+    	EditText SearchText = (EditText) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTerm);
+    	SearchText.setText("foo");
+    
+    	Button SearchButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
+    	SearchButton.performClick();
+
     	String inputedTerm = s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput).toString();
     	assertEquals(inputedTerm,searchTerm);	
     }
     
     public void testSearchAnswer(){
     	String searchTerm = "bar";
-		//MainScreenActivity m = getActivity();
+		MainScreenActivity m = new MainScreenActivity();
 		SearchActivity s = getActivity();
-    	final EditText SearchText = (EditText) s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput);
-  
-    	
-		s.runOnUiThread(new Runnable (){ 
-			@Override 
-			public void run(){ 
-    			SearchText.setText("bar",TextView.BufferType.EDITABLE);
-    			sendKeys(KeyEvent.KEYCODE_ENTER);
-			}
-		});
+    	EditText SearchText = (EditText) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTerm);
+    	SearchText.setText("bar");
+    
+    	Button SearchButton = (Button) m.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchButton);
+    	SearchButton.performClick();
 
-
-    	String inputedTerm = SearchText.getText().toString();
+    	String inputedTerm = s.findViewById(ca.ualberta.cs.f14t07_application.R.id.searchTextInput).toString();
     	assertEquals(inputedTerm,searchTerm);	
     }
 
     public void testSortBySearchTerm(){
+    	DataManager dm = new DataManager(ctx);
     	ForumEntry f1 = new ForumEntry("subject","no term","author1");
     	ForumEntry f2 = new ForumEntry("subject","still no term","author2");
     	ForumEntry f3 = new ForumEntry("subject","has foo!","author3");
