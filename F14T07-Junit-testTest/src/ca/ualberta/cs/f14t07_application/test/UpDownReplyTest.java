@@ -6,6 +6,7 @@ import java.util.Iterator;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
+import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.Entry;
 import ca.ualberta.cs.models.ForumEntry;
@@ -85,17 +86,20 @@ public class UpDownReplyTest extends ActivityInstrumentationTestCase2<QuestionAc
 	public void testUpVoteAnswer() //NEEDS TO BE CHANGED - WE'RE DOING A NEW SCREEN NOW
 	{
 		String subject = "This is the subject";
-		String answer = "This is an answer";
+		ArrayList<Answer> answer = new ArrayList<Answer>();
 		String author = "This is the author";
-		ForumEntry testEntry = new ForumEntry(subject, answer,author);
+		Answer a = new Answer ("this is an answer",author);
+		answer.add(a);
+		ForumEntry testEntry = new ForumEntry(subject, "question",author);
+		testEntry.setAnswer(answer);
 		int initialVote = testEntry.getAnswers().get(0).getUpVote();
 		DataManager dataM = new DataManager(ctx);
 		
 		dataM.addForumEntry(testEntry);
 		// This isn't set up yet, hence commented out
-	//	Button upVoteButton = (Button) testActivity.findViewById(
-			//	ca.ualberta.cs.f14t07_application.R.id.UpVoteButton);
-	//	upVoteButton.performClick();
+		
+		//Button upVoteButton = (Button) testActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.UpVoteButton);
+		//upVoteButton.performClick();
 		
 	
 		assertEquals(dataM.getForumEntry().getAnswers().get(0), 1);
