@@ -15,7 +15,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.graphics.Movie;
 import android.util.Log;
 import ca.ualberta.cs.f14t07_application.Hits;
 import ca.ualberta.cs.models.ForumEntry;
@@ -34,7 +33,8 @@ public class SearchController {
 	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry/_search";
 
 	private static final String TAG = "ForumEntrySearch";
-	
+	private HttpClient httpclient = new DefaultHttpClient();
+
 	private Gson gson;
 	
 	/**
@@ -45,29 +45,14 @@ public class SearchController {
 		gson = new Gson();
 	}
 	
-	/**
-	 * Searches the entries for an empty screen, thereby showing all the entries
-	 * @return the search result
-	 * */
-	public List<ForumEntry> searchAll(){
-		//searchResult.clear(); 
-		SearchThread thread = new SearchThread("");
-		thread.start();
-		
-		ForumEntry forumEntry= new ForumEntry("search","Search","search");
-		searchResult.add(forumEntry);
-		
-		return searchResult;
-	}
 	
 	/**
 	 * Searches the forum entries for a specific term
 	 * @param the term, and the field
 	 * @throws ClientProtocolException, IOException
 	 * */
-	public void searchForumEntries(String searchString, String field) throws ClientProtocolException, IOException { 
-		searchResult = new ArrayList<ForumEntry>();
-
+	public List<ForumEntry> searchForumEntries(String searchString, String field) throws ClientProtocolException, IOException { 
+		List<ForumEntry> result = new ArrayList<ForumEntry>();
 		// TODO: Implement search movies using ElasticSearch
 		if ("".equals(searchString)||searchString==null){
 			searchString= "*";
@@ -89,14 +74,14 @@ public class SearchController {
 			if (hits.getHits() != null ){
 				//there are movies in the search 
 				for(SearchHit<ForumEntry> sesr: hits.getHits()){
-					searchResult.add(sesr.getSource());
+					result.add(sesr.getSource());
 				}
 			}
 		}
 		} catch (UnsupportedEncodingException e){
 			e.printStackTrace();
 		}
-	
+	return result;
 	}
 	/**
 	 * creates the search request
@@ -165,33 +150,4 @@ public class SearchController {
 		return result.toString();
 	}
 	
-/**
- * Separate thread for searching
- */
-class SearchThread extends Thread {
-	// TODO: Implement search thread
-	private String search; 
-	
-	public SearchThread(String s){
-		search = s;
-	}
-	public void run(){ 
-		//searchResult.clear();
-		try {
-			ForumEntry forumEntry= new ForumEntry("search","Search","search");
-			
-			searchForumEntries(search,null);
-			searchResult.add(forumEntry);
-			
-		//	runOnUiThread();
-			
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		}
-	}
 }

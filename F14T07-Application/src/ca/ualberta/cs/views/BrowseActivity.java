@@ -31,6 +31,11 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	public List<ForumEntry> forumEntries;
 	private BrowseController browseController;
 	
+		private Runnable doUpdateGUIList = new Runnable() {
+				public void run() {
+					browseListAdapter.notifyDataSetChanged();
+				}
+			};
 	@Override
 	/**lays out the screen and initializes onClickListeners*/
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +65,12 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		forumEntries = new ArrayList<ForumEntry>();
 		
 		browseController = new BrowseController(this);
-		ForumEntry forumEntry = new ForumEntry("lexie","subject","question");
 		
 		browseListAdapter= new ArrayAdapter<ForumEntry>(BrowseActivity.this, R.layout.list_item,forumEntries);
 		browseListView = (ListView) findViewById( R.id.browseListView);
 		browseListView.setAdapter(browseListAdapter);
-		
-		forumEntries.add(forumEntry);
-		browseController = new BrowseController(this);
-		forumEntries.addAll(browseController.getAllEntries());
-
-		
-		Toast.makeText(BrowseActivity.this,forumEntry.toString(),Toast.LENGTH_SHORT).show();
+		SearchThread thread = new SearchThread("");
+		thread.start();
 
 		browseListAdapter.notifyDataSetChanged();
 		
@@ -122,4 +121,31 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		// TODO Auto-generated method stub
 		
 	}
+	
+	class SearchThread extends Thread {
+		// TODO: Implement search thread
+		private String search; 
+		
+		public SearchThread(String s){
+			search = s;
+		}
+		@Override
+			public void run(){ 
+			
+			super.run();
+			browseController = new BrowseController(BrowseActivity.this);
+			forumEntries.addAll(browseController.getAllEntries());
+			ForumEntry forumEntry = new ForumEntry("this","that","something");
+			forumEntries.add(forumEntry);
+			
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+				
+			runOnUiThread(doUpdateGUIList);
+		}
+	}
 }
+

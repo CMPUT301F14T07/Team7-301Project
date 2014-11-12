@@ -42,8 +42,8 @@ public final class R {
         public static final int QuestionText=0x7f080004;
         public static final int ReplyAnswerIndicator=0x7f080007;
         public static final int action_settings=0x7f08002b;
-        public static final int answerReplyButton=0x7f080009;
-        public static final int answerReplyText=0x7f080008;
+        public static final int answerReplyButton=0x7f080008;
+        public static final int answerReplyText=0x7f080009;
         public static final int askButton=0x7f08000a;
         public static final int askTitle=0x7f08000c;
         public static final int attachButton=0x7f08000b;
