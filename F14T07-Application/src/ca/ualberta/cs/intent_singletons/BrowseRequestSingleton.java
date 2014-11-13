@@ -14,10 +14,10 @@ public class BrowseRequestSingleton
 	private String searchToken;
 	private String viewToken;
 	
-	public static final String ON_LINE_VIEW = "ON_LINE_VIEW";
-	public static final String READ_LATER_VIEW = "READ_LATER_VIEW";
-	public static final String FAVOURITES_VIEW = "FAVOURITES_VIEW";
-	public static final String MY_AUTHORED_VIEW = "MY_AUTHORED_VIEW";
+	public static final String ON_LINE_VIEW = "Browse";
+	public static final String READ_LATER_VIEW = "Saved";
+	public static final String FAVOURITES_VIEW = "Favourites";
+	public static final String MY_AUTHORED_VIEW = "My Questions";
 	
 	public static final String SEARCH_EVERYTHING = "";
 	

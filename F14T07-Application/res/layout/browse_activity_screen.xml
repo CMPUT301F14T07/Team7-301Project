@@ -44,5 +44,17 @@
         android:layout_alignLeft="@+id/browseViewByText"
         android:layout_below="@+id/browseViewByText" >
     </ListView>
+    
+        <EditText
+        android:id="@+id/searchTextInput"
+        android:hint="Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

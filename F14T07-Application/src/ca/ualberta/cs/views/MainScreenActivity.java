@@ -50,6 +50,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		setContentView(R.layout.main_activity_screen);
 
 		this.authorController = new AuthorController(this);
+		this.authorController.setSessionAuthor(AuthorModel.NO_AUTHOR);
 
 		/* Ask Button on click listener */
 		Button ask_button = (Button) findViewById(R.id.askButton);
@@ -140,25 +141,37 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		// as you specify a parent activity in AndroidManifest.xml.
 		
 		int id = item.getItemId();
+		Intent intent;
+		intent = new Intent(this, BrowseActivity.class);
+		BrowseRequestSingleton.getInstance().setSearchToken(BrowseRequestSingleton.SEARCH_EVERYTHING);
 		switch (id)
 		{
 		
 		case R.id.switchToMyQuestions:
-			
-			Intent myQsIntent = new Intent(this, MyQuestionsActivity.class);
-			startActivity(myQsIntent);
+			/*
+			 * Set the search and view tokens in the BrowseRequestSingleton, this way, the browse activity
+			 * knows what to search for and what view to present when starting up.
+			 */
+			BrowseRequestSingleton.getInstance().setViewToken(BrowseRequestSingleton.MY_AUTHORED_VIEW);
+			startActivity(intent);
 			return true;
 			
 		case R.id.switchToReadLater:
-			
-			Intent readLaterIntent = new Intent(this, ReadLaterActivity.class);
-			startActivity(readLaterIntent);
+			/*
+			 * Set the search and view tokens in the BrowseRequestSingleton, this way, the browse activity
+			 * knows what to search for and what view to present when starting up.
+			 */
+			BrowseRequestSingleton.getInstance().setViewToken(BrowseRequestSingleton.READ_LATER_VIEW);
+			startActivity(intent);
 			return true;
 			
 		case R.id.switchToFavourites:
-			
-			Intent favoritesIntent = new Intent(this, FavouriteActivity.class);
-			startActivity(favoritesIntent);
+			/*
+			 * Set the search and view tokens in the BrowseRequestSingleton, this way, the browse activity
+			 * knows what to search for and what view to present when starting up.
+			 */
+			BrowseRequestSingleton.getInstance().setViewToken(BrowseRequestSingleton.FAVOURITES_VIEW);
+			startActivity(intent);
 			return true;
 			
 		default:
@@ -313,9 +326,8 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		 */
 		EditText editableTerm = (EditText) findViewById(R.id.searchTerm);
 		String term = (String) editableTerm.getText().toString();
-		Intent intent = new Intent(this, SearchActivity.class);
+		Intent intent = new Intent(this, BrowseActivity.class);
 		intent2 = intent;
-		intent.putExtra(MainScreenActivity.TEXT_KEY, term);
 		BrowseRequestSingleton.getInstance().setSearchToken(term);
 		BrowseRequestSingleton.getInstance().setViewToken(BrowseRequestSingleton.ON_LINE_VIEW);
 		startActivity(intent);

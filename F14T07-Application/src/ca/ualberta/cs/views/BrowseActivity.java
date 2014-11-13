@@ -20,7 +20,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -51,8 +53,15 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 
 		setContentView(R.layout.browse_activity_screen);
 
+		forumEntries = new ArrayList<ForumEntry>();
+		
+		browseController = new BrowseController(this);
+		
+		browseListAdapter = new ArrayAdapter<ForumEntry>(BrowseActivity.this, R.layout.list_item, forumEntries);
+		browseListView = (ListView) findViewById(R.id.browseListView);
+		browseListView.setAdapter(browseListAdapter);
+		
 		Button view_by_button = (Button) findViewById(R.id.browseViewByButton);
-
 		view_by_button.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -74,16 +83,33 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	public void onStart()
 	{
 		super.onStart();
-		forumEntries = new ArrayList<ForumEntry>();
+		
+		BrowseRequestSingleton brs = BrowseRequestSingleton.getInstance();
 
-		browseController = new BrowseController(this);
-
-		browseListAdapter = new ArrayAdapter<ForumEntry>(BrowseActivity.this, R.layout.list_item, forumEntries);
-		browseListView = (ListView) findViewById(R.id.browseListView);
-		browseListView.setAdapter(browseListAdapter);
-		SearchThread thread = new SearchThread(BrowseRequestSingleton.getInstance().getSearchToken());
+		SearchThread thread = new SearchThread(brs.getSearchToken()); /* Use search term in BrowseRequestSingleton */
 		thread.start();
-
+		
+		/*
+		 * Set the text displayed for the "viewing" type to be the view token in the BrowseRequestSingleton
+		 */
+		TextView viewType = (TextView) findViewById(R.id.browseTextView);
+		viewType.setText(brs.getViewToken());
+		
+		/*
+		 * Check the view type here, if an on line view is being used show a search bar. If a different type of view
+		 * is being used (like favourites) don't show the search bar.
+		 */
+		EditText term = (EditText) findViewById(R.id.searchTextInput);
+		if(brs.getViewToken() == BrowseRequestSingleton.ON_LINE_VIEW)
+		{
+			term.setText(brs.getSearchToken()); /* Use search term in BrowseRequestSingleton */
+			term.setVisibility(EditText.VISIBLE);
+		}
+		else
+		{
+			term.setVisibility(EditText.INVISIBLE);
+		}
+		
 		browseListAdapter.notifyDataSetChanged();
 
 	}
@@ -106,6 +132,8 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
+		TextView viewType = (TextView) findViewById(R.id.browseTextView);
+		BrowseRequestSingleton brs = BrowseRequestSingleton.getInstance();
 		switch (id)
 		{
 		case R.id.switchToHome:
@@ -113,13 +141,24 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 			startActivity(homeIntent);
 			return true;
 		case R.id.switchToReadLater:
-			Intent readLaterIntent = new Intent(this, ReadLaterActivity.class);
-			startActivity(readLaterIntent);
+			this.browseController.useReadLaterView();
+			brs.setViewToken(BrowseRequestSingleton.READ_LATER_VIEW);
+			viewType.setText(brs.getViewToken());
 			return true;
 		case R.id.switchToMyQuestions:
-			Intent myQuestionsIntent = new Intent(this,
-					MyQuestionsActivity.class);
-			startActivity(myQuestionsIntent);
+			this.browseController.useMyAuthoredView();
+			brs.setViewToken(BrowseRequestSingleton.MY_AUTHORED_VIEW);
+			viewType.setText(brs.getViewToken());
+			return true;
+		case R.id.switchToFavourites:
+			this.browseController.useFavouritesView();
+			brs.setViewToken(BrowseRequestSingleton.FAVOURITES_VIEW);
+			viewType.setText(brs.getViewToken());
+			return true;
+		case R.id.switchToOnline:
+			this.browseController.useOnLineView();
+			brs.setViewToken(BrowseRequestSingleton.ON_LINE_VIEW);
+			viewType.setText(brs.getViewToken());
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -128,8 +167,13 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 
 	public void viewBy()
 	{
-		Toast.makeText(BrowseActivity.this, "Work in progress",
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(BrowseActivity.this, "Work in progress", Toast.LENGTH_SHORT).show();
+		/*
+		 * Example of how to implement this
+		 *
+		 * this.browseController.sortBy--X--View();
+		 * this.browseController.refresh();
+		 */
 	}
 
 	public Intent returnIntent()
@@ -140,7 +184,8 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	@Override
 	public void update(ForumEntryList model)
 	{
-		// TODO Auto-generated method stub
+		this.forumEntries = model.getView();
+		this.browseListAdapter.notifyDataSetChanged();
 
 	}
 
