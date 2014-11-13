@@ -1,5 +1,8 @@
 package ca.ualberta.cs.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.Entry;
@@ -23,14 +26,31 @@ public class ForumEntryController {
 	 * Creates a new ForumEntryController.
 	 * @param viewsContext The context of the view which aggregates the ForumEntryController.
 	 */
-	public ForumEntryController(Observer viewsContext){}
+	public ForumEntryController(Observer viewsContext)
+	{
+		this.forumEntries = new ForumEntryList();
+		this.forumEntries.addObserver(viewsContext);
+		
+		this.dataManager = new DataManager();
+	}
 
-	public ForumEntryController(ForumEntry forumEntry){}
 	/**
-	 * Sets the ForumEntry in the model.
+	 * Deprecated. Do not use. This function shouldn't even exist.
+	 * @param forumEntry
+	 */
+	public ForumEntryController(ForumEntry forumEntry){}
+	
+	/**
+	 * Sets the ForumEntry in the model and notifies its observers.
 	 * @param forumEntry The forum entry to be pushed to the model.
 	 */
-	public void setView(ForumEntry forumEntry){}
+	public void setView(ForumEntry forumEntry)
+	{
+		List<ForumEntry> fel = new ArrayList<ForumEntry>();
+		fel.add(forumEntry);
+		this.forumEntries.setView(fel);
+		this.forumEntries.notifyObservers();
+	}
 	
 	/**
 	 * Creates a new ForumEntry with the Question and adds it to the remote server, my authored,
