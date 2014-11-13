@@ -15,6 +15,17 @@ public class Question extends Entry {
 	public Question(String post_, String author_) {
 		super(post_, author_);
 	}
+	
+	/** 
+	 * Create a new question.
+	 * @param post_ The question.
+	 * @param author_ Name of the person creating the question.
+	 * @prarm subj_ Subject of the question.
+	 */
+	public Question(String post_, String author_, String subj_) {
+		super(post_, author_);
+		this.questionSubject = subj_;
+	}
 
 	/**
 	 * Sets the questions subject. This is like the title of the question, preceding the 

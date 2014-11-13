@@ -61,6 +61,15 @@ public class ForumEntryController {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * Addds the ForumEntry to the remote server, my authored, and read later save locations
+	 * @param forumEntry The forumEntry being added.
+	 */
+	public void addNewQuestion(ForumEntry forumEntry) 
+	{
+		this.dataManager.addForumEntry(forumEntry);
+	}
 
 	/**
 	 * Apends an Answer to the ForumEntry in the model then pushes the updated ForumEntry to

@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import ca.ualberta.cs.controllers.BrowseController;
+import ca.ualberta.cs.controllers.ForumEntryController;
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
 import ca.ualberta.cs.models.Answer;
@@ -16,6 +18,7 @@ import ca.ualberta.cs.models.AuthorModel;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
+import ca.ualberta.cs.models.Question;
 
 /**
  * This view allows the user to enter a new question or enter and answer to a question. The 
@@ -32,18 +35,16 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	public Context ctx;
 
 	private AuthorModel authorModel;
+	private ForumEntryController feController;
+	
 	private BrowseController browseController;
 	
 	private static final String SUBMIT_ANSWER = "Answer";
 	private static final String SUBMIT_QUESTION = "Ask";
-
-	private Runnable doFinishAdd = new Runnable()
-	{
-		public void run()
-		{
-			finish();
-		}
-	};
+	private static final String TEXT_HINT_ANSWER = "Your Answer";
+	private static final String TEXT_HINT_QUESTION = "Your Question";
+	private static final String TITLE_ANSWER = "Answer a Question";
+	private static final String TITLE_QUESTION = "Ask a Question";
 
 	/**
 	 * lays out the screen and creates onClickListeners
@@ -56,6 +57,8 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		setContentView(R.layout.ask_activity_screen);
 
 		this.authorModel = new AuthorModel();
+		this.feController = new ForumEntryController(this);
+		
 		this.browseController = new BrowseController(this);
 
 		/* 
@@ -91,7 +94,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 				 * new question. Do that, then change the focus onto the newly created ForumEntry.
 				 */
 				if(forumEntryFocus.getForumEntry() == null)
-				{
+				{	
 					/*
 					 * Create an instance of the new ForumEntry then set the ForumEntrySingletons focus on it.
 					 */
@@ -110,7 +113,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 				else
 				{
 					Answer answer = new Answer(newEntry, newAuthor);
-					//TODO Add the answer to the ForumEntry in forumEntryFocus.getForumEntry
+					//TODO Add the answer to the ForumEntry using the forumEntryController.addAnswer()
 				}
 
 				/*
@@ -125,6 +128,13 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 				 */
 				intent = new Intent(AskActivity.this, QuestionActivity.class);
 				intent2 = intent;
+				
+				/*
+				 * This destroys the activity. Basically, this means after a user asks a question or answers one,
+				 * they cannot come back to this activity. The back button will not bring them here.
+				 */
+				finish();
+				
 				startActivity(intent);
 
 			}
@@ -153,6 +163,11 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		ctx = this.getApplicationContext();
 		
 		/*
+		 * Tell the controller what ForumEntry the singleton is focusing on.
+		 */
+		this.feController.setView(ForumEntrySingleton.getInstance().getForumEntry());
+		
+		/*
 		 * Set the name of the author in the view to be the sessionAuthor in the authorModel 
 		 */
 		EditText newAuthorEdit = (EditText) findViewById(R.id.name);
@@ -164,11 +179,15 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		 * and change the dialog of the submit button.
 		 */
 		EditText newSubjectEdit = (EditText) findViewById(R.id.subject);
+		EditText textBody = (EditText) findViewById(R.id.question);
+		TextView titleText = (TextView) findViewById(R.id.askTitle);
 		Button submitButton = (Button) findViewById(R.id.askButton);
 		if(ForumEntrySingleton.getInstance().getForumEntry() != null)
 		{
 			newSubjectEdit.setVisibility(EditText.INVISIBLE);
 			submitButton.setText(AskActivity.SUBMIT_ANSWER);
+			textBody.setHint(AskActivity.TEXT_HINT_ANSWER);
+			titleText.setText(AskActivity.TITLE_ANSWER);
 		}
 		/*
 		 * Otherwise, we are creating a question and we do want the subject text element visible.
@@ -177,50 +196,27 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		{
 			newSubjectEdit.setVisibility(EditText.VISIBLE);
 			submitButton.setText(AskActivity.SUBMIT_QUESTION);
+			textBody.setHint(AskActivity.TEXT_HINT_QUESTION);
+			titleText.setText(AskActivity.TITLE_QUESTION);
 		}
 	}
 
 	class AddThread extends Thread
 	{
-		private ForumEntry forumEntry;
-		private DataManager dataManager;
+		private ForumEntry fe;
 
-		public AddThread(ForumEntry forumEntry_)
+		public AddThread(ForumEntry fe)
 		{
-			forumEntry = forumEntry_;
-			dataManager = new DataManager(ctx);
+			this.fe = fe;
 		}
 
 		@Override
 		public void run()
 		{
-
-			// AddForumEntry afm = new AddForumEntry();
-
-			dataManager.addForumEntry(forumEntry);
-			// Give some time to get updated info
-			try
-			{
-				Thread.sleep(500);
-			} catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-
-			runOnUiThread(doFinishAdd);
+			feController.addNewQuestion(this.fe);
 		}
 	}
-	
-	class AnswerQuestionThread extends Thread
-	{
-		public AnswerQuestionThread(){}
-		
-		@Override
-		public void run()
-		{
-			
-		}
-	}
+
 
 	@Override
 	public void update(ForumEntryList model)
