@@ -168,7 +168,7 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	@Override
 	public void update(ForumEntryList model)
 	{
-		ForumEntry focus = model.getView().get(0);
+		ForumEntry focus = model.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
 		/*
 		 * Update the focus of the ForumEntrySingleton. I do not see any reason for doing this, nor do 

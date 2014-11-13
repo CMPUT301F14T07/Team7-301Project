@@ -13,7 +13,8 @@ import ca.ualberta.cs.views.Observer;
  */
 public class ForumEntryList extends Observable<Observer>
 {
-
+	public static final int FIRST_FORUM_ENTRY = 0;
+	
 	private List<ForumEntry> forumEntries;
 
 	/**

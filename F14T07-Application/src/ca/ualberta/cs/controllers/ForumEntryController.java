@@ -123,6 +123,12 @@ public class ForumEntryController
 	 */
 	public void saveFavouritesCopy()
 	{
+		List<ForumEntry> fel = this.dataManager.getFavourites();
+		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
+		
+		fel.add(focus);
+		
+		this.dataManager.setFavourites(fel);
 	}
 
 	/**
@@ -135,6 +141,34 @@ public class ForumEntryController
 	 */
 	public void upVoteEntry(int index)
 	{
+		List<ForumEntry> fel = this.forumEntries.getView();
+		ForumEntry focus = fel.get(ForumEntryList.FIRST_FORUM_ENTRY);
+		
+		if(index == 0)
+		{
+			int upVote = focus.getQuestion().getUpVote();
+			upVote += 1;
+			focus.getQuestion().setUpVote(upVote);
+		}
+		else if(index > 0)
+		{
+			List<Answer> aws = focus.getAnswers();
+			if(aws.size() >= index)
+			{
+				int upVote = aws.get(index-1).getUpVote();
+				upVote += 1;
+				aws.get(index-1).setUpVote(upVote);
+			}
+		}
+		
+		this.forumEntries.setView(fel);
+		this.forumEntries.notifyObservers();
+		
+		/*
+		 * TODO: Make this update in the remote server
+		 * TODO: Check if this ForumEntry is a favourite/read later/my authored and make
+		 * 		 update there too.
+		 */
 	}
 
 	/**
@@ -149,6 +183,31 @@ public class ForumEntryController
 	 */
 	public void addReplyToEntry(int index, Reply reply)
 	{
+		List<ForumEntry> fel = this.forumEntries.getView();
+		ForumEntry focus = fel.get(ForumEntryList.FIRST_FORUM_ENTRY);
+		
+		if(index == 0)
+		{
+			focus.getQuestion().addReplies(reply);
+
+		}
+		else if(index > 0)
+		{
+			List<Answer> aws = focus.getAnswers();
+			if(aws.size() >= index)
+			{
+				aws.get(index-1).addReplies(reply);
+			}
+		}
+		
+		this.forumEntries.setView(fel);
+		this.forumEntries.notifyObservers();
+		
+		/*
+		 * TODO: Make this update in the remote server
+		 * TODO: Check if this ForumEntry is a favourite/read later/my authored and make
+		 * 		 update there too.
+		 */
 	}
 
 	/**
