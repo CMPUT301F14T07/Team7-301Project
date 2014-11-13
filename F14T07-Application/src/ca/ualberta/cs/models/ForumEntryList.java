@@ -21,6 +21,12 @@ public class ForumEntryList extends Observable<Observer>
 	 */
 	public ForumEntryList()
 	{
+		/*
+		 * Assigning a new array list hear will prevent unexpected output from
+		 * the getView function in the event that getView is called before a call
+		 * to setView is made.
+		 */
+		this.forumEntries = new ArrayList<ForumEntry>();
 	}
 
 	/**

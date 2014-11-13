@@ -108,17 +108,26 @@ public class BrowseController {
 	/**
 	 * Sets the model to be what ever was found in the read later save location.
 	 */
-	public void useReadLaterView(){}
+	public void useReadLaterView()
+	{
+		this.readLaterModel.notifyObservers();
+	}
 	
 	/**
 	 * Sets the model to be what ever was found in the favourites save location.
 	 */
-	public void useFavouritesView(){}
+	public void useFavouritesView()
+	{
+		this.favouritesModel.notifyObservers();
+	}
 	
 	/**
 	 * Sets the model to be what ever was found in the my authored save location
 	 */
-	public void useMyAuthoredView(){}
+	public void useMyAuthoredView()
+	{
+		this.myAuthoredModel.notifyObservers();
+	}
 	
 	
 	

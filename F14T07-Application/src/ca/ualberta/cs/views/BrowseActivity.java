@@ -152,11 +152,14 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+		/*
+		 * Handle action bar item clicks here. The action bar will
+		 * automatically handle clicks on the Home/Up button, so long
+		 * as you specify a parent activity in AndroidManifest.xml.
+		 */
 		int id = item.getItemId();
 		TextView viewType = (TextView) findViewById(R.id.browseTextView);
+		EditText term = (EditText) findViewById(R.id.searchTextInput);
 		BrowseRequestSingleton brs = BrowseRequestSingleton.getInstance();
 		switch (id)
 		{
@@ -168,21 +171,25 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 			this.browseController.useReadLaterView();
 			brs.setViewToken(BrowseRequestSingleton.READ_LATER_VIEW);
 			viewType.setText(brs.getViewToken());
+			term.setVisibility(EditText.INVISIBLE);
 			return true;
 		case R.id.switchToMyQuestions:
 			this.browseController.useMyAuthoredView();
 			brs.setViewToken(BrowseRequestSingleton.MY_AUTHORED_VIEW);
 			viewType.setText(brs.getViewToken());
+			term.setVisibility(EditText.INVISIBLE);
 			return true;
 		case R.id.switchToFavourites:
 			this.browseController.useFavouritesView();
 			brs.setViewToken(BrowseRequestSingleton.FAVOURITES_VIEW);
 			viewType.setText(brs.getViewToken());
+			term.setVisibility(EditText.INVISIBLE);
 			return true;
 		case R.id.switchToOnline:
 			this.browseController.useOnLineView();
 			brs.setViewToken(BrowseRequestSingleton.ON_LINE_VIEW);
 			viewType.setText(brs.getViewToken());
+			term.setVisibility(EditText.VISIBLE);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -219,7 +226,6 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 
 	class SearchThread extends Thread
 	{
-		// TODO: Implement search thread
 		private String search;
 
 		public SearchThread(String s)
