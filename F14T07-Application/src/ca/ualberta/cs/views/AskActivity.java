@@ -226,6 +226,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		public void run()
 		{
 			feController.addNewQuestion(this.fe);
+			feController.saveMyAuthoredCopy();
 		}
 	}
 	

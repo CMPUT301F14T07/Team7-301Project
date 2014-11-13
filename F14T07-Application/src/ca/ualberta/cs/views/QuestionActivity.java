@@ -32,7 +32,7 @@ import android.widget.Toast;
 public class QuestionActivity extends Activity implements Observer<ForumEntryList>
 {
 	/*
-	 * TODO: Allow user to save the question as favourite/read later
+	 * TODO: Allow user to save the question as favourite
 	 * TODO: Display an upvote count for question and answers
 	 * TODO: Display a place to show/hide comments
 	 * TODO: User can sort answer by upvotes
@@ -104,11 +104,7 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 */
 		ForumEntrySingleton fes = ForumEntrySingleton.getInstance();
 		this.forumEntryController.setView(fes.getForumEntry());
-		/*
-		 * TODO: This ForumEntry needs to be added to the read later cache. This is because
-		 * every ForumEntry viewed needs to be cached as a read later. Unless I am misunderstanding
-		 * the requirements. 
-		 */
+		this.forumEntryController.saveReadLaterCopy();
 	}
 
 	/**

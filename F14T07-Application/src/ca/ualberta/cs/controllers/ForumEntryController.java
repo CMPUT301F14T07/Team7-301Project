@@ -19,7 +19,6 @@ import ca.ualberta.cs.views.Observer;
  */
 public class ForumEntryController
 {
-
 	private ForumEntryList forumEntries;
 	private DataManager dataManager;
 
@@ -115,6 +114,32 @@ public class ForumEntryController
 		 * one.
 		 */
 
+	}
+	
+	/**
+	 * Saves the ForumEntry from the model as a read later.
+	 */
+	public void saveReadLaterCopy()
+	{
+		List<ForumEntry> fel = this.dataManager.getReadLater();
+		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
+		
+		fel.add(focus);
+		
+		this.dataManager.setReadLater(fel);
+	}
+	
+	/**
+	 * Saves the ForumEntry from the model as a my authored.
+	 */
+	public void saveMyAuthoredCopy()
+	{
+		List<ForumEntry> fel = this.dataManager.getMyAuthored();
+		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
+		
+		fel.add(focus);
+		
+		this.dataManager.setMyAuthored(fel);
 	}
 
 	/**
