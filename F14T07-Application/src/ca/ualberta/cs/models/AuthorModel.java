@@ -18,6 +18,8 @@ import ca.ualberta.cs.views.Observer;
 public class AuthorModel extends Observable<Observer> 
 {
 	private static String author = null;
+	
+	public static final String NO_AUTHOR = "";
 
 	/**
 	 * Saves in local memory who the person is that will be authoring.

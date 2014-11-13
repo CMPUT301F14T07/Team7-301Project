@@ -6,6 +6,8 @@ import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.f14t07_application.R.id;
 import ca.ualberta.cs.f14t07_application.R.layout;
 import ca.ualberta.cs.f14t07_application.R.menu;
+import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
+import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
 import ca.ualberta.cs.models.AuthorModel;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -245,7 +247,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				Button signOutButton = (Button) findViewById(R.id.signOutButton);
 				TextView text = (TextView) findViewById(R.id.signedInAs);
 
-				authorController.setSessionAuthor(null);
+				authorController.setSessionAuthor(AuthorModel.NO_AUTHOR);
 				text.setVisibility(4);
 				signInButton.setVisibility(0);
 				signOutButton.setVisibility(4);
@@ -271,10 +273,15 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	 */
 	public void askButton()
 	{
+		/*
+		 * Set the focus of the ForumEntrySingleton to null, which indicates we are asking a question.
+		 * Then, start the AskActivity to ask the question.
+		 */
 		long key = 0;
 		Intent intent = new Intent(this, AskActivity.class);
 		intent2 = intent;
 		intent.putExtra(MainScreenActivity.NEW_QUESTION_KEY, key);
+		ForumEntrySingleton.getInstance().setForumEntry(null);
 		startActivity(intent);
 	}
 
@@ -283,8 +290,14 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	 */
 	public void browseButton()
 	{
+		/*
+		 * Set the search and view tokens in the BrowseRequestSingleton, this way, the browse activity
+		 * knows what to search for and what view to present when starting up.
+		 */
 		Intent intent = new Intent(this, BrowseActivity.class);
 		intent2 = intent;
+		BrowseRequestSingleton.getInstance().setSearchToken(BrowseRequestSingleton.SEARCH_EVERYTHING);
+		BrowseRequestSingleton.getInstance().setViewToken(BrowseRequestSingleton.ON_LINE_VIEW);
 		startActivity(intent);
 	}
 
@@ -313,7 +326,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		TextView text = (TextView) findViewById(R.id.signedInAs);
 
 		String author = model.getSessionAuthor();
-		if (author != null)
+		if (author != AuthorModel.NO_AUTHOR)
 		{
 			text.setText("Signed in as: " + author);
 			text.setVisibility(0);

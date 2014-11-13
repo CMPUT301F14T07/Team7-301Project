@@ -10,13 +10,22 @@ package ca.ualberta.cs.intent_singletons;
  */
 public class BrowseRequestSingleton 
 {
-	private static final BrowseRequestSingleton browseRequestSingleton = new BrowseRequestSingleton();
+	private static BrowseRequestSingleton browseRequestSingleton = null;
 	private String searchToken;
+	private String viewToken;
+	
+	public static final String ON_LINE_VIEW = "ON_LINE_VIEW";
+	public static final String READ_LATER_VIEW = "READ_LATER_VIEW";
+	public static final String FAVOURITES_VIEW = "FAVOURITES_VIEW";
+	public static final String MY_AUTHORED_VIEW = "MY_AUTHORED_VIEW";
+	
+	public static final String SEARCH_EVERYTHING = "";
 	
 	private BrowseRequestSingleton()
 	{
 		super();
-		searchToken = "*";
+		searchToken = BrowseRequestSingleton.SEARCH_EVERYTHING;
+		viewToken = BrowseRequestSingleton.ON_LINE_VIEW;
 	}
 	
 	/**
@@ -25,7 +34,29 @@ public class BrowseRequestSingleton
 	 */
 	public static BrowseRequestSingleton getInstance()
 	{
+		if(browseRequestSingleton == null)
+		{
+			browseRequestSingleton = new BrowseRequestSingleton();
+		}
 		return browseRequestSingleton;
+	}
+	
+	/**
+	 * Set the view token to what sort of view should be used. ie, read later, favourites, etc..
+	 * @param viewToken The token. Take this from BrowseRequestSingleton. ie, BrowseRequestSingleton.ON_LINE_VIEW.
+	 */
+	public void setViewToken(String viewToken)
+	{
+		this.viewToken = viewToken;
+	}
+	
+	/**
+	 * Get the view token to what sort of view should be used. ie, read later, favourites, etc..
+	 * @return the view token.
+	 */
+	public String getViewToken()
+	{
+		return this.viewToken;
 	}
 	
 	/**

@@ -3,14 +3,14 @@ package ca.ualberta.cs.intent_singletons;
 import ca.ualberta.cs.models.ForumEntry;
 
 /**
- * This is a singleton class that is useful for starting the QuestionActivity. It allows
- * one activity to pass an instance of a ForumEntry around.
+ * This is a singleton class that is useful for setting a focus ForumEntry. By this, I mean that this 
+ * singleton allows a person to set a ForumEntry which anyone can see and 'focus' on.
  *
  * @author bbruner
  */
 public class ForumEntrySingleton 
 {
-	private static final ForumEntrySingleton forumEntrySingleton = new ForumEntrySingleton();
+	private static ForumEntrySingleton forumEntrySingleton = null;
 	private ForumEntry forumEntry;
 	
 	private ForumEntrySingleton()
@@ -25,6 +25,10 @@ public class ForumEntrySingleton
 	 */
 	public static ForumEntrySingleton getInstance()
 	{
+		if(forumEntrySingleton == null)
+		{
+			forumEntrySingleton = new ForumEntrySingleton();
+		}
 		return forumEntrySingleton;
 	}
 	
