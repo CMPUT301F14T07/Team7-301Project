@@ -37,6 +37,8 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	 * TODO: Display a place to show/hide comments
 	 * TODO: User can sort answer by upvotes
 	 * TODO: Home screen button
+	 * TODO: Display Author's name by the Entry
+	 * TODO: Back button takes you somewhere definitive (ask Brendan what this means)
 	 */
 	private ForumEntryController forumEntryController;
 	private ArrayAdapter<Entry> answerListAdapter;
@@ -157,6 +159,8 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	{
 		/*
 		 * Start the AskActivity to enter an answer to the forum entry.
+		 * Note that the ForumEntrySingleton does not have to be set, because there is no way
+		 * it could have been changed by another activity.
 		 */
 		Intent intent = new Intent(this, AskActivity.class);
 		startActivity(intent);
@@ -169,14 +173,6 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	public void update(ForumEntryList model)
 	{
 		ForumEntry focus = model.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
-		
-		/*
-		 * Update the focus of the ForumEntrySingleton. I do not see any reason for doing this, nor do 
-		 * I see any reason for not doing this. That is why I am doing this. I don't know if it is going to
-		 * help (because I don't know android well enough), but I know this is not going to interfere
-		 * with proper operation. Remove this if you know it can be removed safely.
-		 */
-		ForumEntrySingleton.getInstance().setForumEntry(focus);
 		
 		/*
 		 * Set the answer list first.

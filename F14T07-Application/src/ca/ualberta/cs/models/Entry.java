@@ -37,6 +37,15 @@ public class Entry
 	}
 
 	/**
+	 * Returns the main body of text for this entry (the post).
+	 * @return The main body of text.
+	 */
+	public String toString()
+	{
+		return this.post;
+	}
+	
+	/**
 	 * Get all the replies to this Entry.
 	 * 
 	 * @return ArrayList<Reply>

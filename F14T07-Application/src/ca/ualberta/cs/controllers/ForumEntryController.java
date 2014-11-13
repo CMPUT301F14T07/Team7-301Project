@@ -101,14 +101,13 @@ public class ForumEntryController
 		 * Get the ForumEntry that the answer is being added to.
 		 */
 		List<ForumEntry> fel = this.forumEntries.getView();
-		ForumEntry forumEntry = fel.get(0);
+		ForumEntry forumEntry = fel.get(ForumEntryList.FIRST_FORUM_ENTRY);
 
 		/*
 		 * Add the answer to the ForumEntry.
 		 */
 		List<Answer> allAnswers = forumEntry.getAnswers();
 		allAnswers.add(answer);
-		forumEntry.setAnswer(allAnswers);
 
 		/*
 		 * TODO: Use the DataManager to send this ForumEntry to the remote

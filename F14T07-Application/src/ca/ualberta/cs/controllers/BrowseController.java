@@ -59,7 +59,10 @@ public class BrowseController {
 	 * Sorts the ForumEntrys in the model by their date
 	 * and calls the models notifyObservers function.
 	 */
-	public void sortByTime(){}
+	public void sortByTime()
+	{
+		
+	}
 	
 	/**
 	 * Sorts the ForumEntrys in the model by their rating (up votes)
