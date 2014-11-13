@@ -44,7 +44,7 @@ public class ForumEntry
 	 * @return String
 	 */
 	public String toString(){ 
-		return question.getPost();
+		return question.getSubject();
 	}
 	
 	/**

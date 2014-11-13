@@ -35,7 +35,6 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	private ListView browseListView;
 	public List<ForumEntry> forumEntries;
 	private BrowseController browseController;
-	private boolean mockMutex_searchFinished = true;
 
 	private Runnable doUpdateGUIList = new Runnable()
 	{
