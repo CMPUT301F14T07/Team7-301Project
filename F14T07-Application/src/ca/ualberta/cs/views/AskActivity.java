@@ -18,8 +18,10 @@ import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
 
 /**
- * This is the view that is shown to the user when they would like to ask a
- * question. It includes setting a subject and being able to ask questions
+ * This view allows the user to enter a new question or enter and answer to a question. The 
+ * user does not need to differentiate between this. This view will differentiate between asking
+ * a question or answering a question. Then, it will present the user an appropriate interface for doing
+ * that.
  * 
  * @author lexie
  */
@@ -87,10 +89,15 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 				 */
 				if(forumEntryFocus.getForumEntry() == null)
 				{
-					// create a new ForumEntry
+					/*
+					 * Create an instance of the new ForumEntry then set the ForumEntrySingletons focus on it.
+					 */
 					ForumEntry newForumEntry = new ForumEntry(newSubject, newEntry, newAuthor);
 					forumEntryFocus.setForumEntry(newForumEntry);
 
+					/*
+					 * Provoke the AddThread to add this new ForumEntry to the remote server.
+					 */
 					Thread thread = new AddThread(newForumEntry);
 					thread.start();
 				}
