@@ -34,6 +34,11 @@ import android.widget.Toast;
  * */
 public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 {
+	/*
+	 * TODO: Display a questions upvote count beside it
+	 * TODO: Can select multiple questions and then have these saved to favourites / read later / w/e
+	 * TODO: A button to click when the search field EditText is filled in with a term to search for.
+	 */
 	private ArrayAdapter<ForumEntry> browseListAdapter;
 	private ListView browseListView;
 	public List<ForumEntry> forumEntries;

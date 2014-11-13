@@ -31,6 +31,13 @@ import android.widget.Toast;
  */
 public class QuestionActivity extends Activity implements Observer<ForumEntryList>
 {
+	/*
+	 * TODO: Allow user to save the question as favourite/read later
+	 * TODO: Display an upvote count for question and answers
+	 * TODO: Display a place to show/hide comments
+	 * TODO: User can sort answer by upvotes
+	 * TODO: Home screen button
+	 */
 	private ForumEntryController forumEntryController;
 	private ArrayAdapter<Entry> answerListAdapter;
 	private List<Entry> answerList;
@@ -55,15 +62,15 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		this.answerListView.setAdapter(this.answerListAdapter);
 		
 		/*
-		 * On click listener for the add to favourites button.
+		 * On click listener for when the save button is pushed.
 		 */
-		Button addToFavouritesButton = (Button) findViewById(R.id.QuestionSaveButton);
-		addToFavouritesButton.setOnClickListener(new View.OnClickListener()
+		Button save = (Button) findViewById(R.id.QuestionSaveButton);
+		save.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				addToFavourites();
+				saveButton();
 			}
 		});
 		
@@ -133,9 +140,13 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	/**
 	 * This function will add the ForumEntry being view to a favourites cache.
 	 */
-	private void addToFavourites()
+	private void saveButton()
 	{
-		
+		/*
+		 * TODO: prompts user if they want to save as favourite, or other thing and uses controller
+		 * to do so.
+		 */
+		Toast.makeText(this, "Save not implemented", Toast.LENGTH_SHORT).show();
 	}
 	
 	/**

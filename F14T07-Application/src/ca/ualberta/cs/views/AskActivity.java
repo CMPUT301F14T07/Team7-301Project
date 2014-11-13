@@ -30,6 +30,11 @@ import ca.ualberta.cs.models.Question;
  */
 public class AskActivity extends Activity implements Observer<ForumEntryList>
 {
+	/*
+	 * TODO: Do not let user make a blank question or answer
+	 * TODO: Home screen button
+	 * TODO: Attach a picture
+	 */
 	public Intent intent;
 	public Intent intent2;
 	public Context ctx;
@@ -102,9 +107,10 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					forumEntryFocus.setForumEntry(newForumEntry);
 
 					/*
-					 * Provoke the AddThread to add this new ForumEntry to the remote server.
+					 * Invoke the AddThread to add this new ForumEntry to the remote server by
+					 * calling the controller
 					 */
-					Thread thread = new AddThread(newForumEntry);
+					Thread thread = new AddQuestionThread(newForumEntry);
 					thread.start();
 				}
 				/*
@@ -113,7 +119,13 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 				else
 				{
 					Answer answer = new Answer(newEntry, newAuthor);
-					//TODO Add the answer to the ForumEntry using the forumEntryController.addAnswer()
+					
+					/*
+					 * Invoke the AddThread to add this answer to the ForumEntry in the remote server
+					 * by calling controller
+					 */
+					Thread thread = new AddAnswerThread(answer);
+					thread.start();
 				}
 
 				/*
@@ -201,11 +213,11 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		}
 	}
 
-	class AddThread extends Thread
+	class AddQuestionThread extends Thread
 	{
 		private ForumEntry fe;
 
-		public AddThread(ForumEntry fe)
+		public AddQuestionThread(ForumEntry fe)
 		{
 			this.fe = fe;
 		}
@@ -214,6 +226,22 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		public void run()
 		{
 			feController.addNewQuestion(this.fe);
+		}
+	}
+	
+	class AddAnswerThread extends Thread
+	{
+		private Answer aws;
+		
+		public AddAnswerThread(Answer aws)
+		{
+			this.aws = aws;
+		}
+		
+		@Override
+		public void run()
+		{
+			feController.addAnswer(this.aws);
 		}
 	}
 
