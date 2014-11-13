@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -161,13 +162,13 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		/*
 		 * Set the questions subject in the view.
 		 */
-		EditText questionSubject = (EditText) findViewById(R.id.QuestionSubject);
+		TextView questionSubject = (TextView) findViewById(R.id.QuestionSubject);
 		questionSubject.setText(focus.getQuestion().getSubject());
 		
 		/*
 		 * Set the questions main body of text in the view.
 		 */
-		EditText questionText = (EditText) findViewById(R.id.QuestionText);
+		TextView questionText = (TextView) findViewById(R.id.QuestionText);
 		questionText.setText(focus.getQuestion().getPost());
 		
 	

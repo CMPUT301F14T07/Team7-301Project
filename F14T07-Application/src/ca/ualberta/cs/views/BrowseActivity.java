@@ -9,6 +9,7 @@ import ca.ualberta.cs.f14t07_application.R.id;
 import ca.ualberta.cs.f14t07_application.R.layout;
 import ca.ualberta.cs.f14t07_application.R.menu;
 import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
+import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
 import ca.ualberta.cs.models.Question;
@@ -19,6 +20,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,6 +65,9 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		browseListView = (ListView) findViewById(R.id.browseListView);
 		browseListView.setAdapter(browseListAdapter);
 		
+		/*
+		 * Create an on click listener for the "view by" button.
+		 */
 		Button view_by_button = (Button) findViewById(R.id.browseViewByButton);
 		view_by_button.setOnClickListener(new View.OnClickListener()
 		{
@@ -69,6 +75,26 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 			public void onClick(View v)
 			{
 				viewBy();
+			}
+		});
+		
+		/*
+		 * Create an on click listener for items in the list view. Currently, this on click listener
+		 * is for single selection only.
+		 */
+		this.browseListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		this.browseListView.setOnItemClickListener(new ListView.OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+			{
+				/*
+				 * Get the instance of the ForumEntry which was selected and set that as the focus in the
+				 * ForumEntrySingleton. Then, start the QuestionActivity.
+				 */
+				ForumEntry fe = forumEntries.get(arg2);
+				ForumEntrySingleton.getInstance().setForumEntry(fe);
+				startQuestionActivity();
 			}
 		});
 
@@ -205,6 +231,18 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		 */
 	}
 
+	/**
+	 * Starts the QuestionActivity.
+	 */
+	private void startQuestionActivity()
+	{
+		/*
+		 * Start the question activity to view the ForumEntry.
+		 */
+		Intent intent = new Intent(this, QuestionActivity.class);
+		startActivity(intent);
+	}
+	
 	public Intent returnIntent()
 	{
 		return getIntent();
