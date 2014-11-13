@@ -7,6 +7,7 @@ import ca.ualberta.cs.f14t07_application.R.id;
 import ca.ualberta.cs.f14t07_application.R.layout;
 import ca.ualberta.cs.f14t07_application.R.menu;
 import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
+import ca.ualberta.cs.intent_singletons.ContextSingleton;
 import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
 import ca.ualberta.cs.models.AuthorModel;
 import android.app.Activity;
@@ -52,6 +53,14 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		this.authorController = new AuthorController(this);
 		this.authorController.setSessionAuthor(AuthorModel.NO_AUTHOR);
 
+		/*
+		 * Set the context in the context singleton to be this activity. Since
+		 * this is the first activity that starts up when this app starts
+		 * this will ensure that the context singleton has a valid context
+		 * in it for doing context stuff.
+		 */
+		ContextSingleton.getInstance().setContext(this.getApplicationContext());
+		
 		/* Ask Button on click listener */
 		Button ask_button = (Button) findViewById(R.id.askButton);
 		ask_button.setOnClickListener(new View.OnClickListener()

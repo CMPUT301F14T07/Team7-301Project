@@ -41,13 +41,12 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	{
 		public void run()
 		{
-			//browseListAdapter.notifyDataSetChanged();
 			browseController.useOnLineView();
 		}
 	};
 
 	/**
-	 * lays out the screen and initializes onClickListeners
+	 * lays out the screen, initializes onClickListeners, and initializes class variables.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -190,6 +189,7 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 			brs.setViewToken(BrowseRequestSingleton.ON_LINE_VIEW);
 			viewType.setText(brs.getViewToken());
 			term.setVisibility(EditText.VISIBLE);
+			term.setText(brs.getSearchToken());
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

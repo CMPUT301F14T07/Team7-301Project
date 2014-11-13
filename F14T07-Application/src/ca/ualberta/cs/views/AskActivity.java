@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import ca.ualberta.cs.controllers.BrowseController;
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
 import ca.ualberta.cs.models.Answer;
@@ -29,6 +30,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	public Context ctx;
 
 	private AuthorModel authorModel;
+	private BrowseController browseController;
 
 	private Runnable doFinishAdd = new Runnable()
 	{
@@ -49,8 +51,11 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		setContentView(R.layout.ask_activity_screen);
 
 		this.authorModel = new AuthorModel();
+		this.browseController = new BrowseController(this);
 
-		/* Submit Button on click listener */
+		/* 
+		 * Submit Button's on click listener. 
+		 */
 		Button submitButton = (Button) findViewById(R.id.askButton);
 		submitButton.setOnClickListener(new View.OnClickListener()
 		{
@@ -62,7 +67,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 			{
 				/*
 				 * Get an instance of the forum entry singleton so that we can check what ForumEntry it
-				 * is focusing on.
+				 * is focusing on (look about 9 lines below).
 				 */
 				ForumEntrySingleton forumEntryFocus = ForumEntrySingleton.getInstance();
 				
@@ -98,6 +103,9 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					//TODO Add the answer to the ForumEntry in forumEntryFocus.getForumEntry
 				}
 
+				/*
+				 * Reset the EditText widgets to be blank for the next time the activity starts
+				 */
 				newEntryEdit.setText("");
 				newSubjectEdit.setText("");
 				newAuthorEdit.setText("");
@@ -135,7 +143,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		ctx = this.getApplicationContext();
 		
 		/*
-		 * Set the name of the author to be the sessionAuthor in the authorModel 
+		 * Set the name of the author in the view to be the sessionAuthor in the authorModel 
 		 */
 		EditText newAuthorEdit = (EditText) findViewById(R.id.name);
 		newAuthorEdit.setText(this.authorModel.getSessionAuthor());
@@ -144,10 +152,17 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		 * If the focus of the ForumEntrySingleton is not null then we are answering a
 		 * question, not creating one. Therefore, we need to remove the subject text element.
 		 */
+		EditText newSubjectEdit = (EditText) findViewById(R.id.subject);
 		if(ForumEntrySingleton.getInstance().getForumEntry() != null)
 		{
-			EditText newSubjectEdit = (EditText) findViewById(R.id.subject);
 			newSubjectEdit.setVisibility(EditText.INVISIBLE);
+		}
+		/*
+		 * Otherwise, we are creating a question and we do want the subject text element visible.
+		 */
+		else
+		{
+			newSubjectEdit.setVisibility(EditText.VISIBLE);
 		}
 	}
 
