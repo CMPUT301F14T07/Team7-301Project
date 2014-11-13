@@ -307,11 +307,17 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	 */
 	public void searchButton()
 	{
+		/*
+		 * Set the search and view tokens in the BrowseRequestSingleton, this way, the browse activity
+		 * knows what to search for and what view to present when starting up.
+		 */
 		EditText editableTerm = (EditText) findViewById(R.id.searchTerm);
 		String term = (String) editableTerm.getText().toString();
 		Intent intent = new Intent(this, SearchActivity.class);
 		intent2 = intent;
 		intent.putExtra(MainScreenActivity.TEXT_KEY, term);
+		BrowseRequestSingleton.getInstance().setSearchToken(term);
+		BrowseRequestSingleton.getInstance().setViewToken(BrowseRequestSingleton.ON_LINE_VIEW);
 		startActivity(intent);
 	}
 

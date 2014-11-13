@@ -78,8 +78,7 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 
 		browseController = new BrowseController(this);
 
-		browseListAdapter = new ArrayAdapter<ForumEntry>(BrowseActivity.this,
-				R.layout.list_item, forumEntries);
+		browseListAdapter = new ArrayAdapter<ForumEntry>(BrowseActivity.this, R.layout.list_item, forumEntries);
 		browseListView = (ListView) findViewById(R.id.browseListView);
 		browseListView.setAdapter(browseListAdapter);
 		SearchThread thread = new SearchThread(BrowseRequestSingleton.getInstance().getSearchToken());
