@@ -68,8 +68,25 @@ public class ForumEntryController {
 	 * ForumEntry to the favourites save location too if applicable.
 	 * @param answer The answer to the question
 	 */
-	public void addAnswer(Answer answer) {
-		// TODO Auto-generated method stub
+	public void addAnswer(Answer answer) 
+	{
+		/*
+		 * Get the ForumEntry that the answer is being added to.
+		 */
+		List<ForumEntry> fel = this.forumEntries.getView();
+		ForumEntry forumEntry = fel.get(0);
+		
+		/*
+		 * Add the answer to the ForumEntry.
+		 */
+		List<Answer> allAnswers = forumEntry.getAnswers();
+		allAnswers.add(answer);
+		forumEntry.setAnswer(allAnswers);
+		
+		/*
+		 * TODO: Use the DataManager to send this ForumEntry to the remote server such that the older
+		 * ForumEntry is overwritten with the new one.
+		 */
 		
 	}
 	

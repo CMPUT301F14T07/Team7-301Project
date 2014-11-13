@@ -33,6 +33,9 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 
 	private AuthorModel authorModel;
 	private BrowseController browseController;
+	
+	private static final String SUBMIT_ANSWER = "Answer";
+	private static final String SUBMIT_QUESTION = "Ask";
 
 	private Runnable doFinishAdd = new Runnable()
 	{
@@ -157,12 +160,15 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		
 		/*
 		 * If the focus of the ForumEntrySingleton is not null then we are answering a
-		 * question, not creating one. Therefore, we need to remove the subject text element.
+		 * question, not creating one. Therefore, we need to remove the subject text element
+		 * and change the dialog of the submit button.
 		 */
 		EditText newSubjectEdit = (EditText) findViewById(R.id.subject);
+		Button submitButton = (Button) findViewById(R.id.askButton);
 		if(ForumEntrySingleton.getInstance().getForumEntry() != null)
 		{
 			newSubjectEdit.setVisibility(EditText.INVISIBLE);
+			submitButton.setText(AskActivity.SUBMIT_ANSWER);
 		}
 		/*
 		 * Otherwise, we are creating a question and we do want the subject text element visible.
@@ -170,6 +176,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		else
 		{
 			newSubjectEdit.setVisibility(EditText.VISIBLE);
+			submitButton.setText(AskActivity.SUBMIT_QUESTION);
 		}
 	}
 
@@ -201,6 +208,17 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 			}
 
 			runOnUiThread(doFinishAdd);
+		}
+	}
+	
+	class AnswerQuestionThread extends Thread
+	{
+		public AnswerQuestionThread(){}
+		
+		@Override
+		public void run()
+		{
+			
 		}
 	}
 

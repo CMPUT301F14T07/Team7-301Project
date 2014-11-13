@@ -1,6 +1,7 @@
 package ca.ualberta.cs.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class ForumEntry
 {
 	private Question question;
-	private ArrayList<Answer> answers;
+	private List<Answer> answers;
 	private String subject;
 	private int entryFlag;
 	private long id;
@@ -51,7 +52,7 @@ public class ForumEntry
 	 * Set the answers of this ForumEntry.
 	 * @param answers The answers.
 	 */
-	public void setAnswer(ArrayList<Answer> answers)
+	public void setAnswer(List<Answer> answers)
 	{
 		this.answers = answers;
 	}
@@ -60,7 +61,7 @@ public class ForumEntry
 	 * Get all the answers in this ForumEntry.
 	 * @return ArrayList<Answer>
 	 */
-	public ArrayList<Answer> getAnswers(){
+	public List<Answer> getAnswers(){
 		return answers;
 	}
 	

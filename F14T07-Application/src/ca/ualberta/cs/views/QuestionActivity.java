@@ -11,6 +11,7 @@ import ca.ualberta.cs.models.Entry;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -94,6 +95,11 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 */
 		ForumEntrySingleton fes = ForumEntrySingleton.getInstance();
 		this.forumEntryController.setView(fes.getForumEntry());
+		/*
+		 * TODO: This ForumEntry needs to be added to the read later cache. This is because
+		 * every ForumEntry viewed needs to be cached as a read later. Unless I am misunderstanding
+		 * the requirements. 
+		 */
 	}
 
 	/**
@@ -138,7 +144,11 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	 */
 	private  void answerQuestion()
 	{
-		
+		/*
+		 * Start the AskActivity to enter an answer to the forum entry.
+		 */
+		Intent intent = new Intent(this, AskActivity.class);
+		startActivity(intent);
 	}
 	
 	/**
@@ -148,6 +158,14 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	public void update(ForumEntryList model)
 	{
 		ForumEntry focus = model.getView().get(0);
+		
+		/*
+		 * Update the focus of the ForumEntrySingleton. I do not see any reason for doing this, nor do 
+		 * I see any reason for not doing this. That is why I am doing this. I don't know if it is going to
+		 * help (because I don't know android well enough), but I know this is not going to interfere
+		 * with proper operation. Remove this if you know it can be removed safely.
+		 */
+		ForumEntrySingleton.getInstance().setForumEntry(focus);
 		
 		/*
 		 * Set the answer list first.
