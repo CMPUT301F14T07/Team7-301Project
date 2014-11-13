@@ -89,27 +89,51 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		
 		BrowseRequestSingleton brs = BrowseRequestSingleton.getInstance();
 
-		SearchThread thread = new SearchThread(brs.getSearchToken()); /* Use search term in BrowseRequestSingleton */
-		thread.start();
-		
 		/*
 		 * Set the text displayed for the "viewing" type to be the view token in the BrowseRequestSingleton
 		 */
 		TextView viewType = (TextView) findViewById(R.id.browseTextView);
 		viewType.setText(brs.getViewToken());
-		
+
 		/*
-		 * Check the view type here, if an on line view is being used show a search bar. If a different type of view
-		 * is being used (like favourites) don't show the search bar.
+		 * Switch the viewToken in the BrowseRequestSingleton (note, switch statement
+		 * can't be used for strings). Then, call the proper methods so that this
+		 * activity displays the ForumEntries which correspond to that  view.
 		 */
 		EditText term = (EditText) findViewById(R.id.searchTextInput);
-		if(brs.getViewToken() == BrowseRequestSingleton.ON_LINE_VIEW)
+		if(brs.getViewToken().equals(BrowseRequestSingleton.ON_LINE_VIEW))
 		{
-			term.setText(brs.getSearchToken()); /* Use search term in BrowseRequestSingleton */
+			/*
+			 * Use search term in BrowseRequestSingleton and start a searchThread to
+			 * probe the remote server for ForumEntries
+			 */
+			SearchThread thread = new SearchThread(brs.getSearchToken());
+			thread.start();
+			term.setText(brs.getSearchToken());
 			term.setVisibility(EditText.VISIBLE);
 		}
-		else
+		else if(brs.getViewToken().equals(BrowseRequestSingleton.FAVOURITES_VIEW))
 		{
+			/*
+			 * Invoke the controller to use cached ForumEntries marked as favourites.
+			 */
+			this.browseController.useFavouritesView();
+			term.setVisibility(EditText.INVISIBLE);
+		}
+		else if(brs.getViewToken().equals(BrowseRequestSingleton.MY_AUTHORED_VIEW))
+		{
+			/*
+			 * Invoke the controller to use cached ForumEntries authored by the user.
+			 */
+			this.browseController.useMyAuthoredView();
+			term.setVisibility(EditText.INVISIBLE);
+		}
+		else if(brs.getViewToken().equals(BrowseRequestSingleton.READ_LATER_VIEW))
+		{
+			/*
+			 * Invoke the controller to use cached ForumEntries marked as read later.
+			 */
+			this.browseController.useReadLaterView();
 			term.setVisibility(EditText.INVISIBLE);
 		}
 	}
@@ -172,7 +196,6 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		 * Example of how to implement this
 		 *
 		 * this.browseController.sortBy--X--View();
-		 * this.browseController.refresh();
 		 */
 	}
 
@@ -184,6 +207,12 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	@Override
 	public void update(ForumEntryList model)
 	{
+		/*
+		 * Cannot use assignment (ie forumEntries = model.getView()) because then
+		 * we would have to make a new adapter and then set that new adapter (due
+		 * to java being call by value).
+		 */
+		this.forumEntries.clear();
 		this.forumEntries.addAll(model.getView());
 		this.browseListAdapter.notifyDataSetChanged();
 	}
@@ -207,42 +236,5 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 			runOnUiThread(doUpdateGUIList);
 		}
 	}
-	
-	
-	
-	/*
-	 * Old version of SearchThread
-	 *
-	class SearchThread extends Thread
-	{
-		// TODO: Implement search thread
-		private String search;
-
-		public SearchThread(String s)
-		{
-			search = s;
-		}
-
-		@Override
-		public void run()
-		{
-
-			super.run();
-			browseController = new BrowseController(BrowseActivity.this);
-			forumEntries.addAll(browseController.getAllEntries());
-			ForumEntry forumEntry = new ForumEntry("this", "that", "something");
-			forumEntries.add(forumEntry);
-
-			try
-			{
-				Thread.sleep(500);
-			} catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-
-			runOnUiThread(doUpdateGUIList);
-		}
-	}*/
 }
 

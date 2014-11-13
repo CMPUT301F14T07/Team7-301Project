@@ -70,11 +70,13 @@ public class BrowseController {
 	/**
 	 * Searchs the remote server for the searchTerm and sets the model with the results.
 	 * This function can ONLY be called from a network thread within the activity.
+	 * This function does NOT invoke the models notifyObservers method. Try using
+	 * useOnLineView() method to do that.
 	 * @param searchTerm The term to search for.
 	 */
 	public void searchAndSet(String searchTerm)
 	{
-		List<ForumEntry> results = new ArrayList<ForumEntry>();
+		List<ForumEntry> results = null;
 		
 		try
 		{
