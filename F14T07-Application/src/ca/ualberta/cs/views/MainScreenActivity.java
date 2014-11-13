@@ -204,6 +204,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				
 			}
 		});
+		
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
 		{
 
@@ -215,7 +216,8 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			}
 		});
 		alert.show();
-		alert2=alert.show();//FOR TESTING
+		//alert2=alert.show();//FOR TESTING !!! Breaks activity
+		alert2 = alert.create();
 		name=input;
 
 		// ^adopted from
@@ -261,7 +263,8 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			}
 		});
 		alert.show();
-		alert2=alert.show(); //FOR TESTING
+		//alert2=alert.show(); //FOR TESTING !!! breaks activity
+		alert2 = alert.create();
 	}
 	/**
 	 * opens the askActivity via an intent
