@@ -34,7 +34,10 @@ public class ForumEntry
 	 * Create a new ForumEntry.
 	 * @param question The question being asked.
 	 */
-	public ForumEntry(Question question){}
+	public ForumEntry(Question question)
+	{
+		this.question = question;
+	}
 	
 	/**
 	 * Return this ForumEntry's Question's main body of text.

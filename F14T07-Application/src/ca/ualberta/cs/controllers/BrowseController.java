@@ -9,8 +9,10 @@ import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
+import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
+import ca.ualberta.cs.views.BrowseActivity;
 import ca.ualberta.cs.views.Observer;
 
 /**
@@ -22,8 +24,12 @@ import ca.ualberta.cs.views.Observer;
 public class BrowseController {
 	private List<ForumEntry> forumEntries;
 	private SearchController searchController;
+	private DataManager dataManager;
 	
-	private ForumEntryList forumEntryList;
+	private ForumEntryList onLineModel;
+	private ForumEntryList readLaterModel;
+	private ForumEntryList favouritesModel;
+	private ForumEntryList myAuthoredModel;
 
 	
 	/**
@@ -31,10 +37,19 @@ public class BrowseController {
 	 * @param viewsContext Context of the view which is using the model.
 	 */
 	public BrowseController(Observer viewsContext){ 
-		forumEntries = new ArrayList<ForumEntry>();
-		searchController = new SearchController();
-		forumEntryList = new ForumEntryList();
-		forumEntryList.addObserver(viewsContext);
+		this.forumEntries = new ArrayList<ForumEntry>();
+		this.searchController = new SearchController();
+		this.dataManager = new DataManager(null);
+		
+		this.onLineModel = new ForumEntryList();
+		this.readLaterModel = new ForumEntryList();
+		this.favouritesModel = new ForumEntryList();
+		this.myAuthoredModel = new ForumEntryList();
+		
+		this.onLineModel.addObserver(viewsContext);
+		this.readLaterModel.addObserver(viewsContext);
+		this.favouritesModel.addObserver(viewsContext);
+		this.myAuthoredModel.addObserver(viewsContext);
 	}
 	
 	/**
@@ -54,14 +69,39 @@ public class BrowseController {
 	
 	/**
 	 * Searchs the remote server for the searchTerm and sets the model with the results.
+	 * This function can ONLY be called from a network thread within the activity.
 	 * @param searchTerm The term to search for.
 	 */
-	public void searchAndSet(String searchTerm){}
+	public void searchAndSet(String searchTerm)
+	{
+		List<ForumEntry> results = new ArrayList<ForumEntry>();
+		
+		try
+		{
+			results = this.searchController.searchForumEntries(searchTerm, null);
+		} 
+		catch (ClientProtocolException e)
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		if(results != null)
+		{
+			this.onLineModel.setView(results);
+		}
+	}
 	
 	/**
-	 * Sets the model to be what ever was found in the remote server.
+	 * Updates the view to be what ever is in the onLineModel.
 	 */
-	public void useOnLineView(){}
+	public void useOnLineView()
+	{
+		this.onLineModel.notifyObservers();
+	}
 	
 	/**
 	 * Sets the model to be what ever was found in the read later save location.
@@ -78,11 +118,13 @@ public class BrowseController {
 	 */
 	public void useMyAuthoredView(){}
 	
+	
+	
 	/**
-	 * Asks the model to update its observers (views).
+	 * Deprecated. Do not use.
 	 */
 	public void refresh(){}
-	
+		
 	/**
 	 * Deprecated. Do not use.
 	 * @param author

@@ -11,6 +11,7 @@ import ca.ualberta.cs.f14t07_application.R.menu;
 import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
+import ca.ualberta.cs.models.Question;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -34,12 +35,14 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	private ListView browseListView;
 	public List<ForumEntry> forumEntries;
 	private BrowseController browseController;
+	private boolean mockMutex_searchFinished = true;
 
 	private Runnable doUpdateGUIList = new Runnable()
 	{
 		public void run()
 		{
-			browseListAdapter.notifyDataSetChanged();
+			//browseListAdapter.notifyDataSetChanged();
+			browseController.useOnLineView();
 		}
 	};
 
@@ -109,9 +112,6 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		{
 			term.setVisibility(EditText.INVISIBLE);
 		}
-		
-		browseListAdapter.notifyDataSetChanged();
-
 	}
 
 	@Override
@@ -184,11 +184,35 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	@Override
 	public void update(ForumEntryList model)
 	{
-		this.forumEntries = model.getView();
+		this.forumEntries.addAll(model.getView());
 		this.browseListAdapter.notifyDataSetChanged();
-
 	}
 
+	class SearchThread extends Thread
+	{
+		// TODO: Implement search thread
+		private String search;
+
+		public SearchThread(String s)
+		{
+			search = s;
+		}
+
+		@Override
+		public void run()
+		{
+
+			super.run();
+			browseController.searchAndSet(this.search);
+			runOnUiThread(doUpdateGUIList);
+		}
+	}
+	
+	
+	
+	/*
+	 * Old version of SearchThread
+	 *
 	class SearchThread extends Thread
 	{
 		// TODO: Implement search thread
@@ -219,6 +243,6 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 
 			runOnUiThread(doUpdateGUIList);
 		}
-	}
+	}*/
 }
 

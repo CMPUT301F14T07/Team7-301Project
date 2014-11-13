@@ -28,79 +28,96 @@ import com.google.gson.reflect.TypeToken;
 /**
  * Controls the data in the model of the SearchActivity
  */
-public class SearchController {
+public class SearchController
+{
 	private List<ForumEntry> searchResult;
-	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry/_search";
-
-	private static final String TAG = "ForumEntrySearch";
 	private HttpClient httpclient = new DefaultHttpClient();
-
 	private Gson gson;
 	
+	private static final String SEARCH_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry/_search";
+	private static final String TAG = "ForumEntrySearch";
+
+
 	/**
 	 * Creates a new SearchController.
 	 */
-	public SearchController(){
+	public SearchController()
+	{
 		searchResult = new ArrayList<ForumEntry>();
 		gson = new Gson();
 	}
-	
-	
+
 	/**
 	 * Searches the forum entries for a specific term
+	 * 
 	 * @param the term, and the field
 	 * @throws ClientProtocolException, IOException
 	 * */
-	public List<ForumEntry> searchForumEntries(String searchString, String field) throws ClientProtocolException, IOException { 
+	public List<ForumEntry> searchForumEntries(String searchString, String field)
+			throws ClientProtocolException, IOException
+	{
 		List<ForumEntry> result = new ArrayList<ForumEntry>();
 		// TODO: Implement search movies using ElasticSearch
-		if ("".equals(searchString)||searchString==null){
-			searchString= "*";
+		if ("".equals(searchString) || searchString == null)
+		{
+			searchString = "*";
 		}
 		HttpClient httpClient = new DefaultHttpClient();
-		
-		try{
-		HttpPost searchRequest = createSearchRequest(searchString, field);
-		HttpResponse response = httpClient.execute(searchRequest);
-	
-		String status = response.getStatusLine().toString();
-		Log.i(TAG, status);
-		
-		SearchResponse<ForumEntry> esResponse = parseSearchResponse(response);
-		
-		Hits<ForumEntry> hits = esResponse.getHits();
-		
-		if(hits != null){
-			if (hits.getHits() != null ){
-				//there are movies in the search 
-				for(SearchHit<ForumEntry> sesr: hits.getHits()){
-					result.add(sesr.getSource());
+
+		try
+		{
+			HttpPost searchRequest = createSearchRequest(searchString, field);
+			HttpResponse response = httpClient.execute(searchRequest);
+
+			String status = response.getStatusLine().toString();
+			Log.i(TAG, status);
+
+			SearchResponse<ForumEntry> esResponse = parseSearchResponse(response);
+
+			Hits<ForumEntry> hits = esResponse.getHits();
+
+			if (hits != null)
+			{
+				if (hits.getHits() != null)
+				{
+					// there are movies in the search
+					for (SearchHit<ForumEntry> sesr : hits.getHits())
+					{
+						result.add(sesr.getSource());
+					}
 				}
 			}
-		}
-		} catch (UnsupportedEncodingException e){
+		} catch (UnsupportedEncodingException e)
+		{
 			e.printStackTrace();
 		}
-	return result;
+		return result;
 	}
+
 	/**
 	 * creates the search request
-	 * @param the term, and the field
+	 * 
+	 * @param the
+	 *            term, and the field
 	 * @throws UnsupportedEncodingException
 	 * @return search Request
 	 * */
-	private HttpPost createSearchRequest(String searchString, String field) throws UnsupportedEncodingException{ 
-		
+	private HttpPost createSearchRequest(String searchString, String field)
+			throws UnsupportedEncodingException
+	{
+
 		HttpPost searchRequest = new HttpPost(SEARCH_URL);
 
 		String[] fields = null;
-		if (field != null) {
+		if (field != null)
+		{
 			fields = new String[1];
 			fields[0] = field;
 		}
-		
-		SimpleSearchCommand command = new SimpleSearchCommand(searchString,	fields);
-		
+
+		SimpleSearchCommand command = new SimpleSearchCommand(searchString,
+				fields);
+
 		String query = command.getJsonCommand();
 		Log.i(TAG, "Json command: " + query);
 
@@ -112,42 +129,54 @@ public class SearchController {
 
 		return searchRequest;
 	}
-	
+
 	/**
 	 * parses through the response from elasticsearch
-	 * @param the response
+	 * 
+	 * @param the
+	 *            response
 	 * @throws IOException
 	 * @return Elastic Search Response
 	 * */
-	private SearchResponse<ForumEntry> parseSearchResponse(HttpResponse response) throws IOException { 
-		String json; 
+	private SearchResponse<ForumEntry> parseSearchResponse(HttpResponse response)
+			throws IOException
+	{
+		String json;
 		json = getEntityContent(response);
-		
-		Type searchResponseType = new TypeToken<SearchResponse<ForumEntry>>(){}.getType();
-		
-		SearchResponse<ForumEntry> esResponse = gson.fromJson(json, searchResponseType);
-		
+
+		Type searchResponseType = new TypeToken<SearchResponse<ForumEntry>>()
+		{
+		}.getType();
+
+		SearchResponse<ForumEntry> esResponse = gson.fromJson(json,
+				searchResponseType);
+
 		return esResponse;
-		
+
 	}
-	
+
 	/**
 	 * gets the response from elasticsearch
-	 * @param the response
+	 * 
+	 * @param the
+	 *            response
 	 * @throws IOException
 	 * @return the string of the response
 	 * */
-	public String getEntityContent(HttpResponse response) throws IOException { 
-		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-	
-		StringBuffer result = new StringBuffer(); 
+	public String getEntityContent(HttpResponse response) throws IOException
+	{
+		BufferedReader rd = new BufferedReader(new InputStreamReader(response
+				.getEntity().getContent()));
+
+		StringBuffer result = new StringBuffer();
 		String line = "";
-		
-		while ((line = rd.readLine()) != null){
+
+		while ((line = rd.readLine()) != null)
+		{
 			result.append(line);
 		}
-		
+
 		return result.toString();
 	}
-	
+
 }
