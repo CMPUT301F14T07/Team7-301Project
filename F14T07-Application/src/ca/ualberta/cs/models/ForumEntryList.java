@@ -41,7 +41,7 @@ public class ForumEntryList extends Observable<Observer>
 	}
 
 	/**
-	 * Sets the data in this model.
+	 * Sets the data in this model. This does not call the models notifyObservers function.
 	 * 
 	 * @param list
 	 *            The array list of forum entries to set in this model.

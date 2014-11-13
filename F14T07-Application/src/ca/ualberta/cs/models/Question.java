@@ -14,6 +14,7 @@ public class Question extends Entry {
 	 */
 	public Question(String post_, String author_) {
 		super(post_, author_);
+		this.questionSubject = "";
 	}
 	
 	/** 

@@ -17,6 +17,7 @@ public class Reply {
 	public Reply(String reply_)
 	{
 		reply = reply_;
+		this.date = new Date();
 	}
 	
 	/**
@@ -37,4 +38,12 @@ public class Reply {
 		return reply;
 	}
 
+	/**
+	 * Gets the date of the reply.
+	 * @return The Date.
+	 */
+	public Date getDate()
+	{
+		return this.date;
+	}
 }

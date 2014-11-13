@@ -38,6 +38,7 @@ public class ForumEntry
 	public ForumEntry(Question question)
 	{
 		this.question = question;
+		this.answers = new ArrayList<Answer>();
 	}
 	
 	/**

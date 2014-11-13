@@ -215,8 +215,9 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 			term.setVisibility(EditText.INVISIBLE);
 			return true;
 		case R.id.switchToOnline:
-			this.browseController.useOnLineView();
 			brs.setViewToken(BrowseRequestSingleton.ON_LINE_VIEW);
+			SearchThread thread = new SearchThread(brs.getSearchToken());
+			thread.start();
 			viewType.setText(brs.getViewToken());
 			term.setVisibility(EditText.VISIBLE);
 			term.setText(brs.getSearchToken());

@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -40,14 +41,15 @@ public class DataManager
 	private Context ctx;
 	private Gson gson;
 	private ForumEntry forumEntryTest;
-	
+
 	public DataManager()
 	{
 		gson = new Gson();
 	}
-	
+
 	/**
 	 * Deprecated. Do not use. Use DataManager() instead.
+	 * 
 	 * @param ctx
 	 */
 	public DataManager(Context ctx)
@@ -103,6 +105,106 @@ public class DataManager
 		forumEntryTest = forumEntry;
 	}
 
+	public Boolean isOffline()
+	{
+		return false;
+	}
+
+	public Boolean isOnline()
+	{
+		return false;
+	}
+
+	/**
+	 * Save the List<ForumEntry> as read later forum entries.
+	 * 
+	 * @param fel
+	 *            The List<ForumEntry> to save.
+	 */
+	public void setReadLater(List<ForumEntry> fel)
+	{
+		Context ctx = ContextSingleton.getInstance().getContext();
+		if (ctx == null)
+		{
+			return;
+		}
+	}
+
+	/**
+	 * Load the List<ForumEntry> marked as read later.
+	 * 
+	 * @return The List<ForumEntry> marked as read later.
+	 */
+	public List<ForumEntry> getReadLater()
+	{
+		Context ctx = ContextSingleton.getInstance().getContext();
+		if (ctx == null)
+		{
+			return new ArrayList<ForumEntry>();
+		}
+		return new ArrayList<ForumEntry>();
+	}
+
+	/**
+	 * Save the List<ForumEntry> that the user has authored.
+	 * 
+	 * @param fel
+	 *            The List<ForumEntry> to save.
+	 */
+	public void setMyAuthored(List<ForumEntry> fel)
+	{
+		Context ctx = ContextSingleton.getInstance().getContext();
+		if (ctx == null)
+		{
+			return;
+		}
+	}
+
+	/**
+	 * Load the List<ForumEntry> that the user has authored.
+	 * 
+	 * @return The List<ForumEntry> the user has authored.
+	 */
+	public List<ForumEntry> getMyAuthored()
+	{
+		Context ctx = ContextSingleton.getInstance().getContext();
+		if (ctx == null)
+		{
+			return new ArrayList<ForumEntry>();
+		}
+		return new ArrayList<ForumEntry>();
+	}
+
+	/**
+	 * Save the List<ForumEntry> that the user has selected as favourites.
+	 * 
+	 * @param fel
+	 *            List<ForumEntry> to save.
+	 */
+	public void setFavourites(List<ForumEntry> fel)
+	{
+		Context ctx = ContextSingleton.getInstance().getContext();
+		if (ctx == null)
+		{
+			return;
+		}
+	}
+
+	/**
+	 * Load the List<ForumEntry> that contains the users favourites.
+	 * 
+	 * @return The ForumEntryList the user has authored.
+	 */
+	public List<ForumEntry> getFavourites()
+	{
+		Context ctx = ContextSingleton.getInstance().getContext();
+		if (ctx == null)
+		{
+			return new ArrayList<ForumEntry>();
+		}
+		return new ArrayList<ForumEntry>();
+	}
+
 	/**
 	 * loads the favourites
 	 * 
@@ -112,7 +214,7 @@ public class DataManager
 	{
 		ForumEntryList fe = new ForumEntryList();
 		Context ctx = ContextSingleton.getInstance().getContext();
-		
+
 		try
 		{
 			BufferedReader fis = new BufferedReader(new InputStreamReader(
@@ -162,63 +264,9 @@ public class DataManager
 
 	}
 
-	public Boolean isOffline()
-	{
-		return false;
-	}
-
-	public Boolean isOnline()
-	{
-		return false;
-	}
-	
-	/**
-	 * Save the ForumEntryList as read later forum entries.
-	 * @param fel The ForumEntryList to save.
-	 */
-	public void saveReadLater(ForumEntryList fel)
-	{
-		Context ctx = ContextSingleton.getInstance().getContext();
-	}
-	
-	/**
-	 * Load the ForumEntryList marked as read later.
-	 * @return The ForumEntryList marked as read later.
-	 */
-	public ForumEntryList loadReadLater()
-	{
-		Context ctx = ContextSingleton.getInstance().getContext();
-		return new ForumEntryList();
-	}
-	
-	/**
-	 * Save the ForumEntryList that the user has authored.
-	 * @param fel The ForumEntryList to save.
-	 */
-	public void saveMyAuthored(ForumEntryList fel)
-	{
-		Context ctx = ContextSingleton.getInstance().getContext();
-	}
-	
-	/**
-	 * Load the ForumEntryList that the user has authored.
-	 * @return The ForumEntryList the user has authored.
-	 */
-	public ForumEntryList loadMyAuthored()
-	{
-		Context ctx = ContextSingleton.getInstance().getContext();
-		return new ForumEntryList();
-	}
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * Deprecated. Do not use.
+	 * 
 	 * @param forumEntry
 	 * @param s
 	 */
@@ -226,7 +274,7 @@ public class DataManager
 	{
 
 	}
-	
+
 	/**
 	 * 
 	 * gets a forum entry for tests
@@ -322,4 +370,3 @@ public class DataManager
 
 	}
 }
-

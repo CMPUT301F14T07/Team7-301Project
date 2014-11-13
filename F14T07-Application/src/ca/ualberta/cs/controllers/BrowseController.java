@@ -22,6 +22,9 @@ import ca.ualberta.cs.views.Observer;
  * and determines whether we use the favourites or readLater view
  */
 public class BrowseController {
+	/*
+	 * TODO: All sorting functions need to implement their sort algorithm.
+	 */
 	private List<ForumEntry> forumEntries;
 	private SearchController searchController;
 	private DataManager dataManager;
@@ -53,17 +56,20 @@ public class BrowseController {
 	}
 	
 	/**
-	 * Sorts the ForumEntrys in the model by their date.
+	 * Sorts the ForumEntrys in the model by their date
+	 * and calls the models notifyObservers function.
 	 */
 	public void sortByTime(){}
 	
 	/**
-	 * Sorts the ForumEntrys in the model by their rating (up votes).
+	 * Sorts the ForumEntrys in the model by their rating (up votes)
+	 * and calls the models notifyObservers function.
 	 */
 	public void sortByRating(){}
 	
 	/**
-	 * Sorts the ForumEntrys in the model by if they have a picture or not.
+	 * Sorts the ForumEntrys in the model by if they have a picture or not
+	 * and calls the models notifyObservers function.
 	 */
 	public void sortByHasPicture(){}
 	
@@ -106,26 +112,35 @@ public class BrowseController {
 	}
 	
 	/**
-	 * Sets the model to be what ever was found in the read later save location.
+	 * Sets the model to be what ever was found in the read later save location
+	 * and calls the models notifyObservers function.
 	 */
 	public void useReadLaterView()
 	{
+		List<ForumEntry> fel = this.dataManager.getReadLater();
+		this.readLaterModel.setView(fel);
 		this.readLaterModel.notifyObservers();
 	}
 	
 	/**
-	 * Sets the model to be what ever was found in the favourites save location.
+	 * Sets the model to be what ever was found in the favourites save location
+	 * and calls the models notifyObservers function.
 	 */
 	public void useFavouritesView()
 	{
+		List<ForumEntry> fel = this.dataManager.getFavourites();
+		this.favouritesModel.setView(fel);
 		this.favouritesModel.notifyObservers();
 	}
 	
 	/**
 	 * Sets the model to be what ever was found in the my authored save location
+	 * and calls the models notifyObservers function.
 	 */
 	public void useMyAuthoredView()
 	{
+		List<ForumEntry> fel = this.dataManager.getMyAuthored();
+		this.myAuthoredModel.setView(fel);
 		this.myAuthoredModel.notifyObservers();
 	}
 	
