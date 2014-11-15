@@ -12,8 +12,10 @@ import java.util.List;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -21,7 +23,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
-
 import ca.ualberta.cs.intent_singletons.ContextSingleton;
 
 import com.google.gson.Gson;
@@ -39,7 +40,7 @@ public class DataManager
 	 * TODO: Merge changes into the remote server (like increasing an upvote)
 	 * TODO: Get and set caches for favourites, my authored, and read laters
 	 */
-	private static final String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
+	private static String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
 	private static final String TAG = "ForumEntrySearch";
 	private static final String FILENAME = "saveQuestion.sav";
 
@@ -72,6 +73,7 @@ public class DataManager
 	{
 		gson = new Gson();
 		HttpClient httpClient = new DefaultHttpClient();
+		forumEntry.setId("0");
 
 		try
 		{
@@ -118,6 +120,12 @@ public class DataManager
 	public Boolean isOnline()
 	{
 		return false;
+	}
+	
+	public void updateForumEntry(ForumEntry forumEntry) {
+		RESOURCE_URL=RESOURCE_URL+ "/"+ forumEntry.getId();
+		
+		addForumEntry(forumEntry);
 	}
 
 	/**

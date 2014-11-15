@@ -14,7 +14,7 @@ public class ForumEntry
 	private List<Answer> answers;
 	private String subject;
 	private int entryFlag;
-	private long id;
+	private String id;
 	
 	/**
 	 * Create a new ForumEntry.
@@ -74,6 +74,13 @@ public class ForumEntry
 		return question;
 	}
 	
+	public void setId(String newId){
+		id = newId;
+	}
+	public String getId(){
+		return id;
+	}
+	
 	/**
 	 * Deprecated. Do not use.
 	 * @param newId
@@ -118,7 +125,5 @@ public class ForumEntry
 	 * Deprecated. Do not use.
 	 * @param newId
 	 */
-	public void setId(int newId){
-		id = newId;
-	}
+
 }

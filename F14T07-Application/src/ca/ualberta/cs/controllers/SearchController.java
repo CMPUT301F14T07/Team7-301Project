@@ -75,7 +75,7 @@ public class SearchController
 			SearchResponse<ForumEntry> esResponse = parseSearchResponse(response);
 
 			Hits<ForumEntry> hits = esResponse.getHits();
-
+			int i = 0;
 			if (hits != null)
 			{
 				if (hits.getHits() != null)
@@ -84,6 +84,8 @@ public class SearchController
 					for (SearchHit<ForumEntry> sesr : hits.getHits())
 					{
 						result.add(sesr.getSource());
+						result.get(i).setId(sesr.get_id());
+						i++;
 					}
 				}
 			}

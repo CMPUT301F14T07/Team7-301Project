@@ -96,6 +96,7 @@ public class ForumEntryController
 	 */
 	public void addAnswer(Answer answer)
 	{
+		DataManager dm = new DataManager();
 		/*
 		 * Get the ForumEntry that the answer is being added to.
 		 */
@@ -107,12 +108,9 @@ public class ForumEntryController
 		 */
 		List<Answer> allAnswers = forumEntry.getAnswers();
 		allAnswers.add(answer);
-
-		/*
-		 * TODO: Use the DataManager to send this ForumEntry to the remote
-		 * server such that the older ForumEntry is overwritten with the new
-		 * one.
-		 */
+		forumEntry.setAnswer(allAnswers);
+		dm.updateForumEntry(forumEntry);
+		
 
 	}
 	
@@ -254,4 +252,5 @@ public class ForumEntryController
 	public void sortForumEntryByVotes()
 	{
 	}
+
 }

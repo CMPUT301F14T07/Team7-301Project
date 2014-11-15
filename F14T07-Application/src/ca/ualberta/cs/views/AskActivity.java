@@ -43,6 +43,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	private ForumEntryController feController;
 	
 	private BrowseController browseController;
+	private ForumEntry forumEntry;
 	
 	private static final String SUBMIT_ANSWER = "Answer";
 	private static final String SUBMIT_QUESTION = "Ask";
@@ -105,7 +106,6 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					 */
 					ForumEntry newForumEntry = new ForumEntry(newSubject, newEntry, newAuthor);
 					forumEntryFocus.setForumEntry(newForumEntry);
-
 					/*
 					 * Invoke the AddThread to add this new ForumEntry to the remote server by
 					 * calling the controller
@@ -119,13 +119,13 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 				else
 				{
 					Answer answer = new Answer(newEntry, newAuthor);
-					
 					/*
 					 * Invoke the AddThread to add this answer to the ForumEntry in the remote server
 					 * by calling controller
 					 */
 					Thread thread = new AddAnswerThread(answer);
 					thread.start();
+				
 				}
 
 				/*
