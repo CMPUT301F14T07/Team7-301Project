@@ -166,9 +166,9 @@ public class BrowseController {
 	 * Deprecated. Do not use.
 	 * @return
 	 */
-	public List<ForumEntry> getAllEntries(){
+	public List<ForumEntry> getAllEntries(String searchTerm){
 		try {
-			forumEntries.addAll(searchController.searchForumEntries("",null));
+			forumEntries.addAll(searchController.searchForumEntries(searchTerm,null));
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -176,8 +176,6 @@ public class BrowseController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ForumEntry forumEntry = new ForumEntry("browse","browse","browse");
-		forumEntries.add(forumEntry);
 		return forumEntries;
 		
 	}

@@ -215,34 +215,34 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 
 	class AddQuestionThread extends Thread
 	{
-		private ForumEntry fe;
+		private ForumEntry forumEntry;
 
-		public AddQuestionThread(ForumEntry fe)
+		public AddQuestionThread(ForumEntry forumEntry)
 		{
-			this.fe = fe;
+			this.forumEntry = forumEntry;
 		}
 
 		@Override
 		public void run()
 		{
-			feController.addNewQuestion(this.fe);
+			feController.addNewQuestion(this.forumEntry);
 			feController.saveMyAuthoredCopy();
 		}
 	}
 	
 	class AddAnswerThread extends Thread
 	{
-		private Answer aws;
+		private Answer answer;
 		
-		public AddAnswerThread(Answer aws)
+		public AddAnswerThread(Answer answer)
 		{
-			this.aws = aws;
+			this.answer = answer;
 		}
 		
 		@Override
 		public void run()
 		{
-			feController.addAnswer(this.aws);
+			feController.addAnswer(this.answer);
 		}
 	}
 

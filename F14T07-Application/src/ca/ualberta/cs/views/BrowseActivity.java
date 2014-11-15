@@ -3,24 +3,15 @@ package ca.ualberta.cs.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.ualberta.cs.controllers.BrowseController;
-import ca.ualberta.cs.f14t07_application.R;
-import ca.ualberta.cs.f14t07_application.R.id;
-import ca.ualberta.cs.f14t07_application.R.layout;
-import ca.ualberta.cs.f14t07_application.R.menu;
-import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
-import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
-import ca.ualberta.cs.models.ForumEntry;
-import ca.ualberta.cs.models.ForumEntryList;
-import ca.ualberta.cs.models.Question;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
+import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,6 +19,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import ca.ualberta.cs.controllers.BrowseController;
+import ca.ualberta.cs.f14t07_application.R;
+import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
+import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
+import ca.ualberta.cs.models.ForumEntry;
+import ca.ualberta.cs.models.ForumEntryList;
 
 /**
  * The Browse view implements the observer class
@@ -43,6 +40,9 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	private ListView browseListView;
 	public List<ForumEntry> forumEntries;
 	private BrowseController browseController;
+	private EditText term;
+	private BrowseRequestSingleton brs;
+	private String searchTerm;
 
 	private Runnable doUpdateGUIList = new Runnable()
 	{
@@ -69,7 +69,8 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		browseListAdapter = new ArrayAdapter<ForumEntry>(BrowseActivity.this, R.layout.list_item, forumEntries);
 		browseListView = (ListView) findViewById(R.id.browseListView);
 		browseListView.setAdapter(browseListAdapter);
-		
+		term = (EditText) findViewById(R.id.searchTextInput);
+
 		/*
 		 * Create an on click listener for the "view by" button.
 		 */
@@ -102,6 +103,23 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 				startQuestionActivity();
 			}
 		});
+		
+		/* listener so that when enter is clicked it will search */
+		
+		term.setOnKeyListener(new OnKeyListener() {
+		    public boolean onKey(View v, int keyCode, KeyEvent event) {
+		        // If the event is a key-down event on the "enter" button
+		        if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+		            (keyCode == KeyEvent.KEYCODE_ENTER)) {
+		          // Perform action on key press
+		        	searchTerm = term.getText().toString();
+		        	callSearchThread();
+		          return true;
+		        }
+		        return false;
+		    }
+		});
+		
 
 	}
 
@@ -116,7 +134,7 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	{
 		super.onStart();
 		
-		BrowseRequestSingleton brs = BrowseRequestSingleton.getInstance();
+		brs = BrowseRequestSingleton.getInstance();
 
 		/*
 		 * Set the text displayed for the "viewing" type to be the view token in the BrowseRequestSingleton
@@ -129,18 +147,18 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		 * can't be used for strings). Then, call the proper methods so that this
 		 * activity displays the ForumEntries which correspond to that  view.
 		 */
-		EditText term = (EditText) findViewById(R.id.searchTextInput);
+
 		if(brs.getViewToken().equals(BrowseRequestSingleton.ON_LINE_VIEW))
 		{
 			/*
 			 * Use search term in BrowseRequestSingleton and start a searchThread to
 			 * probe the remote server for ForumEntries
 			 */
-			SearchThread thread = new SearchThread(brs.getSearchToken());
-			thread.start();
-			term.setText(brs.getSearchToken());
-			term.setVisibility(EditText.VISIBLE);
+			searchTerm=brs.getSearchToken();
+
+			callSearchThread();
 		}
+
 		else if(brs.getViewToken().equals(BrowseRequestSingleton.FAVOURITES_VIEW))
 		{
 			/*
@@ -226,7 +244,12 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
+	public void callSearchThread(){
+		SearchThread thread = new SearchThread(searchTerm);
+		thread.start();
+		term.setText(searchTerm);
+		term.setVisibility(EditText.VISIBLE);
+	}
 	public void viewBy()
 	{
 		Toast.makeText(BrowseActivity.this, "Work in progress", Toast.LENGTH_SHORT).show();
@@ -282,6 +305,15 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 
 			super.run();
 			browseController.searchAndSet(this.search);
+			
+			//this wait is important for users with 
+			// slow internet DO NOT REMOVE 
+			// please and thank you
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			runOnUiThread(doUpdateGUIList);
 		}
 	}

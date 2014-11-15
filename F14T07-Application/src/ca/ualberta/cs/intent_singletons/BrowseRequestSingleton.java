@@ -14,6 +14,7 @@ public class BrowseRequestSingleton
 	private String searchToken;
 	private String viewToken;
 	
+	public static final String ON_LINE_VIEW_SEARCH = "Search";
 	public static final String ON_LINE_VIEW = "Browse";
 	public static final String READ_LATER_VIEW = "Saved";
 	public static final String FAVOURITES_VIEW = "Favourites";
