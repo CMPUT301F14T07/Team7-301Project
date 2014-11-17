@@ -57,7 +57,7 @@ public class FavouriteTest extends ActivityInstrumentationTestCase2<BrowseActivi
 		
 		
 		assertEquals(fec.returnFavourite?, testFec.returnFavourite?);
-		// save/load
+		
 		 
 		testFec = datamanager.loadFavourites();
 		assertEquals(fec, testFec);

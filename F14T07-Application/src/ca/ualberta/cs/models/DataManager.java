@@ -43,7 +43,6 @@ public class DataManager
 	private static String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
 	private static String ORIGINAL_RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
 	private static final String TAG = "ForumEntrySearch";
-	private static final String FILENAME = "saveQuestion.sav";
 
 	private Context ctx;
 	private Gson gson;
@@ -196,33 +195,61 @@ public class DataManager
 	 * @param fel
 	 *            List<ForumEntry> to save.
 	 */
-	public void setFavourites(List<ForumEntry> fel)
+	public void setFavourites(ArrayList<ForumEntry> fel)
 	{
 		Context ctx = ContextSingleton.getInstance().getContext();
-		if (ctx == null)
+		try
 		{
-			return;
+			FileOutputStream fos = ctx.openFileOutput("favourites.sav",
+					Context.MODE_PRIVATE);
+			String json = gson.toJson(fel);
+			fos.write(json.getBytes());
+			fos.close();
+
+		} catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * Load the List<ForumEntry> that contains the users favourites.
 	 * 
-	 * @return The ForumEntryList the user has authored.
+	 * @return The ForumEntryList the user has favourited.
 	 */
-	public List<ForumEntry> getFavourites()
+	public ArrayList<ForumEntry> getFavourites()
 	{
+		ArrayList<ForumEntry> fel = new ArrayList<ForumEntry>();
 		Context ctx = ContextSingleton.getInstance().getContext();
-		if (ctx == null)
+
+		try
 		{
-			return new ArrayList<ForumEntry>();
+			BufferedReader fis = new BufferedReader(new InputStreamReader(
+					ctx.openFileInput("favourites.sav")));
+			String line;
+			StringBuffer fileContent = new StringBuffer();
+
+			while ((line = fis.readLine()) != null)
+			{
+				fileContent.append(line);
+			}
+
+			Type collectionType = new TypeToken<Collection<ForumEntry>>()
+			{
+			}.getType();
+
+			fel = gson.fromJson(fileContent.toString(), collectionType);
+
+		} catch (Exception e)
+		{
+			e.printStackTrace();
 		}
-		return new ArrayList<ForumEntry>();
+		return fel;
 	}
 
 	/**
 	 * loads the favourites
-	 * 
+	 *  
 	 * @return forum entry list
 	 */
 	public ForumEntryList loadFavourites()
@@ -255,29 +282,7 @@ public class DataManager
 		return fel;
 	}
 
-	/**
-	 * saves favourites
-	 * 
-	 * @param forum
-	 *            entry list
-	 */
-	public void saveFavourite(ForumEntryList fel)
-	{
-		Context ctx = ContextSingleton.getInstance().getContext();
-		try
-		{
-			FileOutputStream fos = ctx.openFileOutput("favourites",
-					Context.MODE_PRIVATE);
-			String json = gson.toJson(fel);
-			fos.write(json.getBytes());
-			fos.close();
-
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-	}
+	
 
 	/**
 	 * Deprecated. Do not use.
