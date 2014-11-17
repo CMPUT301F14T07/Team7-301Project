@@ -227,7 +227,7 @@ public class DataManager
 	 */
 	public ForumEntryList loadFavourites()
 	{
-		ForumEntryList fe = new ForumEntryList();
+		ForumEntryList fel = new ForumEntryList();
 		Context ctx = ContextSingleton.getInstance().getContext();
 
 		try
@@ -246,13 +246,13 @@ public class DataManager
 			{
 			}.getType();
 
-			fe = gson.fromJson(fileContent.toString(), collectionType);
+			fel = gson.fromJson(fileContent.toString(), collectionType);
 
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		return fe;
+		return fel;
 	}
 
 	/**
