@@ -41,6 +41,7 @@ public class DataManager
 	 * TODO: Get and set caches for favourites, my authored, and read laters
 	 */
 	private static String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
+	private static String ORIGINAL_RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
 	private static final String TAG = "ForumEntrySearch";
 	private static final String FILENAME = "saveQuestion.sav";
 
@@ -126,6 +127,7 @@ public class DataManager
 		RESOURCE_URL=RESOURCE_URL+ "/"+ forumEntry.getId();
 		
 		addForumEntry(forumEntry);
+		RESOURCE_URL=ORIGINAL_RESOURCE_URL;
 	}
 
 	/**
