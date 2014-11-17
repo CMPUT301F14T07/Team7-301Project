@@ -81,10 +81,10 @@ public final class R {
         public static final int switchToFavourites=0x7f08002b;
         public static final int switchToHome=0x7f08002c;
         public static final int switchToHomeScreen=0x7f080028;
-        public static final int switchToMyQuestions=0x7f08002a;
+        public static final int switchToMyQuestions=0x7f080029;
         public static final int switchToOnline=0x7f08002e;
         public static final int switchToReadLater=0x7f08002d;
-        public static final int switchToReadLaters=0x7f080029;
+        public static final int switchToReadLaters=0x7f08002a;
     }
     public static final class layout {
         public static final int activity_logo=0x7f030000;
