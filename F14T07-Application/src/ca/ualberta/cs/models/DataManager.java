@@ -135,12 +135,20 @@ public class DataManager
 	 * @param fel
 	 *            The List<ForumEntry> to save.
 	 */
-	public void setReadLater(List<ForumEntry> fel)
+	public void setReadLater(ArrayList<ForumEntry> fel)
 	{
 		Context ctx = ContextSingleton.getInstance().getContext();
-		if (ctx == null)
+		try
 		{
-			return;
+			FileOutputStream fos = ctx.openFileOutput("readlater.sav",
+					Context.MODE_PRIVATE);
+			String json = gson.toJson(fel);
+			fos.write(json.getBytes());
+			fos.close();
+
+		} catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 
@@ -149,14 +157,34 @@ public class DataManager
 	 * 
 	 * @return The List<ForumEntry> marked as read later.
 	 */
-	public List<ForumEntry> getReadLater()
+	public ArrayList<ForumEntry> getReadLater()
 	{
+		ArrayList<ForumEntry> fel = new ArrayList<ForumEntry>();
 		Context ctx = ContextSingleton.getInstance().getContext();
-		if (ctx == null)
+
+		try
 		{
-			return new ArrayList<ForumEntry>();
+			BufferedReader fis = new BufferedReader(new InputStreamReader(
+					ctx.openFileInput("readlater.sav")));
+			String line;
+			StringBuffer fileContent = new StringBuffer();
+
+			while ((line = fis.readLine()) != null)
+			{
+				fileContent.append(line);
+			}
+
+			Type collectionType = new TypeToken<Collection<ForumEntry>>()
+			{
+			}.getType();
+
+			fel = gson.fromJson(fileContent.toString(), collectionType);
+
+		} catch (Exception e)
+		{
+			e.printStackTrace();
 		}
-		return new ArrayList<ForumEntry>();
+		return fel;
 	}
 
 	/**
@@ -220,41 +248,6 @@ public class DataManager
 	public ArrayList<ForumEntry> getFavourites()
 	{
 		ArrayList<ForumEntry> fel = new ArrayList<ForumEntry>();
-		Context ctx = ContextSingleton.getInstance().getContext();
-
-		try
-		{
-			BufferedReader fis = new BufferedReader(new InputStreamReader(
-					ctx.openFileInput("favourites.sav")));
-			String line;
-			StringBuffer fileContent = new StringBuffer();
-
-			while ((line = fis.readLine()) != null)
-			{
-				fileContent.append(line);
-			}
-
-			Type collectionType = new TypeToken<Collection<ForumEntry>>()
-			{
-			}.getType();
-
-			fel = gson.fromJson(fileContent.toString(), collectionType);
-
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		return fel;
-	}
-
-	/**
-	 * loads the favourites
-	 *  
-	 * @return forum entry list
-	 */
-	public ForumEntryList loadFavourites()
-	{
-		ForumEntryList fel = new ForumEntryList();
 		Context ctx = ContextSingleton.getInstance().getContext();
 
 		try
