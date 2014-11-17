@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -252,14 +254,37 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	}
 	public void viewBy()
 	{
-		Toast.makeText(BrowseActivity.this, "Work in progress", Toast.LENGTH_SHORT).show();
-		/*
-		 * Example of how to implement this
-		 *
-		 * this.browseController.sortBy--X--View();
-		 */
+		final CharSequence[] sortTypes = {"Sort by time", "Sort by rating", "Sort by picutre"};
+		AlertDialog.Builder alert = new AlertDialog.Builder(BrowseActivity.this);
+		
+		alert.setTitle("What do you want to sort by?"); 
+		
+		alert.setItems(sortTypes, new DialogInterface.OnClickListener() {
+			 @Override
+			 public void onClick(DialogInterface dialog, int item) {
+				if (item == 0){
+					Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+					BrowseThread thread = new BrowseThread(0);
+					thread.start();
+				}
+				else if (item ==1){
+					Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+					BrowseThread thread = new BrowseThread(1);
+					thread.start();
+				}
+				else if (item ==2){
+					Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+					BrowseThread thread = new BrowseThread(2);
+					thread.start();
+				}
+			    
+			    
+			 }
+		});
+		
+		alert.show(); 
+		
 	}
-
 	/**
 	 * Starts the QuestionActivity.
 	 */
@@ -316,6 +341,41 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 			}
 			runOnUiThread(doUpdateGUIList);
 		}
+	}
+	
+	class BrowseThread extends Thread {
+		private int casetype;
+		
+		public BrowseThread(int type){
+			casetype=type;
+		}
+		
+		@Override
+		public void run()
+		{
+
+			super.run();
+			if (casetype==0){
+				browseController.sortByTime();
+			}
+			else if (casetype ==1){
+				browseController.sortByRating();
+			}
+			else if (casetype ==2){
+				browseController.sortByHasPicture();
+			}
+			
+			//this wait is important for users with 
+			// slow internet DO NOT REMOVE 
+			// please and thank you
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			runOnUiThread(doUpdateGUIList);
+		}
+		
 	}
 }
 

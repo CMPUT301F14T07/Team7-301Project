@@ -2,6 +2,9 @@ package ca.ualberta.cs.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 
@@ -12,6 +15,7 @@ import org.apache.http.client.ClientProtocolException;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
+import ca.ualberta.cs.models.Question;
 import ca.ualberta.cs.views.BrowseActivity;
 import ca.ualberta.cs.views.Observer;
 
@@ -61,20 +65,119 @@ public class BrowseController {
 	 */
 	public void sortByTime()
 	{
+		List<ForumEntry> results = null;
+		
+		try
+		{
+			results = this.searchController.searchForumEntries("", null);
+		} 
+		catch (ClientProtocolException e)
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		if(results != null)
+		{
+			Collections.sort(results, new Comparator<ForumEntry>(){
+					public int compare( ForumEntry f1, ForumEntry f2){
+						if (f1.getQuestion().getDate()==null && f2.getQuestion().getDate()==null){
+							return 0;
+						}
+						else if (f1.getQuestion().getDate()==null){
+							return -1;
+						}
+						else if (f2.getQuestion().getDate()==null){
+							return 1;
+						}
+						else{
+							return f1.getQuestion().getDate().compareTo(f2.getQuestion().getDate());
+						}
+					}
+				});
+		
+			this.onLineModel.setView(results);
+		}
+	
 		
 	}
-	
+
 	/**
 	 * Sorts the ForumEntrys in the model by their rating (up votes)
 	 * and calls the models notifyObservers function.
 	 */
-	public void sortByRating(){}
+	public void sortByRating(){
+		List<ForumEntry> results = null;
+		
+		try
+		{
+			results = this.searchController.searchForumEntries("", null);
+		} 
+		catch (ClientProtocolException e)
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		if(results != null)
+		{
+			Collections.sort(results, new Comparator<ForumEntry>(){
+					public int compare( ForumEntry f1, ForumEntry f2){
+							return  f2.getQuestion().getUpVote()-f1.getQuestion().getUpVote();
+					}
+				});
+		
+			this.onLineModel.setView(results);
+		}
+	}
 	
 	/**
 	 * Sorts the ForumEntrys in the model by if they have a picture or not
 	 * and calls the models notifyObservers function.
 	 */
-	public void sortByHasPicture(){}
+	public void sortByHasPicture(){
+		List<ForumEntry> results = null;
+		
+		try
+		{
+			results = this.searchController.searchForumEntries("", null);
+		} 
+		catch (ClientProtocolException e)
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		if(results != null)
+		{
+			Collections.sort(results, new Comparator<ForumEntry>(){
+				public int compare( ForumEntry f1, ForumEntry f2){
+					if (f1.getQuestion().getDate()==null && f2.getQuestion().getDate()==null){
+						return 0;
+					}
+					else if (f1.getQuestion().getDate()==null){
+						return -1;
+					}
+					else if (f2.getQuestion().getDate()==null){
+						return 1;
+					}
+					else{
+						return 0;
+					}
+				}
+			});
+			this.onLineModel.setView(results);
+		}
+	}
 	
 	/**
 	 * Searchs the remote server for the searchTerm and sets the model with the results.
@@ -183,19 +286,19 @@ public class BrowseController {
 	 * Deprecated. Do not use.
 	 * @param forumEntryList
 	 */
-	public void sortByTime(ArrayList<ForumEntry> forumEntryList){}
+//	public void sortByTime(ArrayList<ForumEntry> forumEntryList){}
 	
 	/**
 	 * Deprecated. Do not use.
 	 * @param forumEntryList
 	 */
-	public void sortByHasPicture(ArrayList<ForumEntry> forumEntryList){}
+	//public void sortByHasPicture(ArrayList<ForumEntry> forumEntryList){}
 	
 	/**
 	 * Deprecated. Do not use.
 	 * @param forumEntryList
 	 */
-	public void sortByRating(ArrayList<ForumEntry> forumEntryList){}
+	//public void sortByRating(ArrayList<ForumEntry> forumEntryList){}
 	
 	/**
 	 * Deprecated. Do not use.
