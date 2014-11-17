@@ -377,5 +377,10 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		}
 		
 	}
+
+	public View getView() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
