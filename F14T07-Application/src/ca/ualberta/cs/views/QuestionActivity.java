@@ -3,13 +3,16 @@ package ca.ualberta.cs.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.ualberta.cs.controllers.BrowseController;
 import ca.ualberta.cs.controllers.ForumEntryController;
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.f14t07_application.R.layout;
+import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
 import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
 import ca.ualberta.cs.models.Entry;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
+import ca.ualberta.cs.views.BrowseActivity.SearchThread;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -58,6 +61,7 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		
 		this.answerList = new ArrayList<Entry>();
 		this.forumEntryController = new ForumEntryController(this);
+
 		
 		this.answerListAdapter = new ArrayAdapter<Entry>(QuestionActivity.this, R.layout.list_item, this.answerList);
 		this.answerListView = (ListView) findViewById(R.id.QuestionAnswerList);
@@ -122,17 +126,55 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	 * Handles selection of items in the options menu.
 	 */
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
+	public boolean onOptionsItemSelected(MenuItem item) 
 	{
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
+		
 		int id = item.getItemId();
-		if (id == R.id.action_settings)
+		Intent intent;
+		intent = new Intent(this, BrowseActivity.class);
+		BrowseRequestSingleton.getInstance().setSearchToken(BrowseRequestSingleton.SEARCH_EVERYTHING);
+		switch (id)
 		{
+		
+		case R.id.switchToMyQuestions:
+			/*
+			 * Set the search and view tokens in the BrowseRequestSingleton, this way, the browse activity
+			 * knows what to search for and what view to present when starting up.
+			 */
+			BrowseRequestSingleton.getInstance().setViewToken(BrowseRequestSingleton.MY_AUTHORED_VIEW);
+			startActivity(intent);
 			return true;
+			
+		case R.id.switchToReadLaters:
+			/*
+			 * Set the search and view tokens in the BrowseRequestSingleton, this way, the browse activity
+			 * knows what to search for and what view to present when starting up.
+			 */
+			BrowseRequestSingleton.getInstance().setViewToken(BrowseRequestSingleton.READ_LATER_VIEW);
+			startActivity(intent);
+			return true;
+			
+		case R.id.switchToFavourites:
+			/*
+			 * Set the search and view tokens in the BrowseRequestSingleton, this way, the browse activity
+			 * knows what to search for and what view to present when starting up.
+			 */
+			BrowseRequestSingleton.getInstance().setViewToken(BrowseRequestSingleton.FAVOURITES_VIEW);
+			startActivity(intent);
+			return true;
+			
+		case R.id.switchToHome:
+			
+			Intent homeIntent = new Intent(this, MainScreenActivity.class);
+			startActivity(homeIntent);
+			return true;
+			
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	/**
