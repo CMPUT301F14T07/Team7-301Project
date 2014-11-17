@@ -54,7 +54,7 @@ public class ForumEntryController
 	 */
 	public void setView(ForumEntry forumEntry)
 	{
-		List<ForumEntry> fel = new ArrayList<ForumEntry>();
+		ArrayList<ForumEntry> fel = new ArrayList<ForumEntry>();
 		fel.add(forumEntry);
 		this.forumEntries.setView(fel);
 		this.forumEntries.notifyObservers();
@@ -145,7 +145,7 @@ public class ForumEntryController
 	 */
 	public void saveFavouritesCopy()
 	{
-		List<ForumEntry> fel = this.dataManager.getFavourites();
+		ArrayList<ForumEntry> fel = this.dataManager.getFavourites();
 		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
 		fel.add(focus);
@@ -163,7 +163,7 @@ public class ForumEntryController
 	 */
 	public void upVoteEntry(int index)
 	{
-		List<ForumEntry> fel = this.forumEntries.getView();
+		ArrayList<ForumEntry> fel = this.forumEntries.getView();
 		ForumEntry focus = fel.get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
 		if(index == 0)
@@ -205,7 +205,7 @@ public class ForumEntryController
 	 */
 	public void addReplyToEntry(int index, Reply reply)
 	{
-		List<ForumEntry> fel = this.forumEntries.getView();
+		ArrayList<ForumEntry> fel = this.forumEntries.getView();
 		ForumEntry focus = fel.get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
 		if(index == 0)
