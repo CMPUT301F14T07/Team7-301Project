@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 /**
  * This class is the view for the first screen that the user sees.
  * It is an observer to the authorModel
@@ -125,6 +126,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		super.onRestart();
 
 		/* Refresh the view, the authors name may have changed you know :) */
+		/* no... no... no.... They can only change their name on this screen! >:-|*/
 		this.authorController.refresh();
 	}
 
