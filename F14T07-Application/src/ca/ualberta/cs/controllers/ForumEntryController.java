@@ -119,7 +119,7 @@ public class ForumEntryController
 	 */
 	public void saveReadLaterCopy()
 	{
-		List<ForumEntry> fel = this.dataManager.getReadLater();
+		ArrayList<ForumEntry> fel = this.dataManager.getReadLater();
 		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
 		fel.add(focus);
