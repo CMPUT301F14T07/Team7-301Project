@@ -15,7 +15,7 @@ public class ForumEntryList extends Observable<Observer>
 {
 	public static final int FIRST_FORUM_ENTRY = 0;
 	
-	private ArrayList<ForumEntry> forumEntries;
+	private List<ForumEntry> forumEntries;
 
 	/**
 	 * Create a new ForumEntryList model.
@@ -35,7 +35,7 @@ public class ForumEntryList extends Observable<Observer>
 	 * 
 	 * @return The data in this model.
 	 */
-	public ArrayList<ForumEntry> getView()
+	public List<ForumEntry> getView()
 	{
 
 		return forumEntries;
@@ -47,7 +47,7 @@ public class ForumEntryList extends Observable<Observer>
 	 * @param list
 	 *            The array list of forum entries to set in this model.
 	 */
-	public void setView(ArrayList<ForumEntry> list)
+	public void setView(List<ForumEntry> list)
 	{
 		forumEntries = list;
 	}
