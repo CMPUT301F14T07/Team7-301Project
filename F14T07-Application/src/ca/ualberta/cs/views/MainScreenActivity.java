@@ -15,6 +15,7 @@ import ca.ualberta.cs.models.AuthorModel;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -120,6 +121,16 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				signOutButton();
 			}
 		});
+		/* Set location button on click listener*/
+		Button set_location_button = (Button) findViewById(R.id.setLocationButton);
+		set_location_button.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				setLocationButton();
+			}
+		});
 	}
 /**
  * Refreshes the view to reflect the author name
@@ -219,11 +230,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		alert.setTitle("Sign In");
 		alert.setMessage("What would you like your default name to be?");
 		final EditText input = new EditText(this);
-		/*final Spinner choices = new Spinner(this);
-		ArrayAdapter<CharSequence> choiceAdapter = ArrayAdapter.createFromResource(this, R.array.options, android.R.layout.simple_spinner_dropdown_item);
-		choices.setAdapter(choiceAdapter);
 		alert.setView(input);
-		alert.setView(choices);*/
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener()
 		{
 
@@ -299,6 +306,48 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		//alert2=alert.show(); //FOR TESTING !!! breaks activity
 		alert2 = alert.create();
 	}
+	public void setLocationButton()
+	{
+		final Button setLocationButton = (Button) findViewById(R.id.setLocationButton);
+
+		// adapted from
+		// http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog
+		AlertDialog.Builder alert = new AlertDialog.Builder(MainScreenActivity.this);
+		alert.setTitle("Set Location");
+		alert.setMessage("How would you like to set your location?");
+		final Spinner choices = new Spinner(this);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.options, android.R.layout.simple_spinner_dropdown_item);
+		choices.setAdapter(adapter);
+		alert.setView(choices);
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+		{
+
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				//Figure out what the user chose. If they chose to set their own location, pop up another dialog that lets them type a location
+			}
+		});
+		
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+		{
+
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				// nothing
+
+			}
+		});
+		alert.show();
+		//alert2=alert.show();//FOR TESTING !!! Breaks activity
+		//alert2 = alert.create();
+		//name=input;
+
+		// ^adopted from
+		// http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog
+
+	}
 	/**
 	 * opens the askActivity via an intent
 	 */
@@ -369,9 +418,6 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			signInButton.setVisibility(4);
 			signOutButton.setVisibility(0);
 		} else {
-			text.setVisibility(4);
-			signInButton.setVisibility(0);
-			signOutButton.setVisibility(4);
 		}
 	}
 }

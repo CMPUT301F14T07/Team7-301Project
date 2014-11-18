@@ -29,7 +29,16 @@
         android:layout_alignParentLeft="true"
         android:text="@string/sign_in"
         android:visibility="invisible" />
-
+    
+    <Button
+        android:id="@+id/setLocationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/setLocation"
+        android:textSize="15dip"  />
+    
     <EditText
         android:id="@+id/searchTerm"
         android:layout_width="wrap_content"
