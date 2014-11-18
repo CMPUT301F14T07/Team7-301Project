@@ -98,7 +98,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 				String newSubject = newSubjectEdit.getText().toString();
 				String newAuthor = newAuthorEdit.getText().toString();
 
-				if(newAuthor==""){
+				if(!isAlphaNumeric(newAuthor)){
 					newAuthor = "Anonymous";
 					
 				}
