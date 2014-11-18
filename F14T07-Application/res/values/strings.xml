@@ -26,5 +26,8 @@
     <string name="answer_indicator">Answer:</string>
     <string name="title_activity_favourite">FavouriteActivity</string>
     <string name="title_activity_answer_reply">AnswerReplyActivity</string>
-
+    <string-array name="options">
+        <item>GPS</item>
+        <item>Set Myself</item>
+    </string-array>
 </resources>

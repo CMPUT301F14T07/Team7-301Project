@@ -1,5 +1,7 @@
 package ca.ualberta.cs.views;
 
+import java.util.ArrayList;
+
 import ca.ualberta.cs.controllers.AuthorController;
 import ca.ualberta.cs.controllers.BrowseController;
 import ca.ualberta.cs.f14t07_application.R;
@@ -18,8 +20,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 /**
@@ -215,8 +219,11 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		alert.setTitle("Sign In");
 		alert.setMessage("What would you like your default name to be?");
 		final EditText input = new EditText(this);
+		/*final Spinner choices = new Spinner(this);
+		ArrayAdapter<CharSequence> choiceAdapter = ArrayAdapter.createFromResource(this, R.array.options, android.R.layout.simple_spinner_dropdown_item);
+		choices.setAdapter(choiceAdapter);
 		alert.setView(input);
-
+		alert.setView(choices);*/
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener()
 		{
 
