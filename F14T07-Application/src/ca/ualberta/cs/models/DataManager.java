@@ -207,7 +207,7 @@ public class DataManager
 	 * 
 	 * @return The List<ForumEntry> the user has authored.
 	 */
-	public List<ForumEntry> getMyAuthored()
+	public ArrayList<ForumEntry> getMyAuthored()
 	{
 		Context ctx = ContextSingleton.getInstance().getContext();
 		if (ctx == null)

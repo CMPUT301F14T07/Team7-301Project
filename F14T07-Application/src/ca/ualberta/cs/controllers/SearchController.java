@@ -53,10 +53,10 @@ public class SearchController
 	 * @param the term, and the field
 	 * @throws ClientProtocolException, IOException
 	 * */
-	public List<ForumEntry> searchForumEntries(String searchString, String field)
+	public ArrayList<ForumEntry> searchForumEntries(String searchString, String field)
 			throws ClientProtocolException, IOException
 	{
-		List<ForumEntry> result = new ArrayList<ForumEntry>();
+		ArrayList<ForumEntry> result = new ArrayList<ForumEntry>();
 		// TODO: Implement search movies using ElasticSearch
 		if ("".equals(searchString) || searchString == null)
 		{
