@@ -3,6 +3,8 @@ package ca.ualberta.cs.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.Picture;
+
 
 /**
  * Contains all the information of one forum post.
@@ -29,8 +31,19 @@ public class ForumEntry
 		question.setSubject(subject_);
 		subject = subject_;
 		answers = new ArrayList<Answer>();
+		question.setPicture(null);
+		
 	}
-	
+	public ForumEntry(String subject_, String question_, String author, Picture picture_)
+	{
+		super();
+		question = new Question(question_,author);
+		question.setSubject(subject_);
+		subject = subject_;
+		answers = new ArrayList<Answer>();
+		question.setPicture(picture_);
+		
+	}
 	/**
 	 * Create a new ForumEntry.
 	 * @param question The question being asked.

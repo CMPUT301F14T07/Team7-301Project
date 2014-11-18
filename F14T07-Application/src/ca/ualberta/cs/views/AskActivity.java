@@ -98,12 +98,18 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 				String newSubject = newSubjectEdit.getText().toString();
 				String newAuthor = newAuthorEdit.getText().toString();
 
+				if(newAuthor==""){
+					newAuthor = "Anonymous";
+					
+				}
+				
 				/* 
 				 * If the forumEntrySingleton is focusing on nothing (ie a null ForumEntry) then we are trying to create a
 				 * new question. Do that, then change the focus onto the newly created ForumEntry.
 				 */
 				if(forumEntryFocus.getForumEntry() == null)
 				{	
+					if(isAlphaNumeric(newSubject) && isAlphaNumeric(newEntry)){
 					/*
 					 * Create an instance of the new ForumEntry then set the ForumEntrySingletons focus on it.
 					 */
@@ -115,6 +121,14 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					 */
 					Thread thread = new AddQuestionThread(newForumEntry);
 					thread.start();
+					resetEditText(newEntryEdit, newSubjectEdit, newAuthorEdit);
+					startQuestionScreen();
+					}
+					else{
+						Toast.makeText(AskActivity.this,
+								"Invalid Question or Subject",
+								Toast.LENGTH_SHORT).show();
+					}
 				}
 				/*
 				 * The ForumEntrySingleton is focusing on a ForumEntry. This means we are trying to add an answer to the focused ForumEntry.
@@ -128,30 +142,23 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					 */
 					Thread thread = new AddAnswerThread(answer);
 					thread.start();
+					startQuestionScreen();
 				
 				}
 
+				resetEditText(newEntryEdit, newSubjectEdit, newAuthorEdit);
+
+
+			}
+
+			private void resetEditText(EditText newEntryEdit,
+					EditText newSubjectEdit, EditText newAuthorEdit) {
 				/*
 				 * Reset the EditText widgets to be blank for the next time the activity starts
 				 */
 				newEntryEdit.setText("");
 				newSubjectEdit.setText("");
 				newAuthorEdit.setText("");
-
-				/*
-				 * Start the question activity to view the new question or appended answer.
-				 */
-				intent = new Intent(AskActivity.this, QuestionActivity.class);
-				intent2 = intent;
-				
-				/*
-				 * This destroys the activity. Basically, this means after a user asks a question or answers one,
-				 * they cannot come back to this activity. The back button will not bring them here.
-				 */
-				finish();
-				
-				startActivity(intent);
-
 			}
 		});
 
@@ -169,6 +176,29 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 
 			}
 		});
+	}
+	public void startQuestionScreen(){
+		/*
+		 * Start the question activity to view the new question or appended answer.
+		 */
+		intent = new Intent(AskActivity.this, QuestionActivity.class);
+		intent2 = intent;
+		
+		/*
+		 * This destroys the activity. Basically, this means after a user asks a question or answers one,
+		 * they cannot come back to this activity. The back button will not bring them here.
+		 */
+		finish();
+		
+		startActivity(intent);
+	}
+	public Boolean isAlphaNumeric(String s){
+		String checkS = s;
+		
+	    if(checkS.trim().length() == 0){
+	    	return false;
+	    }
+	    return true;
 	}
 
 	@Override
