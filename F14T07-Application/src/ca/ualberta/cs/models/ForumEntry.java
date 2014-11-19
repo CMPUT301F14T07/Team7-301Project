@@ -13,7 +13,7 @@ import android.graphics.Picture;
 public class ForumEntry
 {
 	private Question question;
-	private List<Answer> answers;
+	private ArrayList<Answer> answers;
 	private String subject;
 	private int entryFlag;
 	private String id;
@@ -66,7 +66,7 @@ public class ForumEntry
 	 * Set the answers of this ForumEntry.
 	 * @param answers The answers.
 	 */
-	public void setAnswer(List<Answer> answers)
+	public void setAnswer(ArrayList<Answer> answers)
 	{
 		this.answers = answers;
 	}
@@ -75,7 +75,7 @@ public class ForumEntry
 	 * Get all the answers in this ForumEntry.
 	 * @return ArrayList<Answer>
 	 */
-	public List<Answer> getAnswers(){
+	public ArrayList<Answer> getAnswers(){
 		return answers;
 	}
 	

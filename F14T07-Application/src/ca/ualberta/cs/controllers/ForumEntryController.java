@@ -100,13 +100,13 @@ public class ForumEntryController
 		/*
 		 * Get the ForumEntry that the answer is being added to.
 		 */
-		List<ForumEntry> fel = this.forumEntries.getView();
+		ArrayList<ForumEntry> fel = this.forumEntries.getView();
 		ForumEntry forumEntry = fel.get(ForumEntryList.FIRST_FORUM_ENTRY);
 
 		/*
 		 * Add the answer to the ForumEntry.
 		 */
-		List<Answer> allAnswers = forumEntry.getAnswers();
+		ArrayList<Answer> allAnswers = forumEntry.getAnswers();
 		allAnswers.add(answer);
 		forumEntry.setAnswer(allAnswers);
 		dm.updateForumEntry(forumEntry);
