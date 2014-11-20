@@ -3,6 +3,7 @@ package ca.ualberta.cs.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.Bitmap;
 import android.graphics.Picture;
 
 
@@ -34,7 +35,7 @@ public class ForumEntry
 		question.setPicture(null);
 		
 	}
-	public ForumEntry(String subject_, String question_, String author, Picture picture_)
+	public ForumEntry(String subject_, String question_, String author, Bitmap picture_)
 	{
 		super();
 		question = new Question(question_,author);

@@ -74,7 +74,7 @@ public class ForumEntryController
 	}
 
 	/**
-	 * Addds the ForumEntry to the remote server, my authored, and read later
+	 * Adds the ForumEntry to the remote server, my authored, and read later
 	 * save locations
 	 * 
 	 * @param forumEntry
@@ -122,9 +122,9 @@ public class ForumEntryController
 		ArrayList<ForumEntry> fel = this.dataManager.getReadLater();
 		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
-		fel.add(focus);
+	//	fel.add(focus);
 		
-		this.dataManager.setReadLater(fel);
+	//	this.dataManager.setReadLater(fel);
 	}
 	
 	/**

@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +48,7 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	private ArrayAdapter<Entry> answerListAdapter;
 	private List<Entry> answerList;
 	private ListView answerListView;
-	
+	private ImageView showPicture;
 	
 	/**
 	 * Called when this activity is first created. Instantiate class variables here and
@@ -66,6 +67,8 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		this.answerListAdapter = new ArrayAdapter<Entry>(QuestionActivity.this, R.layout.list_item, this.answerList);
 		this.answerListView = (ListView) findViewById(R.id.QuestionAnswerList);
 		this.answerListView.setAdapter(this.answerListAdapter);
+		showPicture = (ImageView)findViewById(R.id.picture);
+        
 		
 		/*
 		 * On click listener for when the save button is pushed.
@@ -108,6 +111,8 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 */
 		ForumEntrySingleton fes = ForumEntrySingleton.getInstance();
 		this.forumEntryController.setView(fes.getForumEntry());
+		
+		//this line breaks adding pictures don't know why please fix
 		this.forumEntryController.saveReadLaterCopy();
 	}
 
@@ -222,6 +227,9 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		this.answerList.addAll(focus.getAnswers());
 		this.answerListAdapter.notifyDataSetChanged();
 		
+		if(focus.getQuestion().getPicture()!=null){
+		showPicture.setImageBitmap(focus.getQuestion().getPicture());
+		}
 		/*
 		 * Set the questions subject in the view.
 		 */

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.graphics.Bitmap;
 import android.graphics.Picture;
 
 /**
@@ -17,7 +18,7 @@ public class Entry
 	private String posterName;
 	private List<Reply> replies;
 	private Date date;
-	private Picture picture = null;
+	private Bitmap picture = null;
 
 	/**
 	 * Creates a new Entry.
@@ -146,7 +147,7 @@ public class Entry
 	 * @param pic
 	 *            The picture.
 	 */
-	public void setPicture(Picture pic)
+	public void setPicture(Bitmap pic)
 	{
 		picture = pic;
 	}
@@ -156,7 +157,7 @@ public class Entry
 	 * 
 	 * @return Picture
 	 */
-	public Picture getPicture()
+	public Bitmap getPicture()
 	{
 		return picture;
 	}

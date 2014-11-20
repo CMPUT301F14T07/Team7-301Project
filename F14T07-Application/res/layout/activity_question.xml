@@ -29,17 +29,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/QuestionText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/QuestionSubject"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/QuestionSaveButton"
-        android:paddingLeft="30dp"
-        android:text="Question Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:id="@+id/AnswerListIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,17 +48,6 @@
         android:layout_below="@+id/AnswerListIndicator"
         android:paddingLeft="30dp" >
     </ListView>
-
-    <ListView
-        android:id="@+id/QuestionReplyList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/QuestionText"
-        android:layout_below="@+id/QuestionText"
-       
-        android:layout_marginRight="20dp" >
-
-    </ListView>
 	
 	    <Button
          android:id="@+id/QuestionSaveButton"
@@ -79,7 +57,32 @@
         android:layout_alignParentTop="true"
         android:text="+Save" />
 
-	    
-	    
+	    <ImageView
+	        android:id="@+id/picture"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/QuestionText"
+	        android:layout_alignLeft="@+id/QuestionSubject"
+	        android:layout_alignTop="@+id/QuestionText"
+	        />
+
+	    <ListView
+	        android:id="@+id/QuestionReplyList"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/QuestionText"
+	        android:layout_toLeftOf="@+id/QuestionSaveButton" >
+	    </ListView>
+
+	    <TextView
+	        android:id="@+id/QuestionText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/QuestionSubject"
+	        android:layout_marginLeft="22dp"
+	        android:layout_toRightOf="@+id/imageView1"
+	        android:paddingLeft="30dp"
+	        android:text="Question Text"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

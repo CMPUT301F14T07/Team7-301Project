@@ -1,14 +1,30 @@
 package ca.ualberta.cs.views;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import ca.ualberta.cs.controllers.BrowseController;
@@ -54,6 +70,9 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	private static final String TEXT_HINT_QUESTION = "Your Question";
 	private static final String TITLE_ANSWER = "Answer a Question";
 	private static final String TITLE_QUESTION = "Ask a Question";
+	private Uri pictureFile;
+	public static final int RESULT_GALLERY = 0;
+	private Bitmap bitmap = null;
 
 	/**
 	 * lays out the screen and creates onClickListeners
@@ -113,7 +132,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					/*
 					 * Create an instance of the new ForumEntry then set the ForumEntrySingletons focus on it.
 					 */
-					ForumEntry newForumEntry = new ForumEntry(newSubject, newEntry, newAuthor);
+					ForumEntry newForumEntry = new ForumEntry(newSubject, newEntry, newAuthor,bitmap);
 					forumEntryFocus.setForumEntry(newForumEntry);
 					/*
 					 * Invoke the AddThread to add this new ForumEntry to the remote server by
@@ -169,10 +188,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 			@Override
 			public void onClick(View v)
 			{
-				// in here we need to put file attachment shit
-				Toast.makeText(AskActivity.this,
-						"Picture Attachment still needs to be added",
-						Toast.LENGTH_SHORT).show();
+				getPicture();
 
 			}
 		});
@@ -245,7 +261,75 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 			titleText.setText(AskActivity.TITLE_QUESTION);
 		}
 	}
+	
+	//http://stackoverflow.com/questions/16928727/open-gallery-app-from-android-intent
+	public void getPicture(){
 
+		Intent galleryIntent = new Intent(
+		                    Intent.ACTION_PICK,
+		                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		startActivityForResult(galleryIntent , RESULT_GALLERY );
+		
+	}
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    super.onActivityResult(requestCode, resultCode, data);
+
+	   if(requestCode == RESULT_GALLERY){
+	        if (null != data) {
+	            pictureFile = data.getData();
+	            decodeUri();
+	        }
+	    }
+	}
+	
+	//http://stackoverflow.com/questions/21195899/bitmapfactory-unable-to-decode-stream
+	public void decodeUri(){
+		  ParcelFileDescriptor parcelFD = null;
+		    try {
+		        parcelFD = getContentResolver().openFileDescriptor(pictureFile, "r");
+		        FileDescriptor imageSource = parcelFD.getFileDescriptor();
+
+		        // Decode image size
+		        BitmapFactory.Options o = new BitmapFactory.Options();
+		        o.inJustDecodeBounds = true;
+		        BitmapFactory.decodeFileDescriptor(imageSource, null, o);
+
+		        // the new size we want to scale to
+		        final int REQUIRED_SIZE = 1024;
+
+		        // Find the correct scale value. It should be the power of 2.
+		        int width_tmp = o.outWidth, height_tmp = o.outHeight;
+		        int scale = 1;
+		        while (true) {
+		            if (width_tmp < REQUIRED_SIZE && height_tmp < REQUIRED_SIZE) {
+		                break;
+		            }
+		            width_tmp /= 2;
+		            height_tmp /= 2;
+		            scale *= 2;
+		        }
+
+		        // decode with inSampleSize
+		        BitmapFactory.Options o2 = new BitmapFactory.Options();
+		        o2.inSampleSize = scale;
+		        bitmap = BitmapFactory.decodeFileDescriptor(imageSource, null, o2);
+		        ImageView showPicture = (ImageView)findViewById(R.id.picture);
+		        showPicture.setImageBitmap(bitmap);
+
+		    } catch (FileNotFoundException e) {
+		        // handle errors
+		    } catch (IOException e) {
+		        // handle errors
+		    } finally {
+		        if (parcelFD != null)
+		            try {
+		                parcelFD.close();
+		            } catch (IOException e) {
+		                // ignored
+		            }
+		    }
+	}
 	class AddQuestionThread extends Thread
 	{
 		private ForumEntry forumEntry;
@@ -262,7 +346,6 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 			feController.saveMyAuthoredCopy();
 		}
 	}
-	
 	class AddAnswerThread extends Thread
 	{
 		private Answer answer;
