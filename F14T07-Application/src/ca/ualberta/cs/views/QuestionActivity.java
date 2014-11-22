@@ -14,6 +14,9 @@ import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
 import ca.ualberta.cs.views.BrowseActivity.SearchThread;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -112,8 +115,7 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		ForumEntrySingleton fes = ForumEntrySingleton.getInstance();
 		this.forumEntryController.setView(fes.getForumEntry());
 		
-		//this line breaks adding pictures don't know why please fix
-		this.forumEntryController.saveReadLaterCopy();
+
 	}
 
 	/**
@@ -182,8 +184,33 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		}
 	}
 
+
+	public Dialog onCreateDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setMessage("Select a save method");
+	    builder.setCancelable(true);
+		builder.setPositiveButton(R.string.savefave, new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	        	   forumEntryController.saveFavouritesCopy();
+	           }
+	       });
+		builder.setNegativeButton(R.string.savereadlater, new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	               forumEntryController.saveReadLaterCopy();
+	           }
+		});
+
+		// Create the AlertDialog
+		AlertDialog dialog = builder.create();
+		dialog.show();
+		return dialog;
+	}
+	
+	
+	
+	
 	/**
-	 * This function will add the ForumEntry being view to a favourites cache.
+	 * This function will add the ForumEntry being viewed to a favourites cache.
 	 */
 	private void saveButton()
 	{
@@ -191,7 +218,8 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 * TODO: prompts user if they want to save as favourite, or other thing and uses controller
 		 * to do so.
 		 */
-		Toast.makeText(this, "Save not implemented", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, "Save not implemented", Toast.LENGTH_SHORT).show();
+		onCreateDialog();
 	}
 	
 	/**
@@ -240,8 +268,7 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 * Set the questions main body of text in the view.
 		 */
 		TextView questionText = (TextView) findViewById(R.id.QuestionText);
-		questionText.setText(focus.getQuestion().getPost());
-		
-	
+		questionText.setText(focus.getQuestion().getPost());	
 	}
+
 }
