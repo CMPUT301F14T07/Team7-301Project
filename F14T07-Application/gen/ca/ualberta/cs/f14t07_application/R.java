@@ -131,6 +131,8 @@ public final class R {
         public static final int logo=0x7f05000b;
         public static final int reply_indicator=0x7f050014;
         public static final int save=0x7f050007;
+        public static final int savefave=0x7f050019;
+        public static final int savereadlater=0x7f05001a;
         public static final int search=0x7f050006;
         public static final int sign_in=0x7f050009;
         public static final int sign_out=0x7f05000a;

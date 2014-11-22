@@ -276,18 +276,6 @@ public class DataManager
 	}
 
 	
-
-	/**
-	 * Deprecated. Do not use.
-	 * 
-	 * @param forumEntry
-	 * @param s
-	 */
-	public void addReplyToEntry(ForumEntry forumEntry, String s)
-	{
-
-	}
-
 	/**
 	 * 
 	 * gets a forum entry for tests
@@ -315,71 +303,5 @@ public class DataManager
 
 	}
 
-	/**
-	 * Deprecated. Do not use.
-	 * 
-	 * saves the forum entry list
-	 * 
-	 * @param forumEntryList
-	 */
-	public void saveLocally(ForumEntryList fel)
-	{
-		try
-		{
-			FileOutputStream fos = ctx.openFileOutput("read_later.sav",
-					Context.MODE_PRIVATE);
-			String json = gson.toJson(fel);
-			fos.write(json.getBytes());
-			fos.close();
 
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Deprecated. Do not use.
-	 * 
-	 * loads locally saved list
-	 * 
-	 * @return the locally saved forum entry list
-	 */
-	public ForumEntryList loadLocallySaved()
-	{
-		ForumEntryList fe = new ForumEntryList();
-
-		try
-		{
-			BufferedReader fis = new BufferedReader(new InputStreamReader(
-					ctx.openFileInput("read_later.sav")));
-			String line;
-			StringBuffer fileContent = new StringBuffer();
-
-			while ((line = fis.readLine()) != null)
-			{
-				fileContent.append(line);
-			}
-
-			Type collectionType = new TypeToken<Collection<ForumEntry>>()
-			{
-			}.getType();
-
-			fe = gson.fromJson(fileContent.toString(), collectionType);
-
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		return fe;
-	}
-
-	/**
-	 * Deprecated. Do not use.
-	 */
-	public void deleteLocalAll()
-	{
-		// TODO Auto-generated method stub
-
-	}
 }
