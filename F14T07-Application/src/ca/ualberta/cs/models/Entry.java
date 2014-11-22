@@ -18,7 +18,7 @@ public class Entry
 	private String posterName;
 	private List<Reply> replies;
 	private Date date;
-	private Bitmap picture = null;
+	private byte[] picture = null;
 
 	/**
 	 * Creates a new Entry.
@@ -144,12 +144,12 @@ public class Entry
 	 * Set the picture attached to this Entry. No, it cannot have two picture.
 	 * Don't be stupid.
 	 * 
-	 * @param pic
+	 * @param image
 	 *            The picture.
 	 */
-	public void setPicture(Bitmap pic)
+	public void setPicture(byte[] image)
 	{
-		picture = pic;
+		picture = image;
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class Entry
 	 * 
 	 * @return Picture
 	 */
-	public Bitmap getPicture()
+	public byte[] getPicture()
 	{
 		return picture;
 	}

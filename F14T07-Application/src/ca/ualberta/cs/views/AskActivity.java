@@ -1,12 +1,15 @@
 package ca.ualberta.cs.views;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -73,6 +76,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	private Uri pictureFile;
 	public static final int RESULT_GALLERY = 0;
 	private Bitmap bitmap = null;
+	private byte[] image;
 
 	/**
 	 * lays out the screen and creates onClickListeners
@@ -132,7 +136,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					/*
 					 * Create an instance of the new ForumEntry then set the ForumEntrySingletons focus on it.
 					 */
-					ForumEntry newForumEntry = new ForumEntry(newSubject, newEntry, newAuthor,bitmap);
+					ForumEntry newForumEntry = new ForumEntry(newSubject, newEntry, newAuthor, image);
 					forumEntryFocus.setForumEntry(newForumEntry);
 					/*
 					 * Invoke the AddThread to add this new ForumEntry to the remote server by
@@ -285,50 +289,19 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	
 	//http://stackoverflow.com/questions/21195899/bitmapfactory-unable-to-decode-stream
 	public void decodeUri(){
-		  ParcelFileDescriptor parcelFD = null;
-		    try {
-		        parcelFD = getContentResolver().openFileDescriptor(pictureFile, "r");
-		        FileDescriptor imageSource = parcelFD.getFileDescriptor();
-
-		        // Decode image size
-		        BitmapFactory.Options o = new BitmapFactory.Options();
-		        o.inJustDecodeBounds = true;
-		        BitmapFactory.decodeFileDescriptor(imageSource, null, o);
-
-		        // the new size we want to scale to
-		        final int REQUIRED_SIZE = 1024;
-
-		        // Find the correct scale value. It should be the power of 2.
-		        int width_tmp = o.outWidth, height_tmp = o.outHeight;
-		        int scale = 1;
-		        while (true) {
-		            if (width_tmp < REQUIRED_SIZE && height_tmp < REQUIRED_SIZE) {
-		                break;
-		            }
-		            width_tmp /= 2;
-		            height_tmp /= 2;
-		            scale *= 2;
-		        }
-
-		        // decode with inSampleSize
-		        BitmapFactory.Options o2 = new BitmapFactory.Options();
-		        o2.inSampleSize = scale;
-		        bitmap = BitmapFactory.decodeFileDescriptor(imageSource, null, o2);
-		        ImageView showPicture = (ImageView)findViewById(R.id.picture);
-		        showPicture.setImageBitmap(bitmap);
-
-		    } catch (FileNotFoundException e) {
-		        // handle errors
-		    } catch (IOException e) {
-		        // handle errors
-		    } finally {
-		        if (parcelFD != null)
-		            try {
-		                parcelFD.close();
-		            } catch (IOException e) {
-		                // ignored
-		            }
-		    }
+	        byte[] data = null;
+	        try {
+	            ContentResolver cr = getBaseContext().getContentResolver();
+	            InputStream inputStream = getContentResolver().openInputStream(pictureFile);
+	            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+	            ByteArrayOutputStream out = new ByteArrayOutputStream();
+	            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+	        
+	            data = out.toByteArray();
+	        } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	        }
+	        image= data;
 	}
 	class AddQuestionThread extends Thread
 	{

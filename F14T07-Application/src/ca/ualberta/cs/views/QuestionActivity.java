@@ -226,10 +226,10 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		this.answerList.clear();
 		this.answerList.addAll(focus.getAnswers());
 		this.answerListAdapter.notifyDataSetChanged();
-		
+		/*
 		if(focus.getQuestion().getPicture()!=null){
 		showPicture.setImageBitmap(focus.getQuestion().getPicture());
-		}
+		}*/
 		/*
 		 * Set the questions subject in the view.
 		 */

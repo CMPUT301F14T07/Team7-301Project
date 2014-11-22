@@ -35,14 +35,14 @@ public class ForumEntry
 		question.setPicture(null);
 		
 	}
-	public ForumEntry(String subject_, String question_, String author, Bitmap picture_)
+	public ForumEntry(String subject_, String question_, String author, byte[] image)
 	{
 		super();
 		question = new Question(question_,author);
 		question.setSubject(subject_);
 		subject = subject_;
 		answers = new ArrayList<Answer>();
-		question.setPicture(picture_);
+		question.setPicture(image);
 		
 	}
 	/**
