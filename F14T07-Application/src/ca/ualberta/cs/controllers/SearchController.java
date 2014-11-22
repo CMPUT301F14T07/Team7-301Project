@@ -30,7 +30,7 @@ import com.google.gson.reflect.TypeToken;
  */
 public class SearchController
 {
-	private List<ForumEntry> searchResult;
+	private ArrayList<ForumEntry> searchResult;
 	private HttpClient httpclient = new DefaultHttpClient();
 	private Gson gson;
 	

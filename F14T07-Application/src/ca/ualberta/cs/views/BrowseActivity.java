@@ -40,7 +40,7 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	 */
 	private ArrayAdapter<ForumEntry> browseListAdapter;
 	private ListView browseListView;
-	public List<ForumEntry> forumEntries;
+	public ArrayList<ForumEntry> forumEntries;
 	private BrowseController browseController;
 	private EditText term;
 	private BrowseRequestSingleton brs;

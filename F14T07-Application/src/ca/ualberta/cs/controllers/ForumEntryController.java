@@ -122,9 +122,9 @@ public class ForumEntryController
 		ArrayList<ForumEntry> fel = this.dataManager.getReadLater();
 		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
-	//	fel.add(focus);
+		fel.add(focus);
 		
-	//	this.dataManager.setReadLater(fel);
+		this.dataManager.setReadLater(fel);
 	}
 	
 	/**
@@ -132,7 +132,7 @@ public class ForumEntryController
 	 */
 	public void saveMyAuthoredCopy()
 	{
-		List<ForumEntry> fel = this.dataManager.getMyAuthored();
+		ArrayList<ForumEntry> fel = this.dataManager.getMyAuthored();
 		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
 		fel.add(focus);
@@ -174,7 +174,7 @@ public class ForumEntryController
 		}
 		else if(index > 0)
 		{
-			List<Answer> aws = focus.getAnswers();
+			ArrayList<Answer> aws = focus.getAnswers();
 			if(aws.size() >= index)
 			{
 				int upVote = aws.get(index-1).getUpVote();

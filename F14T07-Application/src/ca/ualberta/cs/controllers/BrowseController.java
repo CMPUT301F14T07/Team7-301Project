@@ -29,7 +29,7 @@ public class BrowseController {
 	/*
 	 * TODO: All sorting functions need to implement their sort algorithm.
 	 */
-	private List<ForumEntry> forumEntries;
+	private ArrayList<ForumEntry> forumEntries;
 	private SearchController searchController;
 	private DataManager dataManager;
 	
@@ -269,7 +269,7 @@ public class BrowseController {
 	 * Deprecated. Do not use.
 	 * @return
 	 */
-	public List<ForumEntry> getAllEntries(String searchTerm){
+	public ArrayList<ForumEntry> getAllEntries(String searchTerm){
 		try {
 			forumEntries.addAll(searchController.searchForumEntries(searchTerm,null));
 		} catch (ClientProtocolException e) {
