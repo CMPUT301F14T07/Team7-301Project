@@ -9,12 +9,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +29,7 @@ import ca.ualberta.cs.controllers.BrowseController;
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
 import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
+import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
 
@@ -45,6 +50,7 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	private EditText term;
 	private BrowseRequestSingleton brs;
 	private String searchTerm;
+	private DataManager dm;
 
 	private Runnable doUpdateGUIList = new Runnable()
 	{
@@ -65,7 +71,7 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		setContentView(R.layout.browse_activity_screen);
 
 		forumEntries = new ArrayList<ForumEntry>();
-		
+		dm = new DataManager();
 		browseController = new BrowseController(this);
 		
 		browseListAdapter = new ArrayAdapter<ForumEntry>(BrowseActivity.this, R.layout.list_item, forumEntries);
@@ -135,9 +141,9 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	public void onStart()
 	{
 		super.onStart();
-		
+		registerForContextMenu(browseListView);
 		brs = BrowseRequestSingleton.getInstance();
-
+		
 		/*
 		 * Set the text displayed for the "viewing" type to be the view token in the BrowseRequestSingleton
 		 */
@@ -235,14 +241,6 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 			brs.setViewToken(BrowseRequestSingleton.FAVOURITES_VIEW);
 			viewType.setText(brs.getViewToken());
 			term.setVisibility(EditText.INVISIBLE);
-			return true;
-		case R.id.switchToOnline:
-			brs.setViewToken(BrowseRequestSingleton.ON_LINE_VIEW);
-			SearchThread thread = new SearchThread(brs.getSearchToken());
-			thread.start();
-			viewType.setText(brs.getViewToken());
-			term.setVisibility(EditText.VISIBLE);
-			term.setText(brs.getSearchToken());
 			return true;	
 		case R.id.help:
 			if(brs.getViewToken().equals(BrowseRequestSingleton.ON_LINE_VIEW))
@@ -352,6 +350,38 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		alert.show(); 
 		
 	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		
+		MenuInflater inflater = getMenuInflater();
+		if (v.getId() == (R.id.favouriteListView) || v.getId() == (R.id.readLaterListView)) {
+			inflater.inflate(R.menu.unsave, menu);
+		}
+		
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		if (item.getItemId() == (R.id.unSaveEntry)) {
+			unSave(info);
+			return true;
+		}
+		return super.onContextItemSelected(item);
+	}
+	
+	public void unSave(AdapterContextMenuInfo id){
+		ForumEntry focus = browseListAdapter.getItem(id.position);
+		if (brs.getViewToken().equals("Favourites")) {
+			dm.unSave(focus, "F");
+		} else {
+			dm.unSave(focus, "R");
+		}
+	}
+	
+	
 	/**
 	 * Starts the QuestionActivity.
 	 */

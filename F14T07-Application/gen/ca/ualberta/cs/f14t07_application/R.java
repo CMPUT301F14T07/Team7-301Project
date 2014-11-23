@@ -44,7 +44,7 @@ public final class R {
         public static final int QuestionSubject=0x7f090002;
         public static final int QuestionText=0x7f090008;
         public static final int ReplyAnswerIndicator=0x7f090006;
-        public static final int action_settings=0x7f090037;
+        public static final int action_settings=0x7f090036;
         public static final int answerReplyButton=0x7f09000a;
         public static final int answerReplyText=0x7f09000b;
         public static final int askButton=0x7f09000c;
@@ -63,16 +63,16 @@ public final class R {
         public static final int imageView1=0x7f090009;
         public static final int invisButton=0x7f09001d;
         public static final int logo=0x7f090022;
-        public static final int myQuestionsDeleteCM=0x7f090039;
-        public static final int myQuestionsEditCM=0x7f090038;
+        public static final int myQuestionsDeleteCM=0x7f090038;
+        public static final int myQuestionsEditCM=0x7f090037;
         public static final int myQuestionsListView=0x7f090025;
         public static final int myQuestionsTitle=0x7f090024;
         public static final int name=0x7f090011;
         public static final int okButton=0x7f09001a;
         public static final int picture=0x7f090007;
         public static final int question=0x7f09000f;
-        public static final int readLaterCancel=0x7f09003b;
-        public static final int readLaterDelete=0x7f09003a;
+        public static final int readLaterCancel=0x7f09003a;
+        public static final int readLaterDelete=0x7f090039;
         public static final int readLaterListView=0x7f090027;
         public static final int readLaterTitle=0x7f090026;
         public static final int searchButton=0x7f090021;
@@ -92,9 +92,9 @@ public final class R {
         public static final int switchToHome=0x7f090034;
         public static final int switchToHomeScreen=0x7f09002f;
         public static final int switchToMyQuestions=0x7f090030;
-        public static final int switchToOnline=0x7f090036;
         public static final int switchToReadLater=0x7f090035;
         public static final int switchToReadLaters=0x7f090031;
+        public static final int unSaveEntry=0x7f09003b;
         public static final int username=0x7f09002d;
     }
     public static final class layout {
@@ -125,6 +125,7 @@ public final class R {
         public static final int read_later=0x7f080009;
         public static final int readlatercontextmenu=0x7f08000a;
         public static final int search=0x7f08000b;
+        public static final int unsave=0x7f08000c;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;

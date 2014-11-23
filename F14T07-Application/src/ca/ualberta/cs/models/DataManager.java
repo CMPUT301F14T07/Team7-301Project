@@ -166,6 +166,21 @@ public class DataManager
 		RESOURCE_URL=ORIGINAL_RESOURCE_URL;
 	}
 
+	
+	public void unSave(ForumEntry focus, String string) {
+		ArrayList<ForumEntry> fel;
+		if (string.equals("F")) {
+			fel = this.getFavourites();
+			fel.remove(focus);
+			this.setFavourites(fel);
+		} else {
+			fel = this.getReadLater();
+			fel.remove(focus);
+			this.setReadLater(fel);
+		}
+		
+	}
+	
 	/**
 	 * Save the List<ForumEntry> as read later forum entries.
 	 * 
@@ -339,6 +354,5 @@ public class DataManager
 		// TODO Auto-generated method stub
 
 	}
-
 
 }

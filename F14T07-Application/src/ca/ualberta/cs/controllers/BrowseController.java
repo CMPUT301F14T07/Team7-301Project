@@ -251,58 +251,6 @@ public class BrowseController {
 	}
 	
 	
-	
-	/**
-	 * Deprecated. Do not use.
-	 */
-	public void refresh(){}
-		
-	/**
-	 * Deprecated. Do not use.
-	 * @param author
-	 */
-	public void setSessionAuthor(String author) {
-		//MainScreenModel msm = new MainScreenModel();
-		//msm.setSessionAuthor(author);
-	}
-	/**
-	 * Deprecated. Do not use.
-	 * @return
-	 */
-	public ArrayList<ForumEntry> getAllEntries(String searchTerm){
-		try {
-			forumEntries.addAll(searchController.searchForumEntries(searchTerm,null));
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return forumEntries;
-		
-	}
-	/**
-	 * Deprecated. Do not use.
-	 * @param forumEntryList
-	 */
-//	public void sortByTime(ArrayList<ForumEntry> forumEntryList){}
-	
-	/**
-	 * Deprecated. Do not use.
-	 * @param forumEntryList
-	 */
-	//public void sortByHasPicture(ArrayList<ForumEntry> forumEntryList){}
-	
-	/**
-	 * Deprecated. Do not use.
-	 * @param forumEntryList
-	 */
-	//public void sortByRating(ArrayList<ForumEntry> forumEntryList){}
-	
-	/**
-	 * Deprecated. Do not use.
-	 * @param forumEntryList
-	 */
-	public void sortBySearchTerm(ArrayList<ForumEntry> forumEntryList){}
+
+
 }
