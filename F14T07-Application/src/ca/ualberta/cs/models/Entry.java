@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.graphics.Bitmap;
 import android.graphics.Picture;
 
 /**
@@ -17,7 +18,7 @@ public class Entry
 	private String posterName;
 	private List<Reply> replies;
 	private Date date;
-	private Picture picture = null;
+	private byte[] picture = null;
 
 	/**
 	 * Creates a new Entry.
@@ -143,12 +144,12 @@ public class Entry
 	 * Set the picture attached to this Entry. No, it cannot have two picture.
 	 * Don't be stupid.
 	 * 
-	 * @param pic
+	 * @param image
 	 *            The picture.
 	 */
-	public void setPicture(Picture pic)
+	public void setPicture(byte[] image)
 	{
-		picture = pic;
+		picture = image;
 	}
 
 	/**
@@ -156,7 +157,7 @@ public class Entry
 	 * 
 	 * @return Picture
 	 */
-	public Picture getPicture()
+	public byte[] getPicture()
 	{
 		return picture;
 	}

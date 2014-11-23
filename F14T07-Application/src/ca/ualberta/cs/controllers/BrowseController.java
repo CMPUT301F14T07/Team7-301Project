@@ -29,7 +29,7 @@ public class BrowseController {
 	/*
 	 * TODO: All sorting functions need to implement their sort algorithm.
 	 */
-	private List<ForumEntry> forumEntries;
+	private ArrayList<ForumEntry> forumEntries;
 	private SearchController searchController;
 	private DataManager dataManager;
 	
@@ -65,7 +65,7 @@ public class BrowseController {
 	 */
 	public void sortByTime()
 	{
-		List<ForumEntry> results = null;
+		ArrayList<ForumEntry> results = null;
 		
 		try
 		{
@@ -110,7 +110,7 @@ public class BrowseController {
 	 * and calls the models notifyObservers function.
 	 */
 	public void sortByRating(){
-		List<ForumEntry> results = null;
+		ArrayList<ForumEntry> results = null;
 		
 		try
 		{
@@ -142,7 +142,7 @@ public class BrowseController {
 	 * and calls the models notifyObservers function.
 	 */
 	public void sortByHasPicture(){
-		List<ForumEntry> results = null;
+		ArrayList<ForumEntry> results = null;
 		
 		try
 		{
@@ -188,7 +188,7 @@ public class BrowseController {
 	 */
 	public void searchAndSet(String searchTerm)
 	{
-		List<ForumEntry> results = null;
+		ArrayList<ForumEntry> results = null;
 		
 		try
 		{
@@ -223,7 +223,7 @@ public class BrowseController {
 	 */
 	public void useReadLaterView()
 	{
-		List<ForumEntry> fel = this.dataManager.getReadLater();
+		ArrayList<ForumEntry> fel = this.dataManager.getReadLater();
 		this.readLaterModel.setView(fel);
 		this.readLaterModel.notifyObservers();
 	}
@@ -234,7 +234,7 @@ public class BrowseController {
 	 */
 	public void useFavouritesView()
 	{
-		List<ForumEntry> fel = this.dataManager.getFavourites();
+		ArrayList<ForumEntry> fel = this.dataManager.getFavourites();
 		this.favouritesModel.setView(fel);
 		this.favouritesModel.notifyObservers();
 	}
@@ -245,7 +245,7 @@ public class BrowseController {
 	 */
 	public void useMyAuthoredView()
 	{
-		List<ForumEntry> fel = this.dataManager.getMyAuthored();
+		ArrayList<ForumEntry> fel = this.dataManager.getMyAuthored();
 		this.myAuthoredModel.setView(fel);
 		this.myAuthoredModel.notifyObservers();
 	}
@@ -269,7 +269,7 @@ public class BrowseController {
 	 * Deprecated. Do not use.
 	 * @return
 	 */
-	public List<ForumEntry> getAllEntries(String searchTerm){
+	public ArrayList<ForumEntry> getAllEntries(String searchTerm){
 		try {
 			forumEntries.addAll(searchController.searchForumEntries(searchTerm,null));
 		} catch (ClientProtocolException e) {

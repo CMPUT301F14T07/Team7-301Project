@@ -74,7 +74,7 @@ public class ForumEntryController
 	}
 
 	/**
-	 * Addds the ForumEntry to the remote server, my authored, and read later
+	 * Adds the ForumEntry to the remote server, my authored, and read later
 	 * save locations
 	 * 
 	 * @param forumEntry
@@ -100,13 +100,13 @@ public class ForumEntryController
 		/*
 		 * Get the ForumEntry that the answer is being added to.
 		 */
-		List<ForumEntry> fel = this.forumEntries.getView();
+		ArrayList<ForumEntry> fel = this.forumEntries.getView();
 		ForumEntry forumEntry = fel.get(ForumEntryList.FIRST_FORUM_ENTRY);
 
 		/*
 		 * Add the answer to the ForumEntry.
 		 */
-		List<Answer> allAnswers = forumEntry.getAnswers();
+		ArrayList<Answer> allAnswers = forumEntry.getAnswers();
 		allAnswers.add(answer);
 		forumEntry.setAnswer(allAnswers);
 		dm.updateForumEntry(forumEntry);
@@ -132,7 +132,7 @@ public class ForumEntryController
 	 */
 	public void saveMyAuthoredCopy()
 	{
-		List<ForumEntry> fel = this.dataManager.getMyAuthored();
+		ArrayList<ForumEntry> fel = this.dataManager.getMyAuthored();
 		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
 		fel.add(focus);
@@ -174,7 +174,7 @@ public class ForumEntryController
 		}
 		else if(index > 0)
 		{
-			List<Answer> aws = focus.getAnswers();
+			ArrayList<Answer> aws = focus.getAnswers();
 			if(aws.size() >= index)
 			{
 				int upVote = aws.get(index-1).getUpVote();

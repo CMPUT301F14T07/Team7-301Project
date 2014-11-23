@@ -1,14 +1,33 @@
 package ca.ualberta.cs.views;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import ca.ualberta.cs.controllers.BrowseController;
@@ -54,6 +73,10 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	private static final String TEXT_HINT_QUESTION = "Your Question";
 	private static final String TITLE_ANSWER = "Answer a Question";
 	private static final String TITLE_QUESTION = "Ask a Question";
+	private Uri pictureFile;
+	public static final int RESULT_GALLERY = 0;
+	private Bitmap bitmap = null;
+	private byte[] image;
 
 	/**
 	 * lays out the screen and creates onClickListeners
@@ -98,16 +121,22 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 				String newSubject = newSubjectEdit.getText().toString();
 				String newAuthor = newAuthorEdit.getText().toString();
 
+				if(!isAlphaNumeric(newAuthor)){
+					newAuthor = "Anonymous";
+					
+				}
+				
 				/* 
 				 * If the forumEntrySingleton is focusing on nothing (ie a null ForumEntry) then we are trying to create a
 				 * new question. Do that, then change the focus onto the newly created ForumEntry.
 				 */
 				if(forumEntryFocus.getForumEntry() == null)
 				{	
+					if(isAlphaNumeric(newSubject) && isAlphaNumeric(newEntry)){
 					/*
 					 * Create an instance of the new ForumEntry then set the ForumEntrySingletons focus on it.
 					 */
-					ForumEntry newForumEntry = new ForumEntry(newSubject, newEntry, newAuthor);
+					ForumEntry newForumEntry = new ForumEntry(newSubject, newEntry, newAuthor, image);
 					forumEntryFocus.setForumEntry(newForumEntry);
 					/*
 					 * Invoke the AddThread to add this new ForumEntry to the remote server by
@@ -115,6 +144,14 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					 */
 					Thread thread = new AddQuestionThread(newForumEntry);
 					thread.start();
+					resetEditText(newEntryEdit, newSubjectEdit, newAuthorEdit);
+					startQuestionScreen();
+					}
+					else{
+						Toast.makeText(AskActivity.this,
+								"Invalid Question or Subject",
+								Toast.LENGTH_SHORT).show();
+					}
 				}
 				/*
 				 * The ForumEntrySingleton is focusing on a ForumEntry. This means we are trying to add an answer to the focused ForumEntry.
@@ -128,30 +165,23 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					 */
 					Thread thread = new AddAnswerThread(answer);
 					thread.start();
+					startQuestionScreen();
 				
 				}
 
+				resetEditText(newEntryEdit, newSubjectEdit, newAuthorEdit);
+
+
+			}
+
+			private void resetEditText(EditText newEntryEdit,
+					EditText newSubjectEdit, EditText newAuthorEdit) {
 				/*
 				 * Reset the EditText widgets to be blank for the next time the activity starts
 				 */
 				newEntryEdit.setText("");
 				newSubjectEdit.setText("");
 				newAuthorEdit.setText("");
-
-				/*
-				 * Start the question activity to view the new question or appended answer.
-				 */
-				intent = new Intent(AskActivity.this, QuestionActivity.class);
-				intent2 = intent;
-				
-				/*
-				 * This destroys the activity. Basically, this means after a user asks a question or answers one,
-				 * they cannot come back to this activity. The back button will not bring them here.
-				 */
-				finish();
-				
-				startActivity(intent);
-
 			}
 		});
 
@@ -162,13 +192,33 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 			@Override
 			public void onClick(View v)
 			{
-				// in here we need to put file attachment shit
-				Toast.makeText(AskActivity.this,
-						"Picture Attachment still needs to be added",
-						Toast.LENGTH_SHORT).show();
+				getPicture();
 
 			}
 		});
+	}
+	public void startQuestionScreen(){
+		/*
+		 * Start the question activity to view the new question or appended answer.
+		 */
+		intent = new Intent(AskActivity.this, QuestionActivity.class);
+		intent2 = intent;
+		
+		/*
+		 * This destroys the activity. Basically, this means after a user asks a question or answers one,
+		 * they cannot come back to this activity. The back button will not bring them here.
+		 */
+		finish();
+		
+		startActivity(intent);
+	}
+	public Boolean isAlphaNumeric(String s){
+		String checkS = s;
+		
+	    if(checkS.trim().length() == 0){
+	    	return false;
+	    }
+	    return true;
 	}
 
 	@Override
@@ -215,7 +265,44 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 			titleText.setText(AskActivity.TITLE_QUESTION);
 		}
 	}
+	
+	//http://stackoverflow.com/questions/16928727/open-gallery-app-from-android-intent
+	public void getPicture(){
 
+		Intent galleryIntent = new Intent(
+		                    Intent.ACTION_PICK,
+		                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		startActivityForResult(galleryIntent , RESULT_GALLERY );
+		
+	}
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    super.onActivityResult(requestCode, resultCode, data);
+
+	   if(requestCode == RESULT_GALLERY){
+	        if (null != data) {
+	            pictureFile = data.getData();
+	            decodeUri();
+	        }
+	    }
+	}
+	
+	//http://stackoverflow.com/questions/21195899/bitmapfactory-unable-to-decode-stream
+	public void decodeUri(){
+	        byte[] data = null;
+	        try {
+	            ContentResolver cr = getBaseContext().getContentResolver();
+	            InputStream inputStream = getContentResolver().openInputStream(pictureFile);
+	            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+	            ByteArrayOutputStream out = new ByteArrayOutputStream();
+	            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+	        
+	            data = out.toByteArray();
+	        } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	        }
+	        image= data;
+	}
 	class AddQuestionThread extends Thread
 	{
 		private ForumEntry forumEntry;
@@ -232,7 +319,6 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 			feController.saveMyAuthoredCopy();
 		}
 	}
-	
 	class AddAnswerThread extends Thread
 	{
 		private Answer answer;

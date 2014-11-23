@@ -74,4 +74,12 @@
        android:minHeight="25dp"
        android:minWidth="25dp" />
 
+   <ImageView
+       android:id="@+id/picture"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_below="@+id/askButton"
+       android:src="@drawable/outline" />
+
 </RelativeLayout>

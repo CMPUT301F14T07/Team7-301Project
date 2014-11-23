@@ -31,4 +31,6 @@
         <item>GPS</item>
         <item>Set Myself</item>
     </string-array>
+    <string name="savefave">Save as a Favourite</string>
+    <string name="savereadlater">Save to Read Later</string>
 </resources>
