@@ -44,5 +44,13 @@ public class AuthorController
 	{
 		this.authorModel.notifyObservers();
 	}
+
+	public void setSessionLocation(String userLoc) {
+		// TODO Auto-generated method stub
+		if( userLoc != null && userLoc.length() < 30)
+		{
+			this.authorModel.setSessionLocation(userLoc);
+		}
+	}
 	
 }

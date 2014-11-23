@@ -18,6 +18,7 @@ import ca.ualberta.cs.views.Observer;
 public class AuthorModel extends Observable<Observer> 
 {
 	private static String author = null;
+	private static String location = null;
 	
 	public static final String NO_AUTHOR = "";
 
@@ -33,9 +34,19 @@ public class AuthorModel extends Observable<Observer>
 	/**
 	 * Retrieves from memory the person who is authoring.
 	 * @return The person who is authoring.
-	 */
+	 */ 
 	public String getSessionAuthor()
 	{
 		return author;
+	}
+
+	public void setSessionLocation(String userLoc) {
+		// TODO Auto-generated method stub
+		AuthorModel.location = userLoc;
+	}
+	
+	public String getSessionLocation()
+	{
+		return location;
 	}
 }
