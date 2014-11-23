@@ -120,14 +120,14 @@ public class ForumEntryController
 	
 	private Boolean checkSaved(ArrayList<ForumEntry> fel, ForumEntry focus) {
 		
-		Boolean savedAlready = false;
+
 		for (int i = 0; i < fel.size(); i++) {
 			if (fel.get(i).equals(focus)) {
-				savedAlready = true;
+				return true;
 			}
 		}
 		
-		return savedAlready;
+		return false;
 		
 	}
 	

@@ -95,6 +95,13 @@ public class ForumEntry
 		return id;
 	}
 	
+	
+	public Boolean equals(ForumEntry focus) {
+		return focus.getId().equals(id);
+	}
+	
+	
+	
 	/**
 	 * Deprecated. Do not use.
 	 * @param newId
