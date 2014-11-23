@@ -2,8 +2,11 @@ package ca.ualberta.cs.views;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -424,11 +427,11 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			signInButton.setVisibility(4);
 			signOutButton.setVisibility(0);
 		} else {
+			
 		}
 	}
 	
 	public void setLocationByText(){
-
 		AlertDialog.Builder alert = new AlertDialog.Builder(MainScreenActivity.this);
 		alert.setTitle("Set Location");
 		alert.setMessage("What is your location?");
@@ -440,7 +443,6 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-
 				String UserLoc = location.getText().toString();
 				Toast.makeText(MainScreenActivity.this, UserLoc , Toast.LENGTH_SHORT).show();
 			}
@@ -453,7 +455,6 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			public void onClick(DialogInterface dialog, int which)
 			{
 				// nothing
-
 			}
 		});
 		alert.show();
@@ -464,8 +465,17 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
 		
 		if (enabled) {
-			Toast.makeText(MainScreenActivity.this, "GPS: " , Toast.LENGTH_SHORT).show();
+			LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			Criteria criteria = new Criteria();
+			String provider = locationManager.getBestProvider(criteria, false);
+			Location location = locationManager.getLastKnownLocation(provider);
+			int lat = (int) (location.getLatitude());
+			int lng = (int) (location.getLongitude());
+			String lati = String.valueOf(lat);
+			String lngi = String.valueOf(lng);
+			Toast.makeText(MainScreenActivity.this, "GPS: ("+ lati + "), (" + lngi +")" , Toast.LENGTH_SHORT).show();
 		} else {
+			//opens the Settings to set GPS
 			Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 			startActivity(intent);
 		}
