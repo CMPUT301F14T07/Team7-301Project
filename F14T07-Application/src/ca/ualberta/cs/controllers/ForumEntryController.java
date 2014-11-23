@@ -3,6 +3,8 @@ package ca.ualberta.cs.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.bool;
+
 import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.Entry;
@@ -114,6 +116,22 @@ public class ForumEntryController
 
 	}
 	
+	
+	
+	private Boolean checkSaved(ArrayList<ForumEntry> fel, ForumEntry focus) {
+		
+		Boolean savedAlready = false;
+		for (int i = 0; i < fel.size(); i++) {
+			if (fel.get(i).equals(focus)) {
+				savedAlready = true;
+			}
+		}
+		
+		return savedAlready;
+		
+	}
+	
+	
 	/**
 	 * Saves the ForumEntry from the model as a read later.
 	 */
@@ -122,7 +140,10 @@ public class ForumEntryController
 		ArrayList<ForumEntry> fel = this.dataManager.getReadLater();
 		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
-		fel.add(focus);
+		Boolean savedAlready = checkSaved(fel, focus);
+		if (savedAlready.equals(false)) {
+			fel.add(focus);
+		}
 		
 		this.dataManager.setReadLater(fel);
 	}
@@ -135,7 +156,10 @@ public class ForumEntryController
 		ArrayList<ForumEntry> fel = this.dataManager.getMyAuthored();
 		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
-		fel.add(focus);
+		Boolean savedAlready = checkSaved(fel, focus);
+		if (!savedAlready) {
+			fel.add(focus);
+		}
 		
 		this.dataManager.setMyAuthored(fel);
 	}
@@ -148,7 +172,10 @@ public class ForumEntryController
 		ArrayList<ForumEntry> fel = this.dataManager.getFavourites();
 		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
-		fel.add(focus);
+		Boolean savedAlready = checkSaved(fel, focus);
+		if (!savedAlready) {
+			fel.add(focus);
+		}
 		
 		this.dataManager.setFavourites(fel);
 	}

@@ -192,11 +192,13 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		builder.setPositiveButton(R.string.savefave, new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
 	        	   forumEntryController.saveFavouritesCopy();
+	        	   Toast.makeText(getApplicationContext(), "Saved to Favourites", Toast.LENGTH_SHORT).show();
 	           }
 	       });
 		builder.setNegativeButton(R.string.savereadlater, new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
 	               forumEntryController.saveReadLaterCopy();
+	               Toast.makeText(getApplicationContext(), "Saved to read later", Toast.LENGTH_SHORT).show();
 	           }
 		});
 
