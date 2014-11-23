@@ -97,7 +97,6 @@ public class ForumEntryController
 	 */
 	public void addAnswer(Answer answer)
 	{
-		DataManager dm = new DataManager();
 		/*
 		 * Get the ForumEntry that the answer is being added to.
 		 */
@@ -110,7 +109,7 @@ public class ForumEntryController
 		ArrayList<Answer> allAnswers = forumEntry.getAnswers();
 		allAnswers.add(answer);
 		forumEntry.setAnswer(allAnswers);
-		dm.updateForumEntry(forumEntry);
+		dataManager.updateForumEntry(forumEntry);
 		
 
 	}
