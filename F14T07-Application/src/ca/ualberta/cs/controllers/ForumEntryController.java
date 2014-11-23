@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.R.bool;
-
+import android.content.Context;
 import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.Entry;
@@ -39,13 +39,12 @@ public class ForumEntryController
 		this.dataManager = new DataManager();
 	}
 
-	/**
-	 * Deprecated. Do not use. This function shouldn't even exist.
-	 * 
-	 * @param forumEntry
-	 */
-	public ForumEntryController(ForumEntry forumEntry)
+	public ForumEntryController(Observer viewsContext,Context context)
 	{
+		this.forumEntries = new ForumEntryList();
+		this.forumEntries.addObserver(viewsContext);
+
+		this.dataManager = new DataManager(context);
 	}
 
 	/**

@@ -91,7 +91,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		setContentView(R.layout.ask_activity_screen);
 
 		this.authorModel = new AuthorModel();
-		this.feController = new ForumEntryController(this);
+		this.feController = new ForumEntryController(this,this);
 		
 		this.browseController = new BrowseController(this);
 

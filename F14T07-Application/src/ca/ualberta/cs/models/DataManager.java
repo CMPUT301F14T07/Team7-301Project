@@ -21,9 +21,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.util.Log;
 import android.widget.Toast;
 import ca.ualberta.cs.intent_singletons.ContextSingleton;
+import ca.ualberta.cs.views.AskActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -58,9 +60,10 @@ public class DataManager
 	 * 
 	 * @param ctx
 	 */
-	public DataManager(Context ctx)
+	public DataManager(Context ctx_)
 	{
 		gson = new Gson();
+		ctx=ctx_;
 	}
 
 	/**
@@ -71,6 +74,7 @@ public class DataManager
 	 * */
 	public void addForumEntry(ForumEntry forumEntry)
 	{
+		if(isOnline()){
 		gson = new Gson();
 		HttpClient httpClient = new DefaultHttpClient();
 		forumEntry.setId("0");
@@ -122,7 +126,19 @@ public class DataManager
 
 			e.printStackTrace();
 		}
+		}
+		else{
+			Toast.makeText(ctx,
+					"Must Connect To the Internet",
+					Toast.LENGTH_SHORT).show();
+			saveToPush();
+		}
 		forumEntryTest = forumEntry;
+		
+		
+	}
+	public void saveToPush(){ 
+		
 	}
 
 	public Boolean isOffline()
@@ -132,7 +148,15 @@ public class DataManager
 
 	public Boolean isOnline()
 	{
-		return false;
+	     ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+	  // test for connection
+	          if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable()
+	                  && cm.getActiveNetworkInfo().isConnected()) {
+	              return true;
+	          } else {
+	              return false;
+	          }
 	}
 	
 	public void updateForumEntry(ForumEntry forumEntry) {
