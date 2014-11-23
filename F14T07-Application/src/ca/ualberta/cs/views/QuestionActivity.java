@@ -169,11 +169,24 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 			startActivity(intent);
 			return true;
 			
-		case R.id.switchToHome:
-			
+		case R.id.switchToHome:			
 			Intent homeIntent = new Intent(this, MainScreenActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			startActivity(homeIntent);
 			return true;
+		case R.id.help:
+			String helpText = "This is what we refer to as a Question Screen.\n\n" +
+					"Here you can view a question, it's replies, it's answers, and the answer's replies. \n\n" +
+					"If you would like to save this question as a favourite or simply to read offline, please press the Save button. " +
+					"This will prompt you to choose specifically how you would like the question to be saved. Choose whichever you prefer. \n\n" +
+					"If you would like to answer this question, press the Add An Answer button located at the bottom of the screen.  " +
+					"This will open a new screen which will prompt you for your answer." +
+					"You can navigate to other screens either by clicking the " +
+					"back button, or by using the menu found by clicking the ellipsis in the corner.";
+			Intent helpIntent = new Intent(QuestionActivity.this, HelpActivity.class);
+			helpIntent.putExtra("HELP_TEXT", helpText);
+			startActivity(helpIntent);
 			
 		default:
 			return super.onOptionsItemSelected(item);

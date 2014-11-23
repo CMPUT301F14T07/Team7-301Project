@@ -72,6 +72,7 @@ public class AnswerReplyActivity extends Activity {
 			
 		case R.id.switchToHomeScreen:
 			Intent homeIntent = new Intent(this, MainScreenActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(homeIntent);
 			return true;
 			

@@ -401,10 +401,53 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 			return true;
 			
 		case R.id.switchToHome:
-			
 			Intent homeIntent = new Intent(this, MainScreenActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			startActivity(homeIntent);
 			return true;
+			
+		case R.id.help:
+			ForumEntrySingleton forumEntryFocus = ForumEntrySingleton.getInstance();
+			if(forumEntryFocus.getForumEntry() == null)
+			{				
+				String helpText = "This is where you can post a question to our system.\n\n" +
+						"To ask a question, simply fill out the Author, Subject, and Question fields. " +
+						"You may leave the Author field blank if you wish to remain anonymous, but we " +
+						"must insist that you fill in the Subject and Question fields. Please include as much " +
+						"relevent information as possible in your question so people are more able to comprehend " +
+						"and answer it. \n\n" +
+						"If you would like to attach an image to your question, you can click the Paperclip" +
+						" button to the bottom right of the Question field.  This will prompt you to choose" +
+						" whether to get the picture from your phone's album, or take a new picture.  Choose " +
+						"whichever best suits you.\n\n" +
+						"When you feel your question is complete, press the Ask button at the bottom of the screen. \n\n" +
+						"You can navigate to other screens either by clicking the " +
+						"back button, or by using the menu found by clicking the ellipsis in the corner.";	
+				Intent helpIntent = new Intent(AskActivity.this, HelpActivity.class);
+				helpIntent.putExtra("HELP_TEXT", helpText);
+				startActivity(helpIntent);
+				return true;
+			}
+			else
+			{
+				String helpText = "This is where you can answer a question.\n\n" +
+						"To post your answer, simply fill out the Author and Answer fields. " +
+						"You may leave the Author field blank if you wish to remain anonymous, but we " +
+						"must insist that you fill in the Answer field. \n\n" +
+						"If you would like to attach an image to your answer, you can click the Paperclip" +
+						" button to the bottom right of the Answer field.  This will prompt you to choose" +
+						" whether to get the picture from your phone's album, or take a new picture.  Choose " +
+						"whichever best suits you.\n\n" +
+						"When you feel your answer is complete, press the Answer button at the bottom of the screen. \n\n" +
+						"You can navigate to other screens either by clicking the " +
+						"back button, or by using the menu found by clicking the ellipsis in the corner.";
+				Intent helpIntent = new Intent(AskActivity.this, HelpActivity.class);
+				helpIntent.putExtra("HELP_TEXT", helpText);
+				startActivity(helpIntent);
+				return true;
+			}
+
 			
 		default:
 			return super.onOptionsItemSelected(item);

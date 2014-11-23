@@ -44,6 +44,8 @@ public class FavouriteActivity extends Activity {
 	        switch (id) {
 	        case R.id.switchToHome:
 	        	Intent homeIntent = new Intent(this, MainScreenActivity.class);
+				homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				homeIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 	        	startActivity(homeIntent);
 	        	return true;
 	        case R.id.switchToMyQuestions:

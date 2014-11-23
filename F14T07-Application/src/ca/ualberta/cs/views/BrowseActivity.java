@@ -214,6 +214,8 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		{
 		case R.id.switchToHome:
 			Intent homeIntent = new Intent(this, MainScreenActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			startActivity(homeIntent);
 			return true;
 		case R.id.switchToReadLater:
@@ -241,7 +243,72 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 			viewType.setText(brs.getViewToken());
 			term.setVisibility(EditText.VISIBLE);
 			term.setText(brs.getSearchToken());
-			return true;
+			return true;	
+		case R.id.help:
+			if(brs.getViewToken().equals(BrowseRequestSingleton.ON_LINE_VIEW))
+			{
+				String helpText = "This section of the app contains all of the posts in our system. \n\n" +
+						"Because our system is based online, you can only view these posts when you are connected" +
+						" to the internet.  If you would like to save a post to be read while offline, click on the " +
+						"question and, on the newly opened screen, click the Save button.  It will prompt you to choose " +
+						"whether to save the questions to your favourites or your saved questions. Choose whichever suits you.\n\n" +
+						"If you would like to view the posts on this screen sorted in a different manner, you can " +
+						"click the View By button located directly under the title.  This will prompt you to " +
+						"choose how you would like the posts to be sorted. Click the option " +
+						"that works best for you.\n\n " +
+						"If you would like to view a post in more detail, please click on the post. \n\n" +
+						"You can navigate to other screens either by clicking the " +
+						"back button, or by using the menu found by clicking the ellipsis in the corner.";
+				Intent helpIntent = new Intent(BrowseActivity.this, HelpActivity.class);
+				helpIntent.putExtra("HELP_TEXT", helpText);
+				startActivity(helpIntent);
+			}
+			else if(brs.getViewToken().equals(BrowseRequestSingleton.FAVOURITES_VIEW))
+			{
+				String helpText = "This section of the app contains all of your favourited questions. \n\n" +
+						"Here you can browse through the questions and their answers. \n\n" +
+						"If you would like to view the questions sorted in a different manner, you can " +
+						"click the View By button located directly under the title.  This will prompt you to " +
+						"choose how you would like your favourited questions to be sorted. Click the option " +
+						"that works best for you.\n\n " +
+						"If you would like to view a post in more detail, please click on the post. \n\n" +
+						"You can navigate to other screens either by clicking the " +
+						"back button, or by using the menu found by clicking the ellipsis in the corner.";
+				Intent helpIntent = new Intent(BrowseActivity.this, HelpActivity.class);
+				helpIntent.putExtra("HELP_TEXT", helpText);
+				startActivity(helpIntent);
+			}
+			else if(brs.getViewToken().equals(BrowseRequestSingleton.MY_AUTHORED_VIEW))
+			{
+				String helpText = "This section of the app contains all of your authored questions. \n\n" +
+						"Here you can browse through your questions and their answers. \n\n" +
+						"If you would like to view the questions sorted in a different manner, you can " +
+						"click the View By button located directly under the title.  This will prompt you to " +
+						"choose how you would like your posts to be sorted. Click the option " +
+						"that works best for you.\n\n " +
+						"If you would like to view a post in more detail, please click on the post. \n\n" +
+						"You can navigate to other screens either by clicking the " +
+						"back button, or by using the menu found by clicking the ellipsis in the corner.";
+				Intent helpIntent = new Intent(BrowseActivity.this, HelpActivity.class);
+				helpIntent.putExtra("HELP_TEXT", helpText);
+				startActivity(helpIntent);
+			}
+			else if(brs.getViewToken().equals(BrowseRequestSingleton.READ_LATER_VIEW))
+			{
+				String helpText = "This section of the app contains all of your saved questions. \n\n" +
+						"Here you can browse through the questions and their answers. \n\n" +
+						"If you would like to view the questions sorted in a different manner, you can " +
+						"click the View By button located directly under the title.  This will prompt you to " +
+						"choose how you would like your saved questions to be sorted. Click the option " +
+						"that works best for you.\n\n" +
+						"If you would like to view a post in more detail, please click on the post. \n\n" +
+						"You can navigate to other screens either by clicking the " +
+						"back button, or by using the menu found by clicking the ellipsis in the corner.";
+				Intent helpIntent = new Intent(BrowseActivity.this, HelpActivity.class);
+				helpIntent.putExtra("HELP_TEXT", helpText);
+				startActivity(helpIntent);
+			}
+
 		default:
 			return super.onOptionsItemSelected(item);
 		}

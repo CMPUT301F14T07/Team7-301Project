@@ -5,5 +5,6 @@
     <item android:id="@+id/switchToMyQuestions" android:title="View My Questions"></item><item android:id="@+id/switchToReadLater" android:title="View Saved Questions"></item>
     
     <item android:id="@+id/switchToFavourites" android:title="View My Favourites"></item>
+    <item android:id="@+id/help" android:title="Help"></item>
 
 </menu>
