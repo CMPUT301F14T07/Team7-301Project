@@ -12,7 +12,9 @@ import ca.ualberta.cs.views.Observer;
 
 /**
  * Models the person's name who is using the app. This is the author.
+ * Also models the user's location as per their request
  * @author bbruner
+ * @author dlacours
  *
  */
 public class AuthorModel extends Observable<Observer> 
@@ -39,12 +41,19 @@ public class AuthorModel extends Observable<Observer>
 	{
 		return author;
 	}
-
+	/**
+	 * Saves in local memory the location of the user.
+	 * @param userLoc - a string inputed by the user or their GPS.
+	 */
 	public void setSessionLocation(String userLoc) {
 		// TODO Auto-generated method stub
 		AuthorModel.location = userLoc;
 	}
-	
+
+	/**
+	 * Retrieves from memory the location of the user.
+	 * @return The location of the user.
+	 */ 
 	public String getSessionLocation()
 	{
 		return location;

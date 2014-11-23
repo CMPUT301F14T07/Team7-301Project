@@ -8,8 +8,11 @@
         android:id="@+id/helpText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.86"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1.03"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/okButton"

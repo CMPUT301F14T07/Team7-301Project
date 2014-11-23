@@ -6,8 +6,9 @@ import ca.ualberta.cs.views.MainScreenActivity;
 import ca.ualberta.cs.views.Observer;
 
 /**
- * This controller allows the author's name to be set.
+ * This controller allows the author's name and location to be set.
  * @author bbruner
+ * @author dlacours
  *
  */
 public class AuthorController 
@@ -44,7 +45,10 @@ public class AuthorController
 	{
 		this.authorModel.notifyObservers();
 	}
-
+	/**
+	 * Sets where the author is.
+	 * @param userLoc Author location to be set.
+	 */
 	public void setSessionLocation(String userLoc) {
 		// TODO Auto-generated method stub
 		if( userLoc != null && userLoc.length() < 30)

@@ -29,6 +29,15 @@ import ca.ualberta.cs.models.AuthorModel;
  * It is an observer to the authorModel
  * It has an instance of the AuthorController
  * From this class, many other screens can be reached.
+ * By using the flag FLAG_ACTIVITY_SINGLE_TOP whenever we use an intent to open this 
+ * activity, we ensure that only one instance of this activity is created and that it 
+ * contains all information that was inputed by the user. 
+ * 
+ * From this activity, the user can input their username and their location.
+ * Using buttons in the centre of the screen, they can reach the Ask, Browse, and Search 
+ * screens.
+ * Using the menu, they can reach their authored, favourited, and saved questions, as well 
+ * as a help screen that explains this information
  * 
  * @author Dayna
  * @author Brendan
@@ -47,6 +56,10 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 
 /**
  * This function contains all the main screen on click listeners.
+ * This includes the buttons: Ask, Browse, Search, Sign In, Sign Out, and Set Location.
+ * It calls the corresponding methods below to do the appropriate jobs. 
+ * It also instantiates a new instance of the author controller (which in turn instantiates a 
+ * new instance of the author model.)
  */
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -56,8 +69,8 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		this.authorController = new AuthorController(this);
 		this.authorController.setSessionAuthor(AuthorModel.NO_AUTHOR);
 
-		/*
-		 * Set the context in the context singleton to be this activity. Since
+		/**
+		 * Sets the context in the context singleton to be this activity. Since
 		 * this is the first activity that starts up when this app starts
 		 * this will ensure that the context singleton has a valid context
 		 * in it for doing context stuff.
@@ -130,7 +143,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		});
 	}
 /**
- * Refreshes the view to reflect the author name
+ * Refreshes the view to reflect the author name in case their username has changed
  */
 	@Override
 	protected void onRestart()
@@ -138,12 +151,12 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		super.onRestart();
 
 		/* Refresh the view, the authors name may have changed you know :) */
-		/* no... no... no.... They can only change their name on this screen! >:-|*/
+		/* no... no... no.... They can only change their name on this screen!*/
 		this.authorController.refresh();
 	}
 
 	/**
-	 * adds items to the menu bar
+	 * inflates the menu bar using the main_menu menu
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -155,6 +168,12 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 
 	/**
 	 * Allows user to navigate through some screens using the menu bar
+	 * This is done via intents which open the Browse Activity and the HelpActivity.
+	 * To open the BrowseActivity with a different list, we must set the view token
+	 * of the BrowseRequestSingleton.
+	 * 
+	 * To properly use the HelpActivity, we need to pass some extra text through the intent that serves as 
+	 * a help message to the user. 
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
@@ -220,7 +239,12 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	/**
 	 * Called when the signInButton is clicked
 	 * This function calls up a dialog with an editText
-	 * that allows the user to type in a username
+	 * that allows the user to type in a username.
+	 * This username is then sent to the AuthorController which creates
+	 * an AuthorModel with the username.  This system can then 
+	 * be used by other classes to get the author name.
+	 * This method also hides the sign in button and displays the 
+	 * sign out button and the signed in as TextView
 	 * 
 	 * The code in this function has been heavily borrowed from this site
 	 * http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog
@@ -278,7 +302,10 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 
 	/**
 	 * Called when the sign out button is clicked.
-	 * Sets the authorName back to null
+	 * Sets the authorName back to null using the same
+	 * system as the signInButton method.
+	 * It also hides the sign out button and signed in as TextView
+	 * and redisplays the sign out button.
 	 * */
 	public void signOutButton()
 	{
@@ -317,6 +344,11 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		//alert2=alert.show(); //FOR TESTING !!! breaks activity
 		alert2 = alert.create();
 	}
+	
+	/**
+	 * This function opens up a dialog to ask the user how they would like to set their location.
+	 * Using a spinner, they can choose to either set it by GPS, by location, or unset it entirely.
+	 * */
 	public void setLocationButton()
 	{
 		final Button setLocationButton = (Button) findViewById(R.id.setLocationButton);
@@ -345,6 +377,9 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 					setLocationByGPS();
 				} else if (choice.equals("Set Myself")) {
 					setLocationByText();
+				} else if (choice.equals("Unset")) {
+					String UserLoc = null;
+					authorController.setSessionLocation(UserLoc);
 				} else {
 					Toast.makeText(MainScreenActivity.this, "Problem: " + choice, Toast.LENGTH_SHORT).show();
 				}
