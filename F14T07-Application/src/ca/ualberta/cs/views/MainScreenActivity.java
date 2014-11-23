@@ -372,12 +372,14 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				//pop up another dialog that lets them type a location
 				String choice = choices.getSelectedItem().toString();
 				
-				
 				if (choice.equals("GPS")){
+					setLocationButton.setText("Change\nLocation");
 					setLocationByGPS();
 				} else if (choice.equals("Set Myself")) {
+					setLocationButton.setText("Change\nLocation");
 					setLocationByText();
 				} else if (choice.equals("Unset")) {
+					setLocationButton.setText("Set\nLocation");
 					String UserLoc = null;
 					authorController.setSessionLocation(UserLoc);
 				} else {
@@ -492,7 +494,6 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			public void onClick(DialogInterface dialog, int which)
 			{
 				String UserLoc = location.getText().toString();
-				Toast.makeText(MainScreenActivity.this, UserLoc , Toast.LENGTH_SHORT).show();
 				authorController.setSessionLocation(UserLoc);
 			}
 		});
@@ -511,6 +512,44 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	
 	public void setLocationByGPS() {
 		LocationManager locMan = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		String locProv = LocationManager.GPS_PROVIDER;
+//		Location loc = locMan.getLastKnownLocation(locProv);
+		final LocationListener locLis = new LocationListener() {
+			
+			@Override
+			public void onStatusChanged(String provider, int status, Bundle extras) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onProviderEnabled(String provider) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onProviderDisabled(String provider) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLocationChanged(Location loc) {
+				// TODO Auto-generated method stub
+				double longitude = loc.getLongitude();
+				double latitude = loc.getLatitude();
+				Toast.makeText(MainScreenActivity.this, String.valueOf(longitude), Toast.LENGTH_LONG).show();
+			}
+		};
+		locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locLis);
+
+		
+		
+		
+		
+		
+		//LocationManager locMan = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		/*LocationListener locLis = new LocationListener() {
 			public void onLocationChanged(Location location) {
 			      // Called when a new location is found by the network location provider.
