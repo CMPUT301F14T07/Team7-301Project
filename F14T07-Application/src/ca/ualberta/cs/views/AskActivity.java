@@ -316,6 +316,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		{
 			feController.addNewQuestion(this.forumEntry);
 			feController.saveMyAuthoredCopy();
+
 		}
 	}
 	class AddAnswerThread extends Thread
