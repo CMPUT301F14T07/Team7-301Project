@@ -35,7 +35,7 @@ public class ForumEntry
 		question.setPicture(null);
 		
 	}
-	public ForumEntry(String subject_, String question_, String author, byte[] image)
+	public ForumEntry(String subject_, String question_, String author, String image)
 	{
 		super();
 		question = new Question(question_,author);

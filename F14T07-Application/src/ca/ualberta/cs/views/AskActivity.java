@@ -3,6 +3,7 @@ package ca.ualberta.cs.views;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +22,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,7 +78,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	private Uri pictureFile;
 	public static final int RESULT_GALLERY = 0;
 	private Bitmap bitmap = null;
-	private byte[] image;
+	private String image;
 
 	/**
 	 * lays out the screen and creates onClickListeners
@@ -192,7 +194,8 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 			@Override
 			public void onClick(View v)
 			{
-				getPicture();
+				GetPictureThread getpic = new GetPictureThread();
+				getpic.start();
 
 			}
 		});
@@ -289,19 +292,15 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	
 	//http://stackoverflow.com/questions/21195899/bitmapfactory-unable-to-decode-stream
 	public void decodeUri(){
-	        byte[] data = null;
-	        try {
-	            ContentResolver cr = getBaseContext().getContentResolver();
-	            InputStream inputStream = getContentResolver().openInputStream(pictureFile);
-	            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-	            ByteArrayOutputStream out = new ByteArrayOutputStream();
-	            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-	        
-	            data = out.toByteArray();
-	        } catch (FileNotFoundException e) {
-	            e.printStackTrace();
-	        }
-	        image= data;
+		String [] filePath = {MediaStore.Images.Media.DATA};
+		Cursor cursor = getContentResolver().query(pictureFile, filePath, null, null, null);
+		cursor.moveToFirst();
+		int columnIndex = cursor.getColumnIndex(filePath[0]);
+		String picturePath = cursor.getString(columnIndex);
+		ImageView iv = (ImageView) findViewById(R.id.picture);
+		iv.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+		image=picturePath;
+		  
 	}
 	class AddQuestionThread extends Thread
 	{
@@ -335,7 +334,15 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		}
 	}
 
-
+	class GetPictureThread extends Thread
+	{
+		
+		@Override
+		public void run()
+		{
+			getPicture();
+		}
+	}
 	@Override
 	public void update(ForumEntryList model)
 	{

@@ -96,9 +96,22 @@ public class DataManager
 						entity.getContent()));
 				String output;
 				System.err.println("Output from Server -> ");
+			
 				while ((output = br.readLine()) != null)
 				{
 					System.err.println(output);
+					String[]str_array = output.split(",");
+					for(int i = 0; i<str_array.length;i++){
+						System.err.println(str_array[i]);
+					}
+					String id = str_array[2].replaceAll("^\"|\"$","");
+					id.replaceAll(":", "");
+					id.replaceAll("_","");
+					id = id.substring(6);
+					System.err.println(id);
+					if(id!=null){
+						forumEntry.setId(id);
+					}
 				}
 			} catch (IOException e)
 			{

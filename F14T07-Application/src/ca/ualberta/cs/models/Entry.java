@@ -18,7 +18,7 @@ public class Entry
 	private String posterName;
 	private List<Reply> replies;
 	private Date date;
-	private byte[] picture = null;
+	private String picture = null;
 
 	/**
 	 * Creates a new Entry.
@@ -147,7 +147,7 @@ public class Entry
 	 * @param image
 	 *            The picture.
 	 */
-	public void setPicture(byte[] image)
+	public void setPicture(String image)
 	{
 		picture = image;
 	}
@@ -157,7 +157,7 @@ public class Entry
 	 * 
 	 * @return Picture
 	 */
-	public byte[] getPicture()
+	public String getPicture()
 	{
 		return picture;
 	}
