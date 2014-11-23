@@ -513,8 +513,11 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	public void setLocationByGPS() {
 		LocationManager locMan = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		String locProv = LocationManager.GPS_PROVIDER;
-//		Location loc = locMan.getLastKnownLocation(locProv);
-		final LocationListener locLis = new LocationListener() {
+		Location loc = locMan.getLastKnownLocation(locProv);
+		double longitude = loc.getLongitude();
+		double latitude = loc.getLatitude();
+		Toast.makeText(MainScreenActivity.this, String.valueOf(longitude), Toast.LENGTH_LONG).show();
+	/*	final LocationListener locLis = new LocationListener() {
 			
 			@Override
 			public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -542,31 +545,8 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				Toast.makeText(MainScreenActivity.this, String.valueOf(longitude), Toast.LENGTH_LONG).show();
 			}
 		};
-		locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locLis);
+		locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locLis);*/
 
-		
-		
-		
-		
-		
-		//LocationManager locMan = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		/*LocationListener locLis = new LocationListener() {
-			public void onLocationChanged(Location location) {
-			      // Called when a new location is found by the network location provider.
-			      makeUseOfNewLocation(location);
-			}
-
-			public void onStatusChanged(String provider, int status, Bundle extras) {}
-
-			public void onProviderEnabled(String provider) {}
-
-			public void onProviderDisabled(String provider) {}
-
-		};
-		//The zero parameters set the frequency at which we receive updates (0's mean as often as possible)
-	locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locLis); 
-	
-	*/
 	
 	}
 }
