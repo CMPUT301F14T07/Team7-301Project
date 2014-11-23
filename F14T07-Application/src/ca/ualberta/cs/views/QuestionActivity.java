@@ -3,16 +3,13 @@ package ca.ualberta.cs.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.ualberta.cs.controllers.BrowseController;
 import ca.ualberta.cs.controllers.ForumEntryController;
 import ca.ualberta.cs.f14t07_application.R;
-import ca.ualberta.cs.f14t07_application.R.layout;
 import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
 import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
 import ca.ualberta.cs.models.Entry;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
-import ca.ualberta.cs.views.BrowseActivity.SearchThread;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -212,15 +208,10 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	
 	
 	/**
-	 * This function will add the ForumEntry being viewed to a favourites cache.
+	 * This function will prompt the user to save to favourites or save to read later
 	 */
 	private void saveButton()
 	{
-		/*
-		 * TODO: prompts user if they want to save as favourite, or other thing and uses controller
-		 * to do so.
-		 */
-		//Toast.makeText(this, "Save not implemented", Toast.LENGTH_SHORT).show();
 		onCreateDialog();
 	}
 	
