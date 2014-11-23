@@ -1,23 +1,12 @@
 package ca.ualberta.cs.views;
 
-import java.util.ArrayList;
-
-import ca.ualberta.cs.controllers.AuthorController;
-import ca.ualberta.cs.controllers.BrowseController;
-import ca.ualberta.cs.f14t07_application.R;
-import ca.ualberta.cs.f14t07_application.R.id;
-import ca.ualberta.cs.f14t07_application.R.layout;
-import ca.ualberta.cs.f14t07_application.R.menu;
-import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
-import ca.ualberta.cs.intent_singletons.ContextSingleton;
-import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
-import ca.ualberta.cs.models.AuthorModel;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +16,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import ca.ualberta.cs.controllers.AuthorController;
+import ca.ualberta.cs.f14t07_application.R;
+import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
+import ca.ualberta.cs.intent_singletons.ContextSingleton;
+import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
+import ca.ualberta.cs.models.AuthorModel;
 /**
  * This class is the view for the first screen that the user sees.
  * It is an observer to the authorModel
@@ -325,7 +320,18 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-				//Figure out what the user chose. If they chose to set their own location, pop up another dialog that lets them type a location
+				//Figure out what the user chose. If they chose to set their own location, 
+				//pop up another dialog that lets them type a location
+				String choice = choices.getSelectedItem().toString();
+				
+				
+				if (choice.equals("GPS")){
+					setLocationByGPS();
+				} else if (choice.equals("Set Myself")) {
+					setLocationByText();
+				} else {
+					Toast.makeText(MainScreenActivity.this, "Problem: " + choice, Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 		
@@ -342,7 +348,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		alert.show();
 		//alert2=alert.show();//FOR TESTING !!! Breaks activity
 		//alert2 = alert.create();
-		//name=input;
+		//name=input;doGPSstuff
 
 		// ^adopted from
 		// http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog
@@ -418,6 +424,50 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			signInButton.setVisibility(4);
 			signOutButton.setVisibility(0);
 		} else {
+		}
+	}
+	
+	public void setLocationByText(){
+
+		AlertDialog.Builder alert = new AlertDialog.Builder(MainScreenActivity.this);
+		alert.setTitle("Set Location");
+		alert.setMessage("What is your location?");
+		final EditText location = new EditText(this);
+		alert.setView(location);
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+		{
+
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+
+				String UserLoc = location.getText().toString();
+				Toast.makeText(MainScreenActivity.this, UserLoc , Toast.LENGTH_SHORT).show();
+			}
+		});
+		
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+		{
+
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				// nothing
+
+			}
+		});
+		alert.show();
+	}
+	
+	public void setLocationByGPS() {
+		LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
+		boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		
+		if (enabled) {
+			Toast.makeText(MainScreenActivity.this, "GPS: " , Toast.LENGTH_SHORT).show();
+		} else {
+			Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+			startActivity(intent);
 		}
 	}
 }
