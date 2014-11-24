@@ -105,7 +105,7 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 			@Override
 			public void onClick(View v)
 			{
-				answerQuestion();
+				upVoteEntry();
 			}
 		});
 	}
@@ -255,6 +255,14 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 */
 		Intent intent = new Intent(this, AskActivity.class);
 		startActivity(intent);
+	}
+	
+	/**
+	 * This function will upvote the question
+	 */
+	private void upVoteEntry()
+	{
+		//this currently doesnt do anything
 	}
 	
 	/**
