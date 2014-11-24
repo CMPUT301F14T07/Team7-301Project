@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">F14T07-Application</string>
+    <string name="app_name">Skittle\'s Q&amp;A</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_my_questions">MyQuestionsActivity</string>
     <string name="title_activity_main_screen">MainScreenActivity</string>

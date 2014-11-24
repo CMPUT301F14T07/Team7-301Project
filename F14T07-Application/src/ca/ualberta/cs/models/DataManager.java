@@ -191,18 +191,11 @@ public class DataManager
 		
 	}
 	
-	/**
-	 * Save the List<ForumEntry> as read later forum entries.
-	 * 
-	 * @param fel
-	 *            The List<ForumEntry> to save.
-	 */
-	public void setReadLater(ArrayList<ForumEntry> fel)
-	{
+	private void saveLocal(ArrayList<ForumEntry> fel, String FILE_NAME) {
 		Context ctx = ContextSingleton.getInstance().getContext();
 		try
 		{
-			FileOutputStream fos = ctx.openFileOutput("readlater.sav",
+			FileOutputStream fos = ctx.openFileOutput(FILE_NAME,
 					Context.MODE_PRIVATE);
 			String json = gson.toJson(fel);
 			fos.write(json.getBytes());
@@ -213,13 +206,8 @@ public class DataManager
 			e.printStackTrace();
 		}
 	}
-
-	/**
-	 * Load the List<ForumEntry> marked as read later.
-	 * 
-	 * @return The List<ForumEntry> marked as read later.
-	 */
-	public ArrayList<ForumEntry> getReadLater()
+	
+	private ArrayList<ForumEntry> loadLocal(String FILE_NAME) 
 	{
 		ArrayList<ForumEntry> fel = new ArrayList<ForumEntry>();
 		Context ctx = ContextSingleton.getInstance().getContext();
@@ -227,7 +215,7 @@ public class DataManager
 		try
 		{
 			BufferedReader fis = new BufferedReader(new InputStreamReader(
-					ctx.openFileInput("readlater.sav")));
+					ctx.openFileInput(FILE_NAME)));
 			String line;
 			StringBuffer fileContent = new StringBuffer();
 
@@ -248,6 +236,27 @@ public class DataManager
 		}
 		return fel;
 	}
+	
+	/**
+	 * Save the List<ForumEntry> as read later forum entries.
+	 * 
+	 * @param fel
+	 *            The List<ForumEntry> to save.
+	 */
+	public void setReadLater(ArrayList<ForumEntry> fel)
+	{
+		this.saveLocal(fel,"readlater.sav");
+	}
+
+	/**
+	 * Load the List<ForumEntry> marked as read later.
+	 * 
+	 * @return The List<ForumEntry> marked as read later.
+	 */
+	public ArrayList<ForumEntry> getReadLater()
+	{
+		return this.loadLocal("readlater.sav");
+	}
 
 	/**
 	 * Save the List<ForumEntry> that the user has authored.
@@ -258,10 +267,18 @@ public class DataManager
 	public void setMyAuthored(List<ForumEntry> fel)
 	{
 		Context ctx = ContextSingleton.getInstance().getContext();
-		if (ctx == null)
+		try
 		{
-			return;
-		} 
+			FileOutputStream fos = ctx.openFileOutput("readlater.sav",
+					Context.MODE_PRIVATE);
+			String json = gson.toJson(fel);
+			fos.write(json.getBytes());
+			fos.close();
+
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -287,19 +304,7 @@ public class DataManager
 	 */
 	public void setFavourites(ArrayList<ForumEntry> fel)
 	{
-		Context ctx = ContextSingleton.getInstance().getContext();
-		try
-		{
-			FileOutputStream fos = ctx.openFileOutput("favourites.sav",
-					Context.MODE_PRIVATE);
-			String json = gson.toJson(fel);
-			fos.write(json.getBytes());
-			fos.close();
-
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		this.saveLocal(fel, "favourites.sav");
 	}
 
 	/**
@@ -309,32 +314,7 @@ public class DataManager
 	 */
 	public ArrayList<ForumEntry> getFavourites()
 	{
-		ArrayList<ForumEntry> fel = new ArrayList<ForumEntry>();
-		Context ctx = ContextSingleton.getInstance().getContext();
-
-		try
-		{
-			BufferedReader fis = new BufferedReader(new InputStreamReader(
-					ctx.openFileInput("favourites.sav")));
-			String line;
-			StringBuffer fileContent = new StringBuffer();
-
-			while ((line = fis.readLine()) != null)
-			{
-				fileContent.append(line);
-			}
-
-			Type collectionType = new TypeToken<Collection<ForumEntry>>()
-			{
-			}.getType();
-
-			fel = gson.fromJson(fileContent.toString(), collectionType);
-
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		return fel;
+		return this.loadLocal("favourites.sav");
 	}
 
 	
