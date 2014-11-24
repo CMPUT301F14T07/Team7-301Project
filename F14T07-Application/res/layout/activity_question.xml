@@ -70,7 +70,7 @@
 	        android:id="@+id/QuestionReplyList"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/QuestionText"
+	        android:layout_below="@+id/QuestionDate"
 	        android:layout_toLeftOf="@+id/QuestionSaveButton" >
 	    </ListView>
 
@@ -84,5 +84,29 @@
 	        android:paddingLeft="30dp"
 	        android:text="Question Text"
 	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    
+	     <TextView 
+	        android:id="@+id/QuestionAuthor"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/QuestionText"
+	        android:layout_marginLeft="22dp"
+	        android:layout_toRightOf="@+id/imageView1"
+	        android:paddingLeft="30dp"
+	        android:text="Question Author"
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	     
+	     <TextView 
+	        android:id="@+id/QuestionDate"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/QuestionAuthor"
+	        android:layout_marginLeft="22dp"
+	        android:layout_toRightOf="@+id/imageView1"
+	        android:paddingLeft="30dp"
+	        android:text="Question Date"
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
 
 </RelativeLayout>

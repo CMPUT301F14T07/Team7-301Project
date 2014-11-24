@@ -30,6 +30,7 @@ import android.widget.Toast;
  * This activity displays a ForumEntry to the user. It displays the question, its answers, and their replies.
  * It also allows the user to create an answer to the question
  * @author bbruner
+ * @author jfryan
  *
  */
 public class QuestionActivity extends Activity implements Observer<ForumEntryList>
@@ -274,7 +275,19 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 * Set the questions main body of text in the view.
 		 */
 		TextView questionText = (TextView) findViewById(R.id.QuestionText);
-		questionText.setText(focus.getQuestion().getPost());	
+		questionText.setText(focus.getQuestion().getPost());
+		
+		/*
+		 * Set the questions author in the view.
+		 */
+		TextView authorText = (TextView) findViewById(R.id.QuestionAuthor);
+		authorText.setText(focus.getQuestion().getAuthorsName());
+		
+		/*
+		 * Set the questions date in the view.
+		 */
+		TextView dateText = (TextView) findViewById(R.id.QuestionDate);
+		dateText.setText(focus.getQuestion().getDate().toString());
 	}
 
 }
