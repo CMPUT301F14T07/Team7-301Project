@@ -318,8 +318,9 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		term.setVisibility(EditText.VISIBLE);
 	}
 	public void viewBy()
-	{
-		final CharSequence[] sortTypes = {"Sort by time", "Sort by rating", "Sort by picutre"};
+	{ 
+		final CharSequence[] sortTypes = {"Sort by time", "Sort by rating", "Sort by picture"};
+		if (this.brs.getViewToken().equals("Browse")){
 		AlertDialog.Builder alert = new AlertDialog.Builder(BrowseActivity.this);
 		
 		alert.setTitle("What do you want to sort by?"); 
@@ -348,7 +349,92 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		});
 		
 		alert.show(); 
+		}
+		else if (this.brs.getViewToken().equals("Favourites")){
+			Toast.makeText(BrowseActivity.this, "test1", Toast.LENGTH_SHORT).show();
+			final ArrayList<ForumEntry> favourites=this.dm.getFavourites();
+			
+			AlertDialog.Builder alert = new AlertDialog.Builder(BrowseActivity.this);
+			
+			alert.setTitle("What do you want to sort by?"); 
+			
+			alert.setItems(sortTypes, new DialogInterface.OnClickListener() {
+				 @Override
+				 public void onClick(DialogInterface dialog, int item) {
+					if (item == 0){
+						Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+						browseController.sortByTimeLocal(favourites, "F");
+					}
+					else if (item ==1){
+						Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+						browseController.sortByRatingLocal(favourites, "F");
+					}
+					else if (item ==2){
+						Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+						browseController.sortByHasPictureLocal(favourites, "F");
+					}  
+				 }
+			});
+			
+			alert.show();
+		}
 		
+		else if (this.brs.getViewToken().equals("Saved")){
+			Toast.makeText(BrowseActivity.this, "test2", Toast.LENGTH_SHORT).show();
+			final ArrayList<ForumEntry> readLaters=this.dm.getReadLater();
+			
+			AlertDialog.Builder alert = new AlertDialog.Builder(BrowseActivity.this);
+			
+			alert.setTitle("What do you want to sort by?"); 
+			
+			alert.setItems(sortTypes, new DialogInterface.OnClickListener() {
+				 @Override
+				 public void onClick(DialogInterface dialog, int item) {
+					if (item == 0){
+						Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+						browseController.sortByTimeLocal(readLaters, "S");
+					}
+					else if (item ==1){
+						Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+						browseController.sortByRatingLocal(readLaters, "S");
+					}
+					else if (item ==2){
+						Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+						browseController.sortByHasPictureLocal(readLaters, "S");
+					}  
+				 }
+			});
+			
+			alert.show();
+		}
+		else if (this.brs.getViewToken().equals("My Questions")){
+			Toast.makeText(BrowseActivity.this, "test3", Toast.LENGTH_SHORT).show();
+			final ArrayList<ForumEntry> myQuestions=this.dm.getMyAuthored();
+			
+			AlertDialog.Builder alert = new AlertDialog.Builder(BrowseActivity.this);
+			
+			alert.setTitle("What do you want to sort by?"); 
+			
+			alert.setItems(sortTypes, new DialogInterface.OnClickListener() {
+				 @Override
+				 public void onClick(DialogInterface dialog, int item) {
+					if (item == 0){
+						Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+						browseController.sortByTimeLocal(myQuestions, "M");
+					}
+					else if (item ==1){
+						Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+						browseController.sortByRatingLocal(myQuestions, "M");
+					}
+					else if (item ==2){
+						Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+						browseController.sortByHasPictureLocal(myQuestions, "M");
+					}  
+				 }
+			});
+			
+			alert.show();
+		}
 	}
 	
 	@Override

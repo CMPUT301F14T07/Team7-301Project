@@ -88,13 +88,13 @@ public class BrowseController {
 							return 0;
 						}
 						else if (f1.getQuestion().getDate()==null){
-							return -1;
-						}
-						else if (f2.getQuestion().getDate()==null){
 							return 1;
 						}
+						else if (f2.getQuestion().getDate()==null){
+							return -1;
+						}
 						else{
-							return f1.getQuestion().getDate().compareTo(f2.getQuestion().getDate());
+							return f2.getQuestion().getDate().compareTo(f1.getQuestion().getDate());
 						}
 					}
 				});
@@ -248,6 +248,100 @@ public class BrowseController {
 		ArrayList<ForumEntry> fel = this.dataManager.getMyAuthored();
 		this.myAuthoredModel.setView(fel);
 		this.myAuthoredModel.notifyObservers();
+	}
+	
+	
+	public void sortByTimeLocal(ArrayList<ForumEntry> results, String casetype){
+		if(results != null)
+		{
+			Collections.sort(results, new Comparator<ForumEntry>(){
+					public int compare( ForumEntry f1, ForumEntry f2){
+						if (f1.getQuestion().getDate()==null && f2.getQuestion().getDate()==null){
+							return 0;
+						}
+						else if (f2.getQuestion().getDate()==null){
+							return -1;
+						}
+						else if (f1.getQuestion().getDate()==null){
+							return 1;
+						}
+						else{
+							return f2.getQuestion().getDate().compareTo(f1.getQuestion().getDate());
+						}
+					}
+				});
+		    if (casetype.equals("F")){
+		    	this.favouritesModel.setView(results);
+		    	this.favouritesModel.notifyObservers();
+		    }
+		    else if (casetype.equals("S")){
+				this.readLaterModel.setView(results);
+				this.readLaterModel.notifyObservers();
+			}
+		    else if (casetype.equals("M")){
+				this.myAuthoredModel.setView(results);
+				this.myAuthoredModel.notifyObservers();
+			} 
+		}
+	
+	}
+	
+	public void sortByRatingLocal(ArrayList<ForumEntry> results, String casetype){
+		if(results != null)
+		{
+			Collections.sort(results, new Comparator<ForumEntry>(){
+					public int compare( ForumEntry f1, ForumEntry f2){
+							return  f2.getQuestion().getUpVote()-f1.getQuestion().getUpVote();
+					}
+				});
+		
+			if (casetype.equals("F")){
+		    	this.favouritesModel.setView(results);
+		    	this.favouritesModel.notifyObservers();
+		    }
+			else if (casetype.equals("S")){
+				this.readLaterModel.setView(results);
+				this.readLaterModel.notifyObservers();
+			}
+			else if (casetype.equals("M")){
+				this.myAuthoredModel.setView(results);
+				this.myAuthoredModel.notifyObservers();
+			}
+		}
+	}
+	
+	public void sortByHasPictureLocal(ArrayList<ForumEntry> results, String casetype){
+		if(results != null)
+		{
+			Collections.sort(results, new Comparator<ForumEntry>(){
+				public int compare( ForumEntry f1, ForumEntry f2){
+					if (f1.getQuestion().getDate()==null && f2.getQuestion().getDate()==null){
+						return 0;
+					}
+					else if (f1.getQuestion().getDate()==null){
+						return -1;
+					}
+					else if (f2.getQuestion().getDate()==null){
+						return 1;
+					}
+					else{
+						return 0;
+					}
+				}
+			});
+			if (casetype.equals("F")){
+		    	this.favouritesModel.setView(results);
+		    	this.favouritesModel.notifyObservers();
+		    }
+			else if (casetype.equals("S")){
+				this.readLaterModel.setView(results);
+				this.readLaterModel.notifyObservers();
+			}
+			else if (casetype.equals("M")){
+				this.myAuthoredModel.setView(results);
+				this.myAuthoredModel.notifyObservers();
+			}
+		}
 	}
 	
 	
