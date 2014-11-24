@@ -171,11 +171,21 @@ public class DataManager
 		ArrayList<ForumEntry> fel;
 		if (string.equals("F")) {
 			fel = this.getFavourites();
-			fel.remove(focus);
+			for (int i = 0; i < fel.size(); i++) {
+				if (fel.get(i).getId().equals(focus.getId())) {
+					fel.remove(i);
+					break;
+				}
+			}
 			this.setFavourites(fel);
 		} else {
 			fel = this.getReadLater();
-			fel.remove(focus);
+			for (int i = 0; i < fel.size(); i++) {
+				if (fel.get(i).getId().equals(focus.getId())) {
+					fel.remove(i);
+					break;
+				}
+			}
 			this.setReadLater(fel);
 		}
 		

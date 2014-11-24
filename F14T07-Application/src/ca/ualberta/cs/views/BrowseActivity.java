@@ -356,7 +356,7 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		super.onCreateContextMenu(menu, v, menuInfo);
 		
 		MenuInflater inflater = getMenuInflater();
-		if (v.getId() == (R.id.favouriteListView) || v.getId() == (R.id.readLaterListView)) {
+		if (brs.getViewToken().equals("Favourites") || brs.getViewToken().equals("Saved")) {
 			inflater.inflate(R.menu.unsave, menu);
 		}
 		
@@ -376,8 +376,12 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		ForumEntry focus = browseListAdapter.getItem(id.position);
 		if (brs.getViewToken().equals("Favourites")) {
 			dm.unSave(focus, "F");
+			browseListAdapter.remove(focus);
+			browseListAdapter.notifyDataSetChanged();
 		} else {
 			dm.unSave(focus, "R");
+			browseListAdapter.remove(focus);
+			browseListAdapter.notifyDataSetChanged();
 		}
 	}
 	
