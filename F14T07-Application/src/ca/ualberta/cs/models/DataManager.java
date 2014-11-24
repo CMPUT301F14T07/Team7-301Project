@@ -264,21 +264,9 @@ public class DataManager
 	 * @param fel
 	 *            The List<ForumEntry> to save.
 	 */
-	public void setMyAuthored(List<ForumEntry> fel)
+	public void setMyAuthored(ArrayList<ForumEntry> fel)
 	{
-		Context ctx = ContextSingleton.getInstance().getContext();
-		try
-		{
-			FileOutputStream fos = ctx.openFileOutput("readlater.sav",
-					Context.MODE_PRIVATE);
-			String json = gson.toJson(fel);
-			fos.write(json.getBytes());
-			fos.close();
-
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		this.saveLocal(fel,"myauthor.sav");
 	}
 
 	/**
@@ -288,12 +276,7 @@ public class DataManager
 	 */
 	public ArrayList<ForumEntry> getMyAuthored()
 	{
-		Context ctx = ContextSingleton.getInstance().getContext();
-		if (ctx == null)
-		{
-			return new ArrayList<ForumEntry>();
-		}
-		return new ArrayList<ForumEntry>();
+		return this.loadLocal("myauthor.sav");
 	}
 
 	/**

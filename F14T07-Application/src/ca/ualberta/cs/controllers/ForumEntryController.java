@@ -39,13 +39,6 @@ public class ForumEntryController
 		this.dataManager = new DataManager();
 	}
 
-	public ForumEntryController(Observer viewsContext,Context context)
-	{
-		this.forumEntries = new ForumEntryList();
-		this.forumEntries.addObserver(viewsContext);
-
-		this.dataManager = new DataManager(context);
-	}
 
 	/**
 	 * Sets the ForumEntry in the model and notifies its observers.
@@ -117,8 +110,6 @@ public class ForumEntryController
 	
 	
 	private Boolean checkSaved(ArrayList<ForumEntry> fel, ForumEntry focus) {
-		
-
 		for (int i = 0; i < fel.size(); i++) {
 			if (fel.get(i).equals(focus)) {
 				return true;
@@ -146,21 +137,6 @@ public class ForumEntryController
 		this.dataManager.setReadLater(fel);
 	}
 	
-	/**
-	 * Saves the ForumEntry from the model as a my authored.
-	 */
-	public void saveMyAuthoredCopy()
-	{
-		ArrayList<ForumEntry> fel = this.dataManager.getMyAuthored();
-		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
-		
-		Boolean savedAlready = checkSaved(fel, focus);
-		if (!savedAlready) {
-			fel.add(focus);
-		}
-		
-		this.dataManager.setMyAuthored(fel);
-	}
 
 	/**
 	 * Saves the ForumEntry from the model as a favourite.
@@ -171,7 +147,7 @@ public class ForumEntryController
 		ForumEntry focus = this.forumEntries.getView().get(ForumEntryList.FIRST_FORUM_ENTRY);
 		
 		Boolean savedAlready = checkSaved(fel, focus);
-		if (!savedAlready) {
+		if (savedAlready.equals(false)) {
 			fel.add(focus);
 		}
 		

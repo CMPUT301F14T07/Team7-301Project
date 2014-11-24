@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -65,7 +66,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 
 	private AuthorModel authorModel;
 	private ForumEntryController feController;
-	
+	private DataManager dm;
 	private BrowseController browseController;
 	private ForumEntry forumEntry;
 	
@@ -89,9 +90,8 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.ask_activity_screen);
-
 		this.authorModel = new AuthorModel();
-		this.feController = new ForumEntryController(this,this);
+		this.feController = new ForumEntryController(this);
 		
 		this.browseController = new BrowseController(this);
 
@@ -139,13 +139,20 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					 * Create an instance of the new ForumEntry then set the ForumEntrySingletons focus on it.
 					 */
 					ForumEntry newForumEntry = new ForumEntry(newSubject, newEntry, newAuthor, image);
-					forumEntryFocus.setForumEntry(newForumEntry);
+					forumEntryFocus.setForumEntry(newForumEntry);				
 					/*
 					 * Invoke the AddThread to add this new ForumEntry to the remote server by
 					 * calling the controller
 					 */
 					Thread thread = new AddQuestionThread(newForumEntry);
 					thread.start();
+					
+					// Save to my authored
+					ArrayList<ForumEntry> fel = new ArrayList<ForumEntry>();
+					fel = dm.getMyAuthored();
+					fel.add(newForumEntry);
+					dm.setMyAuthored(fel);
+					
 					resetEditText(newEntryEdit, newSubjectEdit, newAuthorEdit);
 					startQuestionScreen();
 					}
@@ -229,6 +236,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	{
 		super.onStart();
 		ctx = this.getApplicationContext();
+		this.dm = new DataManager();
 		
 		/*
 		 * Tell the controller what ForumEntry the singleton is focusing on.
@@ -315,7 +323,6 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		public void run()
 		{
 			feController.addNewQuestion(this.forumEntry);
-			feController.saveMyAuthoredCopy();
 
 		}
 	}
