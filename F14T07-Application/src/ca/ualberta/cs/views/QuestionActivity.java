@@ -95,10 +95,23 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 				answerQuestion();
 			}
 		});
+		
+		/*
+		 * On click listener for upvote button.
+		 */
+		Button upvoteButton = (Button) findViewById(R.id.QuestionUpvoteButton);
+		upvoteButton.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				answerQuestion();
+			}
+		});
 	}
 	
 	/**
-	 * This function is called everytime this activity starts.
+	 * This function is called every time this activity starts.
 	 */
 	@Override
 	public void onStart()

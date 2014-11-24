@@ -12,7 +12,7 @@
         android:id="@+id/AddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/QuestionAnswerList"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/QuestionAnswerList"
         android:text="@string/add_answer" />
@@ -43,14 +43,14 @@
         android:id="@+id/QuestionAnswerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_alignLeft="@+id/ReplyAnswerIndicator"
         android:layout_below="@+id/AnswerListIndicator"
+        android:layout_above="@+id/AddButton"
         android:paddingLeft="30dp" >
     </ListView>
 	
 	    <Button
-         android:id="@+id/QuestionSaveButton"
+        android:id="@+id/QuestionSaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -79,8 +79,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/QuestionSubject"
-	        android:layout_marginLeft="22dp"
-	        android:layout_toRightOf="@+id/imageView1"
+	        android:layout_toRightOf="@+id/QuestionUpvoteButton"
 	        android:paddingLeft="30dp"
 	        android:text="Question Text"
 	        android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -90,8 +89,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/QuestionText"
-	        android:layout_marginLeft="22dp"
-	        android:layout_toRightOf="@+id/imageView1"
+	        android:layout_toRightOf="@+id/QuestionUpvoteButton"
 	        android:paddingLeft="30dp"
 	        android:text="Question Author"
 	        android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -101,12 +99,20 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/QuestionAuthor"
-	        android:layout_marginLeft="22dp"
-	        android:layout_toRightOf="@+id/imageView1"
+	        android:layout_toRightOf="@+id/QuestionUpvoteButton"
 	        android:paddingLeft="30dp"
 	        android:text="Question Date"
 	        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-
+	     
+	      <Button
+	          android:id="@+id/QuestionUpvoteButton"
+	          style="?android:attr/buttonStyleSmall"
+	          android:layout_width="25dp"
+	          android:layout_height="35dp"
+	          android:layout_alignTop="@+id/QuestionText"
+	          android:layout_alignParentLeft="true"
+	          android:adjustViewBounds="true"
+	          android:background="@drawable/upvote_arrow"
+	           />
 
 </RelativeLayout>

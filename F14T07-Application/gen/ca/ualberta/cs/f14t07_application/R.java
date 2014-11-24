@@ -34,6 +34,7 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
         public static final int logo8=0x7f020003;
         public static final int outline=0x7f020004;
+        public static final int upvote_arrow=0x7f020005;
     }
     public static final class id {
         public static final int AddButton=0x7f090000;
@@ -45,6 +46,7 @@ public final class R {
         public static final int QuestionSaveButton=0x7f090003;
         public static final int QuestionSubject=0x7f090002;
         public static final int QuestionText=0x7f090008;
+        public static final int QuestionUpvoteButton=0x7f09000a;
         public static final int ReplyAnswerIndicator=0x7f090006;
         public static final int action_settings=0x7f090038;
         public static final int answerReplyButton=0x7f09000c;
@@ -62,7 +64,6 @@ public final class R {
         public static final int gpsSpinner=0x7f090030;
         public static final int help=0x7f090035;
         public static final int helpText=0x7f09001b;
-        public static final int imageView1=0x7f09000a;
         public static final int invisButton=0x7f09001f;
         public static final int logo=0x7f090024;
         public static final int myQuestionsDeleteCM=0x7f09003a;
