@@ -144,14 +144,16 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					 * Invoke the AddThread to add this new ForumEntry to the remote server by
 					 * calling the controller
 					 */
-					Thread thread = new AddQuestionThread(newForumEntry);
-					thread.start();
 					
 					// Save to my authored
 					ArrayList<ForumEntry> fel = new ArrayList<ForumEntry>();
 					fel = dm.getMyAuthored();
 					fel.add(newForumEntry);
 					dm.setMyAuthored(fel);
+					
+					Thread thread = new AddQuestionThread(newForumEntry);
+					thread.start();
+					
 					
 					resetEditText(newEntryEdit, newSubjectEdit, newAuthorEdit);
 					startQuestionScreen();
@@ -236,7 +238,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	{
 		super.onStart();
 		ctx = this.getApplicationContext();
-		this.dm = new DataManager();
+		dm = new DataManager();
 		
 		/*
 		 * Tell the controller what ForumEntry the singleton is focusing on.

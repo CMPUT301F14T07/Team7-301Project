@@ -55,16 +55,6 @@ public class DataManager
 		gson = new Gson();
 	}
 
-	/**
-	 * Deprecated. Do not use. Use DataManager() instead.
-	 * 
-	 * @param ctx
-	 */
-	public DataManager(Context ctx_)
-	{
-		gson = new Gson();
-		ctx=ctx_;
-	}
 
 	/**
 	 * adds a new forum entry to the system
@@ -148,7 +138,8 @@ public class DataManager
 
 	public Boolean isOnline()
 	{
-	     ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+		Context ctx = ContextSingleton.getInstance().getContext();
+	    ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
 
 	  // test for connection
 	          if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable()

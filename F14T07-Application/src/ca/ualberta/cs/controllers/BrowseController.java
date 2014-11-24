@@ -46,7 +46,7 @@ public class BrowseController {
 	public BrowseController(Observer viewsContext){ 
 		this.forumEntries = new ArrayList<ForumEntry>();
 		this.searchController = new SearchController();
-		this.dataManager = new DataManager(null);
+		this.dataManager = new DataManager();
 		
 		this.onLineModel = new ForumEntryList();
 		this.readLaterModel = new ForumEntryList();
