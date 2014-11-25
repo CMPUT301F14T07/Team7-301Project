@@ -462,12 +462,10 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		ForumEntry focus = browseListAdapter.getItem(id.position);
 		if (brs.getViewToken().equals("Favourites")) {
 			dm.unSave(focus, "F");
-			browseListAdapter.remove(focus);
-			browseListAdapter.notifyDataSetChanged();
+			browseController.useFavouritesView();
 		} else {
 			dm.unSave(focus, "R");
-			browseListAdapter.remove(focus);
-			browseListAdapter.notifyDataSetChanged();
+			browseController.useReadLaterView();
 		}
 	}
 	
