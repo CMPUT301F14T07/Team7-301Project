@@ -53,6 +53,8 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	public AlertDialog alert2;//FOR TESTING
 	public EditText name;
 	public TextView nameDisplayed;
+	public double longitude;
+	public double latitude;
 
 /**
  * This function contains all the main screen on click listeners.
@@ -69,6 +71,37 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		this.authorController = new AuthorController(this);
 		this.authorController.setSessionAuthor(AuthorModel.NO_AUTHOR);
 
+
+		LocationManager locMan = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		LocationListener locLis = new LocationListener() {
+			
+			@Override
+			public void onStatusChanged(String provider, int status, Bundle extras) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onProviderEnabled(String provider) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onProviderDisabled(String provider) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLocationChanged(Location loc) {
+				// TODO Auto-generated method stub
+				longitude = loc.getLongitude();
+				latitude = loc.getLatitude();
+			}
+		};
+		locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 50000, locLis); //update every 50km
+		
 		/**
 		 * Sets the context in the context singleton to be this activity. Since
 		 * this is the first activity that starts up when this app starts
@@ -511,13 +544,13 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	}
 	
 	public void setLocationByGPS() {
-		LocationManager locMan = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		String locProv = LocationManager.GPS_PROVIDER;
-		Location loc = locMan.getLastKnownLocation(locProv);
-		double longitude = loc.getLongitude();
-		double latitude = loc.getLatitude();
-		Toast.makeText(MainScreenActivity.this, String.valueOf(longitude), Toast.LENGTH_LONG).show();
-	/*	final LocationListener locLis = new LocationListener() {
+		//LocationManager locMan = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		//String locProv = LocationManager.GPS_PROVIDER; // OR GPS_PROVIDER
+		//Location loc = locMan.getLastKnownLocation(locProv);
+		Toast.makeText(MainScreenActivity.this, String.valueOf(longitude) + "," + String.valueOf(latitude), Toast.LENGTH_LONG).show();
+		
+		//MIGHT WANT THE STUFF BELOW IN ONCREATE()
+		/*final LocationListener locLis = new LocationListener() {
 			
 			@Override
 			public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -543,10 +576,11 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				double longitude = loc.getLongitude();
 				double latitude = loc.getLatitude();
 				Toast.makeText(MainScreenActivity.this, String.valueOf(longitude), Toast.LENGTH_LONG).show();
+				//CANCEL LOCATION UPDATES
 			}
 		};
-		locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locLis);*/
-
+		locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locLis);
+*/
 	
 	}
 }
