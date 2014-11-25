@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
@@ -107,7 +108,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				latitude = loc.getLatitude();
 			}
 		};
-		locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 50000, locLis); //update every 50km
+		locMan.requestLocationUpdates(locMan.getBestProvider(new Criteria(), false), 2000, 50000, locLis); //update every 50km
 		
 		/**
 		 * Sets the context in the context singleton to be this activity. Since
@@ -550,7 +551,6 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		alert.show();
 	}
 	
-	@SuppressLint("NewApi")
 	public void setLocationByGPS() {
 		Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
 		String myAddress = "";
@@ -572,7 +572,6 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			e.printStackTrace();
 			Toast.makeText(MainScreenActivity.this,"Could not get address..!", Toast.LENGTH_LONG).show();
 		}
-		boolean t = geocoder.isPresent();
 		Toast.makeText(MainScreenActivity.this, myAddress, Toast.LENGTH_LONG).show();
 		
 	}
