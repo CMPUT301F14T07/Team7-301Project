@@ -555,7 +555,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
 		String myAddress = "";
 		try {
-			List<Address> addresses = geocoder.getFromLocation(37.423247, -122.085469, 1);
+			List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
 			if (addresses.size() != 0) {
 				Address fetchedAddress = addresses.get(0);
 				StringBuilder strAddress = new StringBuilder();
