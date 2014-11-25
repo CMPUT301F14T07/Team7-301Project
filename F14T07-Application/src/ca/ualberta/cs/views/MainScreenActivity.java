@@ -1,10 +1,17 @@
 package ca.ualberta.cs.views;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -543,45 +550,31 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		alert.show();
 	}
 	
+	@SuppressLint("NewApi")
 	public void setLocationByGPS() {
-		//LocationManager locMan = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		//String locProv = LocationManager.GPS_PROVIDER; // OR GPS_PROVIDER
-		//Location loc = locMan.getLastKnownLocation(locProv);
-		Toast.makeText(MainScreenActivity.this, String.valueOf(longitude) + "," + String.valueOf(latitude), Toast.LENGTH_LONG).show();
+		Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+		String myAddress = "";
+		try {
+			List<Address> addresses = geocoder.getFromLocation(37.423247, -122.085469, 1);
+			if (addresses.size() != 0) {
+				Address fetchedAddress = addresses.get(0);
+				StringBuilder strAddress = new StringBuilder();
+				for (int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
+					strAddress.append(fetchedAddress.getAddressLine(i)).append("\n");
+				}
+						
+				myAddress = ("I am at: "+strAddress.toString());
+			} else {
+				myAddress = ("No location found");
+			}
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+			Toast.makeText(MainScreenActivity.this,"Could not get address..!", Toast.LENGTH_LONG).show();
+		}
+		boolean t = geocoder.isPresent();
+		Toast.makeText(MainScreenActivity.this, myAddress, Toast.LENGTH_LONG).show();
 		
-		//MIGHT WANT THE STUFF BELOW IN ONCREATE()
-		/*final LocationListener locLis = new LocationListener() {
-			
-			@Override
-			public void onStatusChanged(String provider, int status, Bundle extras) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onProviderEnabled(String provider) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onProviderDisabled(String provider) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onLocationChanged(Location loc) {
-				// TODO Auto-generated method stub
-				double longitude = loc.getLongitude();
-				double latitude = loc.getLatitude();
-				Toast.makeText(MainScreenActivity.this, String.valueOf(longitude), Toast.LENGTH_LONG).show();
-				//CANCEL LOCATION UPDATES
-			}
-		};
-		locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locLis);
-*/
-	
 	}
 }
 
