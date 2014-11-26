@@ -87,7 +87,7 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		/*
 		 * On click listener for answer button.
 		 */
-		Button answerButton = (Button) findViewById(R.id.AddButton);
+		Button answerButton = (Button) findViewById(R.id.AddAnswerButton);
 		answerButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override

@@ -32,7 +32,7 @@ public class AnswerListAdapter extends ArrayAdapter<Entry>{
 		this.adaptersContext = context;
 		this.AnswerList = AnswerList;
 	}
-	
+}/*	
 	@Override
 	public View getView(int listPosition, View listView, ViewGroup parent)
 	{		
@@ -65,3 +65,4 @@ public class AnswerListAdapter extends ArrayAdapter<Entry>{
 		return listViewRow;
 	
 }
+*/
