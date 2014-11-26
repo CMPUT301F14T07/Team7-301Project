@@ -20,7 +20,10 @@ import ca.ualberta.cs.views.Observer;
 public class AuthorModel extends Observable<Observer> 
 {
 	private static String author = null;
+	private static double latitude = 0.0;
+	private static double longitude = 0.0;
 	private static String location = null;
+	
 	
 	public static final String NO_AUTHOR = "";
 
@@ -41,15 +44,33 @@ public class AuthorModel extends Observable<Observer>
 	{
 		return author;
 	}
+	
 	/**
 	 * Saves in local memory the location of the user.
-	 * @param userLoc - a string inputed by the user or their GPS.
+	 * @param userLoc - a String inputed by the user.
 	 */
-	public void setSessionLocation(String userLoc) {
+	public void setSessionLocation(String loc) {
+		AuthorModel.location = loc;
+	}
+	
+	/**
+	 * Saves in local memory the latitude of the user.
+	 * @param userLoc - a double inputed by the GPS.
+	 */
+	public void setSessionLatitude(double lat) {
 		// TODO Auto-generated method stub
-		AuthorModel.location = userLoc;
+		AuthorModel.latitude = lat;
 	}
 
+	/**
+	 * Saves in local memory the longitude of the user.
+	 * @param userLoc - a double inputed by the GPS.
+	 */
+	public void setSessionLongitude(double lon) {
+		// TODO Auto-generated method stub
+		AuthorModel.longitude = lon;
+	}
+	
 	/**
 	 * Retrieves from memory the location of the user.
 	 * @return The location of the user.
@@ -57,5 +78,21 @@ public class AuthorModel extends Observable<Observer>
 	public String getSessionLocation()
 	{
 		return location;
+	}
+	/**
+	 * Retrieves from memory the latitude of the user.
+	 * @return The latitude of the user.
+	 */ 
+	public double getSessionLatitude()
+	{
+		return latitude;
+	}
+	/**
+	 * Retrieves from memory the longitude of the user.
+	 * @return The longitude of the user.
+	 */ 
+	public double getSessionLongitude()
+	{
+		return longitude;
 	}
 }

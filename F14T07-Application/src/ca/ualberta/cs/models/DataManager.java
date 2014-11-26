@@ -45,7 +45,7 @@ public class DataManager
 	private static String RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
 	private static String ORIGINAL_RESOURCE_URL = "http://cmput301.softwareprocess.es:8080/cmput301f14t07/ForumEntry";
 	private static final String TAG = "ForumEntrySearch";
-
+	
 	private Context ctx;
 	private Gson gson;
 	private ForumEntry forumEntryTest;
@@ -158,26 +158,23 @@ public class DataManager
 	}
 
 	
-	public void unSave(ForumEntry focus, String string) {
+	public void unSave(ForumEntry focus, String string) 
+	{		
 		ArrayList<ForumEntry> fel;
+		
+		
 		if (string.equals("F")) {
+			
 			fel = this.getFavourites();
-			for (int i = 0; i < fel.size(); i++) {
-				if (fel.get(i).getId().equals(focus.getId())) {
-					fel.remove(i);
-					break;
-				}
-			}
+			fel.remove(focus);
 			this.setFavourites(fel);
+			
 		} else {
+			
 			fel = this.getReadLater();
-			for (int i = 0; i < fel.size(); i++) {
-				if (fel.get(i).getId().equals(focus.getId())) {
-					fel.remove(i);
-					break;
-				}
-			}
+			fel.remove(focus);
 			this.setReadLater(fel);
+			
 		}
 		
 	}

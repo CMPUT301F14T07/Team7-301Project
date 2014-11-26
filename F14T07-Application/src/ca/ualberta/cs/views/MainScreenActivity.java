@@ -1,10 +1,18 @@
 package ca.ualberta.cs.views;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -53,6 +61,8 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	public AlertDialog alert2;//FOR TESTING
 	public EditText name;
 	public TextView nameDisplayed;
+	public double longitude;
+	public double latitude;
 
 /**
  * This function contains all the main screen on click listeners.
@@ -69,6 +79,37 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 		this.authorController = new AuthorController(this);
 		this.authorController.setSessionAuthor(AuthorModel.NO_AUTHOR);
 
+
+		LocationManager locMan = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		LocationListener locLis = new LocationListener() {
+			
+			@Override
+			public void onStatusChanged(String provider, int status, Bundle extras) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onProviderEnabled(String provider) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onProviderDisabled(String provider) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLocationChanged(Location loc) {
+				// TODO Auto-generated method stub
+				longitude = loc.getLongitude();
+				latitude = loc.getLatitude();
+			}
+		};
+		locMan.requestLocationUpdates(locMan.getBestProvider(new Criteria(), false), 2000, 50000, locLis); //update every 50km
+		
 		/**
 		 * Sets the context in the context singleton to be this activity. Since
 		 * this is the first activity that starts up when this app starts
@@ -511,43 +552,28 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	}
 	
 	public void setLocationByGPS() {
-		LocationManager locMan = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		String locProv = LocationManager.GPS_PROVIDER;
-		Location loc = locMan.getLastKnownLocation(locProv);
-		double longitude = loc.getLongitude();
-		double latitude = loc.getLatitude();
-		Toast.makeText(MainScreenActivity.this, String.valueOf(longitude), Toast.LENGTH_LONG).show();
-	/*	final LocationListener locLis = new LocationListener() {
-			
-			@Override
-			public void onStatusChanged(String provider, int status, Bundle extras) {
-				// TODO Auto-generated method stub
-				
+		Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+		String myAddress = "";
+		try {
+			List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+			if (addresses.size() != 0) {
+				Address fetchedAddress = addresses.get(0);
+				StringBuilder strAddress = new StringBuilder();
+				for (int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
+					strAddress.append(fetchedAddress.getAddressLine(i)).append("\n");
+				}
+						
+				myAddress = ("I am at: "+strAddress.toString());
+			} else {
+				myAddress = ("No location found");
 			}
-			
-			@Override
-			public void onProviderEnabled(String provider) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onProviderDisabled(String provider) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onLocationChanged(Location loc) {
-				// TODO Auto-generated method stub
-				double longitude = loc.getLongitude();
-				double latitude = loc.getLatitude();
-				Toast.makeText(MainScreenActivity.this, String.valueOf(longitude), Toast.LENGTH_LONG).show();
-			}
-		};
-		locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locLis);*/
-
-	
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+			Toast.makeText(MainScreenActivity.this,"Could not get address..!", Toast.LENGTH_LONG).show();
+		}
+		Toast.makeText(MainScreenActivity.this, myAddress, Toast.LENGTH_LONG).show();
+		
 	}
 }
 

@@ -108,7 +108,6 @@ public class ForumEntryController
 	}
 	
 	
-	
 	private Boolean checkSaved(ArrayList<ForumEntry> fel, ForumEntry focus) {
 		for (int i = 0; i < fel.size(); i++) {
 			if (fel.get(i).equals(focus)) {
@@ -183,17 +182,23 @@ public class ForumEntryController
 				aws.get(index-1).setUpVote(upVote);
 			}
 		}
-		
+		dataManager.updateForumEntry(focus);
+/*
 		this.forumEntries.setView(fel);
 		this.forumEntries.notifyObservers();
-		
+		*/
 		/*
 		 * TODO: Make this update in the remote server
 		 * TODO: Check if this ForumEntry is a favourite/read later/my authored and make
 		 * 		 update there too.
 		 */
 	}
-
+	public void updateView(){
+		ArrayList<ForumEntry> fel = this.forumEntries.getView();
+		ForumEntry focus = fel.get(ForumEntryList.FIRST_FORUM_ENTRY);
+		this.forumEntries.setView(fel);
+		this.forumEntries.notifyObservers();
+	}
 	/**
 	 * Add a Reply to an Entry from the model. Changes are then updated in the
 	 * applicable save locations.

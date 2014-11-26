@@ -7,6 +7,7 @@ import ca.ualberta.cs.controllers.ForumEntryController;
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
 import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
+import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.Entry;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
@@ -258,11 +259,13 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	}
 	
 	/**
-	 * This function will upvote the question
+	 * This function will upvote the question (the input 0 indicates to upvote the question).
 	 */
 	private void upVoteEntry()
 	{
-		//this currently doesnt do anything
+	 UpVoteThread uThread = new UpVoteThread(0);
+	 uThread.start();
+	 forumEntryController.updateView();
 	}
 	
 	/**
@@ -309,6 +312,28 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 */
 		TextView dateText = (TextView) findViewById(R.id.QuestionDate);
 		dateText.setText(focus.getQuestion().getDate().toString());
+		
+		/*
+		 * Set the upvote number in the view.
+		 */
+		TextView voteText = (TextView) findViewById(R.id.QuestionUpvoteNumber);
+		String vote = String.valueOf(focus.getQuestion().getUpVote());
+		voteText.setText(vote);
 	}
 
+	class UpVoteThread extends Thread
+	{
+		private int index;
+		
+		public UpVoteThread(int index_)
+		{
+			index = index_;
+		}
+		
+		@Override
+		public void run()
+		{
+			forumEntryController.upVoteEntry(index);
+		}
+	}
 }

@@ -95,9 +95,17 @@ public class ForumEntry
 		return id;
 	}
 	
-	
-	public Boolean equals(ForumEntry focus) {
-		return focus.getId().equals(id);
+	@Override
+	public boolean equals(Object focus) {
+		if(focus == null)
+		{
+			return false;
+		}
+		if(!(focus instanceof ForumEntry))
+		{
+			return false;
+		}
+		return ((ForumEntry) focus).getId().equals(id);
 	}
 	
 	
