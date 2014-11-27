@@ -80,6 +80,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	public static final int RESULT_GALLERY = 0;
 	private Bitmap bitmap = null;
 	private String image;
+	private byte[] pictureByteArray= new byte[64000];
 
 	/**
 	 * lays out the screen and creates onClickListeners
@@ -296,6 +297,17 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	        if (null != data) {
 	            pictureFile = data.getData();
 	            decodeUri();
+	            bitmap =BitmapFactory.decodeFile(image);
+	            
+	            //http://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
+	            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+	            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+	            pictureByteArray = stream.toByteArray();
+	            
+	            //http://stackoverflow.com/questions/7620401/how-to-convert-byte-array-to-bitmap
+	            Bitmap newbitmap = BitmapFactory.decodeByteArray(pictureByteArray , 0, pictureByteArray.length);
+	        	ImageView iv = (ImageView) findViewById(R.id.picture);
+	    		iv.setImageBitmap(newbitmap);
 	        }
 	    }
 	}
@@ -307,8 +319,8 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		cursor.moveToFirst();
 		int columnIndex = cursor.getColumnIndex(filePath[0]);
 		String picturePath = cursor.getString(columnIndex);
-		ImageView iv = (ImageView) findViewById(R.id.picture);
-		iv.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+		//ImageView iv = (ImageView) findViewById(R.id.picture);
+		//iv.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 		image=picturePath;
 		  
 	}
