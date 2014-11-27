@@ -27,6 +27,9 @@ import com.google.gson.reflect.TypeToken;
 
 /**
  * Controls the data in the model of the SearchActivity
+ * It also handles searching for queries and processing the results
+ * 
+ * @author lexie
  */
 public class SearchController
 {

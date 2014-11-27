@@ -5,8 +5,12 @@ import java.util.List;
 import ca.ualberta.cs.remote_server.SearchHit;
 
 /**
- * Gets info from the hits
+ * Interprets the individual search hits so that they can
+ * be turned into ForumEntries
+ * 
  * taken from Lab 7
+ * 
+ * 
  * @author lexie*/
 public class Hits<T> {
 	private int total;

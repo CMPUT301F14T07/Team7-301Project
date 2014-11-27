@@ -1,6 +1,12 @@
 package ca.ualberta.cs.remote_server;
 
-/**turns query into a proper elastic search command*/
+/**
+ * turns query into a proper elastic search command
+ * so that it can be passed into the elastic search server
+ * 
+ * @author lexie
+ * 
+ */
 public class SimpleSearchCommand {
 
 	private String query;

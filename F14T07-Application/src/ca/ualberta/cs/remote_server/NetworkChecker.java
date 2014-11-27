@@ -22,6 +22,17 @@ import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 
+/**
+ * Checks whether the device is hooked up to 
+ * a network. 
+ * If a question is asked with no network it saves
+ * it to a file instead 
+ * 
+ * If a network connection is created it adds them to 
+ * the elastic search server
+ * 
+ * @author Lexie
+ */
 public class NetworkChecker {
 	
 	private Boolean isOnline;

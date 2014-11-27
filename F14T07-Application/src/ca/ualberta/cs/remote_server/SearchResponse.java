@@ -4,7 +4,12 @@ import ca.ualberta.cs.f14t07_application.Hits;
 /**
  * class used to process search response
  * borrowed from lab7
- * @author lexie*/
+ * 
+ * This Class processes and interprets the search response gotten from elastic Search and 
+ * Splits it into hits which can then be processed and turned into forumEntries
+ * @author lexie
+ * 
+ */
 public class SearchResponse<T> {
 
 	private int took;
@@ -46,9 +51,12 @@ public class SearchResponse<T> {
 		this.hits = hits;
 	}	   
 }
-
-	
-
+/**
+*A Shard gets the total number of successful and unsuccessful results
+*that were gained from elastic search
+*
+*@author lexie
+*/
 class Shard {
 	private int total;
 	private int successful;

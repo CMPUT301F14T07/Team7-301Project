@@ -2,8 +2,12 @@ package ca.ualberta.cs.remote_server;
 
 /**
  * class used to process search hits
+ * turns the hits into forumEntries
+ * 
+ * 
  * borrowed from lab7
- * @author lexie*/
+ * @author lexie
+ */
 public class SearchHit<T> {
 	private String _index;
 	private String _type;

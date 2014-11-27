@@ -33,6 +33,8 @@ import com.google.gson.reflect.TypeToken;
 
 /**
  * Model class for the data saved in memory and/or the remote server.
+ * It has the ability to pass questions to either elastic search 
+ * or into a file found on the phone 
  * 
  * @author lexie
  */
