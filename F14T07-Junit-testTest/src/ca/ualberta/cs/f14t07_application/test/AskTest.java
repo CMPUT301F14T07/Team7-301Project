@@ -32,11 +32,11 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	super.setUp();
 	setActivityInitialTouchMode(true);
 	testActivity = getActivity();
-	dm = new DataManager(context);
+	dm = new DataManager();
 	dm.addForumEntry((new ForumEntry("subject","What is life?", "Kibbles")));
 	}
 	
-	
+
 	/* The current functionality after clicking the "ask" button from the main menu is as follows:
 	 * -enter a name
 	 * -enter a question
@@ -94,11 +94,11 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		//Need more tests in here once we determine more about how pictures will work
 	  
 	   //add a picture called picture.png
-	   Picture pictureFile= null;
+	   String pictureFile= null;
 	   ForumEntry testForumEntry = dm.getForumEntry();
 	        
 	   testForumEntry.getQuestion().setPicture(pictureFile);
-	   Picture thePictureAdded = testForumEntry.getQuestion().getPicture();
+	   String thePictureAdded = testForumEntry.getQuestion().getPicture();
 	   assertNotNull(thePictureAdded);
 	   //assertEquals(thePictureAdded,pictureFile);
 		//Check if the pictures are the same (it was loaded properly)
@@ -108,10 +108,10 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		   
 		ForumEntry testForumEntry = dm.getForumEntry();
 		//this will be a picture bigger than 64kb
-		Picture bigPictureFile=null;
+		String bigPictureFile=null;
 		testForumEntry.getQuestion().setPicture(bigPictureFile);
 	
-		Picture thePictureAdded = testForumEntry.getQuestion().getPicture();
+		String thePictureAdded = testForumEntry.getQuestion().getPicture();
 		assertNotNull(thePictureAdded);
 		
 	}

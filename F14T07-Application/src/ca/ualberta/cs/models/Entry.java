@@ -144,12 +144,12 @@ public class Entry
 	 * Set the picture attached to this Entry. No, it cannot have two picture.
 	 * Don't be stupid.
 	 * 
-	 * @param image
+	 * @param bigPictureFile
 	 *            The picture.
 	 */
-	public void setPicture(String image)
+	public void setPicture(String bigPictureFile)
 	{
-		picture = image;
+		picture = bigPictureFile;
 	}
 
 	/**

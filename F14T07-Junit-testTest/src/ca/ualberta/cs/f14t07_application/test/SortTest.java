@@ -50,6 +50,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
     	ForumEntry f3 = new ForumEntry("subject","test 3","author3");
 
     	ArrayList<ForumEntry> posts = new ArrayList<ForumEntry>();
+
     	posts.add(f2);
     	posts.add(f3);
     	posts.add(f1);
@@ -108,7 +109,7 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
     	posts.add(f2);
     	posts.add(f3);
     	
-		posts.get(1).getQuestion().setPicture(new Picture());
+		posts.get(1).getQuestion().setPicture(new String());
 		
 		BrowseController bc = new BrowseController(testActivity);
 		//bc.sortByHasPicture(posts);

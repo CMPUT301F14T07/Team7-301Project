@@ -32,6 +32,7 @@ import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
+import ca.ualberta.cs.remote_server.NetworkChecker;
 
 /**
  * The Browse view implements the observer class
@@ -68,6 +69,9 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	{
 		super.onCreate(savedInstanceState);
 
+		NetworkChecker networkChecker = new NetworkChecker();
+		networkChecker.dealWithNetworkStuff();
+		
 		setContentView(R.layout.browse_activity_screen);
 
 		forumEntries = new ArrayList<ForumEntry>();

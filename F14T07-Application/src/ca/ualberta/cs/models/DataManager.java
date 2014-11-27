@@ -25,6 +25,7 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 import android.widget.Toast;
 import ca.ualberta.cs.intent_singletons.ContextSingleton;
+import ca.ualberta.cs.remote_server.NetworkChecker;
 import ca.ualberta.cs.views.AskActivity;
 
 import com.google.gson.Gson;
@@ -64,7 +65,9 @@ public class DataManager
 	 * */
 	public void addForumEntry(ForumEntry forumEntry)
 	{
-		if(isOnline()){
+		NetworkChecker networkChecker = new NetworkChecker();
+		
+		if(networkChecker.getIsOnline()){
 		gson = new Gson();
 		HttpClient httpClient = new DefaultHttpClient();
 		forumEntry.setId("0");
@@ -121,33 +124,11 @@ public class DataManager
 			Toast.makeText(ctx,
 					"Must Connect To the Internet",
 					Toast.LENGTH_SHORT).show();
-			saveToPush();
+			networkChecker.saveForLater(forumEntry);
 		}
 		forumEntryTest = forumEntry;
 		
 		
-	}
-	public void saveToPush(){ 
-		
-	}
-
-	public Boolean isOffline()
-	{
-		return false;
-	}
-
-	public Boolean isOnline()
-	{
-		Context ctx = ContextSingleton.getInstance().getContext();
-	    ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-	  // test for connection
-	          if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable()
-	                  && cm.getActiveNetworkInfo().isConnected()) {
-	              return true;
-	          } else {
-	              return false;
-	          }
 	}
 	
 	public void updateForumEntry(ForumEntry forumEntry) {

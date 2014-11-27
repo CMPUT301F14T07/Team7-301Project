@@ -8,6 +8,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
 import ca.ualberta.cs.views.AnswerReplyActivity;
+import ca.ualberta.cs.views.Observer;
 import ca.ualberta.cs.controllers.ForumEntryController;
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.models.Answer;
@@ -44,7 +45,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		activity.runOnUiThread(new Runnable (){ 
 			@Override 
 			public void run(){ 
-		DataManager dm = new DataManager(ctx);
+		DataManager dm = new DataManager();
     	dm.addForumEntry((new ForumEntry("subject","This is a question","AuthorName")));
 		
 		testButton = (Button) activity.findViewById(ca.ualberta.cs.f14t07_application.R.id.answerReplyButton);
@@ -56,7 +57,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		
 		Boolean i= false;
 		
-		for (Reply r : (new DataManager(ctx)).loadLocallySaved().getView().get(0).getQuestion().getReplies()){
+		for (Reply r : (new DataManager()).loadLocallySaved().getView().get(0).getQuestion().getReplies()){
 			if (r != null){
 				if (r.getReply() == Body){
 					i=true;
@@ -73,10 +74,10 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		activity.runOnUiThread(new Runnable (){ 
 			@Override 
 			public void run(){ 
-		DataManager dm = new DataManager(ctx);
+		DataManager dm = new DataManager();
 		
 		ForumEntry entry=new ForumEntry("subject","This is a question","AuthorName");
-		ForumEntryController forumEntryController = new ForumEntryController(entry);
+		ForumEntryController forumEntryController = new ForumEntryController(this);
 		
 		Answer answer = new Answer("This is an answer","AuthorName2");
 		forumEntryController.addAnswer(answer);
@@ -92,7 +93,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		
 		Boolean i= false;
 		
-		for (Reply r : (new DataManager(ctx)).load().getView().get(0).getAnswers().get(0).getReplies()){
+		for (Reply r : (new DataManager()).load().getView().get(0).getAnswers().get(0).getReplies()){
 			if (r.getReply() == Body){
 				i=true;
 			}
@@ -107,7 +108,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		activity.runOnUiThread(new Runnable (){ 
 			@Override 
 			public void run(){ 
-		DataManager dm = new DataManager(ctx);
+		DataManager dm = new DataManager();
 		
 		dm.addForumEntry((new ForumEntry("subject","This is a question","AuthorName")));
 
@@ -120,7 +121,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		
 		Boolean i= false;
 		
-		for (Answer a : (new DataManager(ctx)).loadLocallySaved().getView().get(0).getAnswers()){
+		for (Answer a : (new DataManager()).loadLocallySaved().getView().get(0).getAnswers()){
 			if (a != null){
 				if (a.getPost() == Body){
 					i=true;
@@ -128,18 +129,18 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 			}
 		}
 		assert(i); 
-		(new DataManager(ctx)).saveLocally(null);
+		(new DataManager()).saveLocally(null);
 			}
 		});
 		
 	}
 	
 	
-	/*public void testpostAnswerWithPicture(){//NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
+	public void testpostAnswerWithPicture(){//NEEDS TO BE CHANGED TO MATCH THE NEW WAY WE REPLY
 		activity.runOnUiThread(new Runnable (){ 
 			@Override 
 			public void run(){ 
-		DataManager dm = new DataManager(ctx);
+		DataManager dm = new DataManager();
 		
 		dm.addForumEntry((new ForumEntry("subject","This is a question","AuthorName")));
 
@@ -153,7 +154,7 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		
 		Boolean i= false;
 		
-		for (Answer a : (new DataManager(ctx)).loadLocallySaved().getView().get(0).getAnswers()){
+		for (Answer a : (new DataManager()).loadLocallySaved().getView().get(0).getAnswers()){
 			if (a != null){
 				if (a.getPost() == Body && a.getPicture() != null){
 					i=true;
@@ -164,5 +165,5 @@ public class AnswerRepliesTest extends ActivityInstrumentationTestCase2<AnswerRe
 		assert(i); 
 		}
 		});
-	}*/
+	}
 }
