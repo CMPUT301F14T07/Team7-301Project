@@ -157,6 +157,13 @@ public class DataManager
 	}
 
 	
+	/**
+	 * Removes a given ForumEntry from the current locally cached list.
+	 * <p>Is called by the BrowseActivity when showing FavouritesView or ReadLaterView
+	 * 
+	 * @param focus is a ForumEntry to be removed.
+	 * @param string is given by the caller to declare which of Favourites or ReadLaters is being removed.    
+	 * */
 	public void unSave(ForumEntry focus, String string) 
 	{		
 		ArrayList<ForumEntry> fel;
@@ -178,6 +185,13 @@ public class DataManager
 		
 	}
 	
+	/**
+	 * Saves a List of ForumEntries to given location in Json format.
+	 * <p>Is only called within the DataManager. 
+	 * 
+	 * @param fel is a List of ForumEntry to be Json'd and saved.
+	 * @param FILE_NAME is given by the caller to declare where to save the list.    
+	 * */
 	private void saveLocal(ArrayList<ForumEntry> fel, String FILE_NAME) {
 		Context ctx = ContextSingleton.getInstance().getContext();
 		try
@@ -194,6 +208,12 @@ public class DataManager
 		}
 	}
 	
+	/**
+	 * Loads a List of ForumEntries from a given location.
+	 * <p>Is only called within the DataManager. 
+	 * 
+	 * @param FILE_NAME is given by the caller to declare which list to load.    
+	 * */
 	private ArrayList<ForumEntry> loadLocal(String FILE_NAME) 
 	{
 		ArrayList<ForumEntry> fel = new ArrayList<ForumEntry>();
@@ -225,10 +245,11 @@ public class DataManager
 	}
 	
 	/**
-	 * Save the List<ForumEntry> as read later forum entries.
+	 * Saves a List of ForumEntries as readlater forum entries.
+	 * <p>Called by the ForumEntryController when prompted by the QuestionActivity.
 	 * 
-	 * @param fel
-	 *            The List<ForumEntry> to save.
+	 * @param fel is the list to be saved.
+	 *            
 	 */
 	public void setReadLater(ArrayList<ForumEntry> fel)
 	{
@@ -236,7 +257,8 @@ public class DataManager
 	}
 
 	/**
-	 * Load the List<ForumEntry> marked as read later.
+	 * Load the List of ForumEntries marked as readlater.
+	 * <p> Called by the BrowseActivity when viewing ReadLaters to populate list. Also called before saving new entries. 
 	 * 
 	 * @return The List<ForumEntry> marked as read later.
 	 */
@@ -246,10 +268,11 @@ public class DataManager
 	}
 
 	/**
-	 * Save the List<ForumEntry> that the user has authored.
+	 * Saves a List of ForumEntries as MyAuthored forum entries.
+	 * <p>Called by the ForumEntryController when prompted by the AskActivity.
 	 * 
-	 * @param fel
-	 *            The List<ForumEntry> to save.
+	 * @param fel is the list to be saved.
+	 *            
 	 */
 	public void setMyAuthored(ArrayList<ForumEntry> fel)
 	{
@@ -257,9 +280,10 @@ public class DataManager
 	}
 
 	/**
-	 * Load the List<ForumEntry> that the user has authored.
+	 * Load the List of ForumEntries marked as MyAuthored.
+	 * <p> Called by the BrowseActivity when viewing MyAuthored to populate list. Also called before saving new entries. 
 	 * 
-	 * @return The List<ForumEntry> the user has authored.
+	 * @return The List<ForumEntry> marked as read later.
 	 */
 	public ArrayList<ForumEntry> getMyAuthored()
 	{
@@ -267,10 +291,11 @@ public class DataManager
 	}
 
 	/**
-	 * Save the List<ForumEntry> that the user has selected as favourites.
+	 * Saves a List of ForumEntries as Favourites forum entries.
+	 * <p>Called by the ForumEntryController when prompted by the BrowseActivity.
 	 * 
-	 * @param fel
-	 *            List<ForumEntry> to save.
+	 * @param fel is the list to be saved.
+	 *            
 	 */
 	public void setFavourites(ArrayList<ForumEntry> fel)
 	{
@@ -278,9 +303,10 @@ public class DataManager
 	}
 
 	/**
-	 * Load the List<ForumEntry> that contains the users favourites.
+	 * Load the List of ForumEntries marked as Favourites.
+	 * <p> Called by the BrowseActivity when viewing Favourites to populate list. Also called before saving new entries. 
 	 * 
-	 * @return The ForumEntryList the user has favourited.
+	 * @return The List<ForumEntry> marked as read later.
 	 */
 	public ArrayList<ForumEntry> getFavourites()
 	{
@@ -288,31 +314,6 @@ public class DataManager
 	}
 
 	
-	/**
-	 * 
-	 * gets a forum entry for tests
-	 * 
-	 * @return forum entry
-	 */
-	public ForumEntry getForumEntry()
-	{
-		return forumEntryTest;
-	}
 
-	/**
-	 * loads the saved forum entries for testing
-	 */
-	public ForumEntryList load()
-	{
-		ForumEntryList fe = null;
-
-		return fe;
-	}
-
-	public void saveAuthor(String author)
-	{
-		// TODO Auto-generated method stub
-
-	}
 
 }
