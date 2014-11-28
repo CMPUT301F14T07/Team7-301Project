@@ -462,6 +462,12 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		return super.onContextItemSelected(item);
 	}
 	
+	/**
+	 * Uses the DataManager to delete selected ForumEntry from Favourites or ReadLater.
+	 * <p> Called by the BrowseActivity OnLongClick and delete selection of a Favourite or ReadLater Entry.  
+	 * 
+	 * @param id of the selected item within the ArrayAdapter
+	 */
 	public void unSave(AdapterContextMenuInfo id){
 		ForumEntry focus = browseListAdapter.getItem(id.position);
 		if (brs.getViewToken().equals("Favourites")) {
