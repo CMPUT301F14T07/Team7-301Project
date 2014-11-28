@@ -4,86 +4,55 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.Button;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
-import ca.ualberta.cs.models.ForumEntryList;
-import ca.ualberta.cs.views.QuestionActivity;
+import ca.ualberta.cs.views.BrowseActivity;
 
-public class QuestionSaveTest extends ActivityInstrumentationTestCase2<QuestionActivity> {
+public class QuestionSaveTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 
 	private DataManager datamanager;
 	private Context ctx;
-	private QuestionActivity testActivity;
+	private BrowseActivity testActivity;
 	
 	public QuestionSaveTest() {
-		super(QuestionActivity.class);
+		super(BrowseActivity.class);
 
 	}
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		ctx = testActivity.getApplicationContext();
-		datamanager = new DataManager(ctx);
+		datamanager = new DataManager();
 		setActivityInitialTouchMode(false);
 		testActivity = getActivity();
+		ctx = testActivity.getApplicationContext();
+
 		
 	}
 	
 	// Test for u28
 	public void testSaveFavourite() {
-		/* Create some forum entries and save them using the data manager.
-		 * Pretend that these already existed and were saved to memory/jsong
-		 * a long time ago.
-		 */
-		
-
-		DataManager dm = new DataManager(ctx);
 		ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
-    	dm.addForumEntry(exampleEntry);
-	    
+		exampleEntry.setId("A2930458034");
     	ArrayList<ForumEntry> testQuestions = new ArrayList<ForumEntry>();
+    	ArrayList<ForumEntry> compareList = new ArrayList<ForumEntry>();
     	testQuestions.add(exampleEntry);
     	
-    	
-		/* Get the button that will save a forum entry for offline viewing. */
-		//Button favourite = (Button) testActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.FavouriteQuestion);
-		//favourite.performClick();
-		
-		/* Now we need to check that this forum entry was saved locally */
-		ForumEntryList loadCheck = new ForumEntryList();
-		loadCheck = datamanager.loadFavourites();
-		assertEquals("The entry saved is not equal to what was loaded", testQuestions, loadCheck);
-		/* Clean up the run time environment */
-		datamanager.deleteLocalAll();
+    	datamanager.setFavourites(testQuestions);
+		compareList = datamanager.getFavourites();
+		assertEquals(testQuestions, compareList);
 	}
 	
 	// Test for u26
 	public void testSaveReadLater() {
-		/* Create some forum entries and save them using the data manager.
-		 * Pretend that these already existed and were saved to memory/jsong
-		 * a long time ago.
-		 */
-
-		DataManager dm = new DataManager(ctx);
 		ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
-    	dm.addForumEntry(exampleEntry);
-	    
+		exampleEntry.setId("A2930458034");
     	ArrayList<ForumEntry> testQuestions = new ArrayList<ForumEntry>();
+    	ArrayList<ForumEntry> compareList = new ArrayList<ForumEntry>();
     	testQuestions.add(exampleEntry);
     	
-    	
-		/* Get the button that will save a forum entry for offline viewing. */
-		//Button saveLater = (Button) testActivity.findViewById(ca.ualberta.cs.f14t07_application.R.id.ReadLater);
-		/* Simulate a button click */
-		//saveLater.performClick();
-		
-		/* Now we need to check that this forum entry was saved locally */
-		ForumEntryList loadCheck = new ForumEntryList();
-		loadCheck = datamanager.loadLocallySaved();
-		assertEquals("The entry saved is not equal to what was loaded", testQuestions, loadCheck);
-		/* Clean up the run time environment */
-		datamanager.deleteLocalAll();
+    	datamanager.setReadLater(testQuestions);
+		compareList = datamanager.getReadLater();
+		assertEquals(testQuestions, compareList);
 	}
 
 }

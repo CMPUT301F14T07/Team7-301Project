@@ -31,7 +31,7 @@ public class QuestionUITest extends ActivityInstrumentationTestCase2<QuestionAct
 	super.setUp();
 	setActivityInitialTouchMode(true);
 	testActivity = getActivity();
-	dm = new DataManager(context);
+	dm = new DataManager();
 	fm = new ForumEntry("subject","What is life?", "Kibbles");
 	dm.addForumEntry(fm);
 	}

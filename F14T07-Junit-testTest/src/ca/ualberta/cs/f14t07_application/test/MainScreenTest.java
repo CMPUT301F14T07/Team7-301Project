@@ -13,7 +13,6 @@ import ca.ualberta.cs.models.AuthorModel;
 import ca.ualberta.cs.views.AskActivity;
 import ca.ualberta.cs.views.BrowseActivity;
 import ca.ualberta.cs.views.MainScreenActivity;
-import ca.ualberta.cs.views.SearchActivity;
 
 public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenActivity> {
 	private MainScreenActivity testActivity;

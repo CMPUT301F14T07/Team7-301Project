@@ -2,33 +2,37 @@ package ca.ualberta.cs.f14t07_application.test;
 
 import java.util.ArrayList;
 
+import junit.framework.Assert;
+
+import ca.ualberta.cs.controllers.ForumEntryController;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
+import ca.ualberta.cs.views.BrowseActivity;
 import ca.ualberta.cs.views.QuestionActivity;
-import ca.ualberta.cs.views.ReadLaterActivity;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.ViewAsserts;
 import android.widget.Button;
-import junit.framework.TestCase;
 
-public class ReadLaterTest extends ActivityInstrumentationTestCase2<ReadLaterActivity> {
+public class ReadLaterTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 
 	private DataManager datamanager;
 	private Context ctx;
-	private ReadLaterActivity testActivity;
+	private BrowseActivity testActivity;
 	
 	public ReadLaterTest() {
-		super(ReadLaterActivity.class);
+		super(BrowseActivity.class);
 	}
-	
+
+
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		testActivity =  getActivity();
 		ctx = testActivity.getApplicationContext();
-		datamanager = new DataManager(ctx);
+		datamanager = new DataManager();
 		/* Turns off the touch screen in the emulator. This must be done to test features that
 		 * would require the user to touch something on the screen.
 		 */
@@ -36,33 +40,43 @@ public class ReadLaterTest extends ActivityInstrumentationTestCase2<ReadLaterAct
 		/* Get an instance of the activity which is running
 		 */
 
-		testActivity = getActivity();
-		
-		/* Reset the testButton - do this so consecutive tests don't accidentally test
-		 * the same button.
-		 */
-		//testButton = null;
-
 	}
 	
-
 	// Test for u27
-	public void testViewReadLater() throws Throwable {
-		ForumEntryList fel = new ForumEntryList();
+	
+	public void testViewFavourite() {
+		ForumEntryController fec = new ForumEntryController(testActivity);
 		ArrayList<ForumEntry> testList = new ArrayList<ForumEntry>();
 		ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
+		exampleEntry.setId("AF@Q$#WFSVXCZv");
+		ArrayList<ForumEntry> compareList = new ArrayList<ForumEntry>();
+
+
+
+		// sets the entry to be a favourite in both our copy and the original activity
 		testList.add(exampleEntry);
-		fel.setFavourites(testList);
-		datamanager.saveLocally(fel); 
-    	 
-		runTestOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				datamanager.loadFavourites();
-				
-			}
-		});
-		ViewAsserts.assertOnScreen(testActivity.getWindow().getDecorView(), getActivity().getView());
+		datamanager.setReadLater(testList);
+
+		 
+		compareList = datamanager.getReadLater();
+		assertEquals(testList.get(0), compareList.get(0));
+
+		
+		try {
+			runTestOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+
+					assertNotNull(testActivity.getWindow().getDecorView());
+					
+					ViewAsserts.assertOnScreen(testActivity.getWindow().getDecorView(), getActivity().getView());
+
+					
+				}
+			});
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		
 	}
 }

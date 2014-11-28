@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.text.style.AlignmentSpan.Standard;
 import ca.ualberta.cs.intent_singletons.ContextSingleton;
 import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.DataManager;
@@ -56,6 +57,7 @@ public class NetworkChecker {
 	public void checkStatus()
 	{
 		Context ctx = ContextSingleton.getInstance().getContext();
+
 	    ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
 
 	  // test for connection

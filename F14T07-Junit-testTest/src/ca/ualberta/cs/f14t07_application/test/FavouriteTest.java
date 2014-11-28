@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import junit.framework.Assert;
 
 import ca.ualberta.cs.controllers.ForumEntryController;
+import ca.ualberta.cs.intent_singletons.ContextSingleton;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
@@ -32,7 +33,7 @@ public class FavouriteTest extends ActivityInstrumentationTestCase2<BrowseActivi
 		super.setUp();
 		testActivity =  getActivity();
 		ctx = testActivity.getApplicationContext();
-		datamanager = new DataManager(ctx);
+		datamanager = new DataManager();
 		/* Turns off the touch screen in the emulator. This must be done to test features that
 		 * would require the user to touch something on the screen.
 		 */
@@ -46,31 +47,23 @@ public class FavouriteTest extends ActivityInstrumentationTestCase2<BrowseActivi
 	
 	public void testViewFavourite() {
 		ForumEntryController fec = new ForumEntryController(testActivity);
-		final ArrayList<ForumEntry> testList = new ArrayList<ForumEntry>();
-		final ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
-		ForumEntryController testFec = new ForumEntryController(testActivity);
-	
-		
+		ArrayList<ForumEntry> testList = new ArrayList<ForumEntry>();
+		ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
+		exampleEntry.setId("AF@Q$#WFSVXCZv");
+		ArrayList<ForumEntry> compareList = new ArrayList<ForumEntry>();
+
 		// sets the entry to be a favourite in both our copy and the original activity
-		fec.saveFavouritesCopy(exampleEntry);
-		testFec.saveFavouritesCopy(exampleEntry);
-		
-		
-		assertEquals(fec.returnFavourite?, testFec.returnFavourite?);
-		
+		testList.add(exampleEntry);
+		datamanager.setFavourites(testList);
 		 
-		testFec = datamanager.loadFavourites();
-		assertEquals(fec, testFec);
-		// test that after save and load it is still the same
-		//assertEquals(fel, testFel);
+		compareList = datamanager.getFavourites();
+		assertEquals(testList.get(0), compareList.get(0));
 		
 		try {
 			runTestOnUiThread(new Runnable() {
 				@Override
 				public void run() {
 
-
-					// first check that 
 					assertNotNull(testActivity.getWindow().getDecorView());
 					
 					ViewAsserts.assertOnScreen(testActivity.getWindow().getDecorView(), getActivity().getView());

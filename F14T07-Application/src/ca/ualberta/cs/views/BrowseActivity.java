@@ -28,6 +28,7 @@ import android.widget.Toast;
 import ca.ualberta.cs.controllers.BrowseController;
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.intent_singletons.BrowseRequestSingleton;
+import ca.ualberta.cs.intent_singletons.ContextSingleton;
 import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
@@ -68,7 +69,7 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
+		ContextSingleton.getInstance().setContext(this.getApplicationContext());
 		NetworkChecker networkChecker = new NetworkChecker();
 		networkChecker.dealWithNetworkStuff();
 		
