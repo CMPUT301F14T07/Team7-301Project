@@ -356,7 +356,6 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		alert.show(); 
 		}
 		else if (this.brs.getViewToken().equals("Favourites")){
-			Toast.makeText(BrowseActivity.this, "test1", Toast.LENGTH_SHORT).show();
 			final ArrayList<ForumEntry> favourites=this.dm.getFavourites();
 			
 			AlertDialog.Builder alert = new AlertDialog.Builder(BrowseActivity.this);
@@ -385,7 +384,6 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 		}
 		
 		else if (this.brs.getViewToken().equals("Saved")){
-			Toast.makeText(BrowseActivity.this, "test2", Toast.LENGTH_SHORT).show();
 			final ArrayList<ForumEntry> readLaters=this.dm.getReadLater();
 			
 			AlertDialog.Builder alert = new AlertDialog.Builder(BrowseActivity.this);
@@ -413,7 +411,6 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 			alert.show();
 		}
 		else if (this.brs.getViewToken().equals("My Questions")){
-			Toast.makeText(BrowseActivity.this, "test3", Toast.LENGTH_SHORT).show();
 			final ArrayList<ForumEntry> myQuestions=this.dm.getMyAuthored();
 			
 			AlertDialog.Builder alert = new AlertDialog.Builder(BrowseActivity.this);

@@ -161,17 +161,13 @@ public class BrowseController {
 		{
 			Collections.sort(results, new Comparator<ForumEntry>(){
 				public int compare( ForumEntry f1, ForumEntry f2){
-					if (f1.getQuestion().getDate()==null && f2.getQuestion().getDate()==null){
+					if (f1.getQuestion().getPicture()==null && f2.getQuestion().getPicture()==null){
 						return 0;
 					}
-					else if (f1.getQuestion().getDate()==null){
-						return -1;
-					}
-					else if (f2.getQuestion().getDate()==null){
+					else if (f1.getQuestion().getPicture()==null){
 						return 1;
-					}
-					else{
-						return 0;
+					}else{
+						return -1;
 					}
 				}
 			});
@@ -315,17 +311,13 @@ public class BrowseController {
 		{
 			Collections.sort(results, new Comparator<ForumEntry>(){
 				public int compare( ForumEntry f1, ForumEntry f2){
-					if (f1.getQuestion().getDate()==null && f2.getQuestion().getDate()==null){
+					if (f1.getQuestion().getPicture()==null && f2.getQuestion().getPicture()==null){
 						return 0;
 					}
-					else if (f1.getQuestion().getDate()==null){
-						return -1;
-					}
-					else if (f2.getQuestion().getDate()==null){
+					else if (f1.getQuestion().getPicture()==null){
 						return 1;
-					}
-					else{
-						return 0;
+					}else{
+						return -1;
 					}
 				}
 			});
