@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -308,6 +309,13 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	            Bitmap newbitmap = BitmapFactory.decodeByteArray(pictureByteArray , 0, pictureByteArray.length);
 	        	ImageView iv = (ImageView) findViewById(R.id.picture);
 	    		iv.setImageBitmap(newbitmap);
+	    		
+	    		try {
+					image= new String(pictureByteArray, "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        }
 	    }
 	}
