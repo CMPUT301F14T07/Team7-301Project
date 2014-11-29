@@ -475,5 +475,9 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	public Context getContext() {
+		// TODO Auto-generated method stub
+		return this;
+	}
 	
 }

@@ -39,12 +39,14 @@ public class NetworkChecker {
 	private Boolean isOnline;
 	private String FILENAME = "pushOnline.sav";
 	private Gson gson;
+	private Context ctx;
 	
 	public NetworkChecker(){
 		gson = new Gson();
-		checkStatus();
+		//checkStatus();
 	}
 	public Boolean getIsOnline(){
+		checkStatus();
 		return isOnline;
 	}
 	public void dealWithNetworkStuff(){
@@ -54,12 +56,16 @@ public class NetworkChecker {
 			addThread.start();
 		}
 	}
+	public void setContext(Context context){
+		ctx = context;
+	}
 	public void checkStatus()
 	{
-		Context ctx = ContextSingleton.getInstance().getContext();
-
+		if(ctx == null){
+		ctx = ContextSingleton.getInstance().getContext();
+		}
 	    ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-
+	   
 	  // test for connection
 	          if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable()
 	                  && cm.getActiveNetworkInfo().isConnected()) {
