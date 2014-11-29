@@ -7,7 +7,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,7 @@ import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -301,21 +305,53 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	            bitmap =BitmapFactory.decodeFile(image);
 	            
 	            //http://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
-	            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-	            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-	            pictureByteArray = stream.toByteArray();
+	            //ByteArrayOutputStream stream = new ByteArrayOutputStream();
+	            //bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+	           // pictureByteArray = stream.toByteArray();
 	            
 	            //http://stackoverflow.com/questions/7620401/how-to-convert-byte-array-to-bitmap
-	            Bitmap newbitmap = BitmapFactory.decodeByteArray(pictureByteArray , 0, pictureByteArray.length);
-	        	ImageView iv = (ImageView) findViewById(R.id.picture);
+	           //Bitmap newbitmap = BitmapFactory.decodeByteArray(pictureByteArray , 0, pictureByteArray.length);
+	        	//ImageView iv = (ImageView) findViewById(R.id.picture);
+	    		//iv.setImageBitmap(newbitmap);
+	    		
+	            //http://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
+	            ByteArrayOutputStream stream=new  ByteArrayOutputStream();
+	            bitmap.compress(Bitmap.CompressFormat.PNG,100, stream);
+	            byte [] b=stream.toByteArray();
+	            String temp=Base64.encodeToString(b, Base64.DEFAULT);
+	            
+	            
+	           // Bitmap newbitmap=StringToBitMap(temp);
+	            Bitmap newbitmap=null;
+	            try {
+	  		      byte [] encodeByte=Base64.decode(temp,Base64.DEFAULT);
+	  		      newbitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+	  		   } catch(Exception e) {
+	  		      e.getMessage();
+	  		   }
+	            
+	            ImageView iv = (ImageView) findViewById(R.id.picture);
 	    		iv.setImageBitmap(newbitmap);
 	    		
-	    		try {
-					image= new String(pictureByteArray, "UTF-8");
-				} catch (UnsupportedEncodingException e) {
+	    		
+	    		
+	    		
+	    		//try {
+				//	image= new String(pictureByteArray, "UTF-8");
+				//} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			//		e.printStackTrace();
+			//	}
+	    		
+	    	//	 char[] buffer = image.toCharArray();
+	    		// byte[] b = new byte[buffer.length << 1];
+	    		 //CharBuffer cBuffer = ByteBuffer.wrap(b).asCharBuffer();
+	    		 //for(int i = 0; i < buffer.length; i++)
+	    		  //cBuffer.put(buffer[i]);
+	    		 
+	    		// Bitmap newbitmap = BitmapFactory.decodeByteArray(b , 0, b.length);
+	 	         //ImageView iv = (ImageView) findViewById(R.id.picture);
+	 	    	 //iv.setImageBitmap(newbitmap);
 	        }
 	    }
 	}
