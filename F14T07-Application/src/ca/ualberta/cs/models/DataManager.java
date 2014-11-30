@@ -33,8 +33,10 @@ import com.google.gson.reflect.TypeToken;
 
 /**
  * Model class for the data saved in memory and/or the remote server.
- * It has the ability to pass questions to either elastic search 
- * or into a file found on the phone 
+ * It has the ability to pass ForumEntries to either elastic search 
+ * or into a file found on the phone. It can also retrieve the data in a local
+ * file on the phone or on the remote server. Finally, it can append data to the
+ * remote server.
  * 
  * @author lexie
  */
@@ -53,6 +55,9 @@ public class DataManager
 	private Gson gson;
 	private ForumEntry forumEntryTest;
 
+	/**
+	 * Constructor.
+	 */
 	public DataManager()
 	{
 		gson = new Gson();
@@ -60,10 +65,11 @@ public class DataManager
 
 
 	/**
-	 * adds a new forum entry to the system
+	 * Adds the ForumEntry provided as input to the remote server. Calling this function will
+	 * create a new ForumEntry on the remote server without checking for duplication. This
+	 * operation cannot be undone.
 	 * 
-	 * @param forum
-	 *            entry
+	 * @param forumEntry The ForumEntry which will be added to the remote server.
 	 * */
 	public void addForumEntry(ForumEntry forumEntry)
 	{
@@ -130,6 +136,10 @@ public class DataManager
 		
 	}
 	
+	/**
+	 * This method is used for testing only. Do not call it within the application.
+	 * @param forumEntry
+	 */
 	public void deleteMovie(ForumEntry forumEntry) {
 		HttpClient httpClient = new DefaultHttpClient();
 
@@ -156,10 +166,12 @@ public class DataManager
 	
 	/**
 	 * Removes a given ForumEntry from the current locally cached list.
-	 * <p>Is called by the BrowseActivity when showing FavouritesView or ReadLaterView
+	 * <p>Is called by the BrowseActivity when showing FavouritesView or ReadLaterView to
+	 * remove selected ForumEntries.
 	 * 
 	 * @param focus is a ForumEntry to be removed.
 	 * @param string is given by the caller to declare which of Favourites or ReadLaters is being removed.    
+	 * "F" is favourites, anything else is read laters.
 	 * */
 	public void unSave(ForumEntry focus, String string) 
 	{		
@@ -316,7 +328,6 @@ public class DataManager
 	 * @return forumEntryTest
 	 * 
 	 */
-
 	public ForumEntry getForumEntry() {
 		// TODO Auto-generated method stub
 		return forumEntryTest;
