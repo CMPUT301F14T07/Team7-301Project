@@ -14,6 +14,7 @@ import android.widget.EditText;
 import ca.ualberta.cs.controllers.BrowseController;
 import ca.ualberta.cs.controllers.ForumEntryController;
 import ca.ualberta.cs.controllers.SearchController;
+import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
@@ -50,7 +51,7 @@ public class SearchTest extends ActivityInstrumentationTestCase2<BrowseActivity>
 		//testButton = null;
 	}
 	
-    public void testSearch(){
+    public void testSearchQuestion(){
     	ForumEntry forumEntry = new ForumEntry("This is a searchTest","This is a search test, it has the word Kazoo","Lexie");
         DataManager dataManager = new DataManager();
         
@@ -60,6 +61,39 @@ public class SearchTest extends ActivityInstrumentationTestCase2<BrowseActivity>
 		ArrayList<ForumEntry> forumEntryList = new ArrayList<ForumEntry>();
 		try {
 			forumEntryList = searchController.searchForumEntries("Kazoo",null);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Boolean testPass = false;
+    	if(forumEntryList.size()>1){
+				testPass = true;
+			}
+		assertTrue(testPass);
+    }
+    public void testSearchAnswer(){
+    	ForumEntry forumEntry = new ForumEntry("This is a searchTest","This is a search test","Lexie");
+        Answer answer = new Answer ("This is a test Answer","This has the word huckleberry in it");
+        ArrayList<Answer> answerList = new ArrayList<Answer>();
+        answerList.add(answer);
+        forumEntry.setAnswer(answerList);
+    	DataManager dataManager = new DataManager();
+        
+        dataManager.addForumEntry(forumEntry);
+        
+        SearchController searchController = new SearchController();
+		ArrayList<ForumEntry> forumEntryList = new ArrayList<ForumEntry>();
+		try {
+			forumEntryList = searchController.searchForumEntries("huckleberry",null);
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
