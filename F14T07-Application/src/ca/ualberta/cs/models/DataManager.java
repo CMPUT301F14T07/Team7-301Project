@@ -100,9 +100,6 @@ public class DataManager
 				{
 					System.err.println(output);
 					String[]str_array = output.split(",");
-					for(int i = 0; i<str_array.length;i++){
-						System.err.println(str_array[i]);
-					}
 					String id = str_array[2].replaceAll("^\"|\"$","");
 					id.replaceAll(":", "");
 					id.replaceAll("_","");
