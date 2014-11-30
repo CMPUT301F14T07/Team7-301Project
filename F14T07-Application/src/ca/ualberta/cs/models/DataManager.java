@@ -310,6 +310,18 @@ public class DataManager
 		return this.loadLocal("favourites.sav");
 	}
 
+	/**
+	 * this is for Testing purposes only
+	 * Its too see if a forumEntry is successfully added 
+	 * @return forumEntryTest
+	 * 
+	 */
+
+	public ForumEntry getForumEntry() {
+		// TODO Auto-generated method stub
+		return forumEntryTest;
+	}
+
 	
 
 

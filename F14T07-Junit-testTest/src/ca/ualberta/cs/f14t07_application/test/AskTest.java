@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import ca.ualberta.cs.f14t07_application.R;
+import ca.ualberta.cs.intent_singletons.ContextSingleton;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.views.AskActivity;
@@ -32,8 +33,10 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	super.setUp();
 	setActivityInitialTouchMode(true);
 	testActivity = getActivity();
+	
 	dm = new DataManager();
-	dm.addForumEntry((new ForumEntry("subject","What is life?", "Kibbles")));
+	//dm.addForumEntry((new ForumEntry("subject","What is life?", "Kibbles")));
+	
 	}
 	
 
@@ -47,49 +50,8 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	 */
 	
 	//Test if there is a name
-	public void testName()//should this be testName() of testGetName()??
-	{
-		//Will we be saving user names? So should we check if the name exists?
-		//Will users have to sign in?
-		
-		/*
-    	ForumEntry testForumEntry; 
-    	testForumEntry = dm.getForumEntry();
-
-		String expectedName = "Kibbles";
-		String name = testForumEntry.getQuestion().getAuthorsName();
-
-		assertEquals(name, expectedName);
-		*/
-	}
 	
-	public void testGetQuestion()//should this be testQuestion() of testGetQuestion()??
-	{
-
-		/*
-    	ForumEntry testForumEntry = dm.getForumEntry();
-    	
-		String expectedQuestion = "What is life?";
-		String question = testForumEntry.getQuestion().getPost();
-
-
-		assertEquals(question, expectedQuestion);
-	}
-	
-	public void testGetSubject() //should this be testSubject() of testGetSubject()??
-	{
-		boolean notEmpty = false;
-
-		ForumEntry testForumEntry = dm.getForumEntry();
-		
-		String expectedSubject = "subject";
-		String subject = testForumEntry.getSubject(); 
-
-
-		assertEquals(subject, expectedSubject);
-	}
-
-	public void testPicture()  //test picture() or test ifPicture()?
+	public void testPicture() 
 	{
 		//Need more tests in here once we determine more about how pictures will work
 	  
@@ -100,7 +62,6 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	   testForumEntry.getQuestion().setPicture(pictureFile);
 	   String thePictureAdded = testForumEntry.getQuestion().getPicture();
 	   assertNotNull(thePictureAdded);
-	   //assertEquals(thePictureAdded,pictureFile);
 		//Check if the pictures are the same (it was loaded properly)
 	}
 	   
@@ -143,7 +104,6 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 		// works because there are only really those two options
 		Boolean testPass = true;
 		assertTrue(testPass);
-	*/	
 	}
 
 }
