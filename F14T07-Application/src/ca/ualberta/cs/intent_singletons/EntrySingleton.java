@@ -3,7 +3,8 @@ package ca.ualberta.cs.intent_singletons;
 import ca.ualberta.cs.models.Entry;
 
 /**
- * This is a singleton class used to pass around an Entry between activities.
+ * Use this singleton as a global access point to one Entry. This is useful for sending
+ * information about one Entry between activities.
  *
  * @author bbruner
  */
