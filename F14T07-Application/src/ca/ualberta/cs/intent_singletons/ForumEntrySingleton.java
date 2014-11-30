@@ -4,7 +4,8 @@ import ca.ualberta.cs.models.ForumEntry;
 
 /**
  * This is a singleton class that is useful for setting a focus ForumEntry. By this, I mean that this 
- * singleton allows a person to set a ForumEntry which anyone can see and 'focus' on.
+ * singleton allows a person to set a ForumEntry which anyone can see and 'focus' on. It
+ * provides a global access point to one ForumEntry.
  *
  * @author bbruner
  */
@@ -43,8 +44,8 @@ public class ForumEntrySingleton
 	
 	
 	/**
-	 * Get the ForumEntry in this singleton.
-	 * @return ForumEntry
+	 * Get the ForumEntry in this singleton. 
+	 * @return ForumEntry Will return null if a call to setForumEntry has not been made yet.
 	 */
 	public ForumEntry getForumEntry()
 	{

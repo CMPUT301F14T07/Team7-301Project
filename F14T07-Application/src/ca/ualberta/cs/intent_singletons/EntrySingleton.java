@@ -39,7 +39,7 @@ public class EntrySingleton
 	
 	/**
 	 * Get the singleton's Entry.
-	 * @return Entry
+	 * @return Entry Will return null if a call to setEntry has not been made yet.
 	 */
 	public Entry getEntry()
 	{
