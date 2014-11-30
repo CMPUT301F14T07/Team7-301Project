@@ -103,14 +103,14 @@ public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenA
 			@Override 
 			public void run(){ 
 				ac.setSessionLocation(location);
-				ac.setLocationBool(true);
+				ac.setLocationType("text");
 			}
 		});
 		
 		try{TimeUnit.SECONDS.sleep(1);}
 		catch (InterruptedException e){}
 		assertEquals((new AuthorModel()).getSessionLocation(), location);
-		assertEquals((new AuthorModel()).isSet(), true);
+		assertEquals((new AuthorModel()).getLocationType(), "text");
 	}
 	
 	public void testSetLocationByGPS(){
@@ -124,7 +124,7 @@ public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenA
 			public void run(){ 
 				ac.setSessionLatitude(latitude);
 				ac.setSessionLongitude(longitude);
-				ac.setLocationBool(true);
+				ac.setLocationType("gps");
 			}
 		});
 		
@@ -132,7 +132,7 @@ public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenA
 		catch (InterruptedException e){}
 		assertEquals((new AuthorModel()).getSessionLongitude(), longitude);
 		assertEquals((new AuthorModel()).getSessionLatitude(), latitude);
-		assertEquals((new AuthorModel()).isSet(), true);
+		assertEquals((new AuthorModel()).getLocationType(), "gps");
 	}
 	
 	public void testUnsetLocation(){
@@ -142,13 +142,13 @@ public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenA
 		activity.runOnUiThread(new Runnable (){ 
 			@Override 
 			public void run(){ 
-				ac.setLocationBool(false);
+				ac.setLocationType("none");
 			}
 		});
 		
 		try{TimeUnit.SECONDS.sleep(1);}
 		catch (InterruptedException e){}
-		assertEquals((new AuthorModel()).isSet(), false);
+		assertEquals((new AuthorModel()).getLocationType(), "none");
 		
 
 	}
