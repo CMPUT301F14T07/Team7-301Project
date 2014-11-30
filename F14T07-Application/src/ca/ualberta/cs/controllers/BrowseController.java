@@ -37,6 +37,8 @@ public class BrowseController {
 	private ForumEntryList readLaterModel;
 	private ForumEntryList favouritesModel;
 	private ForumEntryList myAuthoredModel;
+	
+	public ArrayList<ForumEntry> result;
 
 	
 	/**
@@ -278,6 +280,7 @@ public class BrowseController {
 				this.myAuthoredModel.setView(results);
 				this.myAuthoredModel.notifyObservers();
 			} 
+		    result=results;
 		}
 	
 	}
@@ -303,6 +306,7 @@ public class BrowseController {
 				this.myAuthoredModel.setView(results);
 				this.myAuthoredModel.notifyObservers();
 			}
+			result=results;
 		}
 	}
 	
@@ -333,6 +337,7 @@ public class BrowseController {
 				this.myAuthoredModel.setView(results);
 				this.myAuthoredModel.notifyObservers();
 			}
+			result=results;
 		}
 	}
 	
