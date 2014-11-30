@@ -6,18 +6,21 @@ import ca.ualberta.cs.views.MainScreenActivity;
 import ca.ualberta.cs.views.Observer;
 
 /**
- * This controller allows the author's name and location to be set.
+ * The users name and geographical location are controlled through this class. It parses data
+ * before using the AuthorModel class to save it. It also gives access to AuthorModels 
+ * notifyObservers() method.
  * @author bbruner
  * @author dlacours
- *
  */
 public class AuthorController 
 {
 	private AuthorModel authorModel;
 	
 	/**
-	 * Constructor for the AuthorModel controller.
-	 * @param viewsContext This is the instance of the view creating the controller. Generally, the argument will be "this".
+	 * Constructor.
+	 * @param viewsContext This is the instance of the view creating the controller. 
+	 * Generally, the argument will be "this". This parameter is required so that 
+	 * AuthorModel has access to the views update() method.
 	 */
 	public AuthorController(Observer viewsContext)
 	{
@@ -26,7 +29,10 @@ public class AuthorController
 	}
 	
 	/**
-	 * Sets who the author is.
+	 * Sets who the author is after parsing the text. The parsing checks that the 
+	 * provided author name is not a null pointer and that the name is not too long
+	 * (greater than 30 characters). The models notifiyObservers() function is called
+	 * if the parsing is passed, otherwise, nothing is done.
 	 * @param author Name of the author to be set.
 	 */
 	public void setSessionAuthor(String author)
@@ -39,15 +45,19 @@ public class AuthorController
 	}
 	
 	/**
-	 * Forces the model to call all of its observer's update function.
+	 * Directly calls the models notifyObservers() method.
 	 */
 	public void refresh()
 	{
 		this.authorModel.notifyObservers();
 	}
+	
 	/**
-	 * Sets where the author is.
-	 * @param userLoc Author location to be set.
+	 * Sets the location of the author after parsing their location. The location is parsed
+	 * to check where they are setting or unsetting their location and to make sure their
+	 * location is not greater than 30 characters.
+	 * @param userLoc Author location to be set. pass a null pointer to unset the authors
+	 * location.
 	 */
 	public void setSessionLocation(String userLoc) {
 		// TODO Auto-generated method stub
@@ -79,6 +89,12 @@ public class AuthorController
 		this.authorModel.setSessionLongitude(lon);
 	}
 	
+	/**
+	 * Set if the authors location is set :/. So basically pass an argument of true
+	 * if the authors location is set. Pass an argument of false if the authors location
+	 * is not set.
+	 * @param set True if the authors location is set, false if the authors location is not set.
+	 */
 	public void setLocationBool(boolean set) {
 		this.authorModel.setSet(set);
 	}
