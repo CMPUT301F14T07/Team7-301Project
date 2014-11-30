@@ -416,11 +416,9 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				if (choice.equals("GPS")){
 					setLocationButton.setText("Change\nLocation");
 					setLocationByGPS();
-					authorController.setLocationType("gps");
 				} else if (choice.equals("Set Myself")) {
 					setLocationButton.setText("Change\nLocation");
 					setLocationByText();
-					authorController.setLocationType("text");
 				} else if (choice.equals("Unset")) {
 					setLocationButton.setText("Set\nLocation");
 					authorController.setLocationType("none");
@@ -537,6 +535,7 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 			{
 				String UserLoc = location.getText().toString();
 				authorController.setSessionLocation(UserLoc);
+				authorController.setLocationType("text");
 			}
 		});
 		
@@ -553,38 +552,10 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 	}
 	
 	public void setLocationByGPS() {
-		Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
-		String myAddress = "";
-		try {
-			List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-			if (addresses.size() != 0) {
-				Address fetchedAddress = addresses.get(0);
-				StringBuilder strAddress = new StringBuilder();
-				for (int i=0; i<fetchedAddress.getMaxAddressLineIndex(); i++) {
-					strAddress.append(fetchedAddress.getAddressLine(i)).append("\n");
-				}
-						
-				myAddress = ("I am at: "+strAddress.toString());
-			} else {
-				myAddress = ("No location found");
-			}
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-			Toast.makeText(MainScreenActivity.this,"Could not get address..!", Toast.LENGTH_LONG).show();
-		}
-		Toast.makeText(MainScreenActivity.this, myAddress, Toast.LENGTH_LONG).show();
+		authorController.setSessionLatitude(latitude);
+		authorController.setSessionLongitude(longitude);
+		authorController.setLocationType("gps");
 		
 	}
 }
-
-
-
-
-
-
-
-
-
-
 
