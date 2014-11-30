@@ -3,7 +3,8 @@ package ca.ualberta.cs.models;
 import java.util.Date;
 
 /**
- * Describes what a reply to an answer or main question looks like.
+ * Describes what a reply to an answer or main question looks like. It contains a date
+ * (When the reply was made) and the text of the reply.
  * @author Brendan
  *
  */

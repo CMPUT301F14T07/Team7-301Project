@@ -8,7 +8,9 @@ import android.graphics.Picture;
 
 
 /**
- * Contains all the information of one forum post.
+ * Any thread in a forum is fully defined by a ForumEntry object. This class contains the 
+ * question, all the answers, subject, and geographical location of the author. It is
+ * basically a model class which provides get and set methods.
  *
  */
 public class ForumEntry
@@ -22,11 +24,13 @@ public class ForumEntry
 	private double longitude = 0.0; 
 	private String location = null;
 	private Boolean setLocation = false;
+	
 	/**
-	 * Create a new ForumEntry.
+	 * Create a new ForumEntry with an image.
 	 * @param subject_ Title of the ForumEntry.
 	 * @param question_ The question being asked.
 	 * @param author The person who created the question.
+	 * @param image The image :/
 	 */
 	public ForumEntry(String subject_, String question_, String author, String image)
 	{
@@ -38,11 +42,18 @@ public class ForumEntry
 		question.setPicture(image);
 	}
 
+	/**
+	 * Create a new ForumEntry.
+	 * @param subject_ Title of the ForumEntry.
+	 * @param question_ The question being asked.
+	 * @param author The person who created the question.
+	 */
 	public ForumEntry(String subject_, String question_, String author)
 	{
 		this(subject_,question_,author,null);
 		
 	}
+	
 	/**
 	 * Create a new ForumEntry.
 	 * @param question The question being asked.
@@ -54,7 +65,7 @@ public class ForumEntry
 	}
 	
 	/**
-	 * Return this ForumEntry's Question's main body of text.
+	 * Return this ForumEntry's Question's subject.
 	 * @return String
 	 */
 	public String toString(){ 
@@ -93,6 +104,9 @@ public class ForumEntry
 		return id;
 	}
 	
+	/**
+	 * Rewritten to compare ForumEntries based on their id field.
+	 */
 	@Override
 	public boolean equals(Object focus) {
 		if(focus == null)
@@ -105,22 +119,28 @@ public class ForumEntry
 		}
 		return ((ForumEntry) focus).getId().equals(id);
 	}
+	
 	public void setLocation(String location_){
 		location = location_;
 	}
+	
 	public String getLocation(){
 		return location;
 		
 	}
+	
 	public double getLatitude(){
 		return latitude;
 	}
+	
 	public void setLatitude(double latitude_){
 		latitude = latitude_;
 	}
+	
 	public double getLongitude(){
 		return longitude;
 	}
+	
 	public void setLongitude(double longitude_){
 		longitude = longitude_;
 	}

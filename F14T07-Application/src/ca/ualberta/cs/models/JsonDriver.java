@@ -2,6 +2,9 @@ package ca.ualberta.cs.models;
 
 import java.util.ArrayList;
 
+/**
+ * Deprecated class, don't use.
+ */
 public class JsonDriver {
 	
 	public boolean setRemote(ArrayList<ForumEntry> fel){

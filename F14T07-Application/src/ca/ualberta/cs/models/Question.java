@@ -1,7 +1,8 @@
 package ca.ualberta.cs.models;
 
 /**
- * This class is a question in a forum entry. there is only one of these in a forum entry
+ * This class is a question in a forum entry. there is only one of these in a forum entry.
+ * It extends Entry.
  */
 public class Question extends Entry {
 
