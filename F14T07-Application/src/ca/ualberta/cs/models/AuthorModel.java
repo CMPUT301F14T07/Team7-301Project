@@ -11,8 +11,9 @@ import ca.ualberta.cs.views.MainScreenActivity;
 import ca.ualberta.cs.views.Observer;
 
 /**
- * Models the person's name who is using the app. This is the author.
- * Also models the user's location as per their request
+ * Model class for the usesrs name and geographical location. location and name data
+ * is stored as statics, therefore, this class gives a global access point to that
+ * information. 
  * @author bbruner
  * @author dlacours
  *
@@ -29,7 +30,7 @@ public class AuthorModel extends Observable<Observer>
 	public static final String NO_AUTHOR = "";
 
 	/**
-	 * Saves in local memory who the person is that will be authoring.
+	 * Saves the name of the author to a static variable.
 	 * @param author The person who is authoring.
 	 */
 	public void setSessionAuthor(String author)
@@ -38,7 +39,8 @@ public class AuthorModel extends Observable<Observer>
 	}
 	
 	/**
-	 * Retrieves from memory the person who is authoring.
+	 * Return then name of the author from the static variable set with
+	 * setSessionAuthor(String author).
 	 * @return The person who is authoring.
 	 */ 
 	public String getSessionAuthor()
@@ -47,7 +49,7 @@ public class AuthorModel extends Observable<Observer>
 	}
 	
 	/**
-	 * Saves in local memory the location of the user.
+	 * Saves to a static variable the geographical location of the user.
 	 * @param userLoc - a String inputed by the user.
 	 */
 	public void setSessionLocation(String loc) {
@@ -55,7 +57,7 @@ public class AuthorModel extends Observable<Observer>
 	}
 	
 	/**
-	 * Saves in local memory the latitude of the user.
+	 * Saves the users latitude to a static variable.
 	 * @param userLoc - a double inputed by the GPS.
 	 */
 	public void setSessionLatitude(double lat) {
@@ -64,7 +66,7 @@ public class AuthorModel extends Observable<Observer>
 	}
 
 	/**
-	 * Saves in local memory the longitude of the user.
+	 * Saves users longitude to a static variable.
 	 * @param userLoc - a double inputed by the GPS.
 	 */
 	public void setSessionLongitude(double lon) {
@@ -73,7 +75,7 @@ public class AuthorModel extends Observable<Observer>
 	}
 	
 	/**
-	 * Retrieves from memory the location of the user.
+	 * Returns the users location which was saved to a static variable with setSessionLocation().
 	 * @return The location of the user.
 	 */ 
 	public String getSessionLocation()
@@ -81,7 +83,7 @@ public class AuthorModel extends Observable<Observer>
 		return location;
 	}
 	/**
-	 * Retrieves from memory the latitude of the user.
+	 * Returns the users latitude from that static variable set with setSessionLatitude().
 	 * @return The latitude of the user.
 	 */ 
 	public double getSessionLatitude()
@@ -89,7 +91,7 @@ public class AuthorModel extends Observable<Observer>
 		return latitude;
 	}
 	/**
-	 * Retrieves from memory the longitude of the user.
+	 * Returns the users longitude from that static variable set with setSessionLatitude().
 	 * @return The longitude of the user.
 	 */ 
 	public double getSessionLongitude()
