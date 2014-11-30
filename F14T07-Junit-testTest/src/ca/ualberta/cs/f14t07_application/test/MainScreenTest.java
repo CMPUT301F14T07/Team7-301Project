@@ -4,14 +4,12 @@ import java.util.concurrent.TimeUnit;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import ca.ualberta.cs.controllers.AuthorController;
 import ca.ualberta.cs.models.AuthorModel;
-import ca.ualberta.cs.views.AskActivity;
-import ca.ualberta.cs.views.BrowseActivity;
 import ca.ualberta.cs.views.MainScreenActivity;
 
 public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenActivity> {
@@ -95,6 +93,63 @@ public class MainScreenTest extends ActivityInstrumentationTestCase2<MainScreenA
 				catch (InterruptedException e){}
 				assertEquals((new AuthorModel()).getSessionAuthor(), author);
 			}
+	
+	public void testSetLocationByText(){
+		MainScreenActivity activity = getActivity();
+		final String location="Edmonton";
+		final AuthorController ac= new AuthorController(getActivity());
+		
+		activity.runOnUiThread(new Runnable (){ 
+			@Override 
+			public void run(){ 
+				ac.setSessionLocation(location);
+				ac.setLocationBool(true);
+			}
+		});
+		
+		try{TimeUnit.SECONDS.sleep(1);}
+		catch (InterruptedException e){}
+		assertEquals((new AuthorModel()).getSessionLocation(), location);
+		assertEquals((new AuthorModel()).isSet(), true);
+	}
+	
+	public void testSetLocationByGPS(){
+		MainScreenActivity activity = getActivity();
+		final double latitude = 123.0;
+		final double longitude = 18.0;
+		final AuthorController ac= new AuthorController(getActivity());
+		
+		activity.runOnUiThread(new Runnable (){ 
+			@Override 
+			public void run(){ 
+				ac.setSessionLatitude(latitude);
+				ac.setSessionLongitude(longitude);
+				ac.setLocationBool(true);
+			}
+		});
+		
+		try{TimeUnit.SECONDS.sleep(1);}
+		catch (InterruptedException e){}
+		assertEquals((new AuthorModel()).getSessionLongitude(), longitude);
+		assertEquals((new AuthorModel()).getSessionLatitude(), latitude);
+		assertEquals((new AuthorModel()).isSet(), true);
+	}
+	
+	public void testUnsetLocation(){
+		MainScreenActivity activity = getActivity();
+		final AuthorController ac= new AuthorController(getActivity());
+		
+		activity.runOnUiThread(new Runnable (){ 
+			@Override 
+			public void run(){ 
+				ac.setLocationBool(false);
+			}
+		});
+		
+		try{TimeUnit.SECONDS.sleep(1);}
+		catch (InterruptedException e){}
+		assertEquals((new AuthorModel()).isSet(), false);
 		
 
+	}
 }

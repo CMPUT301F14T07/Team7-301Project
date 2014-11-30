@@ -416,13 +416,14 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				if (choice.equals("GPS")){
 					setLocationButton.setText("Change\nLocation");
 					setLocationByGPS();
+					authorController.setLocationBool(true);
 				} else if (choice.equals("Set Myself")) {
 					setLocationButton.setText("Change\nLocation");
 					setLocationByText();
+					authorController.setLocationBool(true);
 				} else if (choice.equals("Unset")) {
 					setLocationButton.setText("Set\nLocation");
-					String UserLoc = null;
-					authorController.setSessionLocation(UserLoc);
+					authorController.setLocationBool(false);
 				} else {
 					Toast.makeText(MainScreenActivity.this, "Problem: " + choice, Toast.LENGTH_SHORT).show();
 				}

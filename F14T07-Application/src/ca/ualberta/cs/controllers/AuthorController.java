@@ -51,10 +51,32 @@ public class AuthorController
 	 */
 	public void setSessionLocation(String userLoc) {
 		// TODO Auto-generated method stub
-		if( userLoc != null && userLoc.length() < 30)
+		
+		if((userLoc != null) && userLoc.length() < 30)
 		{
+			//if it is null, then they are unsetting their location
 			this.authorModel.setSessionLocation(userLoc);
 		}
 	}
 	
+	/**
+	 * Sets where the author is using gps.
+	 * @param lat Author latitude to be set.
+	 */
+	public void setSessionLatitude(double lat) {
+		this.authorModel.setSessionLatitude(lat);
+	}	
+	
+	/**
+	 * Sets where the author is using gps.
+	 * @param lon Author longitude to be set.
+	 */
+	public void setSessionLongitude(double lon) {
+		this.authorModel.setSessionLongitude(lon);
+	}
+	
+	public void setLocationBool(boolean set) {
+		this.authorModel.setSet(set);
+	}
+
 }
