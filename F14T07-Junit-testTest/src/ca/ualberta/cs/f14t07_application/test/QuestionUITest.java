@@ -31,12 +31,13 @@ public class QuestionUITest extends ActivityInstrumentationTestCase2<QuestionAct
 	super.setUp();
 	setActivityInitialTouchMode(true);
 	testActivity = getActivity();
-	dm = new DataManager();
-	fm = new ForumEntry("subject","What is life?", "Kibbles");
-	dm.addForumEntry(fm);
+	
 	}
 	
 	public void testViewReplies(){ 
+		dm = new DataManager();
+		fm = new ForumEntry("subject","What is life?", "Kibbles");
+		dm.addForumEntry(fm);
 		Reply r = new Reply ("I hate eclipse");
 		fm.getQuestion().addReplies(r);
 		
@@ -53,6 +54,9 @@ public class QuestionUITest extends ActivityInstrumentationTestCase2<QuestionAct
 		ArrayList<Answer>a = new ArrayList<Answer>();
 		a.add(r);
 		fm.setAnswer(a);
+		
+		DataManager dataManager = new DataManager();
+		dataManager.addForumEntry(fm);
 		
 		ListView tv = (ListView) testActivity.findViewById(R.id.QuestionAnswerList);
 		for(int i = 0; i<fm.getAnswers().size();i++){
