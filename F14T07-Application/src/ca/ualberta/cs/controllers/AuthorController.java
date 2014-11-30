@@ -54,7 +54,7 @@ public class AuthorController
 	
 	/**
 	 * Sets the location of the author after parsing their location. The location is parsed
-	 * to check where they are setting or unsetting their location and to make sure their
+	 * to check whether they are setting or unsetting their location and to make sure their
 	 * location is not greater than 30 characters.
 	 * @param userLoc Author location to be set. pass a null pointer to unset the authors
 	 * location.
@@ -74,7 +74,9 @@ public class AuthorController
 	}
 	
 	/**
-	 * Sets where the author is using gps.
+	 * Sets where the author is. This input should be from a gps. There is no restriction
+	 * on where the input comes from, but other applications will expect that this method
+	 * was called with real gps latitude.
 	 * @param lat Author latitude to be set.
 	 */
 	public void setSessionLatitude(double lat) {
@@ -82,7 +84,9 @@ public class AuthorController
 	}	
 	
 	/**
-	 * Sets where the author is using gps.
+	 * Sets where the author is. This input should be from a gps. There is no restriction
+	 * on where the input comes from, but other applications will expect that this method
+	 * was called with real gps longitude.
 	 * @param lon Author longitude to be set.
 	 */
 	public void setSessionLongitude(double lon) {
@@ -90,7 +94,7 @@ public class AuthorController
 	}
 	
 	/**
-	 * Set if the authors location is set :/. So basically pass an argument of true
+	 * Set if the authors location is set :/. So basically, pass an argument of true
 	 * if the authors location is set. Pass an argument of false if the authors location
 	 * is not set.
 	 * @param set True if the authors location is set, false if the authors location is not set.

@@ -22,7 +22,7 @@ import ca.ualberta.cs.views.Observer;
 /**
  * Controls the data in the model of the BrowseActivity
  * Also takes care of sorting
- * Contains a list of ForumEntries and the searchController
+ * Contains a list of ForumEntries and a searchController
  * and determines whether we use the favourites or readLater view
  */
 public class BrowseController {
@@ -42,8 +42,10 @@ public class BrowseController {
 
 	
 	/**
-	 * Creates a new BrowseController.
-	 * @param viewsContext Context of the view which is using the model.
+	 * Constructor.
+	 * @param viewsContext This is the instance of the view creating the controller. 
+	 * Generally, the argument will be "this". This parameter is required so that 
+	 * the model classes have access to the views update() method.
 	 */
 	public BrowseController(Observer viewsContext){ 
 		this.forumEntries = new ArrayList<ForumEntry>();
@@ -62,7 +64,9 @@ public class BrowseController {
 	}
 	
 	/**
-	 * Sorts the ForumEntrys in the model by their date
+	 * Sorts the ForumEntrys in the model by their date with the most recent appearing
+	 * first. This only sorts ForumEntries which are in the online view and this method
+	 * does not invoke the models notifyObservers() method.
 	 * and calls the models notifyObservers function.
 	 */
 	public void sortByTime()
@@ -108,8 +112,9 @@ public class BrowseController {
 	}
 
 	/**
-	 * Sorts the ForumEntrys in the model by their rating (up votes)
-	 * and calls the models notifyObservers function.
+	 * Sorts the ForumEntrys in the model by their rating (up votes). ForumEntries with the
+	 * highest rating appear first. This method only sorts ForumEntries in the online model and
+	 * it does not invoke the models notifyObservers method.
 	 */
 	public void sortByRating(){
 		ArrayList<ForumEntry> results = null;
@@ -140,8 +145,9 @@ public class BrowseController {
 	}
 	
 	/**
-	 * Sorts the ForumEntrys in the model by if they have a picture or not
-	 * and calls the models notifyObservers function.
+	 * Sorts the ForumEntrys in the model by if they have a picture or not. ForumEntries
+	 * with a picture appear first. This only sorts ForumEntries in the online model and
+	 * it does not invoke the models notifyObservers method.
 	 */
 	public void sortByHasPicture(){
 		ArrayList<ForumEntry> results = null;
@@ -208,7 +214,7 @@ public class BrowseController {
 	}
 	
 	/**
-	 * Updates the view to be what ever is in the onLineModel.
+	 * Directly calls the online models notifyObservers() method.
 	 */
 	public void useOnLineView()
 	{
@@ -249,6 +255,13 @@ public class BrowseController {
 	}
 	
 	
+	/**
+	 * Sorts the ArrayList results by date. ForumEntries in the list with an earlier appear
+	 * first. This method will update the model and call the models notifyObservers() method.
+	 * @param results The ArraList to sort
+	 * @param casetype Indicates what view is being sorted. 'F' for favourites, 'S' for read later
+	 * and 'M' for my authored.
+	 */
 	public void sortByTimeLocal(ArrayList<ForumEntry> results, String casetype){
 		if(results != null)
 		{
@@ -285,6 +298,13 @@ public class BrowseController {
 	
 	}
 	
+	/**
+	 * Sorts the ArrayList results by rating. ForumEntries in the list with a higher rating appear
+	 * first. This method will update the model and call the models notifyObservers() method.
+	 * @param results The ArraList to sort
+	 * @param casetype Indicates what view is being sorted. 'F' for favourites, 'S' for read later
+	 * and 'M' for my authored.
+	 */
 	public void sortByRatingLocal(ArrayList<ForumEntry> results, String casetype){
 		if(results != null)
 		{
@@ -310,6 +330,14 @@ public class BrowseController {
 		}
 	}
 	
+	/**
+	 * Sorts the ArrayList results by if they have a picture. ForumEntries in the list with 
+	 * a picture appear first ones wihtout a picture appear last.
+	 * This method will update the model and call the models notifyObservers() method.
+	 * @param results The ArraList to sort
+	 * @param casetype Indicates what view is being sorted. 'F' for favourites, 'S' for read later
+	 * and 'M' for my authored.
+	 */
 	public void sortByHasPictureLocal(ArrayList<ForumEntry> results, String casetype){
 		if(results != null)
 		{
