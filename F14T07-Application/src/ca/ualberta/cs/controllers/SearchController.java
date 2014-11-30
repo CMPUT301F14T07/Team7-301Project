@@ -42,7 +42,7 @@ public class SearchController
 
 
 	/**
-	 * Creates a new SearchController.
+	 * Constructor
 	 */
 	public SearchController()
 	{
@@ -51,9 +51,13 @@ public class SearchController
 	}
 
 	/**
-	 * Searches the forum entries for a specific term
+	 * Searches the forum entries in the remote server for a specific term.
 	 * 
-	 * @param the term, and the field
+	 * @param searchString The term to search for. pass as null, "", or "*" to perform a 
+	 * search for everything.
+	 * @param field pass as null
+	 * @return an ArrayList<ForumEntry> containing all the ForumEntries which match the search
+	 * term.
 	 * @throws ClientProtocolException, IOException
 	 * */
 	public ArrayList<ForumEntry> searchForumEntries(String searchString, String field)
