@@ -62,7 +62,6 @@ public class BrowseController {
 		this.favouritesModel.addObserver(viewsContext);
 		this.myAuthoredModel.addObserver(viewsContext);
 	}
-	
 	/**
 	 * Sorts the ForumEntrys in the model by their date with the most recent appearing
 	 * first. This only sorts ForumEntries which are in the online view and this method
@@ -367,6 +366,33 @@ public class BrowseController {
 			}
 			result=results;
 		}
+	}
+
+	public void sortByLoction() {
+		// TODO Auto-generated method stub
+		ArrayList<ForumEntry> results = null;
+		try {
+			results = this.searchController.searchForumEntries("", null,true);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList<ForumEntry> sortedResults = new ArrayList<ForumEntry>();
+		AuthorController authorController = new AuthorController();
+		if (authorController.getModel().isSet() && !authorController.getModel().isGpsSet()){
+			for(int i = 0; i<results.size(); i++){
+			if(authorController.getModel().getSessionLocation() == results.get(i).getLocation()){
+				sortedResults.add(results.get(i));
+				sortedResults.remove(i);
+				}
+			}
+		}
+		
+		
+		this.onLineModel.setView(results);
 	}
 	
 	

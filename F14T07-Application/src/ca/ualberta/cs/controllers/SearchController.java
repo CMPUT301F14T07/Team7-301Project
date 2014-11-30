@@ -56,7 +56,7 @@ public class SearchController
 	 * @param the term, and the field
 	 * @throws ClientProtocolException, IOException
 	 * */
-	public ArrayList<ForumEntry> searchForumEntries(String searchString, String field)
+	public ArrayList<ForumEntry> searchForumEntries(String searchString, String field,Boolean byLocation)
 			throws ClientProtocolException, IOException
 	{
 		ArrayList<ForumEntry> result = new ArrayList<ForumEntry>();
@@ -69,7 +69,7 @@ public class SearchController
 
 		try
 		{
-			HttpPost searchRequest = createSearchRequest(searchString, field);
+			HttpPost searchRequest = createSearchRequest(searchString, field, byLocation);
 			HttpResponse response = httpClient.execute(searchRequest);
 
 			String status = response.getStatusLine().toString();
@@ -98,16 +98,19 @@ public class SearchController
 		}
 		return result;
 	}
-
+	public ArrayList<ForumEntry> searchForumEntries(String searchString, String field) throws ClientProtocolException, IOException{
+	   return searchForumEntries(searchString,field,false);
+	}
 	/**
 	 * creates the search request
+	 * @param byLocation 
 	 * 
 	 * @param the
 	 *            term, and the field
 	 * @throws UnsupportedEncodingException
 	 * @return search Request
 	 * */
-	private HttpPost createSearchRequest(String searchString, String field)
+	private HttpPost createSearchRequest(String searchString, String field, Boolean byLocation)
 			throws UnsupportedEncodingException
 	{
 
@@ -121,7 +124,7 @@ public class SearchController
 		}
 
 		SimpleSearchCommand command = new SimpleSearchCommand(searchString,
-				fields);
+				fields, byLocation);
 
 		String query = command.getJsonCommand();
 		Log.i(TAG, "Json command: " + query);

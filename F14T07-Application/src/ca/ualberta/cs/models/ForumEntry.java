@@ -18,23 +18,16 @@ public class ForumEntry
 	private String subject;
 	private int entryFlag;
 	private String id;
-	
+	private double latitude = 0.0;
+	private double longitude = 0.0; 
+	private String location = null;
+	private Boolean setLocation = false;
 	/**
 	 * Create a new ForumEntry.
 	 * @param subject_ Title of the ForumEntry.
 	 * @param question_ The question being asked.
 	 * @param author The person who created the question.
 	 */
-	public ForumEntry(String subject_, String question_, String author)
-	{
-		super();
-		question = new Question(question_,author);
-		question.setSubject(subject_);
-		subject = subject_;
-		answers = new ArrayList<Answer>();
-		question.setPicture(null);
-		
-	}
 	public ForumEntry(String subject_, String question_, String author, String image)
 	{
 		super();
@@ -43,6 +36,11 @@ public class ForumEntry
 		subject = subject_;
 		answers = new ArrayList<Answer>();
 		question.setPicture(image);
+	}
+
+	public ForumEntry(String subject_, String question_, String author)
+	{
+		this(subject_,question_,author,null);
 		
 	}
 	/**
@@ -107,52 +105,24 @@ public class ForumEntry
 		}
 		return ((ForumEntry) focus).getId().equals(id);
 	}
-	
-	
-	
-	/**
-	 * Deprecated. Do not use.
-	 * @param newId
-	 */
-	public void setSubject(String s){
-		subject = s;
+	public void setLocation(String location_){
+		location = location_;
 	}
-	
-	/**
-	 * Deprecated. Do not use.
-	 * @param newId
-	 */
-	public String getSubject(){ 
-		return subject;
+	public String getLocation(){
+		return location;
+		
 	}
-	
-	/**
-	 * Deprecated. Do not use. Use setAnswer() instead.
-	 * @param newId
-	 */
-	public void addAnswer(Answer Answer){
-		answers.add(Answer);
+	public double getLatitude(){
+		return latitude;
 	}
-	
-	/**
-	 * Deprecated. Do not use.
-	 * @param newId
-	 */
-	public int getFlag(){ 
-		return entryFlag;
+	public void setLatitude(double latitude_){
+		latitude = latitude_;
 	}
-	
-	/**
-	 * Deprecated. Do not use.
-	 * @param newId
-	 */
-	public void setFlag(int f){
-		entryFlag=f;
+	public double getLongitude(){
+		return longitude;
 	}
-	
-	/**
-	 * Deprecated. Do not use.
-	 * @param newId
-	 */
+	public void setLongitude(double longitude_){
+		longitude = longitude_;
+	}
 
 }

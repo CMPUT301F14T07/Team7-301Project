@@ -38,6 +38,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import ca.ualberta.cs.controllers.AuthorController;
 import ca.ualberta.cs.controllers.BrowseController;
 import ca.ualberta.cs.controllers.ForumEntryController;
 import ca.ualberta.cs.f14t07_application.R;
@@ -144,6 +145,18 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					/*
 					 * Create an instance of the new ForumEntry then set the ForumEntrySingletons focus on it.
 					 */
+					AuthorController ac= new AuthorController();
+					if(ac.getModel().isSet()){
+						ForumEntry newForumEntry = new ForumEntry(newSubject, newEntry, newAuthor, image);
+						if(ac.getModel().isGpsSet()){
+							newForumEntry.setLatitude(ac.getModel().getSessionLatitude());
+							newForumEntry.setLongitude(ac.getModel().getSessionLongitude());
+						}
+						else{
+							newForumEntry.setLocation(ac.getModel().getSessionLocation());
+						}
+
+					}
 					ForumEntry newForumEntry = new ForumEntry(newSubject, newEntry, newAuthor, image);
 					forumEntryFocus.setForumEntry(newForumEntry);				
 					/*

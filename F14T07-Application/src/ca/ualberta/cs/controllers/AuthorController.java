@@ -27,6 +27,19 @@ public class AuthorController
 		this.authorModel = new AuthorModel();
 		this.authorModel.addObserver(viewsContext);
 	}
+	/** this is for getting only
+	 * not to be used for setting 
+	 */
+	public AuthorController(){
+		this.authorModel = new AuthorModel();
+	}
+	/**this is for getting only 
+	 * not to be used for setting 
+	 * @return authorModel
+	 */
+	public AuthorModel getModel(){
+		return authorModel;
+	}
 	
 	/**
 	 * Sets who the author is after parsing the text. The parsing checks that the 

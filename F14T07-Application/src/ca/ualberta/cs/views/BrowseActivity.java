@@ -324,7 +324,7 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 	}
 	public void viewBy()
 	{ 
-		final CharSequence[] sortTypes = {"Sort by time", "Sort by rating", "Sort by picture"};
+		final CharSequence[] sortTypes = {"Sort by time", "Sort by rating", "Sort by picture", "Sort by Location"};
 		if (this.brs.getViewToken().equals("Browse")){
 		AlertDialog.Builder alert = new AlertDialog.Builder(BrowseActivity.this);
 		
@@ -344,6 +344,11 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 					thread.start();
 				}
 				else if (item ==2){
+					Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
+					BrowseThread thread = new BrowseThread(2);
+					thread.start();
+				}
+				else if (item == 3){
 					Toast.makeText(BrowseActivity.this, sortTypes[item], Toast.LENGTH_SHORT).show();
 					BrowseThread thread = new BrowseThread(2);
 					thread.start();
@@ -557,7 +562,9 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 			else if (casetype ==2){
 				browseController.sortByHasPicture();
 			}
-			
+			else if (casetype == 3){
+				browseController.sortByLoction();
+			}
 			//this wait is important for users with 
 			// slow internet DO NOT REMOVE 
 			// please and thank you

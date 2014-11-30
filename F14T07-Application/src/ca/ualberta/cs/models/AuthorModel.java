@@ -25,7 +25,7 @@ public class AuthorModel extends Observable<Observer>
 	private static double longitude = 0.0;
 	private static String location = null;
 	private static boolean set = false;
-	
+	private static boolean gpsSet = false;
 	
 	public static final String NO_AUTHOR = "";
 
@@ -63,6 +63,7 @@ public class AuthorModel extends Observable<Observer>
 	public void setSessionLatitude(double lat) {
 		// TODO Auto-generated method stub
 		AuthorModel.latitude = lat;
+		AuthorModel.gpsSet = true;
 	}
 
 	/**
@@ -104,6 +105,9 @@ public class AuthorModel extends Observable<Observer>
 	 * @return true or false*/
 	public static boolean isSet() {
 		return set;
+	}
+	public static boolean isGpsSet(){
+		return gpsSet;
 	}
 	/**
 	 * sets the set variable
