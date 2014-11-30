@@ -8,7 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.Picture;
 
 /**
- * Super class of Question and Answer.
+ * Super class of Question and Answer. This defines the generic contents of an entry
+ * on the forum. This includes up vote, author, replies, date, pictures, the post etc.
+ * A model class with get and set methods.
  * 
  */
 public class Entry
