@@ -25,7 +25,7 @@ public class AuthorModel extends Observable<Observer>
 	private static double longitude = 0.0;
 	private static String location = null;
 	private static boolean set = false;
-	private static boolean gpsSet = false;
+	private static String locType = "none";
 	
 	public static final String NO_AUTHOR = "";
 
@@ -63,7 +63,6 @@ public class AuthorModel extends Observable<Observer>
 	public void setSessionLatitude(double lat) {
 		// TODO Auto-generated method stub
 		AuthorModel.latitude = lat;
-		AuthorModel.gpsSet = true;
 	}
 
 	/**
@@ -100,14 +99,17 @@ public class AuthorModel extends Observable<Observer>
 		return longitude;
 	}
 	/**
-	 * checks if the location is set.
-	 * If it is this returns true, otherwise false
-	 * @return true or false*/
-	public static boolean isSet() {
-		return set;
+	 * Returns the type of location set
+	 * @return none, gps, or text*/
+	public static String getLocationType() {
+		return locType;
 	}
-	public static boolean isGpsSet(){
-		return gpsSet;
+	/**
+	 * sets the type of the location that 
+	 * the user has set on the main screen.
+	 * @param the location type being set*/
+	public void setLocationType(String loctype){
+		AuthorModel.locType = loctype;
 	}
 	/**
 	 * sets the set variable

@@ -416,14 +416,14 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				if (choice.equals("GPS")){
 					setLocationButton.setText("Change\nLocation");
 					setLocationByGPS();
-					authorController.setLocationBool(true);
+					authorController.setLocationType("gps");
 				} else if (choice.equals("Set Myself")) {
 					setLocationButton.setText("Change\nLocation");
 					setLocationByText();
-					authorController.setLocationBool(true);
+					authorController.setLocationType("text");
 				} else if (choice.equals("Unset")) {
 					setLocationButton.setText("Set\nLocation");
-					authorController.setLocationBool(false);
+					authorController.setLocationType("none");
 				} else {
 					Toast.makeText(MainScreenActivity.this, "Problem: " + choice, Toast.LENGTH_SHORT).show();
 				}
@@ -567,13 +567,11 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				myAddress = ("I am at: "+strAddress.toString());
 			} else {
 				myAddress = ("No location found");
-				authorController.setLocationBool(false);
 			}
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
 			Toast.makeText(MainScreenActivity.this,"Could not get address..!", Toast.LENGTH_LONG).show();
-			authorController.setLocationBool(false);		
 		}
 		Toast.makeText(MainScreenActivity.this, myAddress, Toast.LENGTH_LONG).show();
 		

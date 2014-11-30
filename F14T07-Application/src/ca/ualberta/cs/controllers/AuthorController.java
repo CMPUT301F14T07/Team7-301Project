@@ -112,8 +112,8 @@ public class AuthorController
 	 * is not set.
 	 * @param set True if the authors location is set, false if the authors location is not set.
 	 */
-	public void setLocationBool(boolean set) {
-		this.authorModel.setSet(set);
+	public void setLocationType(String word) {
+		this.authorModel.setLocationType(word);
 	}
 	
 
