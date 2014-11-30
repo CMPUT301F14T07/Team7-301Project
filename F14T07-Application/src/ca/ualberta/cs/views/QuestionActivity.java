@@ -128,7 +128,13 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		
 
 	}
-
+	/**
+	 * This is for testing purposes
+	 * @param forumEntry
+	 */
+	public void setForumEntry(ForumEntry forumEntry){
+		this.forumEntryController.setView(forumEntry);
+	}
 	/**
 	 * Creates a menu when the ... is clicked in the view.
 	 */

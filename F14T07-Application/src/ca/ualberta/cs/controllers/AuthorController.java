@@ -102,5 +102,6 @@ public class AuthorController
 	public void setLocationBool(boolean set) {
 		this.authorModel.setSet(set);
 	}
+	
 
 }
