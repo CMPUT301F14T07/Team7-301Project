@@ -3,8 +3,7 @@ package ca.ualberta.cs.intent_singletons;
 /**
  * This is a singleton used for passing around browse requests to activites.
  * A browse request is simply one activity asking the browse activity to 
- * display everything that matches a certain string. No silly, don't go opening
- * any sockets for this.
+ * display everything that matches a certain string.
  * @author bbruner
  *
  */
@@ -62,7 +61,8 @@ public class BrowseRequestSingleton
 	
 	/**
 	 * Set the search token in this singleton.
-	 * @param searchToken
+	 * @param searchToken To search for everything (wild card) give as input 
+	 * BrowseRequestSingleton.SEARCH_EVERYTHING
 	 */
 	public void setSearchToken(String searchToken)
 	{
@@ -71,7 +71,7 @@ public class BrowseRequestSingleton
 	
 	/**
 	 * Get the search token in this singleton
-	 * @return String
+	 * @return String The search token
 	 */
 	public String getSearchToken()
 	{

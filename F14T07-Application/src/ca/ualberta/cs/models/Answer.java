@@ -2,7 +2,8 @@ package ca.ualberta.cs.models;
 
 /**
  * This class is an answer to a question in a forum entry. There can be 0 to many of these in
- * a forum entry.
+ * a forum entry. It inherits from Entry and does not add any new functionality. This class
+ * exists for the sake of clarity.
  */
 public class Answer extends Entry {
 

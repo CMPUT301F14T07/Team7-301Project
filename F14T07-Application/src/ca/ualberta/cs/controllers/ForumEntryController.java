@@ -25,11 +25,10 @@ public class ForumEntryController
 	private DataManager dataManager;
 
 	/**
-	 * Creates a new ForumEntryController.
-	 * 
-	 * @param viewsContext
-	 *            The context of the view which aggregates the
-	 *            ForumEntryController.
+	 * Constructor.
+	 * @param viewsContext This is the instance of the view creating the controller. 
+	 * Generally, the argument will be "this". This parameter is required so that 
+	 * the model classes have access to the views update() method.
 	 */
 	public ForumEntryController(Observer viewsContext)
 	{
@@ -41,10 +40,11 @@ public class ForumEntryController
 
 
 	/**
-	 * Sets the ForumEntry in the model and notifies its observers.
+	 * Sets the ForumEntry (given as input) in the model to be the first and only 
+	 * ForumEntry then invokes the models notifyObservers() method.
 	 * 
 	 * @param forumEntry
-	 *            The forum entry to be pushed to the model.
+	 *            The forum entry which will be set in the model.
 	 */
 	public void setView(ForumEntry forumEntry)
 	{
@@ -80,10 +80,8 @@ public class ForumEntryController
 	}
 
 	/**
-	 * Apends an Answer to the ForumEntry in the model then pushes the updated
-	 * ForumEntry to the remote server, my authored, and read later save
-	 * locations. Will push the updated ForumEntry to the favourites save
-	 * location too if applicable.
+	 * Apends an Answer to the ForumEntry in the remote server and the model.
+	 * Does not call the online models notifyObservers() method.
 	 * 
 	 * @param answer
 	 *            The answer to the question
@@ -108,6 +106,12 @@ public class ForumEntryController
 	}
 	
 	
+	/**
+	 * Checks if the ForumEntry focus is in the ArrayList fel.
+	 * @param fel 
+	 * @param focus
+	 * @return true on success, false on failure.
+	 */
 	private Boolean checkSaved(ArrayList<ForumEntry> fel, ForumEntry focus) {
 		for (int i = 0; i < fel.size(); i++) {
 			if (fel.get(i).equals(focus)) {
@@ -121,7 +125,7 @@ public class ForumEntryController
 	
 	
 	/**
-	 * Saves the ForumEntry from the model as a read later.
+	 * Saves the first ForumEntry from the model as a read later.
 	 */
 	public void saveReadLaterCopy()
 	{
@@ -138,7 +142,7 @@ public class ForumEntryController
 	
 
 	/**
-	 * Saves the ForumEntry from the model as a favourite.
+	 * Saves the first ForumEntry from the model as a favourite.
 	 */
 	public void saveFavouritesCopy()
 	{
@@ -154,8 +158,9 @@ public class ForumEntryController
 	}
 
 	/**
-	 * Up vote an entry from the model. Changes are then updated in the
-	 * applicable save locations.
+	 * Gets the first ForumEntry in the model then upvotes one of its entries based on
+	 * the input argument. The model is updated with this change and so is the remote
+	 * server.
 	 * 
 	 * @param index
 	 *            Index of the Entry to up vote. 0 up votes the Questions, 1 up
@@ -193,15 +198,22 @@ public class ForumEntryController
 		 * 		 update there too.
 		 */
 	}
+	
+	/**
+	 * Invokes the models notifyObservers() method.
+	 */
 	public void updateView(){
 		ArrayList<ForumEntry> fel = this.forumEntries.getView();
 		ForumEntry focus = fel.get(ForumEntryList.FIRST_FORUM_ENTRY);
 		this.forumEntries.setView(fel);
 		this.forumEntries.notifyObservers();
 	}
+	
+	
 	/**
-	 * Add a Reply to an Entry from the model. Changes are then updated in the
-	 * applicable save locations.
+	 * Gets the first ForumEntry from the model then adds a reply to one of the entries
+	 * depending on the input arguments. The model is updated with this new reply and
+	 * so is the remote server. The models notifyObservers() method is invoked at the end.
 	 * 
 	 * @param index
 	 *            Index of the Entry to up vote. 0 adds a reply to the Question,

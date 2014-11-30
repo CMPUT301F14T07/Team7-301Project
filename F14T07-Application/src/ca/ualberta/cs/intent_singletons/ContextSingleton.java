@@ -33,7 +33,8 @@ public class ContextSingleton
 	}
 	
 	/**
-	 * Set the Context in the singleton.
+	 * Set the Context in the singleton. Do not set with a context that is going to be
+	 * destroyed soon or that might be picked up by the garbage collector.
 	 * @param ctx The context to set.
 	 */
 	public void setContext(Context ctx)

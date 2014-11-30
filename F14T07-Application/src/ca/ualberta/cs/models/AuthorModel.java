@@ -11,7 +11,7 @@ import ca.ualberta.cs.views.MainScreenActivity;
 import ca.ualberta.cs.views.Observer;
 
 /**
- * Model class for the usesrs name and geographical location. location and name data
+ * Model class for the users name and geographical location. location and name data
  * is stored as statics, therefore, this class gives a global access point to that
  * information. 
  * @author bbruner
