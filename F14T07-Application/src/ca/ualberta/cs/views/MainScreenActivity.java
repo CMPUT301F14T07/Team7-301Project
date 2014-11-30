@@ -567,11 +567,13 @@ public class MainScreenActivity extends Activity implements Observer<AuthorModel
 				myAddress = ("I am at: "+strAddress.toString());
 			} else {
 				myAddress = ("No location found");
+				authorController.setLocationBool(false);
 			}
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
 			Toast.makeText(MainScreenActivity.this,"Could not get address..!", Toast.LENGTH_LONG).show();
+			authorController.setLocationBool(false);		
 		}
 		Toast.makeText(MainScreenActivity.this, myAddress, Toast.LENGTH_LONG).show();
 		

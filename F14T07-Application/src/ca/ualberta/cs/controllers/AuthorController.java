@@ -56,6 +56,10 @@ public class AuthorController
 		{
 			//if it is null, then they are unsetting their location
 			this.authorModel.setSessionLocation(userLoc);
+		} else {
+
+			this.authorModel.setSet(false);
+			
 		}
 	}
 	
