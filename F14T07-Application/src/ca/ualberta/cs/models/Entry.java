@@ -18,7 +18,7 @@ public class Entry
 	private int upVote;
 	private String post;
 	private String posterName;
-	private List<Reply> replies;
+	private ArrayList<Reply> replies;
 	private Date date;
 	private String picture = null;
 
@@ -57,7 +57,13 @@ public class Entry
 	{
 		return replies;
 	}
-
+/**
+ * use an array list to set the replies 
+ * @param replies_
+ */
+	public void setReplies(ArrayList<Reply> replies_){
+		replies=replies_;
+	}
 	/**
 	 * Add a Reply to this Entry.
 	 * 

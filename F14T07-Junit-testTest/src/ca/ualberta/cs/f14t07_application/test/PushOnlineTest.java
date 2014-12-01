@@ -7,6 +7,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
+import ca.ualberta.cs.models.Reply;
 import ca.ualberta.cs.remote_server.NetworkChecker;
 import ca.ualberta.cs.views.AskActivity;
 import ca.ualberta.cs.views.BrowseActivity;
@@ -79,4 +80,66 @@ public class PushOnlineTest extends ActivityInstrumentationTestCase2<AskActivity
 		assertTrue(testWorks);
 		
 	}
+	public void testReplyOffline(){
+		AskActivity askActivity = getActivity();
+		Context context = askActivity.getContext();
+		
+		NetworkChecker networkChecker = new NetworkChecker();
+		networkChecker.setContext(context);
+		assertFalse(networkChecker.getIsOnline());
+		
+		ForumEntry testEntry = new ForumEntry("PushOnlineTest", "This is part of the pushOnline test", "Lexie");
+		Reply testReply = new Reply("This reply means its working");
+		ArrayList<Reply> testReplies = new ArrayList<Reply>();
+		
+		testReplies.add(testReply);
+		testEntry.getQuestion().setReplies(testReplies);
+		dataManager.addForumEntry(testEntry);
+		
+		BrowseActivity ba = new BrowseActivity();
+		
+		Boolean testWorks = false;
+		
+		for (int i = 0; i<ba.forumEntries.size(); i++) { 
+			if (ba.forumEntries.get(i)==testEntry){
+				testWorks = true;
+			}
+		}
+		
+		assertTrue(testWorks);
+	}
+	public void testReplyAnswerOffline(){
+		AskActivity askActivity = getActivity();
+		Context context = askActivity.getContext();
+		
+		NetworkChecker networkChecker = new NetworkChecker();
+		networkChecker.setContext(context);
+		assertFalse(networkChecker.getIsOnline());
+		
+		ForumEntry testEntry = new ForumEntry("PushOnlineTest", "This is part of the pushOnline test", "Lexie");
+		Answer testAnswer = new Answer("PushOnlineTestAnswerSubject","This answer means its working");
+		ArrayList<Answer> testAnswers = new ArrayList<Answer>();
+		
+		testAnswers.add(testAnswer);
+		testEntry.setAnswer(testAnswers);
+		Reply testReply = new Reply("This reply means its working");
+		ArrayList<Reply> testReplies = new ArrayList<Reply>();
+		
+		testReplies.add(testReply);
+		testEntry.getAnswers().get(0).setReplies(testReplies);
+		dataManager.addForumEntry(testEntry);
+		
+		BrowseActivity ba = new BrowseActivity();
+		
+		Boolean testWorks = false;
+		
+		for (int i = 0; i<ba.forumEntries.size(); i++) { 
+			if (ba.forumEntries.get(i)==testEntry){
+				testWorks = true;
+			}
+		}
+		
+		assertTrue(testWorks);
+	}
+		
 }
