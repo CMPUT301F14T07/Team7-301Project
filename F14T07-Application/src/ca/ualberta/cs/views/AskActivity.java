@@ -298,6 +298,9 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		}
 	}
 	
+	/**
+	 * Opens up gallery for user to select a picture and, if it meets requirements, it sets it to image
+	 */
 	//http://stackoverflow.com/questions/16928727/open-gallery-app-from-android-intent
 	public void getPicture(){
 
@@ -344,7 +347,9 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	        
 	    }
 	}
-	
+	/**
+	 * Decodes a uri to a string that represents an image
+	 */
 	//http://stackoverflow.com/questions/21195899/bitmapfactory-unable-to-decode-stream
 	public void decodeUri(){
 		String [] filePath = {MediaStore.Images.Media.DATA};
@@ -352,8 +357,6 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		cursor.moveToFirst();
 		int columnIndex = cursor.getColumnIndex(filePath[0]);
 		String picturePath = cursor.getString(columnIndex);
-		//ImageView iv = (ImageView) findViewById(R.id.picture);
-		//iv.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 		image=picturePath;
 		  
 	}
@@ -513,6 +516,10 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		return this;
 	}
 	
+	/**
+	 * Checks is a bitmap is too big (larger than 64kb)
+	 * @param Bitmap
+	 */
 	public boolean bigPicture(Bitmap bm){
 		if ((bm.getRowBytes() * bm.getHeight()) > 64000){
 			return false;
