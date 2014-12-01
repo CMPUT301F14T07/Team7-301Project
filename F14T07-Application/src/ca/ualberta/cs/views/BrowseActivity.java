@@ -563,7 +563,7 @@ public class BrowseActivity extends Activity implements Observer<ForumEntryList>
 				browseController.sortByHasPicture();
 			}
 			else if (casetype == 3){
-				browseController.sortByLoction();
+				browseController.sortByLocation();
 			}
 			//this wait is important for users with 
 			// slow internet DO NOT REMOVE 

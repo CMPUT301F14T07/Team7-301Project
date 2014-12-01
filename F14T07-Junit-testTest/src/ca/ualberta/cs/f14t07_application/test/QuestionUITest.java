@@ -65,4 +65,18 @@ public class QuestionUITest extends ActivityInstrumentationTestCase2<QuestionAct
 			}
 		}
 	}
+	
+	
+	// u12
+	public void testReplyToQuestion(){
+		
+	}
+	
+	// u14
+	public void testReplyToAnswer(){
+		
+	}
+	
+	
+	
 }

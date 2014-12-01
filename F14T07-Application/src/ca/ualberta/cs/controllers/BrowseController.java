@@ -368,11 +368,13 @@ public class BrowseController {
 		}
 	}
 
-	public void sortByLoction() {
+	public void sortByLocation(ArrayList<ForumEntry> listToSort,String location) {
 		// TODO Auto-generated method stub
 		ArrayList<ForumEntry> results = null;
+		ArrayList<ForumEntry> sortedResults = new ArrayList<ForumEntry>();
+		if(listToSort==null){
 		try {
-			results = this.searchController.searchForumEntries("", null,true);
+			results.addAll(this.searchController.searchForumEntries("", null,true));
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -380,8 +382,9 @@ public class BrowseController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ArrayList<ForumEntry> sortedResults = new ArrayList<ForumEntry>();
+		
 		AuthorController authorController = new AuthorController();
+		
 		if (authorController.getModel().isSet() && !authorController.getModel().isGpsSet()){
 			for(int i = 0; i<results.size(); i++){
 			if(authorController.getModel().getSessionLocation() == results.get(i).getLocation()){
@@ -390,12 +393,22 @@ public class BrowseController {
 				}
 			}
 		}
-		
-		
+		}
+		if (location!=null){
+			for(int i = 0; i<listToSort.size(); i++){
+			if(location == listToSort.get(i).getLocation()){
+				sortedResults.add(listToSort.get(i));
+				sortedResults.remove(i);
+				}
+			}
+		}
 		this.onLineModel.setView(results);
+		result = sortedResults;
 	}
 	
 	
-
+	public void sortByLocation(){
+		sortByLocation(null,null);
+	}
 
 }

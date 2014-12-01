@@ -39,7 +39,7 @@ public class MyAuthoredTest extends ActivityInstrumentationTestCase2<BrowseActiv
 	
 	// Test for u32
 	
-	public void testViewFavourite() {
+	public void testViewMyAuthored() {
 		ForumEntryController fec = new ForumEntryController(testActivity);
 		ArrayList<ForumEntry> testList = new ArrayList<ForumEntry>();
 		ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
