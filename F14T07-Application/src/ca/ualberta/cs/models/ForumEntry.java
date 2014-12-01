@@ -90,6 +90,14 @@ public class ForumEntry
 	}
 	
 	/**
+	 * Get all the question replies in this ForumEntry.
+	 * @return ArrayList<Replies>
+	 */
+	public List<Reply> getQuestionReplies(){
+		return question.getReplies();
+	}
+	
+	/**
 	 * Get the question being asked in this ForumEntry
 	 * @return Question
 	 */

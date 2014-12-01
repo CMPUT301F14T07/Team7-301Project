@@ -50,6 +50,7 @@ import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
 import ca.ualberta.cs.models.Question;
+import ca.ualberta.cs.models.Reply;
 
 /**
  * This view allows the user to enter a new question or enter and answer to a question. The 
@@ -78,10 +79,13 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	
 	private static final String SUBMIT_ANSWER = "Answer";
 	private static final String SUBMIT_QUESTION = "Ask";
+	private static final String SUBMIT_REPLY = "Reply";
 	private static final String TEXT_HINT_ANSWER = "Your Answer";
 	private static final String TEXT_HINT_QUESTION = "Your Question";
+	private static final String TEXT_HINT_REPLY = "Your Reply";
 	private static final String TITLE_ANSWER = "Answer a Question";
 	private static final String TITLE_QUESTION = "Ask a Question";
+	private static final String TITLE_REPLY = "Reply to a Question";
 	private Uri pictureFile;
 	public static final int RESULT_GALLERY = 0;
 	private Bitmap bitmap = null;
@@ -99,7 +103,6 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		setContentView(R.layout.ask_activity_screen);
 		this.authorModel = new AuthorModel();
 		this.feController = new ForumEntryController(this);
-		
 		this.browseController = new BrowseController(this);
 
 		/* 
@@ -279,7 +282,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		EditText textBody = (EditText) findViewById(R.id.question);
 		TextView titleText = (TextView) findViewById(R.id.askTitle);
 		Button submitButton = (Button) findViewById(R.id.askButton);
-		if(ForumEntrySingleton.getInstance().getForumEntry() != null)
+		if(ForumEntrySingleton.getInstance().getForumEntry() != null)//***********************************************
 		{
 			newSubjectEdit.setVisibility(EditText.INVISIBLE);
 			submitButton.setText(AskActivity.SUBMIT_ANSWER);
@@ -287,7 +290,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 			titleText.setText(AskActivity.TITLE_ANSWER);
 		}
 		/*
-		 * Otherwise, we are creating a question and we do want the subject text element visible.
+		 * Otherwise, we are creating a question and we want the subject text element visible.
 		 */
 		else
 		{
@@ -298,6 +301,9 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		}
 	}
 	
+	/**
+	 * Opens up gallery for user to select a picture and, if it meets requirements, it sets it to image
+	 */
 	//http://stackoverflow.com/questions/16928727/open-gallery-app-from-android-intent
 	public void getPicture(){
 
@@ -344,7 +350,9 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	        
 	    }
 	}
-	
+	/**
+	 * Decodes a uri to a string that represents an image
+	 */
 	//http://stackoverflow.com/questions/21195899/bitmapfactory-unable-to-decode-stream
 	public void decodeUri(){
 		String [] filePath = {MediaStore.Images.Media.DATA};
@@ -352,8 +360,6 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		cursor.moveToFirst();
 		int columnIndex = cursor.getColumnIndex(filePath[0]);
 		String picturePath = cursor.getString(columnIndex);
-		//ImageView iv = (ImageView) findViewById(R.id.picture);
-		//iv.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 		image=picturePath;
 		  
 	}
@@ -389,6 +395,22 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		}
 	}
 
+	class AddReplyThread extends Thread
+	{
+		private Reply reply;
+		
+		public AddReplyThread(Reply reply)
+		{
+			this.reply = reply;
+		}
+		
+		@Override
+		public void run()
+		{
+			feController.addReplyToEntry(0, this.reply);//******** How to determine question or answer reply***********
+		}
+	}
+	
 	class GetPictureThread extends Thread
 	{
 		
@@ -513,6 +535,10 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		return this;
 	}
 	
+	/**
+	 * Checks is a bitmap is too big (larger than 64kb)
+	 * @param Bitmap
+	 */
 	public boolean bigPicture(Bitmap bm){
 		if ((bm.getRowBytes() * bm.getHeight()) > 64000){
 			return false;

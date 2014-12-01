@@ -9,6 +9,8 @@ import ca.ualberta.cs.models.ForumEntry;
  *
  * @author bbruner
  */
+
+
 public class ForumEntrySingleton 
 {
 	private static ForumEntrySingleton forumEntrySingleton = null;
@@ -51,4 +53,5 @@ public class ForumEntrySingleton
 	{
 		return this.forumEntry;
 	}
+
 }
