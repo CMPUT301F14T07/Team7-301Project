@@ -38,113 +38,6 @@ public final class R {
         public static final int upvote_arrow=0x7f020006;
     }
     public static final class id {
-<<<<<<< HEAD
-        public static final int AnswerAuthor=0x7f090012;
-        public static final int AnswerDate=0x7f090013;
-        public static final int AnswerNovoteButton=0x7f090014;
-        public static final int AnswerReplyList=0x7f090016;
-        public static final int AnswerText=0x7f090010;
-        public static final int AnswerUpvoteButton=0x7f090011;
-        public static final int AnswerUpvoteNumber=0x7f090015;
-        public static final int QuestionArea=0x7f090003;
-        public static final int QuestionAuthor=0x7f09000b;
-        public static final int QuestionDate=0x7f09000c;
-        public static final int QuestionGoToAnswerButton=0x7f09000f;
-        public static final int QuestionLayout=0x7f090008;
-        public static final int QuestionNovoteButton=0x7f090005;
-        public static final int QuestionReplyButton=0x7f09000e;
-        public static final int QuestionReplyList=0x7f09000d;
-        public static final int QuestionSaveButton=0x7f090001;
-        public static final int QuestionScroller=0x7f090007;
-        public static final int QuestionSubject=0x7f090002;
-        public static final int QuestionSubjectArea=0x7f090000;
-        public static final int QuestionText=0x7f090009;
-        public static final int QuestionUpvoteButton=0x7f090004;
-        public static final int QuestionUpvoteNumber=0x7f090006;
-        public static final int QuestionViewPicture=0x7f09000a;
-        public static final int action_settings=0x7f090044;
-        public static final int answerReplyButton=0x7f090017;
-        public static final int answerReplyText=0x7f090018;
-        public static final int askButton=0x7f090019;
-        public static final int askTitle=0x7f09001b;
-        public static final int attachButton=0x7f09001a;
-        public static final int browseButton=0x7f09002e;
-        public static final int browseListView=0x7f090023;
-        public static final int browseTextView=0x7f090020;
-        public static final int browseViewByButton=0x7f090022;
-        public static final int browseViewByText=0x7f090021;
-        public static final int favouriteListView=0x7f090026;
-        public static final int favouriteTextView=0x7f090025;
-        public static final int gpsSpinner=0x7f09003c;
-        public static final int help=0x7f090041;
-        public static final int helpText=0x7f090027;
-        public static final int invisButton=0x7f09002b;
-        public static final int logo=0x7f090030;
-        public static final int myQuestionsDeleteCM=0x7f090046;
-        public static final int myQuestionsEditCM=0x7f090045;
-        public static final int myQuestionsListView=0x7f090033;
-        public static final int myQuestionsTitle=0x7f090032;
-        public static final int name=0x7f09001e;
-        public static final int okButton=0x7f090028;
-        public static final int picture=0x7f09001f;
-        public static final int question=0x7f09001c;
-        public static final int readLaterCancel=0x7f090048;
-        public static final int readLaterDelete=0x7f090047;
-        public static final int readLaterListView=0x7f090035;
-        public static final int readLaterTitle=0x7f090034;
-        public static final int searchButton=0x7f09002f;
-        public static final int searchListView=0x7f09003a;
-        public static final int searchSelectReadLater=0x7f090039;
-        public static final int searchTerm=0x7f09002d;
-        public static final int searchTextInput=0x7f090024;
-        public static final int searchTextTitle=0x7f090036;
-        public static final int searchViewBy=0x7f090038;
-        public static final int searchViewByButton=0x7f090037;
-        public static final int setLocationButton=0x7f09002c;
-        public static final int signInButton=0x7f090029;
-        public static final int signOutButton=0x7f09002a;
-        public static final int signedInAs=0x7f090031;
-        public static final int subject=0x7f09001d;
-        public static final int switchToFavourites=0x7f090040;
-        public static final int switchToHome=0x7f090042;
-        public static final int switchToHomeScreen=0x7f09003d;
-        public static final int switchToMyQuestions=0x7f09003e;
-        public static final int switchToReadLater=0x7f090043;
-        public static final int switchToReadLaters=0x7f09003f;
-        public static final int unSaveEntry=0x7f090049;
-        public static final int username=0x7f09003b;
-    }
-    public static final class layout {
-        public static final int activity_logo=0x7f030000;
-        public static final int activity_question=0x7f030001;
-        public static final int answer_list=0x7f030002;
-        public static final int answer_reply_activity_screen=0x7f030003;
-        public static final int ask_activity_screen=0x7f030004;
-        public static final int browse_activity_screen=0x7f030005;
-        public static final int favourite_activity_screen=0x7f030006;
-        public static final int help_activity=0x7f030007;
-        public static final int list_item=0x7f030008;
-        public static final int main_activity_screen=0x7f030009;
-        public static final int myquestions_activity_screen=0x7f03000a;
-        public static final int readlater_activity_screen=0x7f03000b;
-        public static final int search_activity_screen=0x7f03000c;
-        public static final int sign_in=0x7f03000d;
-    }
-    public static final class menu {
-        public static final int answer_reply=0x7f080000;
-        public static final int ask=0x7f080001;
-        public static final int browse=0x7f080002;
-        public static final int favourite=0x7f080003;
-        public static final int logo=0x7f080004;
-        public static final int main_menu=0x7f080005;
-        public static final int my_questions=0x7f080006;
-        public static final int myquestionscontextmenu=0x7f080007;
-        public static final int question=0x7f080008;
-        public static final int read_later=0x7f080009;
-        public static final int readlatercontextmenu=0x7f08000a;
-        public static final int search=0x7f08000b;
-        public static final int unsave=0x7f08000c;
-=======
         public static final int AddAnswerButton=0x7f090002;
         public static final int AnswerAuthor=0x7f090015;
         public static final int AnswerDate=0x7f090016;
@@ -259,7 +152,6 @@ public final class R {
         public static final int readlatercontextmenu=0x7f08000b;
         public static final int search=0x7f08000c;
         public static final int unsave=0x7f08000d;
->>>>>>> b885d98753c1400ebdf7b9456ae061a0d7de457c
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
