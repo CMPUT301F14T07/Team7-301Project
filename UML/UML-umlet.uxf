@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>690</y>
+      <w>130</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Observer&lt;T&gt;
+--
++ update(T) : void
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>240</y>
+      <w>220</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;View&gt;&gt;
+QuestionActivity
+--
+- ForumEntryController
+- ArrayAdapter&lt;Entry&gt;
+- List&lt;Entry&gt;
+- ListView
+- ImageView
+--
++ update(ForumEntryList) : void
++ onCreateDialog(void) : Dialog
+- saveButton(void) : void
+- answerQuestion(void) : void
+- upVoteEntry(void) : void
+
+{innerclass
+&lt;&lt;Thread&gt;&gt;
+UpVoteThread
+--
+- index : int
+--
++ UpVoteThread(int index) : void
++ run(void) : void
+innerclass}
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>560</y>
+      <w>350</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>330.0;170.0;10.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>480</x>
+      <y>240</y>
+      <w>290</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;View&gt;&gt;
+MainScreenActivity
+--
+- AuthorController
++ TEXT_KEY : static final String
++ NEW_QUESTION_KEY : static final String
++ name : EditText
++ nameDisplay : TextView
++ longitude : double
++ latitude : double
+--
++ update(AuthorModel) : void
++ signInButton(void) : void
++ signOutButton(void) : void
++ setLocationButton(void) : void
++ askButton(void) : void
++ browseButton(void) : void
++ searchButton(void) : void
++ setLocationByTest(void) : void
++ setLocationByGPS(void) : void
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>610</x>
+      <y>540</y>
+      <w>40</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;150.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>240</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;view&gt;&gt;
+HelpActivity
+--
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>820</x>
+      <y>30</y>
+      <w>320</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;View&gt;&gt;
+BrowseActivity
+--
+- browseListAdapter : ArrayAdapter&lt;ForumEntry&gt;
+- browseListView : ListView
++ forumEntries : ArrayListForumEntry&gt;
+- browseController : BrowseController
+- term : EditText
+- brs : BrowseRequestSingleton
+- searchTerm : String
+- dm : DataManager
+- doUpdateGUILst : Runnable
+--
++ callSearchThread(void) : void
++ viewBy(void) : void
++ unSave(AdapterContextMenuInfo) : void
+- startQuestionActivity(void) : void
++ returnIntent(void) : Intent
++ update(ForumEntryList) : void
++ getView(void) : View
+
+{innerclass
+&lt;&lt;Thread&gt;&gt;
+SearchThread
+--
+- search : String
+--
++ SearchThread(String)
++ run(void) : void
+innerclass}
+
+{innerclass
+&lt;&lt;Thread&gt;&gt;
+BrowseThread
+--
+- casttype : int
+--
++ BrowseThread(int)
++ run(void) : void
+innerclass}
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>560</y>
+      <w>320</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;130.0;300.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1290</x>
+      <y>230</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;View&gt;&gt;
+AskActivity
+--
++ intent : Intent
++ intent2 : Intent
++ ctx : Context
+- authorModel : AuthorModel
+- feController : ForumEntryController
+- dm : DataManager
+- browseController : BrowseController
+- forumEntry : ForumEntry
+- SUBMIT_ANSWER : static final String
+- SUBMIT_QUESTION : static final String
+- TEXT_HINT_ANSWER : static final String
+- TEXT_HINT_QUESTION : static final String
+- TITLE_ANSWER : static final String
+- TITLE_QUESTION : static final String
+- pictureFile : Uri
+- RESULT_GALLERY : static final String
+- bitmap : Bitmap
+- image : String
+- pictureByteArray : byte[]
+--
++ startQuestionScreen(void) : void
++ isAlphaNumeric(String) : Boolean
++ getPicture(void) : void
++ onActivityResult(int, int, Intent) : void
++ decodeUri(void) : void
++ update(ForumEntryList) : void
++ getContext(void) : Context
+
+{innerclass
+&lt;&lt;Thread&gt;&gt;
+AdQuestionThread
+--
+- forumEntry : ForumEntry
+--
++ AddQuestionThread(ForumEntry)
++ run(void) : void
+innerclass}
+
+{innerclass
+
+innerclass}
+
+{innerclass
+
+innerclass}</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
