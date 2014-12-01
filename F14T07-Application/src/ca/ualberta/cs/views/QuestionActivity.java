@@ -296,7 +296,7 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	 */
 	private void ViewAnswers()
 	{
-		Intent intent = new Intent(this, AnswerActivity.class);
+		Intent intent = new Intent(QuestionActivity.this, AnswerActivity.class);
 		startActivity(intent);
 	}
 	
