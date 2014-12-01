@@ -29,6 +29,9 @@ import com.google.gson.reflect.TypeToken;
  * Controls the data in the model of the SearchActivity
  * It also handles searching for queries and processing the results
  * 
+ * taken in part from:
+ * https://github.com/dfserrano/AndroidElasticSearch
+ * 
  * @author lexie
  */
 public class SearchController
@@ -52,6 +55,7 @@ public class SearchController
 
 	/**
 	 * Searches the forum entries in the remote server for a specific term.
+	 * 
 	 * 
 	 * @param searchString The term to search for. pass as null, "", or "*" to perform a 
 	 * search for everything.

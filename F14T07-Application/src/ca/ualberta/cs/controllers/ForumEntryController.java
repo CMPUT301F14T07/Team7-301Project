@@ -239,7 +239,7 @@ public class ForumEntryController
 				aws.get(index-1).addReplies(reply);
 			}
 		}
-		
+		dataManager.updateForumEntry(focus);
 		this.forumEntries.setView(fel);
 		this.forumEntries.notifyObservers();
 		

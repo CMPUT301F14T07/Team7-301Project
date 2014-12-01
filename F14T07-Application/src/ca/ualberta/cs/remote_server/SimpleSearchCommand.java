@@ -8,6 +8,8 @@ import ca.ualberta.cs.intent_singletons.ContextSingleton;
  * turns query into a proper elastic search command
  * so that it can be passed into the elastic search server
  * 
+ * taken from:
+ * https://github.com/dfserrano/AndroidElasticSearch
  * @author lexie
  * 
  */

@@ -187,18 +187,35 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 					}
 				}
 				/*
-				 * The ForumEntrySingleton is focusing on a ForumEntry. This means we are trying to add an answer to the focused ForumEntry.
+				 * The ForumEntrySingleton is focusing on a ForumEntry. This means we are trying to add an answer to the focused ForumEntry
+				 * or a reply to the question.
 				 */
 				else
 				{
-					Answer answer = new Answer(newEntry, newAuthor);
-					/*
-					 * Invoke the AddThread to add this answer to the ForumEntry in the remote server
-					 * by calling controller
+					/* JEFF LOOK AT THIS
+					 * Reply Flag is not set, therefore, we are answering the question.
+					 * if(!(ForumEntrySingleton.getInstance().isReplyFlagSet()))
+					 * {
 					 */
-					Thread thread = new AddAnswerThread(answer);
-					thread.start();
-					startQuestionScreen();
+						Answer answer = new Answer(newEntry, newAuthor);
+						/*
+						 * Invoke the AddThread to add this answer to the ForumEntry in the remote server
+						 * by calling controller
+						 */
+						Thread thread = new AddAnswerThread(answer);
+						thread.start();
+						startQuestionScreen();
+					/*
+					 * }
+					 * Reply flag is set, therefore, we are adding a reply to the question
+					 * else
+					 * {
+					 * 		 ForumEntrySingleton.getInstance().clearReplyFlag();
+					 * 		 Code to call the AddReplyThread here
+					 * 		 startQuestionScreen();
+					 * 
+					 * }
+					 */
 				
 				}
 
@@ -275,8 +292,8 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		
 		/*
 		 * If the focus of the ForumEntrySingleton is not null then we are answering a
-		 * question, not creating one. Therefore, we need to remove the subject text element
-		 * and change the dialog of the submit button.
+		 * question or replying to the question, not creating one. Therefore, we need to remove the 
+		 * subject text element and change the dialog of the submit button.
 		 */
 		EditText newSubjectEdit = (EditText) findViewById(R.id.subject);
 		EditText textBody = (EditText) findViewById(R.id.question);
@@ -284,10 +301,24 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		Button submitButton = (Button) findViewById(R.id.askButton);
 		if(ForumEntrySingleton.getInstance().getForumEntry() != null)//***********************************************
 		{
-			newSubjectEdit.setVisibility(EditText.INVISIBLE);
-			submitButton.setText(AskActivity.SUBMIT_ANSWER);
-			textBody.setHint(AskActivity.TEXT_HINT_ANSWER);
-			titleText.setText(AskActivity.TITLE_ANSWER);
+			/* 
+			 * JEFF LOOK AT THIS
+			 * reply flag is not set, therefore, we are answer a question.
+			 * if(!(ForumEntrySingleton.getInstance().isReplyFlagSet()))
+			 * {
+			 */
+					newSubjectEdit.setVisibility(EditText.INVISIBLE);
+					submitButton.setText(AskActivity.SUBMIT_ANSWER);
+					textBody.setHint(AskActivity.TEXT_HINT_ANSWER);
+					titleText.setText(AskActivity.TITLE_ANSWER);
+			/*
+			 * }
+			 * reply flag is set, therefore, we are replying to a question
+			 * else
+			 * {
+			 * 		Set up the screen to for a reply
+			 * }
+			 */
 		}
 		/*
 		 * Otherwise, we are creating a question and we want the subject text element visible.

@@ -5,6 +5,9 @@ import ca.ualberta.cs.f14t07_application.Hits;
  * class used to process search response
  * borrowed from lab7
  * 
+ * taken from;
+ * https://github.com/dfserrano/AndroidElasticSearch
+ * 
  * This Class processes and interprets the search response gotten from elastic Search and 
  * Splits it into hits which can then be processed and turned into forumEntries
  * @author lexie

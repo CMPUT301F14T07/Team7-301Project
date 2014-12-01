@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.0">
+  <zoom_level>2</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>212</x>
+      <y>546</y>
+      <w>26</w>
+      <h>14</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Observer&lt;T&gt;
+--
++ update(T) : void
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>254</x>
+      <y>332</y>
+      <w>44</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;View&gt;&gt;
+QuestionActivity
+--
+- ForumEntryController
+- ArrayAdapter&lt;Entry&gt;
+- List&lt;Entry&gt;
+- ListView
+- ImageView
+--
++ update(ForumEntryList) : void
++ onCreateDialog(void) : Dialog
+- saveButton(void) : void
+- answerQuestion(void) : void
+- upVoteEntry(void) : void
+
+{innerclass
+&lt;&lt;Thread&gt;&gt;
+UpVoteThread
+--
+- index : int
+--
++ UpVoteThread(int index) : void
++ run(void) : void
+innerclass}
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>230</x>
+      <y>396</y>
+      <w>50</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;750.0;10.0;630.0;230.0;630.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>100</x>
+      <y>332</y>
+      <w>58</w>
+      <h>62</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;View&gt;&gt;
+MainScreenActivity
+--
+- AuthorController
++ TEXT_KEY : static final String
++ NEW_QUESTION_KEY : static final String
++ name : EditText
++ nameDisplay : TextView
++ longitude : double
++ latitude : double
+--
++ update(AuthorModel) : void
++ signInButton(void) : void
++ signOutButton(void) : void
++ setLocationButton(void) : void
++ askButton(void) : void
++ browseButton(void) : void
++ searchButton(void) : void
++ setLocationByTest(void) : void
++ setLocationByGPS(void) : void
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>128</x>
+      <y>392</y>
+      <w>88</w>
+      <h>166</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>420.0;810.0;10.0;810.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>66</x>
+      <y>334</y>
+      <w>20</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;view&gt;&gt;
+HelpActivity
+--
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>316</x>
+      <y>332</y>
+      <w>64</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;View&gt;&gt;
+BrowseActivity
+--
+- browseListAdapter : ArrayAdapter&lt;ForumEntry&gt;
+- browseListView : ListView
++ forumEntries : ArrayList&lt;ForumEntry&gt;
+- browseController : BrowseController
+- term : EditText
+- brs : BrowseRequestSingleton
+- searchTerm : String
+- dm : DataManager
+- doUpdateGUILst : Runnable
+--
++ callSearchThread(void) : void
++ viewBy(void) : void
++ unSave(AdapterContextMenuInfo) : void
+- startQuestionActivity(void) : void
++ returnIntent(void) : Intent
++ update(ForumEntryList) : void
++ getView(void) : View
+
+{innerclass
+&lt;&lt;Thread&gt;&gt;
+SearchThread
+--
+- search : String
+--
++ SearchThread(String)
++ run(void) : void
+innerclass}
+
+{innerclass
+&lt;&lt;Thread&gt;&gt;
+BrowseThread
+--
+- casttype : int
+--
++ BrowseThread(int)
++ run(void) : void
+innerclass}
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>236</x>
+      <y>438</y>
+      <w>116</w>
+      <h>122</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;580.0;560.0;590.0;550.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>176</x>
+      <y>332</y>
+      <w>62</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;View&gt;&gt;
+AskActivity
+--
++ intent : Intent
++ intent2 : Intent
++ ctx : Context
+- authorModel : AuthorModel
+- feController : ForumEntryController
+- dm : DataManager
+- SUBMIT_ANSWER : static final String
+- SUBMIT_QUESTION : static final String
+- TEXT_HINT_ANSWER : static final String
+- TEXT_HINT_QUESTION : static final String
+- TITLE_ANSWER : static final String
+- TITLE_QUESTION : static final String
+- pictureFile : Uri
+- RESULT_GALLERY : static final String
+- bitmap : Bitmap
+- image : String
+- pictureByteArray : byte[]
+--
++ startQuestionScreen(void) : void
++ isAlphaNumeric(String) : Boolean
++ getPicture(void) : void
++ onActivityResult(int, int, Intent) : void
++ decodeUri(void) : void
++ update(ForumEntryList) : void
++ getContext(void) : Context
+
+{innerclass
+&lt;&lt;Thread&gt;&gt;
+AdQuestionThread
+--
+- forumEntry : ForumEntry
+--
++ AddQuestionThread(ForumEntry)
++ run(void) : void
+innerclass}
+
+{innerclass
+&lt;&lt;Thread&gt;&gt;
+AddAnswerThread
+--
+- answer : Answer
+--
++ AddAnswerThread(Answer)
++ run(void) : void
+innerclass}
+
+{innerclass
+&lt;Thread&gt;&gt;
+GetPictureThread
+--
+--
++ run(void) : void
+innerclass}
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>206</x>
+      <y>480</y>
+      <w>18</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>70.0;330.0;70.0;210.0;10.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>60</x>
+      <y>348</y>
+      <w>30</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>Note.. (HelpActivity)
+All Activities redirect to this activity when help is requested.
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>318</y>
+      <w>94</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Controller&gt;&gt;
+SearchController
+--
+- gson : Gson
+- SEARCH_URL : static final String
+- TAG : static final String
+--
++ SearchController(void) : void
++ searchForumEntries(String, String, Boolean) : ArrayList&lt;ForumEntry&gt;
++ searchForumEntries(String, String) : ArrayList&lt;ForumEntry&gt;
+- createSearchRequest(String, String, Boolean) : HttpPost
+- parseSearchResponce(HttpResponce) : SearchResponce&lt;ForumEntry&gt;
++ getEntityContent(HttpResponce) : String
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>200</x>
+      <y>236</y>
+      <w>80</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Controller&gt;&gt;
+ForumEntryController
+--
+- forumEntries : ForumEntryList
+- dataManager : DataManager
+--
++ ForumEntryController(Observer)
++ setView(ForumEntry) : void
++ addNewQuestion(Question) : void
++ addNewQuestion(ForumEntry) : void
++ addAnswer(Answer) : void
+- checkSaved(ArrayList&lt;ForumEntry&gt;, ForumEntry) : Boolean
++ saveReadLaterCopy(void) : void
++ saveFavouritesCopy(void) : void
++ upVoteEntry(int) : void
++ updateView(void) : void
++ addReplyToEntry(int, Reply) : void
++ checkPictureSize(int) : void
++ sortForumEntryByVotes(void) : void
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>398</x>
+      <y>232</y>
+      <w>80</w>
+      <h>74</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Controller&gt;&gt;
+BrowseController
+--
+- searchController : SearchController
+- dataManager : DataManager
+- onLineModel : ForumEntryList
+- readLaterModel : ForumEntryList
+- favouritesModel : ForumEntryList
+- myAuthoredModel : ForumEntryList
++ result : ArrayList&lt;ForumEntry&gt;
+--
++ BrowseController(Observer)
++ sortByRating(void) : void
++ sortByTime(void) : void
++ sortByHasPicture(void) : void
++ searchAndSet(String) : void
++ useOnLineView(void) : void
++ useReadLaterView(void) : void
++ useFavrouitesView(void) : void
++ useMyAuthoredView(void) : void
++ sortByTimeLocal(ArrayList&lt;ForumEntry&gt;, String) : void
++ sortByRatingLocal(ArrayList&lt;ForumEntry&gt;, String) : void
++ sortByHasPictureLocal(ArrayList&lt;ForumEntry&gt;, String) : void
++ sortByLocation(void) : void
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>104</x>
+      <y>234</y>
+      <w>48</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Controller&gt;&gt;
+AuthorController
+--
+- authorModel : AuthorModel
+--
++ AuthorController(Observer)
++ AuthorController(void)
++ getModel(void) : AuthorModel
++ setSessionAuthor(String) : void
++ refresh(void) : void
++ setSessionLocation(String) : void
++ setSessionLatitude(double) : void
++ setSessionLongitude(double) : void
++ setLocationType(String) : void
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>126</x>
+      <y>276</y>
+      <w>6</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;280.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>254</x>
+      <y>294</y>
+      <w>26</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>110.0;190.0;110.0;130.0;10.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>304</y>
+      <w>32</w>
+      <h>62</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;280.0;140.0;280.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>464</x>
+      <y>304</y>
+      <w>6</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>216</x>
+      <y>294</y>
+      <w>16</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;190.0;10.0;130.0;60.0;130.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>156</x>
+      <y>58</y>
+      <w>34</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Model&gt;&gt;
+Reply
+--
+- reply : String
+- date : Date
+--
++ Reply(String)
++ setReply(String) : void
++ getReply(void) : String
++ getDate(void) : Date
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>46</y>
+      <w>46</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Model&gt;&gt;
+Question
+--
+- questionSubject : String
+--
++ Question(String, String)
++ Question(String, String, String)
++ setSubject(String) : void
++ getSubject(void) : String
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>242</x>
+      <y>146</y>
+      <w>44</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Model&gt;&gt;
+Observable&lt;T extends Observer&gt;
+--
+- observer : ArrayList&lt;T&gt;
+--
++ Observable(void)
++ addObserver(T) : void
++ deleteObserver(T) : void
++ notifyObservers(void) : void
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>144</y>
+      <w>54</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Model&gt;&gt;
+ForumEntryList
+--
++ FIRST_FORUM_ENTRY : static final int
+- forumEntries : ArrayList&lt;ForumEntry&gt;
+--
++ ForumEntryList(void)
++ getView(void) : ArrayList&lt;ForumEntry&gt;
++ setView(ArrayList&lt;ForumEntry&gt;) : void
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>388</x>
+      <y>32</y>
+      <w>56</w>
+      <h>82</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Model&gt;&gt;
+ForumEntry
+--
+- question : Question
+- answers : ArrayList&lt;Answer&gt;
+- id : String
+- latitude : double
+- longitude : double
+- location : double
+--
++ ForumEntry(String, String, String, String)
++ ForumEntry(String, String, String, String)
++ ForumEntry(Question)
++ toString(void) : String
++ setAnswers(ArrayList&lt;Answer&gt;) : void
++ getAnswers(void) : ArrayList&lt;Answer&gt;
++ getQuestion(void) : Question
++ setId(String) : void
++ getId(void) : String
++ equals(Object) : boolean
++ setLocation(String) : void
++ getLocation(void) : String
++ getLatitude(void) : double
++ setLatitude(double) : void
++ getLongitude(void) : double
++ setLongitude(double) : void
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>216</x>
+      <y>36</y>
+      <w>44</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Model&gt;&gt;
+Entry
+--
+- upVote : int
+- post : String
+- posterName : String
+- replies : List&lt;Reply&gt;
+- date : Date
+- picture : String
+--
++ Entry(String, String)
++ toString(void) : String
++ getReplies(void) : List&lt;Reply&gt;
++ addReplies(Reply) : void
++ getUpVote(void) : int
++ setUpVote(int) : void
++ getPost(void) : String
++ setPost(String) : void
++ getAuthorsName(void) : String
++ setAuthorName(String) : void
++ getDate(void) : Date
++ setPicture(String) : void
++ getPicture(void) : String
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>306</x>
+      <y>232</y>
+      <w>64</w>
+      <h>74</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Model&gt;&gt;
+DataManager
+--
+- REOURCE_URL : static String
+- ORIGINAL_RESOURCE_URL : static String
+- TAG : static final String
+- ctx : Context
+- gson : Gson
+- forumEntryTest : ForumEntry
+--
++ DataManager(void)
++ addForumEntry(ForumEntry) : void
++ updateForumEntry(ForumEntry) : void
++ unSave(ForumEntry, String) : void
+- saveLocal(ArrayList&lt;ForumEntry&gt;, String) : void
+- loadLocal(String) : ArrayList&lt;ForumEntry&gt;
++ setReadLater(ArrayList&lt;ForumEntry&gt;) : void
++ getReadLater(void) : ArrayList&lt;ForumEntry&gt;
++ setMyAuthored(ArrayList&lt;ForumEntry&gt;) : void
++ getMyAuthored(void) : ArrayList&lt;ForumEntry&gt;
++ setFavourites(ArrayList&lt;ForumEntry&gt;) : void
++ getFavourites(void) : ArrayList&lt;ForumEntry&gt;
++ getForumEntry(void) : ForumEntry
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>132</x>
+      <y>148</y>
+      <w>50</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Model&gt;&gt;
+AuthorModel
+--
+- author : static String
+- latitude : static double
+- longitude : static double
+- location : static String
+- locType : static String
++ NO_AUTHOR : static final String
+--
++ SetSessionAuthor(String) : void
++ getSessionAuthor(void) : String
++ setSessionLocation(String) : void
++ setSessionLatitude(double) : void
++ setSessionLongitude(double) : void
++ getSessionLocation(void) : String
++ getSessionLatitude(void) : double
++ getSessionLongitude(void) : double
++ getLocationType(void) : static String
++ setLocationType(String) : void
++ setSet(boolean) : void
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>308</x>
+      <y>86</y>
+      <w>34</w>
+      <h>14</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Model&gt;&gt;
+Answer
+--
+--
++ Answer(String, String)
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>126</x>
+      <y>212</y>
+      <w>24</w>
+      <h>26</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;60.0;100.0;60.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>212</y>
+      <w>38</w>
+      <h>124</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>170.0;600.0;170.0;540.0;10.0;540.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>160</y>
+      <w>66</w>
+      <h>6</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>310.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>368</x>
+      <y>268</y>
+      <w>34</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>278</x>
+      <y>264</y>
+      <w>32</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>240</x>
+      <y>170</y>
+      <w>120</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;330.0;10.0;230.0;580.0;230.0;580.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>170</y>
+      <w>52</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=4
+m2=1</panel_attributes>
+    <additional_attributes>230.0;310.0;230.0;230.0;10.0;230.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>442</x>
+      <y>102</y>
+      <w>20</w>
+      <h>134</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=0..*
+m2=1</panel_attributes>
+    <additional_attributes>60.0;650.0;60.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>366</x>
+      <y>112</y>
+      <w>54</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=0..*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;90.0;250.0;90.0;250.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>284</x>
+      <y>160</y>
+      <w>60</w>
+      <h>6</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;280.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>344</x>
+      <y>60</y>
+      <w>48</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..*</panel_attributes>
+    <additional_attributes>220.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>340</x>
+      <y>90</y>
+      <w>52</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=0..*
+m2=0..*</panel_attributes>
+    <additional_attributes>240.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>258</x>
+      <y>58</y>
+      <w>46</w>
+      <h>6</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;210.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>258</x>
+      <y>92</y>
+      <w>54</w>
+      <h>6</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;250.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>188</x>
+      <y>72</y>
+      <w>32</w>
+      <h>8</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=0..*
+m2=0..*</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>238</x>
+      <y>106</y>
+      <w>64</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=0..*
+m2=1</panel_attributes>
+    <additional_attributes>270.0;1130.0;270.0;850.0;290.0;840.0;300.0;820.0;300.0;790.0;290.0;770.0;270.0;760.0;270.0;600.0;290.0;590.0;300.0;570.0;300.0;530.0;290.0;510.0;270.0;500.0;270.0;330.0;290.0;320.0;300.0;300.0;300.0;260.0;290.0;240.0;270.0;230.0;270.0;170.0;10.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>96</y>
+      <w>150</w>
+      <h>296</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=0..*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;1450.0;730.0;1450.0;730.0;10.0;330.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4</x>
+      <y>4</y>
+      <w>20</w>
+      <h>6</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Singleton&gt;&gt;
+BrowseRequestSingleton
+--
+- browseRequestSingleton : static BrowseRequestSingleton
+- searchToken : String
+- viewToken : String
++ ON_LINE_VIEW_SEARCH : static final String
++ ON_LINE_VIEW : static final String
++ READ_LATER_VIEW : static final String
++ FAVOURITES_VIEW : static final String
++ MY_AUTHORED_VIEW : static final String
++ SEARCH_EVERYTHING : static final String
+--
+- BroseRequestSingleton(void)
++ getInstance(void) : static BrowseRequestSingleton
++ setViewToken(String) : void
++ getViewToken(void) : String
++ setSearchToken(String) : void
++ getSearchToken(void) : String</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
