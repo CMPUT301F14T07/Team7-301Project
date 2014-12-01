@@ -68,6 +68,8 @@ public class DataManager
 	 * Adds the ForumEntry provided as input to the remote server. Calling this function will
 	 * create a new ForumEntry on the remote server without checking for duplication. This
 	 * operation cannot be undone.
+	 * taken in part from:
+	 * https://github.com/dfserrano/AndroidElasticSearch
 	 * 
 	 * @param forumEntry The ForumEntry which will be added to the remote server.
 	 * */
