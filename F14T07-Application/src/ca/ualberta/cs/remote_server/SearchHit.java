@@ -4,6 +4,8 @@ package ca.ualberta.cs.remote_server;
  * class used to process search hits
  * turns the hits into forumEntries
  * 
+ * taken from:
+ * https://github.com/dfserrano/AndroidElasticSearch
  * 
  * borrowed from lab7
  * @author lexie
