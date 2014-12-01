@@ -192,30 +192,36 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 				 */
 				else
 				{
-					/* JEFF LOOK AT THIS
-					 * Reply Flag is not set, therefore, we are answering the question.
-					 * if(!(ForumEntrySingleton.getInstance().isReplyFlagSet()))
-					 * {
-					 */
+					// JEFF LOOK AT THIS
+					  //Reply Flag is not set, therefore, we are answering the question.
+					  if(!(ForumEntrySingleton.getInstance().isReplyFlagSet()))
+					 {
+					 
 						Answer answer = new Answer(newEntry, newAuthor);
-						/*
-						 * Invoke the AddThread to add this answer to the ForumEntry in the remote server
-						 * by calling controller
-						 */
+						
+						  //Invoke the AddThread to add this answer to the ForumEntry in the remote server
+						 //by calling controller
+						 
 						Thread thread = new AddAnswerThread(answer);
 						thread.start();
 						startQuestionScreen();
-					/*
-					 * }
-					 * Reply flag is set, therefore, we are adding a reply to the question
-					 * else
-					 * {
-					 * 		 ForumEntrySingleton.getInstance().clearReplyFlag();
-					 * 		 Code to call the AddReplyThread here
-					 * 		 startQuestionScreen();
-					 * 
-					 * }
-					 */
+					
+					  }
+					 // Reply flag is set, therefore, we are adding a reply to the question
+					 else
+					  {
+					  		 ForumEntrySingleton.getInstance().clearReplyFlag();
+					  		 Reply reply = new Reply(newEntry);
+					  		 
+					  		Thread thread = new AddReplyThread(reply);
+							thread.start();
+							startQuestionScreen();
+					  		 //Code to call the AddReplyThread here
+					  		 startQuestionScreen();
+					 
+					  		 
+					  }
+					 
 				
 				}
 
@@ -444,7 +450,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		@Override
 		public void run()
 		{
-			feController.addReplyToEntry(0, this.reply);//******** How to determine question or answer reply***********
+			feController.addReplyToEntry(this.reply);//******** How to determine question or answer reply***********
 		}
 	}
 	

@@ -16,7 +16,7 @@ public class ForumEntrySingleton
 	private static ForumEntrySingleton forumEntrySingleton = null;
 	private ForumEntry forumEntry;
 	private boolean replyFlag;
-	
+	private int replyIndex=0;
 	private ForumEntrySingleton()
 	{
 		super();
@@ -63,7 +63,6 @@ public class ForumEntrySingleton
 	{
 		this.replyFlag = true;
 	}
-	
 	/**
 	 * Clear a flag. This is used by QuestionActivity to tell AskActivity
 	 * it should not set up its screen to add a reply to the question.

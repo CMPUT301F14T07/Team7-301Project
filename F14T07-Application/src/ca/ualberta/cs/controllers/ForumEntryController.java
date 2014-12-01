@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.R.bool;
 import android.content.Context;
+import ca.ualberta.cs.intent_singletons.ForumEntrySingleton;
 import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.DataManager;
 import ca.ualberta.cs.models.Entry;
@@ -101,7 +102,6 @@ public class ForumEntryController
 		allAnswers.add(answer);
 		forumEntry.setAnswer(allAnswers);
 		dataManager.updateForumEntry(forumEntry);
-		
 
 	}
 	
@@ -221,24 +221,12 @@ public class ForumEntryController
 	 * @param reply
 	 *            The Reply to add.
 	 */
-	public void addReplyToEntry(int index, Reply reply)
+	public void addReplyToEntry(Reply reply)
 	{
 		ArrayList<ForumEntry> fel = this.forumEntries.getView();
 		ForumEntry focus = fel.get(ForumEntryList.FIRST_FORUM_ENTRY);
-		
-		if(index == 0)
-		{
-			focus.getQuestion().addReplies(reply);
+		focus.getQuestion().addReplies(reply);
 
-		}
-		else if(index > 0)
-		{
-			List<Answer> aws = focus.getAnswers();
-			if(aws.size() >= index)
-			{
-				aws.get(index-1).addReplies(reply);
-			}
-		}
 		dataManager.updateForumEntry(focus);
 		this.forumEntries.setView(fel);
 		this.forumEntries.notifyObservers();

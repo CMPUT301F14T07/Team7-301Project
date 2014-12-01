@@ -20,7 +20,9 @@ public class Reply {
 		reply = reply_;
 		this.date = new Date();
 	}
-	
+	public String toString(){
+		return reply;
+	}
 	/**
 	 * Set the reply to an answer or main question.
 	 * @param reply The reply to an answer or main question.
