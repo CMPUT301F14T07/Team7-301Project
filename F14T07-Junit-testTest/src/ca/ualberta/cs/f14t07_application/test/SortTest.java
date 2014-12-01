@@ -168,6 +168,47 @@ public class SortTest extends ActivityInstrumentationTestCase2<BrowseActivity> {
 		}
 		
 	}
+	public void testSortByLocation(){
+		ForumEntry f1 = new ForumEntry("subject","test 1","author1",null);
+    	ForumEntry f2 = new ForumEntry("subject","test 2","author2",null);
+    	ForumEntry f3 = new ForumEntry("subject","test 3","author3",null);
+    	
+    	final ArrayList<ForumEntry> posts = new ArrayList<ForumEntry>();
+
+    	f1.setLocation("Edmonton");
+    	f3.setLocation("Edmonton");
+    	f2.setLocation("Hogwarts");
+    	
+    	posts.add(f1);
+    	posts.add(f2);
+    	posts.add(f3);
+    	
+    	final BrowseController bc = new BrowseController(testActivity);
+    	
+    	try  {
+			runTestOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+
+					bc.sortByLocation(posts,"Edmonton");
+					
+				}
+			});
+		} catch (Throwable e) {
+			
+		}
+    	
+    	
+    	ArrayList<ForumEntry> sortedList= new ArrayList<ForumEntry>();
+
+		sortedList.add(f3);
+		sortedList.add(f1);
+		sortedList.add(f2);
+		for(int i = 0; i < bc.result.size(); i++){
+			assertEquals(bc.result.get(i).getQuestion(),sortedList.get(i).getQuestion());
+		}
+		
+	}
 	
 	public int checker(String s){
 		if (s==null){
