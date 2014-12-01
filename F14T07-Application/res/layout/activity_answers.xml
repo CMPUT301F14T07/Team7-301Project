@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="ca.ualberta.cs.f14t07_application.AnswersActivity" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <TextView
+        android:id="@+id/AnswerListIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="5dp"
+        android:paddingTop="10dp"
+        android:text="@string/answers_indicator"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+     
+    <ListView
+        android:id="@+id/QuestionAnswerList"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:paddingLeft="30dp" >
+    </ListView>
+    
+    
+	<Button
+	    android:id="@+id/AddAnswerButton"
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1"
+	    android:gravity="center"
+	    android:text="@string/add_answer" />
+    
+    
+    
+    
+    
+    
+    
+
+</RelativeLayout>
