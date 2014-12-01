@@ -80,7 +80,7 @@ public class ForumEntryController
 	}
 
 	/**
-	 * Apends an Answer to the ForumEntry in the remote server and the model.
+	 * Appends an Answer to the ForumEntry in the remote server and the model.
 	 * Does not call the online models notifyObservers() method.
 	 * 
 	 * @param answer
