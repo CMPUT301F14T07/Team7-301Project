@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+     
+	<TextView
+		android:id="@+id/ReplyText"
+  		android:layout_width="wrap_content"
+   		android:layout_height="wrap_content"
+		android:text="Question Text"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+    	android:scrollbars = "vertical" />
+
+  	<TextView 
+		android:id="@+id/ReplyAuthor"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textColor="#888888"
+		android:text="Question Author"
+		android:textAppearance="?android:attr/textAppearanceSmall" />
+	     
+	<TextView 
+		android:id="@+id/ReplyDate"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textColor="#888888"
+		android:text="Question Date"
+		android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</LinearLayout>
