@@ -11,6 +11,7 @@ import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.Entry;
 import ca.ualberta.cs.models.ForumEntry;
 import ca.ualberta.cs.models.ForumEntryList;
+import ca.ualberta.cs.models.Reply;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -46,9 +47,9 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	 * TODO: Back button takes you somewhere definitive (ask Brendan what this means)
 	 */
 	private ForumEntryController forumEntryController;
-	private ArrayAdapter<Entry> answerListAdapter;
-	private List<Entry> answerList;
-	private ListView answerListView;
+	private ArrayAdapter<Reply> replyListAdapter;
+	private List<Reply> replyList;
+	private ListView replyListView;
 	private ImageView showPicture;
 	
 	/**
@@ -61,13 +62,13 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question);
 		
-		this.answerList = new ArrayList<Entry>();
+		this.replyList = new ArrayList<Reply>();
 		this.forumEntryController = new ForumEntryController(this);
 
 		
-		this.answerListAdapter = new ArrayAdapter<Entry>(QuestionActivity.this, R.layout.list_item, this.answerList);
-		this.answerListView = (ListView) findViewById(R.id.QuestionAnswerList);
-		this.answerListView.setAdapter(this.answerListAdapter);
+		this.replyListAdapter = new ArrayAdapter<Reply>(QuestionActivity.this, R.layout.list_item, this.replyList);
+		this.replyListView = (ListView) findViewById(R.id.QuestionReplyList);
+		this.replyListView.setAdapter(this.replyListAdapter);
 		showPicture = (ImageView)findViewById(R.id.picture);
         
 		
@@ -87,13 +88,13 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		/*
 		 * On click listener for answer button.
 		 */
-		Button answerButton = (Button) findViewById(R.id.AddAnswerButton);
-		answerButton.setOnClickListener(new View.OnClickListener()
+		Button replyButton = (Button) findViewById(R.id.QuestionReplyButton);
+		replyButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				answerQuestion();
+				replyQuestion();
 			}
 		});
 		
@@ -253,13 +254,14 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	 * This function will start the AskActivity so that the user can answer the 
 	 * question (ie, append an Answer to the ForumEntry).
 	 */
-	private  void answerQuestion()
+	private  void replyQuestion()
 	{
 		/*
 		 * Start the AskActivity to enter an answer to the forum entry.
 		 * Note that the ForumEntrySingleton does not have to be set, because there is no way
 		 * it could have been changed by another activity.
 		 */
+		
 		Intent intent = new Intent(this, AskActivity.class);
 		startActivity(intent);
 	}
@@ -288,9 +290,9 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 * we would have to make a new adapter and then set that new adapter (due
 		 * to java being call by value).
 		 */
-		this.answerList.clear();
-		this.answerList.addAll(focus.getAnswers());
-		this.answerListAdapter.notifyDataSetChanged();
+		this.replyList.clear();
+		this.replyList.addAll(focus.getQuestionReplies());
+		this.replyListAdapter.notifyDataSetChanged();
 		/*
 		if(focus.getQuestion().getPicture()!=null){
 		showPicture.setImageBitmap(focus.getQuestion().getPicture());

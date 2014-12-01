@@ -25,8 +25,8 @@ public class AuthorModel extends Observable<Observer>
 	private static double longitude = 0.0;
 	private static String location = null;
 	private static boolean set = false;
+	private static boolean gpsSet = false;
 	private static String locType = "none";
-	
 	public static final String NO_AUTHOR = "";
 
 	/**
@@ -54,6 +54,7 @@ public class AuthorModel extends Observable<Observer>
 	 */
 	public void setSessionLocation(String loc) {
 		AuthorModel.location = loc;
+		set = true;
 	}
 	
 	/**
@@ -72,6 +73,8 @@ public class AuthorModel extends Observable<Observer>
 	public void setSessionLongitude(double lon) {
 		// TODO Auto-generated method stub
 		AuthorModel.longitude = lon;
+		set = true; 
+		gpsSet = true;
 	}
 	
 	/**
@@ -118,5 +121,12 @@ public class AuthorModel extends Observable<Observer>
 	 * true if the location is set*/
 	public void setSet(boolean set) {
 		AuthorModel.set = set;
+	}
+	public boolean isSet(){
+		return set;
+	}
+	public boolean isGpsSet(){
+		return gpsSet;
+		
 	}
 }

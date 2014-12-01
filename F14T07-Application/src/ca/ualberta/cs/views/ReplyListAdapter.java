@@ -19,12 +19,12 @@ import android.widget.LinearLayout;
  * empty for the moment because it will depend on how Entry.java, Question.java, Answer.java, ForumEntry.java and
  * ForumEntryList.java work, so until they are a little more filled out I will leave this code blank
  * @author jfryan*/
-public class AnswerListAdapter extends ArrayAdapter<Answer>{
+public class ReplyListAdapter extends ArrayAdapter<Answer>{
 
 	private Context adaptersContext;
 	private ArrayList<Answer> AnswerList;
 	
-	public AnswerListAdapter(Context context, ArrayList<Answer> AnswerList)
+	public ReplyListAdapter(Context context, ArrayList<Answer> AnswerList)
 	{
 		super(context, android.R.layout.simple_list_item_1, android.R.id.text1, AnswerList);
 		this.adaptersContext = context;

@@ -54,5 +54,19 @@ public class QuestionSaveTest extends ActivityInstrumentationTestCase2<BrowseAct
 		compareList = datamanager.getReadLater();
 		assertEquals(testQuestions, compareList);
 	}
-
+   
+	// Test for u25
+	public void testSaveMyAuthored() {
+		ForumEntry exampleEntry = new ForumEntry("subject","What is life?","Kibbles");
+		exampleEntry.setId("A2930458034");
+    	ArrayList<ForumEntry> testQuestions = new ArrayList<ForumEntry>();
+    	ArrayList<ForumEntry> compareList = new ArrayList<ForumEntry>();
+    	testQuestions.add(exampleEntry);
+    	
+    	datamanager.setMyAuthored(testQuestions);
+		compareList = datamanager.getMyAuthored();
+		assertEquals(testQuestions, compareList);
+	}
+	
+	
 }
