@@ -317,7 +317,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	            decodeUri();
 	            bitmap =BitmapFactory.decodeFile(image);
 	            
-	            if ((bitmap.getRowBytes() * bitmap.getHeight()) > 64000){
+	            if (bigPicture(bitmap)){
 	            
 	            //http://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
 	            ByteArrayOutputStream stream=new  ByteArrayOutputStream();
@@ -511,6 +511,13 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	public Context getContext() {
 		// TODO Auto-generated method stub
 		return this;
+	}
+	
+	public boolean bigPicture(Bitmap bm){
+		if ((bm.getRowBytes() * bm.getHeight()) > 64000){
+			return false;
+		}
+		return true;
 	}
 	
 }

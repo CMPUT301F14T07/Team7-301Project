@@ -1,7 +1,11 @@
 package ca.ualberta.cs.f14t07_application.test;
 
 
+import java.util.Arrays;
+
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Picture;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
@@ -53,27 +57,35 @@ public class AskTest extends ActivityInstrumentationTestCase2<AskActivity> {
 	
 	public void testPicture() 
 	{
-		//Need more tests in here once we determine more about how pictures will work
-	  
-	   //add a picture called picture.png
-	   String pictureFile= null;
-	   ForumEntry testForumEntry = dm.getForumEntry();
-	        
-	   testForumEntry.getQuestion().setPicture(pictureFile);
-	   String thePictureAdded = testForumEntry.getQuestion().getPicture();
-	   assertNotNull(thePictureAdded);
-		//Check if the pictures are the same (it was loaded properly)
+		 DataManager dm= new DataManager();
+		   String pictureFile= null;
+		   
+		   ForumEntry f1 = new ForumEntry("subject","test 1","author1",pictureFile);
+		   
+		   assertNull(f1.getQuestion().getPicture());
+		   
+	      pictureFile= "Picture";
+		   
+		  ForumEntry f2 = new ForumEntry("subject","test 1","author1",pictureFile);
+		  
+		  assertEquals(pictureFile, f2.getQuestion().getPicture());
 	}
 	   
 	public void testBigPicture(){
-		   
-		ForumEntry testForumEntry = dm.getForumEntry();
-		//this will be a picture bigger than 64kb
-		String bigPictureFile=null;
-		testForumEntry.getQuestion().setPicture(bigPictureFile);
-	
-		String thePictureAdded = testForumEntry.getQuestion().getPicture();
-		assertNotNull(thePictureAdded);
+		
+		
+		
+		Bitmap small = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+		//Bitmap largebitmap = BitmapFactory.decodeByteArray(large , 0, large.length);
+		assertNotNull(small);
+		
+		assertEquals(true, testActivity.bigPicture(small));
+		
+		Bitmap large = Bitmap.createBitmap(253, 253, Bitmap.Config.ARGB_8888);
+		
+	    assertNotNull(large);
+		
+		assertEquals(false, testActivity.bigPicture(large));
 		
 	}
 	
