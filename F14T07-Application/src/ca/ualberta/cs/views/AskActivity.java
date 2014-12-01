@@ -359,6 +359,7 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 	            //http://stackoverflow.com/questions/4989182/converting-java-bitmap-to-byte-array
 	            ByteArrayOutputStream stream=new  ByteArrayOutputStream();
 	            bitmap.compress(Bitmap.CompressFormat.PNG,100, stream);
+	            //http://stackoverflow.com/questions/13562429/how-many-ways-to-convert-bitmap-to-string-and-vice-versa
 	            byte [] b=stream.toByteArray();
 	            String temp=Base64.encodeToString(b, Base64.DEFAULT);
 
