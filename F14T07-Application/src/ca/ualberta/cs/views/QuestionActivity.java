@@ -261,9 +261,9 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 * Note that the ForumEntrySingleton does not have to be set, because there is no way
 		 * it could have been changed by another activity.
 		 */
-		/* JEFF THIS IS FOR YOU
-		 * ForumEntrySingleton.getInstance().setReplyFlag();
-		 */
+
+		ForumEntrySingleton.getInstance().setReplyFlag();
+
 		Intent intent = new Intent(this, AskActivity.class);
 		startActivity(intent);
 	}
