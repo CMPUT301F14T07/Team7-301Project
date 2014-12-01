@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="13.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>6</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>590</x>
-      <y>690</y>
-      <w>130</w>
-      <h>70</h>
+      <x>456</x>
+      <y>1128</y>
+      <w>78</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 Observer&lt;T&gt;
@@ -19,10 +19,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>160</x>
-      <y>240</y>
-      <w>220</w>
-      <h>330</h>
+      <x>342</x>
+      <y>486</y>
+      <w>132</w>
+      <h>198</h>
     </coordinates>
     <panel_attributes>&lt;&lt;View&gt;&gt;
 QuestionActivity
@@ -55,21 +55,21 @@ bg=orange</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>260</x>
-      <y>560</y>
-      <w>350</w>
-      <h>190</h>
+      <x>402</x>
+      <y>678</y>
+      <w>84</w>
+      <h>462</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>330.0;170.0;10.0;170.0;10.0;10.0</additional_attributes>
+    <additional_attributes>120.0;750.0;120.0;630.0;10.0;630.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>480</x>
-      <y>240</y>
-      <w>290</w>
-      <h>310</h>
+      <x>120</x>
+      <y>486</y>
+      <w>174</w>
+      <h>186</h>
     </coordinates>
     <panel_attributes>&lt;&lt;View&gt;&gt;
 MainScreenActivity
@@ -97,21 +97,21 @@ bg=orange</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>610</x>
-      <y>540</y>
-      <w>40</w>
-      <h>170</h>
+      <x>204</x>
+      <y>666</y>
+      <w>264</w>
+      <h>498</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;150.0;20.0;10.0</additional_attributes>
+    <additional_attributes>420.0;810.0;10.0;810.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>240</y>
-      <w>100</w>
-      <h>50</h>
+      <x>18</x>
+      <y>492</y>
+      <w>60</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>&lt;&lt;view&gt;&gt;
 HelpActivity
@@ -123,10 +123,10 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>820</x>
-      <y>30</y>
-      <w>320</w>
-      <h>540</h>
+      <x>522</x>
+      <y>486</y>
+      <w>192</w>
+      <h>324</h>
     </coordinates>
     <panel_attributes>&lt;&lt;View&gt;&gt;
 BrowseActivity
@@ -174,21 +174,21 @@ bg=orange</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>670</x>
-      <y>560</y>
-      <w>320</w>
-      <h>150</h>
+      <x>504</x>
+      <y>804</y>
+      <w>120</w>
+      <h>336</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;130.0;300.0;10.0</additional_attributes>
+    <additional_attributes>10.0;540.0;10.0;420.0;170.0;420.0;180.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1290</x>
-      <y>230</y>
-      <w>100</w>
-      <h>30</h>
+      <x>756</x>
+      <y>486</y>
+      <w>186</w>
+      <h>468</h>
     </coordinates>
     <panel_attributes>&lt;&lt;View&gt;&gt;
 AskActivity
@@ -232,12 +232,112 @@ AdQuestionThread
 innerclass}
 
 {innerclass
-
+&lt;&lt;Thread&gt;&gt;
+AddAnswerThread
+--
+- answer : Answer
+--
++ AddAnswerThread(Answer)
++ run(void) : void
 innerclass}
 
 {innerclass
-
-innerclass}</panel_attributes>
+&lt;Thread&gt;&gt;
+GetPictureThread
+--
+--
++ run(void) : void
+innerclass}
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>528</x>
+      <y>948</y>
+      <w>336</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;340.0;540.0;340.0;540.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>534</y>
+      <w>90</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>Note.. (HelpActivity)
+All Activities redirect to this activity when help is requested.
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>270</y>
+      <w>282</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Controller&gt;&gt;
+SearchController
+--
+- gson : Gson
+- SEARCH_URL : static final String
+- TAG : static final String
+--
++ SearchController(void) : void
++ searchForumEntries(String, String, Boolean) : ArrayList&lt;ForumEntry&gt;
++ searchForumEntries(String, String) : ArrayList&lt;ForumEntry&gt;
+- createSearchRequest(String, String, Boolean) : HttpPost
+- parseSearchResponce(HttpResponce) : SearchResponce&lt;ForumEntry&gt;
++ getEntityContent(HttpResponce) : String
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>312</x>
+      <y>270</y>
+      <w>240</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Controller&gt;&gt;
+ForumEntryController
+--
+- forumEntries : ForumEntryList
+- dataManager : DataManager
+--
++ ForumEntryController(Observer)
++ setView(ForumEntry) : void
++ addNewQuestion(Question) : void
++ addNewQuestion(ForumEntry) : void
++ addAnswer(Answer) : void
+- checkSaved(ArrayList&lt;ForumEntry&gt;, ForumEntry) : Boolean
++ saveReadLaterCopy(void) : void
++ saveFavouritesCopy(void) : void
++ upVoteEntry(int) : void
++ updateView(void) : void
++ addReplyToEntry(int, Reply) : void
++ checkPictureSize(int) : void
++ sortForumEntryByVotes(void) : void
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>582</x>
+      <y>270</y>
+      <w>60</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>SimpleClass</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
