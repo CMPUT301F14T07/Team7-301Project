@@ -302,23 +302,28 @@ public class AskActivity extends Activity implements Observer<ForumEntryList>
 		if(ForumEntrySingleton.getInstance().getForumEntry() != null)//***********************************************
 		{
 			/* 
-			 * JEFF LOOK AT THIS
 			 * reply flag is not set, therefore, we are answer a question.
-			 * if(!(ForumEntrySingleton.getInstance().isReplyFlagSet()))
-			 * {
 			 */
+			 if(!(ForumEntrySingleton.getInstance().isReplyFlagSet()))
+			 {
+			 
 					newSubjectEdit.setVisibility(EditText.INVISIBLE);
 					submitButton.setText(AskActivity.SUBMIT_ANSWER);
 					textBody.setHint(AskActivity.TEXT_HINT_ANSWER);
 					titleText.setText(AskActivity.TITLE_ANSWER);
-			/*
-			 * }
-			 * reply flag is set, therefore, we are replying to a question
-			 * else
-			 * {
-			 * 		Set up the screen to for a reply
-			 * }
-			 */
+			
+			 }
+			 /*
+			  *reply flag is set, therefore, we are replying to a question
+			  */
+			 else
+			 {
+					newSubjectEdit.setVisibility(EditText.INVISIBLE);
+					submitButton.setText(AskActivity.SUBMIT_REPLY);
+					textBody.setHint(AskActivity.TEXT_HINT_REPLY);
+					titleText.setText(AskActivity.TITLE_REPLY);
+			 }
+			 
 		}
 		/*
 		 * Otherwise, we are creating a question and we want the subject text element visible.

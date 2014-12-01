@@ -8,25 +8,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ca.ualberta.cs.f14t07_application.AnswersActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <TextView
+	<TextView
+		android:id="@+id/QuestionSubject"
+    	android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:layout_alignParentLeft="true"
+  		android:layout_alignParentTop="true"
+  		android:text="Question Subject"
+  		android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	<TextView
         android:id="@+id/AnswerListIndicator"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/QuestionSubject"
         android:paddingBottom="5dp"
         android:paddingTop="10dp"
         android:text="@string/answers_indicator"
@@ -34,19 +30,18 @@
      
     <ListView
         android:id="@+id/QuestionAnswerList"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6"
-        android:paddingLeft="30dp" >
+        android:layout_height="match_parent"
+        android:layout_below="@+id/AnswerListIndicator"
+        android:layout_above="@+id/AddAnswerButton" >
     </ListView>
     
     
 	<Button
 	    android:id="@+id/AddAnswerButton"
-	    android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
 	    android:gravity="center"
 	    android:text="@string/add_answer" />
     
