@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import ca.ualberta.cs.f14t07_application.R;
 import ca.ualberta.cs.models.Answer;
 import ca.ualberta.cs.models.Reply;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,18 +32,18 @@ public class AnswerListAdapter extends ArrayAdapter<Answer>{
 		this.AnswerList = AnswerList;
 	}
 	
-	@Override
+	@SuppressLint("ViewHolder") @Override
 	public View getView(int listPosition, View LinearLayout, ViewGroup parent)
 	{		
 	
-		class TempReplyList{
+		class TempAnswerList{
 			public Answer answer;
 			public TextView answerText;
 			public TextView author;
 			public TextView date;
 			public Button upvotebutton;
 		};
-		final TempReplyList temp = new TempReplyList();
+		final TempAnswerList temp = new TempAnswerList();
 		
 		LayoutInflater inflater = (LayoutInflater) this.adaptersContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View listViewRow = inflater.inflate(R.layout.answer_list, parent, false);
@@ -52,6 +53,11 @@ public class AnswerListAdapter extends ArrayAdapter<Answer>{
 		temp.author = (TextView) listViewRow.findViewById(R.id.AnswerAuthor);
 		temp.date = (TextView) listViewRow.findViewById(R.id.AnswerDate);
 		temp.upvotebutton = (Button) listViewRow.findViewById(R.id.AnswerUpvoteButton);
+		
+		temp.answerText.setText(this.AnswerList.get(listPosition).getPost());
+		temp.author.setText(this.AnswerList.get(listPosition).getAuthorsName());
+		temp.date.setText(this.AnswerList.get(listPosition).getDate().toString());
+		
 		listViewRow.setTag(temp);
 		
 		return listViewRow;
