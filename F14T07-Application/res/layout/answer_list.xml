@@ -42,7 +42,8 @@
 	        android:layout_alignParentLeft="true"
 	        android:adjustViewBounds="true"
 	        android:background="@drawable/upvote_arrow"
-	         />
+	        android:focusable="false"
+			android:focusableInTouchMode="false" />
 	      
 	     <Button
             android:id="@+id/AnswerNovoteButton"

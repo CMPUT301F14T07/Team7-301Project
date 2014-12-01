@@ -35,22 +35,13 @@ import android.widget.Toast;
  * @author jfryan
  *
  */
-public class QuestionActivity extends Activity implements Observer<ForumEntryList>
+public class AnswerActivity extends Activity implements Observer<ForumEntryList>
 {
-	/*
-	 * TODO: Allow user to save the question as favourite
-	 * TODO: Display an upvote count for question and answers
-	 * TODO: Display a place to show/hide comments
-	 * TODO: User can sort answer by upvotes
-	 * TODO: Home screen button
-	 * TODO: Display Author's name by the Entry
-	 * TODO: Back button takes you somewhere definitive (ask Brendan what this means)
-	 */
+
 	private ForumEntryController forumEntryController;
-	private ArrayAdapter<Reply> replyListAdapter;
-	private List<Reply> replyList;
-	private ListView replyListView;
-	private ImageView showPicture;
+	private ArrayAdapter<Answer> answerListAdapter;
+	private List<Answer> answerList;
+	private ListView answerListView;
 	
 	/**
 	 * Called when this activity is first created. Instantiate class variables here and
@@ -60,48 +51,32 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_question);
+		setContentView(R.layout.activity_answers);
 		
-		this.replyList = new ArrayList<Reply>();
+		this.answerList = new ArrayList<Answer>();
 		this.forumEntryController = new ForumEntryController(this);
 
-		
-		this.replyListAdapter = new ArrayAdapter<Reply>(QuestionActivity.this, R.layout.list_item, this.replyList);
-		this.replyListView = (ListView) findViewById(R.id.QuestionReplyList);
-		this.replyListView.setAdapter(this.replyListAdapter);
-		showPicture = (ImageView)findViewById(R.id.picture);
-        
+		this.answerListAdapter = new ArrayAdapter<Answer>(AnswerActivity.this, R.layout.list_item, this.answerList);
+		this.answerListView = (ListView) findViewById(R.id.QuestionAnswerList);
+		this.answerListView.setAdapter(this.answerListAdapter);
 		
 		/*
-		 * On click listener for when the save button is pushed.
+		 * On click listener for answer button.
 		 */
-		Button save = (Button) findViewById(R.id.QuestionSaveButton);
-		save.setOnClickListener(new View.OnClickListener()
+		Button answerButton = (Button) findViewById(R.id.AddAnswerButton);
+		answerButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				saveButton();
-			}
-		});
-		
-		/*
-		 * On click listener for reply button.
-		 */
-		Button replyButton = (Button) findViewById(R.id.QuestionReplyButton);
-		replyButton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				replyQuestion();
+				answerQuestion();
 			}
 		});
 		
 		/*
 		 * On click listener for upvote button.
 		 */
-		Button upvoteButton = (Button) findViewById(R.id.QuestionUpvoteButton);
+/*		Button upvoteButton = (Button) findViewById(R.id.AnswerUpvoteButton);
 		upvoteButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -109,20 +84,7 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 			{
 				upVoteEntry();
 			}
-		});
-		
-		/*
-		 * On click listener for See Answers button.
-		 */
-		Button viewAnswersButton = (Button) findViewById(R.id.QuestionGoToAnswerButton);
-		viewAnswersButton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				ViewAnswers();
-			}
-		});
+		});*/
 	}
 	
 	/**
@@ -139,8 +101,6 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 */
 		ForumEntrySingleton fes = ForumEntrySingleton.getInstance();
 		this.forumEntryController.setView(fes.getForumEntry());
-		
-
 	}
 	/**
 	 * This is for testing purposes
@@ -156,7 +116,7 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.question, menu);
+		getMenuInflater().inflate(R.menu.answers, menu);
 		return true;
 	}
 
@@ -212,14 +172,12 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 			return true;
 		case R.id.help:
 			String helpText = "This is what we refer to as a Question Screen.\n\n" +
-					"Here you can view a question, it's replies, and its number of upVotes. \n\n" +
-					"If you would like to save this question as a favourite or simply to read offline, please press the Save button. " +
-					"This will prompt you to choose specifically how you would like the question to be saved. Choose whichever you prefer. \n\n" +
-					"If you would like to read answers for this question, press the See Answer button located at the bottom of the screen.  " +
-					"If you would like to answer this question, press the See Answer button to view answers, and then add an asnwer from that screen.  " +
+					"Here you can view a questions answers, and their replies. \n\n" +
+					"If you would like to answer this question, press the Add An Answer button located at the bottom of the screen.  " +
+					"This will open a new screen which will prompt you for your answer." +
 					"You can navigate to other screens either by clicking the " +
 					"back button, or by using the menu found by clicking the ellipsis in the corner.";
-			Intent helpIntent = new Intent(QuestionActivity.this, HelpActivity.class);
+			Intent helpIntent = new Intent(AnswerActivity.this, HelpActivity.class);
 			helpIntent.putExtra("HELP_TEXT", helpText);
 			startActivity(helpIntent);
 			
@@ -228,46 +186,11 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		}
 	}
 
-
-	public Dialog onCreateDialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    builder.setMessage("Select a save method");
-	    builder.setCancelable(true);
-		builder.setPositiveButton(R.string.savefave, new DialogInterface.OnClickListener() {
-	           public void onClick(DialogInterface dialog, int id) {
-	        	   forumEntryController.saveFavouritesCopy();
-	        	   Toast.makeText(getApplicationContext(), "Saved to Favourites", Toast.LENGTH_SHORT).show();
-	           }
-	       });
-		builder.setNegativeButton(R.string.savereadlater, new DialogInterface.OnClickListener() {
-	           public void onClick(DialogInterface dialog, int id) {
-	               forumEntryController.saveReadLaterCopy();
-	               Toast.makeText(getApplicationContext(), "Saved to read later", Toast.LENGTH_SHORT).show();
-	           }
-		});
-
-		// Create the AlertDialog
-		AlertDialog dialog = builder.create();
-		dialog.show();
-		return dialog;
-	}
-	
-	
-	
-	
-	/**
-	 * This function will prompt the user to save to favourites or save to read later
-	 */
-	private void saveButton()
-	{
-		onCreateDialog();
-	}
-	
 	/**
 	 * This function will start the AskActivity so that the user can answer the 
 	 * question (ie, append an Answer to the ForumEntry).
 	 */
-	private  void replyQuestion()
+	private  void answerQuestion()
 	{
 		/*
 		 * Start the AskActivity to enter an answer to the forum entry.
@@ -275,29 +198,20 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 * it could have been changed by another activity.
 		 */
 
-		ForumEntrySingleton.getInstance().setReplyFlag();
+		ForumEntrySingleton.getInstance().clearReplyFlag();
 
 		Intent intent = new Intent(this, AskActivity.class);
 		startActivity(intent);
 	}
 	
 	/**
-	 * This function will upvote the question (the input 0 indicates to upvote the question).
+	 * This function will upvote the answer (the input 0 indicates to upvote the question).
 	 */
 	private void upVoteEntry()
 	{
 		UpVoteThread uThread = new UpVoteThread(0);
 		uThread.start();
 		forumEntryController.updateView();
-	}
-	
-	/**
-	 * This function will open the answers screen.
-	 */
-	private void ViewAnswers()
-	{
-		Intent intent = new Intent(this, AnswerActivity.class);
-		startActivity(intent);
 	}
 	
 	/**
@@ -314,43 +228,16 @@ public class QuestionActivity extends Activity implements Observer<ForumEntryLis
 		 * we would have to make a new adapter and then set that new adapter (due
 		 * to java being call by value).
 		 */
-		this.replyList.clear();
-		this.replyList.addAll(focus.getQuestionReplies());
-		this.replyListAdapter.notifyDataSetChanged();
-		/*
-		if(focus.getQuestion().getPicture()!=null){
-		showPicture.setImageBitmap(focus.getQuestion().getPicture());
-		}*/
+		this.answerList.clear();
+		this.answerList.addAll(focus.getAnswers());
+		this.answerListAdapter.notifyDataSetChanged();
+
 		/*
 		 * Set the questions subject in the view.
 		 */
 		TextView questionSubject = (TextView) findViewById(R.id.QuestionSubject);
 		questionSubject.setText(focus.getQuestion().getSubject());
-		
-		/*
-		 * Set the questions main body of text in the view.
-		 */
-		TextView questionText = (TextView) findViewById(R.id.QuestionText);
-		questionText.setText(focus.getQuestion().getPost());
-		
-		/*
-		 * Set the questions author in the view.
-		 */
-		TextView authorText = (TextView) findViewById(R.id.QuestionAuthor);
-		authorText.setText(focus.getQuestion().getAuthorsName());
-		
-		/*
-		 * Set the questions date in the view.
-		 */
-		TextView dateText = (TextView) findViewById(R.id.QuestionDate);
-		dateText.setText(focus.getQuestion().getDate().toString());
-		
-		/*
-		 * Set the upvote number in the view.
-		 */
-		TextView voteText = (TextView) findViewById(R.id.QuestionUpvoteNumber);
-		String vote = String.valueOf(focus.getQuestion().getUpVote());
-		voteText.setText(vote);
+
 	}
 
 	class UpVoteThread extends Thread

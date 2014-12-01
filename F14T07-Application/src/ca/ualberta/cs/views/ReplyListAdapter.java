@@ -16,7 +16,8 @@ import android.widget.LinearLayout;
 /**
  *This is used for creating a list of different objects. More specifically for the replies list, includes the reply texts,
  *authors and dates.
- * @author jfryan*/
+ * @author jfryan
+ */
 public class ReplyListAdapter extends ArrayAdapter<Reply>{
 
 	private Context adaptersContext;
@@ -37,8 +38,6 @@ public class ReplyListAdapter extends ArrayAdapter<Reply>{
 		class TempReplyList{
 			public Reply reply;
 			public TextView replyText;
-			public TextView author;
-			public TextView date;
 		};
 		final TempReplyList temp = new TempReplyList();
 		
@@ -47,13 +46,6 @@ public class ReplyListAdapter extends ArrayAdapter<Reply>{
 		
 		temp.reply = this.ReplyList.get(listPosition);
 		temp.replyText = (TextView) listViewRow.findViewById(R.id.ReplyText);
-		
-		//temp.textView.setText(this.AnswerList.get(listPosition).getName());
-		
-		//if(temp.todo.isFinished()){ temp.imageView.setImageResource(R.drawable.ic_action_important); }
-		//else { temp.imageView.setImageResource(R.drawable.ic_action_not_important); }
-		
-		//temp.checkbox.setChecked(this.toDoList.get(listPosition).isSelected());
 		
 		listViewRow.setTag(temp);
 		
